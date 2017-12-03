@@ -5,8 +5,9 @@ import {AuthGuard} from './guard/auth.guard'
 
 const routes: Routes = [
 { path: '',redirectTo: 'header-one-layout' ,pathMatch:'full'},
-{ path: 'header-two-layout', loadChildren: './header-two-layout/header-two-layout.module#HeaderTwoLayoutModule'},
 { path: 'header-one-layout', loadChildren: './header-one-layout/header-one-layout.module#HeaderOneLayoutModule'},
+{ path: 'header-two-layout', loadChildren: './header-two-layout/header-two-layout.module#HeaderTwoLayoutModule'},
+{ path: 'header-three-layout', loadChildren: './header-three-layout/header-three-layout.module#HeaderThreeLayoutModule'},
 // {path:'first',component:FirstComponent},
 // {path:'second',component:SecondComponent},
 // {path:'third',component:ThirdComponent,canActivate:[AuthGuard]},
