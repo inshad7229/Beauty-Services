@@ -8,6 +8,7 @@ const routes: Routes = [
 { path: 'header-one-layout', loadChildren: './header-one-layout/header-one-layout.module#HeaderOneLayoutModule'},
 { path: 'header-two-layout', loadChildren: './header-two-layout/header-two-layout.module#HeaderTwoLayoutModule'},
 { path: 'header-three-layout', loadChildren: './header-three-layout/header-three-layout.module#HeaderThreeLayoutModule'},
+{ path: 'header-four-layout', loadChildren: './header-four-layout/header-four-layout.module#HeaderFourLayoutModule'},
 // {path:'first',component:FirstComponent},
 // {path:'second',component:SecondComponent},
 // {path:'third',component:ThirdComponent,canActivate:[AuthGuard]},

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+declare var $
 @Component({
     selector: 'app-saloon-signup',
     templateUrl: './saloon-signup.component.html',
@@ -8,5 +9,9 @@ import { Router } from '@angular/router';
 export class SaloonSignupComponent implements OnInit {
     constructor(public router: Router) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+
+    
+			        
+    }
 }

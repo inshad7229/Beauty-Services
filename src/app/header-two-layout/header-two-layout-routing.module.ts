@@ -8,7 +8,8 @@ const routes: Routes = [
         component: HeaderTwoLayoutComponent,
         children: [
             { path: '', redirectTo: 'saloon-signup' },
-            { path: 'saloon-signup', loadChildren: './saloon-signup/saloon-signup.module#SaloonSignupModule' },        ]
+            { path: 'saloon-signup', loadChildren: './saloon-signup/saloon-signup.module#SaloonSignupModule' },
+            { path: 'customer-signup', loadChildren: './customer-signup/customer-signup.module#CustomerSignupModule' },         ]
     }
 ];
 
