@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BlankPageComponent } from './saloon-dashboard-profile.component';
+import { SaloonDashboardProfileComponent } from './saloon-dashboard-profile.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: BlankPageComponent
+        component: SaloonDashboardProfileComponent
     }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class BlankPageRoutingModule {}
+export class SaloonDashboardProfileRoutingModule {}
