@@ -1,0 +1,367 @@
+
+               <!--  <?php
+                    require('include/dashboard-sidebar.php');
+                ?> -->
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                    <ul class="page-breadcrumb breadcrumb hide">
+                        <li>
+                            <a href="#">Home</a><i class="fa fa-circle"></i>
+                        </li>
+                        <li class="active">
+                             Dashboard
+                        </li>
+                    </ul>
+                    <!-- BEGIN PAGE CONTENT INNER -->
+                    <div class="page-wrap margin-top-10">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 p-0">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="dashboard-stat2 bordered">
+                                    <div class="display">
+                                        <div class="number">
+                                            <h3 class="font-green-sharp">
+                                                <span class="count" data-counter="counterup" data-value="7000">0</span>
+                                                <small class="font-green-sharp">$</small>
+                                            </h3>
+                                            <small>TOTAL SALES</small>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="icon-basket"></i>
+                                        </div>
+                                    </div>
+                                    <div class="progress-info">
+                                        <div class="progress">
+                                            <span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
+                                                <span class="sr-only">76% progress</span>
+                                            </span>
+                                        </div>
+                                        <div class="status">
+                                            <div class="status-title"> progress </div>
+                                            <div class="status-number"> 76% </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="dashboard-stat2">
+                                    <div class="display">
+                                        <div class="number">
+                                            <h3 class="font-red-haze">
+                                                <span class="count" data-counter="counterup" data-value="1390">0</span>
+                                            </h3>
+                                            <small class="">TOTAL BOOKING</small>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="icon-calendar"></i>
+                                        </div>
+                                    </div>
+                                    <div class="progress-info">
+                                        <div class="progress">
+                                            <span style="width: 85%;" class="progress-bar progress-bar-success red-haze">
+                                            <span class="sr-only">85% change</span>
+                                            </span>
+                                        </div>
+                                        <div class="status">
+                                            <div class="status-title">
+                                                 change
+                                            </div>
+                                            <div class="status-number">
+                                                 85%
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 cus-p-l">
+                            <div class="calender-section">
+                                <div class="week-sec">
+                                   
+
+                                    <ng-template #modalContent let-close="close">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title">Event action occurred</h5>
+                                        <button type="button" class="close" (click)="close()">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div>
+                                          Action:
+                                          <pre>{{ modalData?.action }}</pre>
+                                        </div>
+                                        <div>
+                                          Event:
+                                          <pre>{{ modalData?.event | json }}</pre>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
+                                      </div>
+                                    </ng-template>
+                                    <div class="row text-center">
+                                        <div class="col-md-12">
+                                          <div class="btn-group">
+                                            <div
+                                              class="btn cus-btn"
+                                              mwlCalendarPreviousView
+                                              [view]="view"
+                                              [(viewDate)]="viewDate"
+                                              (viewDateChange)="activeDayIsOpen = false">
+                                              Previous
+                                            </div>
+                                            <div
+                                              class="btn cus-btn"
+                                              mwlCalendarToday
+                                              [(viewDate)]="viewDate">
+                                              Today
+                                            </div>
+                                            <div
+                                              class="btn cus-btn"
+                                              mwlCalendarNextView
+                                              [view]="view"
+                                              [(viewDate)]="viewDate"
+                                              (viewDateChange)="activeDayIsOpen = false">
+                                              Next
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row text-center">
+                                        <div class="col-md-12 month-name">
+                                          <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+                                        </div>
+                                      </div>
+                                      <!-- <div class="col-md-4">
+                                        <div class="btn-group">
+                                          <div
+                                            class="btn btn-primary"
+                                            (click)="view = 'month'"
+                                            [class.active]="view === 'month'">
+                                            Month
+                                          </div>
+                                          <div
+                                            class="btn btn-primary"
+                                            (click)="view = 'week'"
+                                            [class.active]="view === 'week'">
+                                            Week
+                                          </div>
+                                          <div
+                                            class="btn btn-primary"
+                                            (click)="view = 'day'"
+                                            [class.active]="view === 'day'">
+                                            Day
+                                          </div>
+                                        </div>
+                                      </div> -->
+                                    <br>
+                                    <div [ngSwitch]="view">
+                                        <mwl-calendar-month-view
+                                        *ngSwitchCase="'month'"
+                                        [viewDate]="viewDate"
+                                        [events]="events"
+                                        [refresh]="refresh"
+                                        (dayClicked)="dayClicked($event.day)"
+                                        (eventClicked)="handleEvent('Clicked', $event.event)"
+                                        (eventTimesChanged)="eventTimesChanged($event)">
+                                      </mwl-calendar-month-view>
+                                    <!--   <mwl-calendar-month-view
+                                        *ngSwitchCase="'month'"
+                                        [viewDate]="viewDate"
+                                        [events]="events"
+                                        [refresh]="refresh"
+                                        [activeDayIsOpen]="activeDayIsOpen"
+                                        (dayClicked)="dayClicked($event.day)"
+                                        (eventClicked)="handleEvent('Clicked', $event.event)"
+                                        (eventTimesChanged)="eventTimesChanged($event)">
+                                      </mwl-calendar-month-view> -->
+<!--                                       <mwl-calendar-week-view
+                                        *ngSwitchCase="'week'"
+                                        [viewDate]="viewDate"
+                                        [events]="events"
+                                        [refresh]="refresh"
+                                        (eventClicked)="handleEvent('Clicked', $event.event)"
+                                        (eventTimesChanged)="eventTimesChanged($event)">
+                                      </mwl-calendar-week-view>
+                                      <mwl-calendar-day-view
+                                        *ngSwitchCase="'day'"
+                                        [viewDate]="viewDate"
+                                        [events]="events"
+                                        [refresh]="refresh"
+                                        (eventClicked)="handleEvent('Clicked', $event.event)"
+                                        (eventTimesChanged)="eventTimesChanged($event)">
+                                      </mwl-calendar-day-view> -->
+                                    </div>
+
+                                <!--     <br><br><br>
+
+                                    <h3>
+                                      Edit events
+                                      <button
+                                        class="btn btn-primary pull-right"
+                                        (click)="addEvent()">
+                                        Add new
+                                      </button>
+                                      <div class="clearfix"></div>
+                                    </h3>
+
+                                    <table class="table table-bordered">
+
+                                      <thead>
+                                        <tr>
+                                          <th>Title</th>
+                                          <th>Primary color</th>
+                                          <th>Secondary color</th>
+                                          <th>Starts at</th>
+                                          <th>Ends at</th>
+                                          <th>Remove</th>
+                                        </tr>
+                                      </thead>
+
+                                      <tbody>
+                                        <tr *ngFor="let event of events; let index = index">
+                                          <td>
+                                            <input
+                                              type="text"
+                                              class="form-control"
+                                              [(ngModel)]="event.title"
+                                              (keyup)="refresh.next()">
+                                          </td>
+                                          <td>
+                                            <input
+                                              type="color"
+                                              [(ngModel)]="event.color.primary"
+                                              (change)="refresh.next()">
+                                          </td>
+                                          <td>
+                                            <input
+                                              type="color"
+                                              [(ngModel)]="event.color.secondary"
+                                              (change)="refresh.next()">
+                                          </td>
+                                          <td>
+                                            <mwl-demo-utils-date-time-picker
+                                              [(ngModel)]="event.start"
+                                              (ngModelChange)="refresh.next()"
+                                              placeholder="Not set">
+                                            </mwl-demo-utils-date-time-picker>
+                                          </td>
+                                          <td>
+                                            <mwl-demo-utils-date-time-picker
+                                              [(ngModel)]="event.end"
+                                              (ngModelChange)="refresh.next()"
+                                              placeholder="Not set">
+                                            </mwl-demo-utils-date-time-picker>
+                                          </td>
+                                          <td>
+                                            <button
+                                              class="btn btn-danger"
+                                              (click)="events.splice(index, 1); refresh.next()">
+                                              Delete
+                                            </button>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+
+                                    </table> -->
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="booking-table-sec">
+                        <div class="col-md-12 col-sm-12">
+                            <!-- BEGIN PORTLET-->
+                            <div class="booking-section">
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+                                        <div class="caption caption-md">
+                                            <i class="icon-bar-chart theme-font-color hide"></i>
+                                            <span class="caption-subject theme-font-color bold uppercase">Booking Calendar</span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                                <div class="booking-calender">
+                                                     <div id="organizerContainer" style="margin-left: 8px;"></div>
+                                                    <div class="booking-table">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <div class="cutome-th">
+                                                                            <span class="pull-left">
+                                                                                <a href="#"><i class="fa fa-angle-left"></i></a>
+                                                                            </span>
+                                                                                November 10, 2017
+                                                                            <span class="pull-right">
+                                                                                <a href="#">
+                                                                                <i class="fa fa-angle-right"></i>
+                                                                                </a>
+                                                                            </span>
+                                                                        </div>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Time</th>
+                                                                        <th>Customer Name</th>
+                                                                        <th>Employee Details</th>
+                                                                        <th>Service Details</th>
+                                                                        <th>Contact Details</th>
+                                                                        <th>Status</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>12:00 PM - 12:30 PM</td>
+                                                                        <td><img class="user-view" src="img/avatar9.jpg">Smith</td>
+                                                                        <td>Manager</td>
+                                                                        <td>Hair Cutting</td>
+                                                                        <td>8009890712</td>
+                                                                        <td>Pending</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>12:30 PM - 1:00 PM</td>
+                                                                        <td><img class="user-view" src="img/avatar9.jpg">Smith</td>
+                                                                        <td>Manager</td>
+                                                                        <td>Hair Cutting</td>
+                                                                        <td>8009890712</td>
+                                                                        <td>Pending</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>1:00 PM - 1:30 PM</td>
+                                                                        <td><img class="user-view" src="img/avatar9.jpg">Smith</td>
+                                                                        <td>Manager</td>
+                                                                        <td>Hair Cutting</td>
+                                                                        <td>8009890712</td>
+                                                                        <td>Pending</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>1:30 PM - 2:00 PM</td>
+                                                                        <td><img class="user-view" src="img/avatar9.jpg">Smith</td>
+                                                                        <td>Manager</td>
+                                                                        <td>Hair Cutting</td>
+                                                                        <td>8009890712</td>
+                                                                        <td>Pending</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END PORTLET-->
+                        </div>
+                    </div>
+                    <!-- END PAGE CONTENT INNER -->
+                </div>
+            </div>
+            <!-- END CONTENT -->
+        
