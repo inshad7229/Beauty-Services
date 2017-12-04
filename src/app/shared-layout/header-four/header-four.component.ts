@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 declare var jquery:any;
 declare var $ :any;
 @Component({
@@ -7,7 +8,7 @@ declare var $ :any;
     styleUrls: ['./header-four.component.scss']
 })
 export class HeaderFourComponent implements OnInit {
-    constructor() {}
+    constructor(public router: Router,) {}
 
     ngOnInit() {}
 }
