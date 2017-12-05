@@ -1,14 +1,14 @@
 import { NgModule,OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CustomerSignupRoutingModule } from './customer-signup-routing.module';
-import { CustomerSignupComponent } from './customer-signup.component';
+import { LoginRoutingModule } from './login-routing.module';
+import { LoginComponent } from './login.component';
 
 @NgModule({
-    imports: [CommonModule, CustomerSignupRoutingModule],
-    declarations: [CustomerSignupComponent]
+    imports: [CommonModule, LoginRoutingModule],
+    declarations: [LoginComponent]
 })
-export class CustomerSignupModule implements OnInit  {
+export class LoginModule implements OnInit  {
 
 	 ngOnInit() {
   }

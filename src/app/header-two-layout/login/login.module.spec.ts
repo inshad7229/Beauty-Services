@@ -1,13 +1,13 @@
-import { CustomerSignupModule } from './customer-signup.module';
+import { LoginModule } from './login.module';
 
-describe('customerSignupModule', () => {
-    let customerSignupModule:CustomerSignupModule;
+describe('LoginModule', () => {
+    let loginModule:LoginModule;
 
     beforeEach(() => {
-        customerSignupModule = new CustomerSignupModule();
+        loginModule = new LoginModule();
     });
 
     it('should create an instance', () => {
-        expect(customerSignupModule).toBeTruthy();
+        expect(loginModule).toBeTruthy();
     });
 });
