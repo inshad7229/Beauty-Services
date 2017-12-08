@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastsManager , Toast} from 'ng2-toastr';
+
+import {SaloonService} from '../../providers/saloon.service'
+import {SaloonDetailsModel,AccountCreationModel,VerifiactionModel} from '../../models/saloon.modal';
+
 declare var $
 declare var WOW
 @Component({
@@ -8,7 +13,15 @@ declare var WOW
     styleUrls: ['./searched-saloon.component.scss']
 })
 export class SearchedSaloonComponent implements OnInit {
-    constructor(public router: Router) {}
+	saloonDetailsModel:SaloonDetailsModel=new SaloonDetailsModel();
+	accountCreationModel:AccountCreationModel=new AccountCreationModel();
+	verifiactionModel:VerifiactionModel=new VerifiactionModel();
+    constructor(public router: Router, 
+    	        private saloonServices:SaloonService,
+    	        vcr: ViewContainerRef,
+    	        private toastr: ToastsManager) {
+    	        this.toastr.setRootViewContainerRef(vcr);
+    }
 
     ngOnInit() {
 
@@ -55,5 +68,24 @@ export class SearchedSaloonComponent implements OnInit {
 			        $('.min-range').html('<b>$'+value[0]+'</b>');
 			        $('.max-range').html('<b>$'+value[1]+'</b>');
 			    });
+		}
+
+		onContinue(){
+	     this.saloonServices.SaloonSignup(this.saloonDetailsModel)
+        .subscribe((data)=>{
+            console.log(data);
+            if(data.response){
+              this.toastr.success( data.message ,'Authentication',{toastLife: 3000, showCloseButton: true})
+              // setTimeout(()=>{
+				          //  //this.router.navigate(['/login']);
+              // },3000)
+            //	alert(data.message)
+            }else if (data.message=='Email not found in database') {
+               this.toastr.error('Please insert your register Email' ,'Authentication Failed ',{toastLife: 3000, showCloseButton: true});
+              // code...
+            }else {
+              this.toastr.error( 'Something Went Wrong Please Try Again' ,'Authentication Failed ',{toastLife: 3000, showCloseButton: true});
+            }
+        })
 		}
 }

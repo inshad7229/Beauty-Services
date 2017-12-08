@@ -23,27 +23,25 @@
 									<div class="portlet-body services-list">
 										<div class="col-md-12 col-sm-12 col-xs-12 p-0">
 											<div class="otr-bg-dshbrd">
-							                    <h4 class="title-form-head" >Personal Details <a class="edit-btn" href="#">
+							                    <h4 class="title-form-head" >Personal Details <a class="edit-btn" href="javascript:void(0)" (click)="onClickDetailsEdit()">
 							                    <span id="show1" class="fa fa-pencil-square-o" ></span>
 							                    </a></h4>
-							                   <form class="profile-form">
+							                   <div class="profile-form">
 							                   		<div class="first-secwrap">
 							                   			<div id="row1">
 										                    <div class="col-md-9 col-sm-9 col-xs-12 ">
 									                          	<div class="info-list">
 									                          		<dl class="dl-horizontal">
 																	  <dt>Saloon Name</dt>
-																	  <dd>BigSaloon</dd>
+																	  <dd>{{userDetail.saloon_name}}</dd>
 																	  <dt>Name</dt>
-																	  <dd>Williams</dd>
+																	  <dd>{{userDetail.name}}</dd>
 																	  <dt>Email</dt>
-																	  <dd>williams@gmail.com</dd>
+																	  <dd>{{userDetail.email}}</dd>
 																	  <dt>Contact Number</dt>
-																	  <dd>9089897890</dd>
+																	  <dd>{{userDetail.contact_number}}</dd>
 																	  <dt>City</dt>
-																	  <dd>New York City</dd>
-																	  <dt>State</dt>
-																	  <dd>Alaska</dd>
+																	  <dd>{{userDetail.city}}</dd>
 																	  <dt>Services Category</dt>
 																	  <dd>Saloon</dd>
 																	  <dt>Saloon Service</dt>
@@ -53,57 +51,74 @@
 										                    </div>
 									                      	<div class="col-md-3 col-sm-3 col-xs-12">
 										                        <div class="wrap-div outer-img">
-										                            <img src="img/saloon-user.png" class="img-responsive">
+										                            <img *ngIf="!userDetail.image" src="assets/img/saloon-user.png" class="img-responsive">
+										                            <img *ngIf="userDetail.image" src="http://18.216.88.154/public/beauti-service/{{userDetail.image}}" class="img-responsive">
 										                        </div>
 									                      	</div>
 									                    </div>
 									                    <div id="row2">
-										                    <div class="col-md-9 col-md-9 col-xs-12">
+									                    	<form [formGroup]="accountDetailsForm">
+									                    		<div class="col-md-9 col-md-9 col-xs-12">
 										                    	<div class="row">
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 						                                                <label>Enter Saloon Name</label>
-						                                                <input type="text" placeholder="Enter Saloon Name" class="form-control">
+						                                                <input type="text" placeholder="Enter Saloon Name" class="form-control" [formControl]="accountDetailsForm.controls['saloonName']" [(ngModel)]="userDetail.saloon_name">
 						                                            </div>
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 						                                                <label>Enter Name</label>
-						                                                <input type="text" placeholder="Enter Name" class="form-control">
+						                                                <input type="text" placeholder="Enter Name" class="form-control" [formControl]="accountDetailsForm.controls['name']" [(ngModel)]="userDetail.name">
 						                                            </div>
 						                                        </div>
 						                                        <div class="row">
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 						                                                <label>Enter Email</label>
-						                                                <input type="text" placeholder="Enter Email" class="form-control">
+						                                                <input type="text" placeholder="Enter Email" class="form-control" [formControl]="accountDetailsForm.controls['email']" [(ngModel)]="userDetail.email">
 						                                            </div>
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 						                                                <label>Enter Contact Number</label>
-						                                                <input type="text" placeholder="Enter Contact Number" class="form-control">
+						                                                <input type="text" placeholder="Enter Contact Number" class="form-control" [formControl]="accountDetailsForm.controls['contactNumber']" [(ngModel)]="userDetail.contact_number">
 						                                            </div>
 						                                        </div>
 						                                        <div class="row">
-						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                            <!-- <div class="form-group col-md-6 col-sm-6 col-xs-12">
 						                                                <label>Enter Your State</label>
 						                                                <input type="text" placeholder="Enter Your State" class="form-control">
-						                                            </div>
+						                                            </div> -->
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 						                                                <label>Enter Your City</label>
-						                                                <input type="text" placeholder="Enter Your City" class="form-control">
+						                                                <input type="text" placeholder="Enter Your City" class="form-control" [formControl]="accountDetailsForm.controls['city']" [(ngModel)]="userDetail.city">
 						                                            </div>
+						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+					                                                  	<label>Select Service</label>
+					                                                    <div class="custom-select">
+					                                                       <!--  <select class="form-control multiselect" placeholder="Select Services" multiple="multiple">
+					                                                            <option disabled="">Select Services</option>
+					                                                            <option name="nsw">Hair</option>
+					                                                            <option name="vic">Skin</option>
+					                                                            <option name="qld">Nail Treatment</option>
+					                                                            <option name="qld">Essentials</option>
+					                                                            <option name="qld">Innovations</option>
+					                                                        </select> -->
+					                                                        <ss-multiselect-dropdown [formControl]="accountDetailsForm.controls['selectService']" [options]="myOptions2" [(ngModel)]="optionsModel2" (ngModelChange)="onChange2($event)" ></ss-multiselect-dropdown>
+					                                                    </div>
+					                                                </div>
 						                                        </div>
 						                                        <div class="row">
 					                                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
 					                                                    <label>Select Category</label>
 					                                                    <div class="custom-select">
-					                                                        <select class="form-control multiselect" placeholder="Select Category" multiple="multiple">
+					                                                        <!-- <select class="form-control multiselect" placeholder="Select Category" multiple="multiple">
 					                                                            <option disabled="">Select Category</option>
 					                                                            <option name="nsw">Saloon</option>
 					                                                            <option name="vic">spa</option>
 					                                                            <option name="qld">Stylist</option>
 					                                                            <option name="wa">Ayurveda</option>
-					                                                        </select>
+					                                                        </select> -->
+					                                                        <ss-multiselect-dropdown [formControl]="accountDetailsForm.controls['selectCategory']"  [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
 					                                                    </div>
 					                                                </div>
 					                                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-					                                                  	<label>Select Service</label>
+					                                                  	<!-- <label>Select Service</label>
 					                                                    <div class="custom-select">
 					                                                        <select class="form-control multiselect" placeholder="Select Services" multiple="multiple">
 					                                                            <option disabled="">Select Services</option>
@@ -113,32 +128,34 @@
 					                                                            <option name="qld">Essentials</option>
 					                                                            <option name="qld">Innovations</option>
 					                                                        </select>
-					                                                    </div>
+					                                                    </div> -->
 					                                                </div>
 					                                            </div>
 										                        <div class="row">
 									                            	<ul class="update-form-ul">
 									                            		<li>
-									                            			<button id="update1" type="button" class="btn cut-btn">Update</button>
+									                            			<button id="update1" type="button" class="btn cut-btn" (click)="onUpdateDetails()">Update</button>
 									                            		</li>
 									                            		<li>
-									                            			<a href="javascript:void(0);" class="btn cut-btn">Cancel</a>
+									                            			<a href="javascript:void(0);" class="btn cut-btn"  (click)="onCancelDetailshow()">Cancel</a>
 									                            		</li>
 									                            	</ul>
 										                        </div>
 										                    </div>
 									                      	<div class="col-md-3 col-sm-3 col-xs-12">
 										                        <div class="wrap-div outer-img">
-										                            <img src="img/saloon-user.png" class="img-responsive">
+										                            <img *ngIf="!userDetail.image" src="assets/img/saloon-user.png" class="img-responsive">
+										                            <img *ngIf="userDetail.image" src="http://18.216.88.154/public/beauti-service/{{userDetail.image}}" class="img-responsive">
 										                            <span class="upload-img">
 										                            <button class="btn cut-btn" type="submit">Change Profile</button>
 										                            <input class="profile-btn cut-btn" name="image" type="file">
 										                            </span>
 										                        </div>
 										                    </div>
+									                    	</form>
 									                   </div>
 							                   		</div>
-								                   <h4 class="title-form-head" id="change">Change password<a class="edit-btn" href="javascript:;">
+								                   <h4 class="title-form-head" id="change">Change password<a class="edit-btn" href="javascript:;" (click)="onClickPasswordEdit()">
 								                    <span class="fa fa-pencil-square-o" id="show3"></span>
 								                    </a></h4>
 									                <div id="row5">
@@ -173,14 +190,14 @@
 									                            			<button type="button" class="btn cut-btn">Update</button>
 									                            		</li>
 									                            		<li>
-									                            			<a href="javascript:void(0);" class="btn cut-btn">Cancel</a>
+									                            			<a href="javascript:void(0);" class="btn cut-btn"  (click)="onCancelPasswordshow()">Cancel</a>
 									                            		</li>
 									                            	</ul>
 									                            </div>
 									                        </div>
 									                    </div>
 									                </div>
-							                   </form>
+							                   </div>
 							              </div> 
 										</div>
 									</div>

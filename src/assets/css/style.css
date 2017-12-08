@@ -615,7 +615,7 @@ ul.footer-social li [class*="fa-instagram"]{
   height:730px;
 }*/
 .banner .item{
-   height:730px;
+   height:650px;
   -webkit-height:660px ;
   -webkit-background-size:cover;
   -moz-background-size:cover;
@@ -2729,7 +2729,7 @@ form .form-control {
   text-align: center;
   width: 33.33%;
 }
-.tab-on-form .nav-pills > li.active > a, .tab-on-form .nav-pills > li.active > a:hover, .tab-on-form .nav-pills > li.active > a:focus {
+.tab-on-form .nav-pills > li.active > button, .tab-on-form .nav-pills > li.active > button:hover, .tab-on-form .nav-pills > li.active > button:focus {
   background-color: #d5275a;
   border-radius: 50%;
   color: #fff;
@@ -2738,17 +2738,20 @@ form .form-control {
   padding: 20px;
   width: 50px;
 }
-.tab-on-form .nav-pills > li > a {
+.tab-on-form .nav-pills > li > button {
   background-color: #d4d4d4;
+  border: medium none;
   border-radius: 50%;
-  color: #333;
+  color: #333333;
   float: none;
   font-size: 16px;
   font-weight: 600;
   height: 50px;
   margin: 0 auto;
+  position: relative;
   text-align: center;
   width: 50px;
+  z-index: 99;
 }
 .step-li::before {
   border: 1px solid #ccc;
@@ -2770,7 +2773,7 @@ form .form-control {
   text-align: center;
   width: 100%;
 }
-/*=====tabcss----*/
+/*=====tabcss ends----*/
 .signup-form.common-form {
   width: 750px;
 }
@@ -5017,3 +5020,12 @@ span.line3 {
   transition: all 0.4s ease 0s;
 }
 /*-----------customer-profile css ends here=======*/
+/*=================updated css in multi select====*/
+.custom-select .dropdown-menu {
+  width: 100%;
+}
+.custom-select .dropdown.dropdown-inline {
+  display: inline-block;
+  width: 100%;
+}
+/*=================ends====*/

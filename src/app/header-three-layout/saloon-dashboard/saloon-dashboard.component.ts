@@ -111,7 +111,7 @@ export class SaloonDashboardComponent implements OnInit {
   ];
 
   activeDayIsOpen: boolean = true;
-
+  userDetail=JSON.parse(localStorage['userdetails'])
     constructor(private modal: NgbModal) {}
 
     ngOnInit() {

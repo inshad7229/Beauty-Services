@@ -2,17 +2,35 @@
         <section class="login-section">
             <div class="container">
                 <div class="login-inner">
-                    <form class="login-form common-form">
+                    <form class="login-form common-form" [formGroup]="verifiactionForm">
                         <h3 class="form-h">Login</h3>
                         <div class="form-wrap">
                             <div class="row">
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                    <input type="text" placeholder="Enter Email" class="form-control">
+                                    <input type="text" placeholder="Enter Email" [formControl]="verifiactionForm.controls['email']" class="form-control" [(ngModel)]="loginModel.email">
+                                    <p  *ngIf="verifiactionForm.controls['email'].hasError('required') && verifiactionForm.controls['email'].touched">
+                                     Email is <strong>required</strong>
+                                    </p>
+                                    <p  *ngIf="verifiactionForm.controls['email'].hasError('pattern')">
+                                               Please enter valid email address !!
+                                    </p>
+                                    <p  *ngIf="verifiactionForm.controls['email'].hasError('maxlength')">
+                                               max length is 30
+                                    </p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                    <input type="pass" placeholder="Password" class="form-control">
+                                    <input type="pass" placeholder="Password" [formControl]="verifiactionForm.controls['password']" class="form-control" [(ngModel)]="loginModel.password" >
+                                    <p  *ngIf="verifiactionForm.controls['password'].hasError('required') && verifiactionForm.controls['password'].touched">
+                                     Password is <strong>required</strong>
+                                    </p>
+                                    <p  *ngIf="verifiactionForm.controls['password'].hasError('pattern')">
+                                               only alphabets are acceptable 
+                                    </p>
+                                    <p  *ngIf="verifiactionForm.controls['password'].hasError('maxlength')">
+                                               max length is 12
+                                    </p>
                                 </div>
                             </div>
                             <div class="row">
@@ -30,7 +48,7 @@
                             </div>
                             <div class="form-group col-md-12 col-sm-12 col-xs-12 p-0">
                                 <div class="sign-inntn">
-                                    <a href="#" class="btn cut-btn" >Login</a>
+                                    <button href="#" class="btn cut-btn" [disabled]="!verifiactionForm.valid" (click)="onLogin()">Login</button>
                                 </div>
                             </div>
                             <div class="line-div"></div>
