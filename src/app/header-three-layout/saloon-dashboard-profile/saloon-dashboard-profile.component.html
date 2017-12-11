@@ -72,7 +72,7 @@
 						                                        <div class="row">
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 						                                                <label>Enter Email</label>
-						                                                <input type="text" placeholder="Enter Email" class="form-control" [formControl]="accountDetailsForm.controls['email']" [(ngModel)]="userDetail.email">
+						                                                <input type="text" placeholder="Enter Email" class="form-control" [formControl]="accountDetailsForm.controls['email']" [(ngModel)]="userDetail.email" >
 						                                            </div>
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 						                                                <label>Enter Contact Number</label>
@@ -134,7 +134,7 @@
 										                        <div class="row">
 									                            	<ul class="update-form-ul">
 									                            		<li>
-									                            			<button id="update1" type="button" class="btn cut-btn" (click)="onUpdateDetails()">Update</button>
+									                            			<button id="update1" type="button" class="btn cut-btn" [disabled]="!accountDetailsForm.valid" (click)="onUpdateDetails()">Update</button>
 									                            		</li>
 									                            		<li>
 									                            			<a href="javascript:void(0);" class="btn cut-btn"  (click)="onCancelDetailshow()">Cancel</a>
@@ -144,11 +144,11 @@
 										                    </div>
 									                      	<div class="col-md-3 col-sm-3 col-xs-12">
 										                        <div class="wrap-div outer-img">
-										                            <img *ngIf="!userDetail.image" src="assets/img/saloon-user.png" class="img-responsive">
-										                            <img *ngIf="userDetail.image" src="http://18.216.88.154/public/beauti-service/{{userDetail.image}}" class="img-responsive">
+										                            <img *ngIf="!userDetail.image " src="assets/img/saloon-user.png" class="img-responsive">
+										                            <img *ngIf="userDetail.image" [src]="imagePath(userDetail.image)" class="img-responsive">
 										                            <span class="upload-img">
 										                            <button class="btn cut-btn" type="submit">Change Profile</button>
-										                            <input class="profile-btn cut-btn" name="image" type="file">
+										                            <input class="profile-btn cut-btn" name="image" type="file" (change)="imageUploadEvent($event)" accept="image/gif, image/jpeg, image/png" />
 										                            </span>
 										                        </div>
 										                    </div>
@@ -165,36 +165,74 @@
 									                </div>
 								                   	<div id="row6">
 									                    <div class="col-md-9 col-sm-9 col-xs-12">
-									                        <div class="row">
-									                            <div class="form-group col-sm-9 col-md-9 col-xs-12">
-									                            	<label>Current password</label>
-									                                <input type="password" placeholder="Current password" class="form-control">
-									                            </div>
-									                        </div>
-									                        <div class="row">
-									                            <div class="form-group col-sm-9 col-md-9 col-xs-12">
-									                               	<label>New password</label>
-									                                  <input type="password" placeholder="New password" class="form-control">                         
-									                            </div>
-									                        </div>
-									                        <div class="row">
-									                            <div class="form-group col-sm-9 col-md-9 col-xs-12">
-									                            	  <label>Confirm password</label>
-									                                  <input type="password" placeholder="Confirm password" class="form-control">                               
-									                            </div>
-									                        </div>
-									                        <div class="row">
-									                        	<div class="form-group col-sm-9 col-md-9 col-xs-12">
-									                            	<ul class="update-form-ul">
-									                            		<li>
-									                            			<button type="button" class="btn cut-btn">Update</button>
-									                            		</li>
-									                            		<li>
-									                            			<a href="javascript:void(0);" class="btn cut-btn"  (click)="onCancelPasswordshow()">Cancel</a>
-									                            		</li>
-									                            	</ul>
-									                            </div>
-									                        </div>
+									                    	<form [formGroup]="passwordForm">
+										                        <div class="row">
+										                            <div class="form-group col-sm-9 col-md-9 col-xs-12">
+										                            	<label>Current password</label>
+										                                <input type="password" placeholder="Current password" class="form-control" [formControl]="passwordForm.controls['currentPassword']" [(ngModel)]="passwordModel.currentPassword">
+										                                <p  *ngIf="passwordForm.controls['currentPassword'].hasError('required') && passwordForm.controls['currentPassword'].touched">
+					                                                     Current password is <strong>required</strong>
+					                                                    </p>
+					                                                    <p  *ngIf="passwordForm.controls['currentPassword'].hasError('pattern')">
+					                                                               only alphabets are acceptable 
+					                                                    </p>
+					                                                    <p  *ngIf="passwordForm.controls['currentPassword'].hasError('maxlength')">
+					                                                               max length is 12
+					                                                    </p>
+					                                                    <!-- <p  *ngIf="message">
+					                                                               Password and confirm password must be same !!
+					                                                    </p> -->
+										                            </div>
+										                        </div>
+										                        <div class="row">
+										                            <div class="form-group col-sm-9 col-md-9 col-xs-12">
+										                               	<label>New password</label>
+										                                  <input type="password" placeholder="New password" class="form-control" [formControl]="passwordForm.controls['newPassword']" [(ngModel)]="passwordModel.newPassword" (input)="pass_confirm()">
+										                                  <p  *ngIf="passwordForm.controls['newPassword'].hasError('required') && passwordForm.controls['newPassword'].touched">
+					                                                     New Password is <strong>required</strong>
+					                                                    </p>
+					                                                    <p  *ngIf="passwordForm.controls['newPassword'].hasError('pattern')">
+					                                                               only alphabets are acceptable 
+					                                                    </p>
+					                                                    <p  *ngIf="passwordForm.controls['newPassword'].hasError('maxlength')">
+					                                                               max length is 12
+					                                                    </p>
+					                                                   <!--  <p  *ngIf="message">
+					                                                               Password and confirm password must be same !!
+					                                                    </p> -->                         
+										                            </div>
+										                        </div>
+										                        <div class="row">
+										                            <div class="form-group col-sm-9 col-md-9 col-xs-12">
+										                            	  <label>Confirm password</label>
+										                                  <input type="password" placeholder="Confirm password" class="form-control" [formControl]="passwordForm.controls['confirmPassword']" [(ngModel)]="passwordModel.confirmPassword" (input)="confirm()"> 
+										                                 <p  *ngIf="passwordForm.controls['confirmPassword'].hasError('required') && passwordForm.controls['confirmPassword'].touched">
+					                                                     Confirm Password is <strong>required</strong>
+					                                                    </p>
+					                                                    <p  *ngIf="passwordForm.controls['confirmPassword'].hasError('pattern')">
+					                                                               only alphabets are acceptable 
+					                                                    </p>
+					                                                    <p  *ngIf="passwordForm.controls['confirmPassword'].hasError('maxlength')">
+					                                                               max length is 12
+					                                                    </p>
+					                                                    <p  *ngIf="message">
+					                                                               New Password and confirm password must be same !!
+					                                                    </p>                              
+										                            </div>
+										                        </div>
+										                        <div class="row">
+										                        	<div class="form-group col-sm-9 col-md-9 col-xs-12">
+										                            	<ul class="update-form-ul">
+										                            		<li>
+										                            			<button [disabled]="!passwordForm.valid" type="button" class="btn cut-btn" (click)="onUpdatePass()">Update</button>
+										                            		</li>
+										                            		<li>
+										                            			<a href="javascript:void(0);" class="btn cut-btn"  (click)="onCancelPasswordshow()">Cancel</a>
+										                            		</li>
+										                            	</ul>
+										                            </div>
+										                        </div>
+									                    	</form>
 									                    </div>
 									                </div>
 							                   </div>

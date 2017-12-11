@@ -31,6 +31,26 @@ export class SaloonService {
     );
   }
 
+  SaloonProfileUpdate(data): Observable<any> {
+    const url = `${ENV.mainApi}/saloonProfileUpdate`;
+    return this.http.post<any>(url,data,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`saloonProfileUpdate`)),
+        catchError(this.handleError('saloonProfileUpdate', []))
+      
+    );
+  }
+
+  SaloonPasswordUpdate(data): Observable<any> {
+    const url = `${ENV.mainApi}/saloonPassChange`;
+    return this.http.post<any>(url,data,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`saloonPassChange`)),
+        catchError(this.handleError('saloonPassChange', []))
+      
+    );
+  }
+
    SaloonLogin(data): Observable<any> {
     const url = `${ENV.mainApi}/saloonLogIn`;
     return this.http.post<any>(url,data,httpOptions)

@@ -151,7 +151,7 @@ export class SaloonSignupComponent implements OnInit {
         fr.readAsDataURL(file);
     }
 
-        onSubmit(){
+    onSubmit(){
             let a=this.optionsModel2.slice(0)
             let b=this.optionsModel.slice(0)
            this.saloonDetailsModel.saloonId=this.currentData.result.id

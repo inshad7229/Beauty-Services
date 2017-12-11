@@ -17,14 +17,39 @@ export class SaloonDashboardProfileComponent implements OnInit {
     editOne:boolean=false
     editOne2:boolean=false
     accountDetailsForm: FormGroup;
-    optionsModel: string[]=this.userDetail.category;
+    passwordForm: FormGroup;
+    optionsModel: number[]=[];
     myOptions: IMultiSelectOption[];
-    optionsModel2: string[]=this.userDetail.services;
+    optionsModel2: number[]=[];
     myOptions2: IMultiSelectOption[];
+    passwordModel
+    message
+    tempImag
     constructor(public router: Router, private fb: FormBuilder, 
                 private saloonServices:SaloonService,
                 vcr: ViewContainerRef,
                 private toastr: ToastsManager) {
+        this.passwordModel={}
+        this.tempImag=this.userDetail.image
+        this.userDetail.services=this.userDetail.services.split(',')
+        //console.log('services',this.userDetail.services)
+          for (var i = 0; i < this.userDetail.services.length; ++i) {
+                 if (+this.userDetail.services[i]!=NaN) {
+                  this.optionsModel2.push(+this.userDetail.services[i])
+                     // code...
+                 }
+              // code...
+          }
+
+          this.userDetail.category=this.userDetail.category.split(',')
+        console.log('services',this.userDetail.category)
+          for (var j = 0; j < this.userDetail.category.length; ++j) {
+                 if (+this.userDetail.category[j]!=NaN) {
+                  this.optionsModel.push(+this.userDetail.category[j])
+                     // code...
+                 }
+              // code...
+          }
           this.toastr.setRootViewContainerRef(vcr);
           this.accountDetailsForm = fb.group({
                 'saloonName': [null, Validators.compose([Validators.required,Validators.maxLength(150)])],
@@ -35,7 +60,16 @@ export class SaloonDashboardProfileComponent implements OnInit {
                 'selectCategory': [null, Validators.compose([Validators.required])],
                 'selectService': [null, Validators.compose([Validators.required])]
             
+        })
+
+        this.passwordForm = fb.group({
+                'currentPassword': [null, Validators.compose([Validators.required,Validators.maxLength(12)])],
+                'newPassword': [null, Validators.compose([Validators.required,Validators.maxLength(12)])],
+                'confirmPassword': [null, Validators.compose([Validators.required,Validators.maxLength(12)])],
+            
         }) 
+
+        this.accountDetailsForm.controls['email'].disable();
     }
 
     ngOnInit() {
@@ -50,20 +84,20 @@ export class SaloonDashboardProfileComponent implements OnInit {
 		    //     $("#row6").show(500);
 		    // });
         this.myOptions = [
-            { id: '1', name: 'Option 1' },
-            { id: '2', name: 'Option 2' },
-            { id: '3', name: 'Option 3' },
-            { id: '4', name: 'Option 4' },
-            { id: '5', name: 'Option 5' },
-            { id: '6', name: 'Option 6' },
+            { id: 1, name: 'Option 1' },
+            { id: 2, name: 'Option 2' },
+            { id: 3, name: 'Option 3' },
+            { id: 4, name: 'Option 4' },
+            { id: 5, name: 'Option 5' },
+            { id: 6, name: 'Option 6' },
         ];
         this.myOptions2 = [
-            { id:'1', name: 'Option 1' },
-            { id:'2', name: 'Option 2' },
-            { id:'3', name: 'Option 3' },
-            { id:'4', name: 'Option 4' },
-            { id:'5', name: 'Option 5' },
-            { id:'6', name: 'Option 6' },
+            { id:1, name: 'Option 1' },
+            { id:2, name: 'Option 2' },
+            { id:3, name: 'Option 3' },
+            { id:4, name: 'Option 4' },
+            { id:5, name: 'Option 5' },
+            { id:6, name: 'Option 6' },
         ];
     }
 
@@ -92,6 +126,7 @@ export class SaloonDashboardProfileComponent implements OnInit {
     }
     onCancelDetailshow(){
     	this.editOne=false
+        this.userDetail.image=this.tempImag
     		$("#row1").show(600);
 		    $("#row2").hide(600);
     }
@@ -101,7 +136,76 @@ export class SaloonDashboardProfileComponent implements OnInit {
 		$("#row6").hide(500);
     }
     onUpdateDetails(){
+         let a=this.optionsModel2.slice(0)
+         let b=this.optionsModel.slice(0)
+         this.userDetail.saloonId=this.userDetail.id
+         this.userDetail.services=a.toString()
+         this.userDetail.category=b.toString()
+         delete(this.userDetail.password)
+         this.saloonServices.SaloonProfileUpdate(this.userDetail)
+        .subscribe((data)=>{
+            console.log(data);
+            if(data.response){
+              this.toastr.success(data.message ,'Saloon',{toastLife: 3000, showCloseButton: true})
+                this.editOne=false
+                $("#row1").show(600);
+                $("#row2").hide(600);
+                localStorage['userdetails']=JSON.stringify(data.data)
+                this.userDetail=JSON.parse(localStorage['userdetails'])
+                this.userDetail.services=this.userDetail.services.split(',')
+                this.tempImag=this.userDetail.image
+        //console.log('services',this.userDetail.services)
+        this.optionsModel2=[]
+          for (var i = 0; i < this.userDetail.services.length; ++i) {
+                 if (+this.userDetail.services[i]!=NaN) {
+                  this.optionsModel2.push(+this.userDetail.services[i])
+                     // code...
+                 }
+              // code...
+          }
+          this.optionsModel=[]
+          this.userDetail.category=this.userDetail.category.split(',')
+        console.log('services',this.userDetail.category)
+          for (var j = 0; j < this.userDetail.category.length; ++j) {
+                 if (+this.userDetail.category[j]!=NaN) {
+                  this.optionsModel.push(+this.userDetail.category[j])
+                     // code...
+                 }
+              // code...
+          }
+              // setTimeout(()=>{
+                // this.router.navigate(['/header-two-layout/login']);
+              // },3000)
+            //    alert(data.message)
+            }else if (data.message=='Unable to update saloon') {
+               this.toastr.error('Unable to update saloon' ,'Updation Failed ',{toastLife: 3000, showCloseButton: true});
+              // code...
+            }else {
+              this.toastr.error( 'Something Went Wrong Please Try Again' ,'Updation Failed ',{toastLife: 3000, showCloseButton: true});
+            }
+         })
+    }
 
+    onUpdatePass(){
+        this.passwordModel.saloonId=this.userDetail.id
+        this.saloonServices.SaloonPasswordUpdate(this.passwordModel)
+        .subscribe((data)=>{
+            console.log(data);
+            if(data.response){
+              this.toastr.success(data.message ,'Password Update',{toastLife: 1000, showCloseButton: true})
+              this.editOne2=false
+                $("#row5").show(500);
+                $("#row6").hide(500);
+            }else if (data.message=='Unable to update Password') {
+               this.toastr.error('Unable to update Password' ,'Updation Failed',{toastLife: 1000, showCloseButton: true});
+              // code...
+            }else if (data.message=='current password is incorrect') {
+               this.toastr.error('current password is incorrect' ,'Updation Failed',{toastLife: 1000, showCloseButton: true});
+              // code...
+            }else {
+              this.toastr.error( 'Something Went Wrong Please Try Again' ,'Updation Failed',{toastLife: 1000, showCloseButton: true});
+            }
+         })
     }
     onChange() {
         console.log(this.optionsModel);
@@ -109,5 +213,57 @@ export class SaloonDashboardProfileComponent implements OnInit {
 
     onChange2() {
         console.log(this.optionsModel2);
+    }
+
+    confirm(){
+        if (this.passwordModel.newPassword ==this.passwordModel.confirmPassword) {
+            this.message=false;
+          }
+          else{
+            this.message=true;
+          }
+        }
+      pass_confirm(){
+        if (this.passwordModel.confirmPassword) {
+        // code...
+          if (this.passwordModel.newPassword ==this.passwordModel.confirmPassword) {
+             this.message=false;
+          }
+          else{
+             this.message=true;
+          }
+        }
+
+      }
+
+    imageUploadEvent(evt: any) {
+        if (!evt.target) {
+            return;
+        }
+        if (!evt.target.files) {
+            return;
+        }
+        if (evt.target.files.length !== 1) {
+            return;
+        }
+        const file = evt.target.files[0];
+        if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif' && file.type !== 'image/jpg') {
+            return;
+        }
+        const fr = new FileReader();
+        fr.onloadend = (loadEvent) => {
+            this.userDetail.image= fr.result;
+            console.log(this.userDetail.image)
+        };
+        fr.readAsDataURL(file);
+    }
+
+    imagePath(path){
+    if(path.indexOf('base64')==-1) {
+        return 'http://18.216.88.154/public/beauti-service/'+path
+        // code...
+      }else{
+         return  path
+      }
     }
 }
