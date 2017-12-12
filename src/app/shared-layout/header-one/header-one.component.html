@@ -161,8 +161,8 @@
                 <div class="col-md-5 col-sm-5 col-xs-12">
                     <div class="pull-right left-navbar">
                        <ul class="right-login">
-                            <li><a href="#" data-toggle="modal" data-target="#signupAs">Sign Up</a></li>
-                            <li><a routerLink="/header-two-layout/login">Login</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#signupAs">{{ 'headerOne.SignUp' | translate }}</a></li>
+                            <li><a routerLink="/header-two-layout/login">{{ 'headerOne.logIn' | translate }}</a></li>
                        </ul>
                     </div>
                 </div>
@@ -187,8 +187,8 @@
                        <li><a href="#">Massage</a></li>
                        <li><a href="#">Spa</a></li>
                        <li><a href="#">barbers</a></li>
-                       <li><a href="#" data-toggle="modal" data-target="#signupAs">Sign Up</a></li>
-                       <li><a routerLink="/header-two-layout/login">Login</a></li>
+                       <li><a href="#" data-toggle="modal" data-target="#signupAs">{{ 'headerOne.SignUp' | translate }}</a></li>
+                       <li><a routerLink="/header-two-layout/login">{{ 'headerOne.logIn' | translate }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -206,7 +206,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel">Sign Up As</h4>
+            <h4 class="modal-title" id="myModalLabel">{{ 'headerOne.signUpAs' | translate }}</h4>
         </div>
         <div class="modal-body">
             <div class="sign-selectoption">
@@ -215,7 +215,7 @@
                         <div class="customer-img">
                             <img src="assets/img/saloon.svg" class="img-responsive">
                        </div>
-                        <a  class="cus-btn btn" routerLink="/header-two-layout/saloon-signup" data-dismiss="modal">Saloon</a>
+                        <a  class="cus-btn btn" routerLink="/header-two-layout/saloon-signup" data-dismiss="modal">{{ 'headerOne.saloon' | translate }}</a>
                     </div>
                     <div class="col-md-6 col-xs-12  col-sm-6">
                         <div class="professional-img">
@@ -223,7 +223,7 @@
                                 <img src="assets/img/professional.svg" class="img-responsive">
                             </div>
                         </div>
-                        <a class="cus-btn btn" routerLink="/header-two-layout/customer-signup" data-dismiss="modal">Customer</a>
+                        <a class="cus-btn btn" routerLink="/header-two-layout/customer-signup" data-dismiss="modal">{{ 'headerOne.customer' | translate }}</a>
                     </div>
                 </div>
             </div>

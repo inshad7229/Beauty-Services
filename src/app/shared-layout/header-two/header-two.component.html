@@ -11,13 +11,13 @@
                     <form class="horizontal-form customize">
                         <div class="col-md-12 col-sm-12 p-0">
                             <div class="col-md-5 col-sm-5 col-xs-12 no-padding">
-                                <input  type="text" class="form-control input1" name="password" placeholder="Find a service or saloon">
+                                <input  type="text" class="form-control input1" name="password" placeholder="{{ 'headerTwo.find_service_saloon' | translate }}">
                             </div>
                             <div class="col-md-5 col-sm-5 col-xs-12 no-padding">
-                                <input type="text" class="form-control input2"  placeholder="Enter your area">
+                                <input type="text" class="form-control input2"  placeholder="{{ 'headerTwo.enter_your_area' | translate }}">
                             </div>
                             <div class="col-md-2 col-sm-2 col-xs-12 no-padding">
-                                <a class="btn custom-btn" href="javascript:void(0);">Search</a>
+                                <a class="btn custom-btn" href="javascript:void(0);">{{ 'headerTwo.search' | translate }}</a>
                             </div>
                         </div>
                     </form>
@@ -26,8 +26,8 @@
             <div class="col-md-3 col-sm-3 col-xs-12">
                 <div class="pull-right left-navbar">
                    <ul class="right-login">
-                        <li><a href="#" data-toggle="modal" data-target="#signupAs">Sign Up</a></li>
-                        <li><a routerLink="/header-two-layout/login">Login</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#signupAs">{{ 'headerTwo.SignUp' | translate }}</a></li>
+                        <li><a routerLink="/header-two-layout/login">{{ 'headerTwo.logIn' | translate }}</a></li>
                    </ul>
                 </div>
             </div>
@@ -199,7 +199,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel">Sign Up As</h4>
+            <h4 class="modal-title" id="myModalLabel">{{ 'headerTwo.signUpAs' | translate }}</h4>
         </div>
         <div class="modal-body">
             <div class="sign-selectoption">
@@ -208,7 +208,7 @@
                         <div class="customer-img">
                             <img src="assets/img/saloon.svg" class="img-responsive">
                        </div>
-                        <a  class="cus-btn btn" routerLink="/header-two-layout/saloon-signup" data-dismiss="modal">Saloon</a>
+                        <a  class="cus-btn btn" routerLink="/header-two-layout/saloon-signup" data-dismiss="modal">{{ 'headerTwo.saloon' | translate }}</a>
                     </div>
                     <div class="col-md-6 col-xs-12  col-sm-6">
                         <div class="professional-img">
@@ -216,7 +216,7 @@
                                 <img src="assets/img/professional.svg" class="img-responsive">
                             </div>
                         </div>
-                        <a class="cus-btn btn" routerLink="/header-two-layout/customer-signup" data-dismiss="modal">Customer</a>
+                        <a class="cus-btn btn" routerLink="/header-two-layout/customer-signup" data-dismiss="modal">{{ 'headerTwo.customer' | translate }}</a>
                     </div>
                 </div>
             </div>

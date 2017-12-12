@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastsManager , Toast} from 'ng2-toastr';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
+import { TranslateService } from '@ngx-translate/core';
 
 import {SaloonService} from '../../providers/saloon.service'
 import {SaloonDetailsModel,AccountCreationModel,VerifiactionModel} from '../../models/saloon.modal';
@@ -35,7 +36,8 @@ export class SaloonSignupComponent implements OnInit {
     constructor(public router: Router, private fb: FormBuilder, 
                 private saloonServices:SaloonService,
                 vcr: ViewContainerRef,
-                private toastr: ToastsManager)
+                private toastr: ToastsManager,
+                private translate: TranslateService)
                  {
 
             this.toastr.setRootViewContainerRef(vcr); 

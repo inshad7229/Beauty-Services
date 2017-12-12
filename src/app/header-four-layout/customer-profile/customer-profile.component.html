@@ -23,7 +23,7 @@
                   <div class="portlet-body services-list">
                     <div class="col-md-12 col-sm-12 col-xs-12 p-0">
                       <div class="otr-bg-dshbrd">
-                                  <h4 class="title-form-head" >Personal Details <a class="edit-btn" href="javascript:;">
+                                  <h4 class="title-form-head" >Personal Details <a class="edit-btn" href="javascript:;" (click)="onClickDetailsEdit()">
                                   <span id="show1" class="fa fa-pencil-square-o" ></span>
                                   </a></h4>
                                  <form class="profile-form customer-profil">
@@ -33,19 +33,20 @@
                                               <div class="info-list">
                                                 <dl class="dl-horizontal">
                                     <dt>Name</dt>
-                                    <dd>Williams</dd>
+                                    <dd>{{userDetail.first_name}} {{userDetail.last_name}}</dd>
                                     <dt>Email</dt>
-                                    <dd>williams@gmail.com</dd>
+                                    <dd>{{userDetail.email}}</dd>
                                     <dt>Contact Number</dt>
-                                    <dd>9089897890</dd>
+                                    <dd>{{userDetail.contact_number}}</dd>
                                     <dt>City</dt>
-                                    <dd>New York City</dd>
+                                    <dd>{{userDetail.city}}</dd>
                                   </dl>
                                               </div>
                                         </div>
                                           <div class="col-md-3 col-sm-3 col-xs-12">
                                             <div class="wrap-div outer-img">
-                                                <img src="assets/img/user-pro-1.jpg" class="img-responsive">
+                                                 <img *ngIf="!userDetail.image" src="assets/img/saloon-user.png" class="img-responsive">
+                                                <img *ngIf="userDetail.image" src="http://18.216.88.154/public/beauti-service/{{userDetail.image}}" class="img-responsive">
                                             </div>
                                           </div>
                                       </div>
@@ -54,52 +55,98 @@
                                           <div class="row">
                                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                                             <label>Enter First Name</label>
-                                                            <input type="text" placeholder="Enter First Name" class="form-control">
+                                                            <input type="text" placeholder="Enter First Name" class="form-control" [formControl]="customerSignupForm.controls['first_name']" [(ngModel)]="userDetail.first_name">
+                                                           <p  *ngIf="customerSignupForm.controls['first_name'].hasError('required') && customerSignupForm.controls['first_name'].touched">
+                                                                First Name is <strong>required</strong>
+                                                          </p>
+                                                          <p  *ngIf="customerSignupForm.controls['first_name'].hasError('pattern')">
+                                                                     only alphabets are acceptable 
+                                                          </p>
+                                                          <p  *ngIf="customerSignupForm.controls['first_name'].hasError('maxlength')">
+                                                                     max length is 100
+                                                          </p> 
                                                         </div>
                                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                                             <label>Enter Last Name</label>
-                                                            <input type="text" placeholder="Enter Last Name" class="form-control">
+                                                            <input type="text" placeholder="Enter Last Name" class="form-control" [formControl]="customerSignupForm.controls['last_name']" [(ngModel)]="userDetail.last_name">
+                                                           <p  *ngIf="customerSignupForm.controls['last_name'].hasError('required') && customerSignupForm.controls['last_name'].touched">
+                                                                 Last Name is <strong>required</strong>
+                                                          </p>
+                                                          <p  *ngIf="customerSignupForm.controls['last_name'].hasError('pattern')">
+                                                                     only alphabets are acceptable 
+                                                          </p>
+                                                          <p  *ngIf="customerSignupForm.controls['last_name'].hasError('maxlength')">
+                                                                     max length is 100
+                                                          </p>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                                             <label>Enter Email</label>
-                                                            <input type="text" placeholder="Enter Email" class="form-control">
+                                                            <input type="text" placeholder="Enter Email" class="form-control"  [formControl]="customerSignupForm.controls['email']" [(ngModel)]="userDetail.email">
+                                                             <p  *ngIf="customerSignupForm.controls['email'].hasError('required') && customerSignupForm.controls['email'].touched">
+                                                                   Email is <strong>required</strong>
+                                                            </p>
+                                                            <p  *ngIf="customerSignupForm.controls['email'].hasError('pattern')">
+                                                                       Enter valid email id
+                                                            </p>
+                                                            <p  *ngIf="customerSignupForm.controls['email'].hasError('maxlength')">
+                                                                       max length is 100
+                                                            </p>
                                                         </div>
                                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                                             <label>Enter Contact Number</label>
-                                                            <input type="text" placeholder="Enter Contact Number" class="form-control">
+                                                            <input type="text" placeholder="Enter Contact Number" class="form-control"  [formControl]="customerSignupForm.controls['contact_number']" [(ngModel)]="userDetail.contact_number">
+                                                            <p  *ngIf="customerSignupForm.controls['contact_number'].hasError('required') && customerSignupForm.controls['contact_number'].touched">
+                                                                   Contact Number is <strong>required</strong>
+                                                            </p>
+                                                            <p  *ngIf="customerSignupForm.controls['contact_number'].hasError('pattern')">
+                                                                       Enter valid Contact Number (Only Digit) id
+                                                            </p>
+                                                            <p  *ngIf="customerSignupForm.controls['contact_number'].hasError('maxlength')">
+                                                           max length is 12
+                                                           </p>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                                             <label>Enter Your City</label>
-                                                            <input type="text" placeholder="Enter Your City" class="form-control">
+                                                            <input type="text" placeholder="Enter Your City" class="form-control" [formControl]="customerSignupForm.controls['city']" [(ngModel)]="userDetail.city">
+                                                                 <p  *ngIf="customerSignupForm.controls['city'].hasError('required') && customerSignupForm.controls['city'].touched">
+                                                               City is <strong>required</strong>
+                                                             </p>
+                                                            <p  *ngIf="customerSignupForm.controls['city'].hasError('pattern')">
+                                                                       Enter valid Contact Number (Only Digit) id
+                                                            </p>
+                                                            <p  *ngIf="customerSignupForm.controls['city'].hasError('maxlength')">
+                                                                       max length is 12
+                                                            </p>
                                                         </div>
-                                                    </div>                                  
+                                                    </div>                                   
                                             <div class="row">
                                                 <ul class="update-form-ul">
                                                   <li>
-                                                    <button id="update1" type="button" class="btn cut-btn">Update</button>
+                                                    <button [disabled]="!customerSignupForm.valid" id="update1" type="button" class="btn cut-btn" (click)="onCustomerUpdate()">Update</button>
                                                   </li>
                                                   <li>
-                                                    <a href="javascript:void(0);" class="btn cut-btn">Cancel</a>
+                                                    <a href="javascript:void(0);" class="btn cut-btn" (click)="onCancelDetailshow()">Cancel</a>
                                                   </li>
                                                 </ul>
                                             </div>
                                         </div>
                                           <div class="col-md-3 col-sm-3 col-xs-12">
                                             <div class="wrap-div outer-img">
-                                                <img src="assets/img/user-pro-1.jpg" class="img-responsive">
+                                                <img *ngIf="!userDetail.image " src="assets/img/saloon-user.png" class="img-responsive">
+                                                <img *ngIf="userDetail.image" [src]="imagePath(userDetail.image)" class="img-responsive">
                                                 <span class="upload-img">
                                                 <button class="btn cut-btn" type="submit">Change Profile</button>
-                                                <input class="profile-btn cut-btn" name="image" type="file">
-                                                </span>
+                                                <input class="profile-btn cut-btn" name="image" type="file" (change)="imageUploadEvent($event)" accept="image/gif, image/jpeg, image/png" />
+                                              </span>
                                             </div>
                                         </div>
                                      </div>
                                     </div>
-                                   <h4 class="title-form-head" id="change">Change password<a class="edit-btn" href="javascript:;">
+                                   <h4 class="title-form-head" id="change">Change password<a class="edit-btn" href="javascript:;"  (click)="onClickPasswordEdit()">
                                     <span class="fa fa-pencil-square-o" id="show3"></span>
                                     </a></h4>
                                   <div id="row5">
@@ -112,29 +159,62 @@
                                           <div class="row">
                                               <div class="form-group col-sm-9 col-md-9 col-xs-12">
                                                 <label>Current Password</label>
-                                                  <input type="password" placeholder="Current password" class="form-control">
+                                                  <input type="password" placeholder="Current password" class="form-control" [formControl]="passwordForm.controls['currentPassword']" [(ngModel)]="passwordModel.currentPassword">
+                                                    <p  *ngIf="passwordForm.controls['currentPassword'].hasError('required') && passwordForm.controls['currentPassword'].touched">
+                                                     Current password is <strong>required</strong>
+                                                    </p>
+                                                    <p  *ngIf="passwordForm.controls['currentPassword'].hasError('pattern')">
+                                                               only alphabets are acceptable 
+                                                    </p>
+                                                    <p  *ngIf="passwordForm.controls['currentPassword'].hasError('maxlength')">
+                                                               max length is 12
+                                                    </p>
+                                                    <!-- <p  *ngIf="message">
+                                                               Password and confirm password must be same !!
+                                                    </p> -->
                                               </div>
                                           </div>
                                           <div class="row">
                                               <div class="form-group col-sm-9 col-md-9 col-xs-12">
                                                   <label>New Password</label>
-                                                    <input type="password" placeholder="New password" class="form-control">                         
-                                              </div>
+                                                    <input type="password" placeholder="New password" class="form-control" [formControl]="passwordForm.controls['newPassword']" [(ngModel)]="passwordModel.newPassword" (input)="pass_confirm()">
+                                                      <p  *ngIf="passwordForm.controls['newPassword'].hasError('required') && passwordForm.controls['newPassword'].touched">
+                                                               New Password is <strong>required</strong>
+                                                    </p>
+                                                    <p  *ngIf="passwordForm.controls['newPassword'].hasError('pattern')">
+                                                               only alphabets are acceptable 
+                                                    </p>
+                                                    <p  *ngIf="passwordForm.controls['newPassword'].hasError('maxlength')">
+                                                               max length is 12
+                                                    </p>                         
+                                          </div>
                                           </div>
                                           <div class="row">
                                               <div class="form-group col-sm-9 col-md-9 col-xs-12">
                                                   <label>Confirm Password</label>
-                                                    <input type="password" placeholder="Confirm password" class="form-control">                               
+                                                    <input type="password" placeholder="Confirm password" class="form-control"  [formControl]="passwordForm.controls['confirmPassword']" [(ngModel)]="passwordModel.confirmPassword" (input)="confirm()"> 
+                                                     <p  *ngIf="passwordForm.controls['confirmPassword'].hasError('required') && passwordForm.controls['confirmPassword'].touched">
+                                                               Confirm Password is <strong>required</strong>
+                                                      </p>
+                                                      <p  *ngIf="passwordForm.controls['confirmPassword'].hasError('pattern')">
+                                                                 only alphabets are acceptable 
+                                                      </p>
+                                                      <p  *ngIf="passwordForm.controls['confirmPassword'].hasError('maxlength')">
+                                                                 max length is 12
+                                                      </p>
+                                                      <p  *ngIf="message">
+                                                                 New Password and confirm password must be same !!
+                                                      </p>                               
                                               </div>
                                           </div>
                                           <div class="row">
                                             <div class="form-group col-sm-9 col-md-9 col-xs-12">
                                                 <ul class="update-form-ul">
                                                   <li>
-                                                    <button type="button" class="btn cut-btn">Update</button>
+                                                    <button type="button" class="btn cut-btn" [disabled]="!passwordForm.valid || message" (click)="onUpdatePass()">Update</button>
                                                   </li>
                                                   <li>
-                                                    <a href="javascript:void(0);" class="btn cut-btn">Cancel</a>
+                                                    <a href="javascript:void(0);" class="btn cut-btn" (click)="onCancelPasswordshow()">Cancel</a>
                                                   </li>
                                                 </ul>
                                               </div>

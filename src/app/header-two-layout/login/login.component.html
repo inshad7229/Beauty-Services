@@ -4,6 +4,22 @@
                 <div class="login-inner">
                     <form class="login-form common-form" [formGroup]="verifiactionForm">
                         <h3 class="form-h">Login</h3>
+                        <div class="login-type">
+                             <div class="custom-radio">
+                                <div class="radio-inline">
+                                    <input [formControl]="verifiactionForm.controls['loginAS']" [(ngModel)]="loginModel.loginAS" checked="checked" type="radio" id="radio01" value="saloon" name="radio" />
+                                    <label for="radio01">
+                                        <span><span></span></span>Login as Saloon
+                                    </label>
+                                </div>
+                                <div  class="radio-inline">
+                                    <input type="radio" id="radio02" [formControl]="verifiactionForm.controls['loginAS']" [(ngModel)]="loginModel.loginAS" value="customer" name="radio" />
+                                    <label for="radio02">
+                                        <span><span></span></span>Login as Customer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-wrap">
                             <div class="row">
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -21,7 +37,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                    <input type="pass" placeholder="Password" [formControl]="verifiactionForm.controls['password']" class="form-control" [(ngModel)]="loginModel.password" >
+                                    <input type="password" placeholder="Password" [formControl]="verifiactionForm.controls['password']" class="form-control" [(ngModel)]="loginModel.password" >
                                     <p  *ngIf="verifiactionForm.controls['password'].hasError('required') && verifiactionForm.controls['password'].touched">
                                      Password is <strong>required</strong>
                                     </p>
@@ -42,7 +58,7 @@
                                         </label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12 text-right">
-                                        <a href="forgot-password.php" class="link-forgot-password">Forgot Password?</a>
+                                        <a routerLink="/header-two-layout/forgot-password" class="link-forgot-password">Forgot Password?</a>
                                     </div>
                                 </div>
                             </div>

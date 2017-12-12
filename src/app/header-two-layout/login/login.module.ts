@@ -9,6 +9,7 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 
 import {SaloonService} from '../../providers/saloon.service'
+import {CustomerService} from '../../providers/customer.service'
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
@@ -16,7 +17,7 @@ import { LoginComponent } from './login.component';
 @NgModule({
     imports: [CommonModule, LoginRoutingModule,FormsModule,ReactiveFormsModule,MatSelectModule,MultiselectDropdownModule,HttpClientModule,ToastModule.forRoot()],
     declarations: [LoginComponent],
-    providers:[SaloonService]
+    providers:[SaloonService,CustomerService]
 })
 export class LoginModule implements OnInit  {
 

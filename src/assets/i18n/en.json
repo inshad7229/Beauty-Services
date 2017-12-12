@@ -1,0 +1,78 @@
+{
+   "translation": {
+    "en": "English",
+    "arb": "Arabic"
+  },
+  "headerOne":{
+   "SignUp":"Sign Up",
+   "logIn":"Login",
+   "signUpAs":"Sign Up As",
+   "saloon":"Saloon",
+   "customer":"Customer"
+  },
+  "headerTwo":{
+   "SignUp":"Sign Up",
+   "logIn":"Login",
+   "signUpAs":"Sign Up As",
+   "saloon":"Saloon",
+   "customer":"Customer",
+   "find_service_saloon":"find a service or saloon",
+   "enter_your_area":"Enter your area",
+   "search":"Search"
+  },
+  "saloonSignup":{
+    "SignUp":"Saloon Sign Up",
+    "message1":"Begin your Beauty Service journey with 3 simple steps.",
+    "accountCreation":"Account Creation",
+    "verificationDetails":"Verification Details",
+    "updateSaloonDetails":"Update Saloon Details",
+    "message2":"We will never sell, share or distribute your personal information.",
+    "message3":"Read our privacy policy",
+    "enterSaloonName":"Enter Saloon Name",
+    "enterName":"Enter Name",
+    "enterEmail":"Enter Email",
+    "enterContactNumber":"Enter Contact Number",
+    "enterPassword":"Enter Password",
+    "enterConfirmPassword":"Enter Confirm Password",
+    "enterYourCity":"Enter Your City",
+    "message4":"I acknowledge that i have read",
+    "message5":"Terms & Condition",
+    "message6":"and",
+    "message7":"Privacy Policy",
+    "continue":"Continue",
+    "otpmessage":"Please enter the OTP received on your mobile number",
+    "enterCode":"Enter Code",
+    "resendOTP":"Resend OTP",
+    "back":"Back",
+    "verify":"Verify",
+    "saloonLogo":" Upload Saloon Logo",
+    "selectCategory":"Select Category",
+    "selectService":"Select Service",
+    "cancel":"Cancel",
+    "Submit":"Submit"
+  },
+
+  "customerSignup":{
+    "SignUp":"Customer Sign Up",
+    "message1":"We Value our Customers",
+    "accountCreation":"Account Creation",
+    "verificationDetails":"Verification Details",
+    "enterFirstName":"Enter First Name",
+    "enterLastName":"Enter Last Name",
+    "enterEmail":"Enter Email",
+    "enterContactNumber":"Enter Contact Number",
+    "enterPassword":"Enter Password",
+    "selectGender":"Select Gender",
+    "enterYourCity":"Enter Your City",
+    "message4":"I acknowledge that i have read",
+    "message5":"Terms & Condition",
+    "message6":"and",
+    "message7":"Privacy Policy",
+    "continue":"Continue",
+    "otpmessage":"Please enter the OTP received on your mobile number",
+    "enterCode":"Enter Code",
+    "resendOTP":"Resend OTP",
+    "back":"Back",
+    "verify":"Verify"
+  }
+}

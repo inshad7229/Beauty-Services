@@ -8,66 +8,55 @@ import  {ENV} from '../env'
      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 @Injectable()
-export class SaloonService {
+export class CustomerService {
 
-  constructor(private http: HttpClient) { }
-  SaloonSignup(data): Observable<any> {
-    const url = `${ENV.mainApi}/saloonRegistration`;
+ constructor(private http: HttpClient) { }
+  CustomerSignup(data): Observable<any> {
+    const url = `${ENV.mainApi}/customerRegistration`;
     return this.http.post<any>(url,data,httpOptions)
     .pipe(
-        tap(heroes => this.log(`sallon Signup`)),
-        catchError(this.handleError('sallon Signup', []))
-      
-    );
-  }
-   
-   SaloonUpdate(data): Observable<any> {
-    const url = `${ENV.mainApi}/saloonUpdate`;
-    return this.http.post<any>(url,data,httpOptions)
-    .pipe(
-        tap(heroes => this.log(`saloonUpdate`)),
-        catchError(this.handleError('saloonUpdate', []))
+        tap(heroes => this.log(`CustomerSignup`)),
+        catchError(this.handleError('CustomerSignup', []))
       
     );
   }
 
-  SaloonProfileUpdate(data): Observable<any> {
-    const url = `${ENV.mainApi}/saloonProfileUpdate`;
+CustomerLogin(data): Observable<any> {
+    const url = `${ENV.mainApi}/customerLogin`;
     return this.http.post<any>(url,data,httpOptions)
     .pipe(
-        tap(heroes => this.log(`saloonProfileUpdate`)),
-        catchError(this.handleError('saloonProfileUpdate', []))
+        tap(heroes => this.log(`customerLogin`)),
+        catchError(this.handleError('customerLogin', []))
       
     );
   }
 
-  SaloonPasswordUpdate(data): Observable<any> {
-    const url = `${ENV.mainApi}/saloonPassChange`;
+  CustomerForgotPassword(data): Observable<any> {
+    const url = `${ENV.mainApi}/customerForgotPassword`;
     return this.http.post<any>(url,data,httpOptions)
     .pipe(
-        tap(heroes => this.log(`saloonPassChange`)),
-        catchError(this.handleError('saloonPassChange', []))
+        tap(heroes => this.log(`customerForgotPassword`)),
+        catchError(this.handleError('customerForgotPassword', []))
       
     );
   }
 
-   SaloonLogin(data): Observable<any> {
-    const url = `${ENV.mainApi}/saloonLogIn`;
+  CustomerProfileUpdate(data): Observable<any> {
+    const url = `${ENV.mainApi}/customerProfileUpdate`;
     return this.http.post<any>(url,data,httpOptions)
     .pipe(
-        tap(heroes => this.log(`saloonLogIn`)),
-        catchError(this.handleError('saloonLogIn', []))
+        tap(heroes => this.log(`customerProfileUpdate`)),
+        catchError(this.handleError('customerProfileUpdate', []))
       
     );
   }
 
-
-  SaloonForgotPassword(data): Observable<any> {
-    const url = `${ENV.mainApi}/saloonForgotPassword`;
+  CustomerPasswordUpdate(data): Observable<any> {
+    const url = `${ENV.mainApi}/customerPassChange`;
     return this.http.post<any>(url,data,httpOptions)
     .pipe(
-        tap(heroes => this.log(`saloonForgotPassword`)),
-        catchError(this.handleError('saloonForgotPassword', []))
+        tap(heroes => this.log(`customerPassChange`)),
+        catchError(this.handleError('customerPassChange', []))
       
     );
   }
@@ -96,4 +85,5 @@ export class SaloonService {
     // this.messageService.add('HeroService: ' + message);
     console.log(message)
   }
+
 }
