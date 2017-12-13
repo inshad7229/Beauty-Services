@@ -1,0 +1,110 @@
+@media(max-width: 1199px){
+
+}
+@media(max-width: 1024px){
+	.wrap-div.outer-img{
+		  padding: 0;		
+	}
+	#row2 .col-md-3.col-sm-3.col-xs-12 {
+	  padding-right: 0;
+	}
+	.outer-img .upload-img .btn.cut-btn {
+	  font-size: 14px;
+	}
+}
+
+@media(max-width: 991px){
+	.page-content-wrapper .page-content {
+	  margin-left: 0;
+	}
+	.add-emppic > .col-md-offset-3.col-md-6.col-sm-6.col-xs-12 {
+	  width: 100%;
+	}
+	.page-header-fixed .navbar-collapse {
+	  top: 0;
+	}
+	.profile-chgdes {
+	  display: flex;
+	  flex-flow: row wrap;
+	  float: left;
+	  text-align: center;
+	  width: 100%;
+	}
+	.pro-e1 {
+	  order: 2;
+	  text-align: left;
+	}
+	.pro-e {
+	  display: inline-block;
+	  margin: 0 auto	;
+	  order: 1;
+	}
+	.wrap-div.outer-img {
+	  margin-bottom: 50px;
+	}
+}
+
+@media(max-width: 767px){
+	.page-header-fixed .page-header.navbar .page-top {
+	  clear: none;
+	  display: inline-block;
+	  width: auto;
+	}
+	.page-top .dropdown-toggle {
+	  display: inline-block;
+	  height: 90px;
+	  text-align: center;
+	}
+	.employe-details .info-list dd {
+	  margin: 0;
+	  text-align: left;
+	  width: 100%;
+	}
+	.info-list dt {
+	  float: left;
+	  font-weight: 600;
+	  width: 100%;
+	}
+	
+}
+@media(max-width: 640px){
+	.sin-footer-head h5 {
+	  font-size: 14px;
+	}
+	.sin-footer-con > p {
+	  font-size: 14px;
+	}
+	.sin-footer-con a {
+	  font-size: 14px;
+	}
+	.sin-footer-head h5 {
+	  font-size: 14px;
+	}
+
+}
+@media(max-width: 360px){
+	.add-emp-form{
+		padding: 0;
+	}
+	.modal-footerbtn .back-bt {
+	  float: left;
+	  width: auto;
+	}	
+	.modal-footerbtn .btn.cut-btn {
+	  font-size: 14px;
+	  min-width: 120px;
+	  width: auto;
+	}
+	.add-empform > .col-lg-12.col-sm-12.col-md-12.col-xs-12 {
+	  padding: 0;
+	}
+	.row.add-emppic {
+	  margin: 0;
+	}
+	.info-list dt {
+	  float: left;
+	  font-weight: 600;
+	  width: 100%;
+	}
+
+}

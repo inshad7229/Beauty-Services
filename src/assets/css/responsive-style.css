@@ -8,12 +8,12 @@
   .professional-section .container {
     width: 100%;
   }
-  .mobile-view{
+  /*.mobile-view{
     display: none;
   }
   .desktop-view {
     display: block;
-  }
+  }*/
 
 }
 @media(max-width: 1024px){
@@ -161,12 +161,12 @@
 }
 
 @media (max-width: 767px){
-  .desktop-view {
+  /*.desktop-view {
     display: none;
-  }
-  .mobile-view {
+  }*/
+  /*.mobile-view {
     display: block;
-  }
+  }*/
   .header-sec .container-fluid {
     padding: 0;
   }
