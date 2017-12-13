@@ -98,7 +98,7 @@
                                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                                 <label>{{ 'customerSignup.selectGender' | translate }}</label>
                                                 <div class="custom-select">
-                                                    <select class="form-control" placeholder="{{ 'customerSignup.selectGender' | translate }}" [formControl]="customerSignupForm.controls['gender']" [(ngModel)]="customerSignUpModel.gender">
+                                                    <select class="form-control"  [formControl]="customerSignupForm.controls['gender']" [(ngModel)]="customerSignUpModel.gender">
                                                         <option disabled="">Select Gender</option>
                                                         <option name="Male">Male</option>
                                                         <option name="Female">Female</option>
@@ -120,7 +120,7 @@
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                 <label>{{ 'customerSignup.enterYourCity' | translate }}</label>
                                                 <div class="custom-select">
-                                                    <select class="form-control" placeholder="{{ 'customerSignup.enterYourCity' | translate }}" [formControl]="customerSignupForm.controls['city']" [(ngModel)]="customerSignUpModel.city">
+                                                    <select class="form-control"  [formControl]="customerSignupForm.controls['city']" [(ngModel)]="customerSignUpModel.city">
                                                         <option disabled="">Select City</option>
                                                         <option name="Dubai">Dubai</option>
                                                         <option name="Abu Dhabi">Abu Dhabi</option>
