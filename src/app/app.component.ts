@@ -9,5 +9,7 @@ export class AppComponent {
   title = 'app';
   constructor(private translate: TranslateService){
   	this.translate.use('en');
+ 	 localStorage['userdetails']='null'
+	localStorage['customerdetails']='null'
   }
 }

@@ -20,6 +20,7 @@ export class AddEmployeeListComponent implements OnInit {
 	optionsModel2: number[];
 	addEmployeeForm: FormGroup;
     addEmployee:AddEmployee=new AddEmployee()
+    waitLoader
    constructor(public router: Router, private fb: FormBuilder,
                 vcr: ViewContainerRef,
                 private toastr: ToastsManager,
@@ -62,11 +63,13 @@ export class AddEmployeeListComponent implements OnInit {
     }
 
     AddEmployee(){
+        this.waitLoader=true
         let a=this.optionsModel2.slice(0)
         this.addEmployee.saloon_id=this.userDetail.id;
         this.addEmployee.services=a.toString()
         this.saloonServices.AddEmployee(this.addEmployee)
         .subscribe((data)=>{
+             this.waitLoader=false
             console.log(data);
             if(data.response){
               this.toastr.success(data.message ,'Employee Registration',{toastLife: 1000, showCloseButton: true})

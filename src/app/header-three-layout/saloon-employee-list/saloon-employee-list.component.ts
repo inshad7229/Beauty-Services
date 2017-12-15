@@ -67,7 +67,7 @@ export class SaloonEmployeeListComponent implements OnInit {
         .subscribe((data)=>{
               this.appProvider.current.waitLoader=false
             if(data.response){
-              this.toastr.success(data.message ,'Employee List',{toastLife: 1000, showCloseButton: true})
+              this.toastr.success('All employee list fetched successfully' ,'Success',{toastLife: 1000, showCloseButton: true})
               this.employeeList=data.data
              // this.router.navigate(['/header-three-layout/saloon-employee-list']);
             }else if (data.message=='Employee not find') {
@@ -98,7 +98,9 @@ export class SaloonEmployeeListComponent implements OnInit {
                  }
               // code...
           }
-     this.addEmployee=data;
+     this.addEmployee= Object.assign({}, data);
+     // let a=Object.create(data);
+    
 	}
 	onview(data){
      this.addEmployee=data;
@@ -111,7 +113,9 @@ export class SaloonEmployeeListComponent implements OnInit {
     }
 
     onUpdate(){
-      //this.appProvider.current.waitLoader=true
+      // console.log(this.addEmployee)
+      // this.addEmployee=Object.assign(this.addEmployee);
+      this.appProvider.current.waitLoader=true
       delete(this.addEmployee.created_at)
       delete(this.addEmployee.updated_at)
       delete(this.addEmployee.status)
@@ -119,9 +123,10 @@ export class SaloonEmployeeListComponent implements OnInit {
         .subscribe((data)=>{
               this.appProvider.current.waitLoader=false
             if(data.response){
+              this.getDetails()
               this.appProvider.current.waitLoader=false
-              this.toastr.success(data.message ,'Employee Update',{toastLife: 1000, showCloseButton: true})
-              this.employeeList=data.data
+              this.toastr.success('Employee details updated successfully' ,'Success',{toastLife: 1000, showCloseButton: true})
+             /// this.employeeList=data.data
              // this.router.navigate(['/header-three-layout/saloon-employee-list']);
             }else if (data.message=='Employee not find') {
                this.toastr.error('Employee not find' ,'Updation Failed',{toastLife: 1000, showCloseButton: true});
@@ -132,12 +137,13 @@ export class SaloonEmployeeListComponent implements OnInit {
          })
     }
     onYes(){
+       this.appProvider.current.waitLoader=true
        this.saloonServices.deleteEmployeeById(this.addEmployee.id)
         .subscribe((data)=>{
               this.appProvider.current.waitLoader=false
             if(data.response){
               this.getDetails()
-              this.toastr.success(data.message ,'Employee List',{toastLife: 1000, showCloseButton: true})
+              this.toastr.success('Employee deleted successfully' ,'Success',{toastLife: 1000, showCloseButton: true})
               //this.employeeList=data.data
              // this.router.navigate(['/header-three-layout/saloon-employee-list']);
             }else if (data.message=='Employee not find') {

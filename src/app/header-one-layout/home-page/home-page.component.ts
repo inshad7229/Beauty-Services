@@ -12,10 +12,12 @@ declare var WOW;
     styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
+    saloon
+    customer
     constructor() {}
 
     ngOnInit() {
-    	
+    	  
 
           var sync1 = $("#sync1");
           var sync2 = $("#sync2");
