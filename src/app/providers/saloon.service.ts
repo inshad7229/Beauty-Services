@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
+import {AddEmployee} from '../models/employee'
 import  {ENV} from '../env'
   const httpOptions = {
      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -68,6 +69,46 @@ export class SaloonService {
     .pipe(
         tap(heroes => this.log(`saloonForgotPassword`)),
         catchError(this.handleError('saloonForgotPassword', []))
+      
+    );
+  }
+
+ AddEmployee(data): Observable<any> {
+    const url = `${ENV.mainApi}/addEmployee`;
+    return this.http.post<any>(url,data,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`addEmployee`)),
+        catchError(this.handleError('addEmployee', []))
+      
+    );
+  }
+
+   getEmployeeById(id): Observable<any> {
+    const url = `${ENV.mainApi}/employeeList/${id}`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`getEmployeeById`)),
+        catchError(this.handleError('getEmployeeById', []))
+      
+    );
+  }
+
+  deleteEmployeeById(id): Observable<any> {
+    const url = `${ENV.mainApi}/deleteEmployee/${id}`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`deleteEmployee`)),
+        catchError(this.handleError('deleteEmployee', []))
+      
+    );
+  }
+
+  updateEmployee(data): Observable<any> {
+    const url = `${ENV.mainApi}/updateEmployee`;
+    return this.http.post<any>(url,data,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`updateEmployee`)),
+        catchError(this.handleError('updateEmployee', []))
       
     );
   }

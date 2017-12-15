@@ -1,11 +1,23 @@
-import { NgModule } from '@angular/core';
+import { NgModule,OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { HttpClientModule }    from '@angular/common/http';
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import {TranslateModule} from '@ngx-translate/core';
 
 import { SaloonEmployeeListRoutingModule } from './saloon-employee-list-routing.module';
 import { SaloonEmployeeListComponent } from './saloon-employee-list.component';
-
+import {SaloonService} from '../../providers/saloon.service'
 @NgModule({
-    imports: [CommonModule, SaloonEmployeeListRoutingModule],
-    declarations: [SaloonEmployeeListComponent]
+    imports: [CommonModule, SaloonEmployeeListRoutingModule,
+         FormsModule,
+	    ReactiveFormsModule,
+	    MultiselectDropdownModule,
+	    HttpClientModule,
+	    ToastModule.forRoot(),
+	    TranslateModule],
+    declarations: [SaloonEmployeeListComponent],
+    providers:[SaloonService]
 })
 export class SaloonEmployeeListModule {}

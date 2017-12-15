@@ -2732,7 +2732,7 @@ form .form-control {
   text-align: center;
   width: 33.33%;
 }
-.tab-on-form .nav-pills > li.active > a, .tab-on-form .nav-pills > li.active > a:hover, .tab-on-form .nav-pills > li.active > a:focus {
+.tab-on-form .nav-pills > li.active > button, .tab-on-form .nav-pills > li.active > button:hover, .tab-on-form .nav-pills > li.active > button:focus {
   background-color: #d5275a;
   border-radius: 50%;
   color: #fff;
@@ -2741,17 +2741,20 @@ form .form-control {
   padding: 20px;
   width: 50px;
 }
-.tab-on-form .nav-pills > li > a {
+.tab-on-form .nav-pills > li > button {
   background-color: #d4d4d4;
   border-radius: 50%;
+  border: medium none;
   color: #333;
   float: none;
   font-size: 16px;
   font-weight: 600;
   height: 50px;
   margin: 0 auto;
+  position: relative;
   text-align: center;
   width: 50px;
+  z-index: 99;
 }
 .step-li::before {
   border: 1px solid #ccc;
