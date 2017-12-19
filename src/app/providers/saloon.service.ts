@@ -112,6 +112,49 @@ export class SaloonService {
       
     );
   }
+
+
+  //////////////////////services/////////////
+
+   Addservices(data): Observable<any> {
+    const url = `${ENV.mainApi}/servicesCreateBySaloon`;
+    return this.http.post<any>(url,data,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`servicesCreateBySaloon`)),
+        catchError(this.handleError('servicesCreateBySaloon', []))
+      
+    );
+  }
+
+   getservicesById(id): Observable<any> {
+    const url = `${ENV.mainApi}/servicesFindById/${id}`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`servicesFindById`)),
+        catchError(this.handleError('servicesFindById', []))
+      
+    );
+  }
+
+  deleteservicesById(id): Observable<any> {
+    const url = `${ENV.mainApi}/saloonDeleteId/${id}`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`saloonDeleteId`)),
+        catchError(this.handleError('saloonDeleteId', []))
+      
+    );
+  }
+
+  updateservices(data): Observable<any> {
+    const url = `${ENV.mainApi}/saloonServicesUpdate`;
+    return this.http.post<any>(url,data,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`saloonServicesUpdate`)),
+        catchError(this.handleError('saloonServicesUpdate', []))
+      
+    );
+  }
    /**
    * Handle Http operation that failed.
    * Let the app continue.

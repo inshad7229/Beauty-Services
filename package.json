@@ -31,10 +31,13 @@
     "@types/fullcalendar": "^2.7.46",
     "angular-2-dropdown-multiselect": "^1.6.3",
     "angular-calendar": "^0.22.1",
+    "angular4-oauth-login": "0.0.4",
+    "angular4-social-login": "^1.1.0",
     "core-js": "^2.4.1",
     "fullcalendar": "^3.7.0",
     "ng2-dropdown-multiselect": "^1.2.0",
     "ng2-toastr": "^4.1.2",
+    "ngx-facebook": "^2.4.0",
     "ngx-multiselect": "^1.1.0",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"

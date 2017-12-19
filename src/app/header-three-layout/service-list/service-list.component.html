@@ -37,38 +37,38 @@
 					                                            <th>Service Name</th>
 					                                            <th>Time</th>
 					                                            <th>Cost</th>
-					                                            <th>Employee Name</th>
+					                                            <!-- <th>Employee Name</th> -->
 					                                            <th>Action</th>
 					                                        </tr>
 					                                    </thead>
 					                                    <tbody>
-					                                        <tr>
-					                                        	<td>1</td>
-					                                            <td>Hair Cutting</td>
-					                                            <td>1 hr 30 min</td>
-					                                            <td>$100</td>
-					                                            <td><img class="user-view" src="img/avatar9.jpg">Smith</td>
+					                                        <tr *ngFor="let data of serviceList;let i =index">
+					                                        	<td>{{i+1}}</td>
+					                                            <td><span>{{data.name_eng}}</span><span></span></td>
+					                                            <td><span>{{data.time}}</span><span></span></td>
+					                                            <td><span>{{data.cost_eng}}</span><span></span></td>
+					                                            <!-- <td><img class="user-view" src="img/avatar9.jpg">Smith</td> -->
 					                                            <td>
 					                                            	<ul class="action-icon service-list">
 					                                            		<li class="edit-ic">
-					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#edit-servicelist">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#edit-servicelist"  (click)="onEdit(data)">
 					                                                            <i class="fa fa-pencil"></i>
 					                                                        </a>
 					                                                    </li>
 					                                                    <li class="view-ic">
-					                                                        <a href="javascript:void(0);" data-toggle="tooltip" title="View">
+					                                                        <a href="javascript:void(0);" data-toggle="tooltip" data-target="#view-employee" title="View" (click)="onview(data)">
 					                                                            <i class="fa fa-eye"></i>
 					                                                        </a>
 					                                                    </li>
 					                                                    <li class="close-ic">
-					                                                        <a href="javascript:void(0);" data-toggle="tooltip"  title="Close">
+					                                                        <a href="javascript:void(0);" data-toggle="tooltip"  title="Close" (click)="ondelete(data)">
 					                                                            <i class="fa fa-times"></i>
 					                                                        </a>
 					                                                    </li>
 					                                                </ul>
 					                                            </td>
 					                                        </tr>
-					                                        <tr>
+					                                       <!--  <tr>
 					                                            <td>2</td>
 					                                            <td>Nail Treatment</td>
 					                                            <td>45 Min</td>
@@ -147,7 +147,7 @@
 					                                                    </li>
 					                                                </ul>
 					                                            </td>
-					                                        </tr>
+					                                        </tr> -->
 					                                    </tbody>
 					                                </table>
 					                                <div class="table-pagination">
@@ -184,75 +184,243 @@
 			        </div>
 			        <div class="modal-body">
 			            <div class="add-emp-form">
+			            	<form class="services-addform" [formGroup]="addServicesForm">
+							            			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+							            				<div class="row">
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+			                                                  	<label>Select Category</label>
+			                                                    <div class="custom-select">
+			                                                        <ss-multiselect-dropdown [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)" [formControl]="addServicesForm.controls['category']" ></ss-multiselect-dropdown>
+			                                                        <p  *ngIf="addServicesForm.controls['category'].hasError('required') && addServicesForm.controls['category'].touched">
+					                                                     Category is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['category'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['category'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+			                                                    </div>
+			                                                </div>
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                    	<label>Select Time</label>
+			                                                    <div class="custom-select">
+			                                                        <select class="form-control" placeholder="Select Category" [formControl]="addServicesForm.controls['time']"  [(ngModel)]="addServicesModel.time">
+			                                                            <option disabled="">Select Time</option>
+			                                                            <option value="15">15 Min</option>
+			                                                            <option value="30">30 Min</option>
+			                                                            <option value="45">45 Min</option>
+			                                                            <option value="60">1 Hr</option>
+			                                                            <option value="75">1 Hr 15 Min</option>
+			                                                            <option value="90">1 Hr 30 Min</option>
+			                                                            <option value="105">1 Hr 45 Min</option>
+			                                                            <option value="120">2 Hr</option>
+			                                                            <option value="135">2 Hr 15 Min</option>
+			                                                            <option value="150">2 Hr 30 Min</option>
+			                                                            <option value="165">2 Hr 45 Min</option>
+			                                                            <option value="180">3 Hr</option>
+			                                                        </select>
+			                                                        <span class="caret"></span>
+			                                                        <p  *ngIf="addServicesForm.controls['time'].hasError('required') && addServicesForm.controls['time'].touched">
+					                                                     Time is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['time'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['time'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+			                                                    </div>
+						                                       
+						                                    </div>
+						                                </div>
+						                                <div class="row">
+						                                	<div class="form-group col-md-6 col-sm-6 col-xs-12">
+			                                                  	  <label>Service Name In English<small class="manidatory">*</small></label>
+						                                        <input type="text" placeholder="Service Name In English" [formControl]="addServicesForm.controls['serviceName_eng'] " [(ngModel)]="addServicesModel.name_eng"  class="form-control">
+						                                          <p  *ngIf="addServicesForm.controls['serviceName_eng'].hasError('required') && addServicesForm.controls['serviceName_eng'].touched">
+					                                                     Service Name in english  is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceName_eng'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceName_eng'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+			                                                </div>
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                          <label>Service Name In Arabic<small class="manidatory">*</small></label>
+						                                        <input type="text" placeholder="Service Name In Arabic" [formControl]="addServicesForm.controls['serviceName_arb']" class="form-control" [(ngModel)]="addServicesModel.name_arb">
+						                                        <p  *ngIf="addServicesForm.controls['serviceName_arb'].hasError('required') && addServicesForm.controls['serviceName_arb'].touched">
+					                                                     Service Name In Arabic  is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceName_arb'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceName_arb'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+						                                    </div>
+						                                </div>
+						                                <div class="row">
+						                                	<div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                       
+						                                        <label>Service Cost In English<small class="manidatory">*</small></label>
+						                                        <input type="text" placeholder="Service Cost In English" [formControl]="addServicesForm.controls['serviceCost_eng']" class="form-control" [(ngModel)]="addServicesModel.cost_eng" >
+						                                        <p  *ngIf="addServicesForm.controls['serviceCost_eng'].hasError('required') && addServicesForm.controls['serviceCost_eng'].touched">
+					                                                     Service Cost In English  is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceCost_eng'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceCost_eng'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+						                                    </div>
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                       <label>Service Cost In Arabic<small class="manidatory">*</small></label>
+						                                        <input type="text" placeholder="Service Cost In Arabic" [formControl]="addServicesForm.controls['serviceCost_arb']" class="form-control" [(ngModel)]="addServicesModel.cost_arb" >
+						                                        <p  *ngIf="addServicesForm.controls['serviceCost_arb'].hasError('required') && addServicesForm.controls['serviceCost_arb'].touched">
+					                                                     Service Cost In Arabic  is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceCost_arb'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceCost_arb'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+						                                    </div>
+						                                </div>
+						                                <div class="row">
+						                                	<div class="form-group col-md-12 col-sm-12 col-xs-12">
+						                                        <label>
+						                                        	Service Description In English<small class="manidatory">*</small>
+						                                        </label>
+						                                        <textarea class="cus-textarea form-control" col="8" rows="10" placeholder="Service Description In English" [formControl]="addServicesForm.controls['serviceDes_eng']" [(ngModel)]="addServicesModel.description_eng" ></textarea>
+						                                         <p  *ngIf="addServicesForm.controls['serviceDes_eng'].hasError('required') && addServicesForm.controls['serviceDes_eng'].touched">
+					                                                     Service Description In English  is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceDes_eng'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceDes_eng'].hasError('maxlength')">
+					                                                           max length is 500
+					                                                </p>
+						                                    </div>
+						                                </div>
+						                                <div class="row">
+						                                	<div class="form-group col-md-12 col-sm-12 col-xs-12">
+						                                        <label>
+						                                        	Service Description In Arabic<small class="manidatory">*</small>
+						                                        </label>
+						                                        <textarea class="cus-textarea form-control" col="8" rows="10" placeholder="Service Description In Arabic" [formControl]="addServicesForm.controls['serviceDes_arb']" [(ngModel)]="addServicesModel.description_arb" ></textarea>
+						                                         <p  *ngIf="addServicesForm.controls['serviceDes_arb'].hasError('required') && addServicesForm.controls['serviceDes_arb'].touched">
+					                                                     Service Description In Arabic  is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceDes_arb'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceDes_arb'].hasError('maxlength')">
+					                                                           max length is 500
+					                                                </p>
+						                                    </div>
+						                                </div>
+						                                <div class="modal-footerbtn">
+												          	<span class="save-bt">
+												          		<button class="btn cut-btn" [disabled]="!addServicesForm.valid" (click)="onAddService()">update</button>
+												          	</span>
+											          	</div>
+							            			</div>
+								            	</form>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+
+		<!-- ========== view employe list details-->
+		<div class="modal fade custom-modal" id="view-employee" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-md" role="document">
+			    <div class="modal-content">
+			        <div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			            	<span aria-hidden="true">&times;</span>
+			            </button>
+			            <h4 class="modal-title" id="myModalLabel">Employee Details</h4>
+			        </div>
+			        <div class="modal-body">
+			            <div class="view-emp-detail">
 			            	<form class="img-responsive">
 		            			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-		            				<div class="row">
-	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                          	<label>Select Category</label>
-                                            <div class="custom-select">
-                                                <select class="form-control multiselect" placeholder="Select Category" multiple="multiple">
-                                                    <option disabled="">Select Category</option>
-                                                    <option name="nsw" selected="">Saloon</option>
-                                                    <option name="vic">spa</option>
-                                                    <option name="qld">Stylist</option>
-                                                    <option name="wa">Ayurveda</option>
-                                                </select>
-                                            </div>
-                                        </div>
-	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-	                                        <label>Service Name<small class="manidatory">*</small></label>
-	                                        <input type="text" value="Skin Treatment" class="form-control">
+		            				<!-- <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+		            					<div class="emp-viewimg">
+		            						 <img *ngIf="!addEmployee.employee_image || addEmployee.employee_image==null" src="assets/img/user-pro-1.jpg"  class="img-responsive" alt="NO-IMAGES">
+								             <img  class="img-responsive" *ngIf="addEmployee.employee_image" [src]="imagePath(addEmployee.employee_image)" >
+		            					</div>
+		            				</div> -->
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                    	<div class="employe-details">
+	                                    	<div class="info-list">
+
+
+
+
+
+
+				                          		<dl class="dl-horizontal">
+												  <dt>Employee Name</dt>
+												  <dd>{{addServicesModel.first_name}} {{addServicesModel.last_name}}</dd>
+												  <dt>Email</dt>
+												  <dd>{{addServicesModel.email}}</dd>
+												  <dt>Contact Number</dt>
+												  <dd>{{addServicesModel.contact_number}}</dd>
+												  <dt>Gender</dt>
+												  <dd>{{addServicesModel.gender}}</dd>
+												  <dt>Saloon Service</dt>
+												  <dd>{{addServicesModel.services}}</dd>
+												  <!-- <dt>Employee Address</dt>
+												  <dd>Headquarters 1120 N Street Sacramento 916-654-5266</dd> -->
+												  <dt>Description</dt>
+												  <dd>{{addServicesModel.details}}</dd>
+												</dl>
+				                          	</div>
 	                                    </div>
-	                                </div>
-	                                <div class="row">
-	                                	<div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                          	<label>Select Time <small class="manidatory">*</small></label>
-                                            <div class="custom-select">
-                                                <select class="form-control" placeholder="Select Category">
-                                                    <option disabled="">Select Time</option>
-                                                    <option name="nsw" selected="">30 Min</option>
-                                                    <option name="vic">1 Hr</option>
-                                                    <option name="qld">1 hr 30 Min</option>
-                                                    <option name="wa">2 hr</option>
-                                                    <option name="wa">2 hr 30 Min</option>
-                                                </select>
-                                                <span class="caret"></span>
-                                            </div>
-                                        </div>
-	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-	                                        <label>Service Cost <small class="manidatory">*</small></label>
-	                                        <input  type="email" value="$200" class="form-control">
-	                                    </div>
-	                                </div>
-	                                <div class="row">
-	                                	<div class="form-group col-md-12 col-sm-12 col-xs-12">
-	                                        <label>Employee First Name<small class="manidatory">*</small>
-	                                        </label>
-	                                        <input type="email" value="John" class="form-control">
-	                                    </div>
-	                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-	                                        <label>Employee Last Name<small class="manidatory">*</small>
-	                                        </label>
-	                                        <input type="email" value="Smith" class="form-control">
-	                                    </div>
-	                                </div>
-	                                <div class="row">
-	                                	<div class="form-group col-md-12 col-sm-12 col-xs-12">
-	                                        <label>
-	                                        Service Description<small class="manidatory">*</small>
-	                                        </label>
-	                                        <textarea class="cus-textarea form-control" col="8" rows="10" Placeholder="Lorem ipsum is a dummy text"></textarea>
-	                                    </div>
-	                                </div>
+                                    </div>
 		            			</div>
 					          	<div class="modal-footerbtn">
-						          	<span class="save-bt">
-						          		<button type="button" class="btn cut-btn" data-dismiss="modal" aria-label="Close">
-						          		 Save
-						          		</button>
-						          	</span>
+						          	<div class="col-md-12 col-sm-12 col-xs-12 text-center">
+							          		<button type="button" class="btn cut-btn" data-dismiss="modal" aria-label="Close"> OK
+							          		</button>
+						          	</div>
 					          	</div>
 			            	</form>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+		<div class="modal fade custom-modal" id="conformation-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-md" role="document">
+			    <div class="modal-content">
+			        <!-- <div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			            	<span aria-hidden="true">&times;</span>
+			            </button>
+			            <h4 class="modal-title" id="myModalLabel">Employee Details</h4>
+			        </div> -->
+			        <div class="modal-body">
+			            <div class="view-emp-detail">
+			            	<div class="confirm-info">
+			            		<h4>Are you sure you want to delete this user ?</h4>
+			            		<div class="btn-conformation">
+			            			<span class="yes-confirm">
+			            				<button type="button" data-dismiss="modal" class="cut-btn btn" (click)="onYes()">Yes</button>
+			            			</span>
+			            			<span class="confirm-no2">
+			            				<button type="button" data-dismiss="modal" class="cut-btn btn">No</button>
+			            			</span>
+			            		</div>
+			            	</div>
 			            </div>
 			        </div>
 			    </div>

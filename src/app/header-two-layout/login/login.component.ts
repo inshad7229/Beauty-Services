@@ -4,6 +4,11 @@ import { ToastsManager , Toast} from 'ng2-toastr';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import {SaloonService} from '../../providers/saloon.service'
 import {CustomerService} from '../../providers/customer.service'
+import { FacebookService, LoginResponse, LoginOptions, UIResponse, UIParams, FBVideoComponent } from 'ngx-facebook';
+import { AuthService } from "angular4-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
+import { SocialUser } from "angular4-social-login";
+
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 @Component({
     selector: 'app-login',
@@ -13,11 +18,21 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 export class LoginComponent implements OnInit {
 	verifiactionForm:FormGroup
 	loginModel
+  private user: SocialUser;
+  private loggedIn: boolean;
     constructor(public router: Router, private fb: FormBuilder, 
                 private saloonServices:SaloonService,
                 vcr: ViewContainerRef,
                 private toastr: ToastsManager,
-                private customerService:CustomerService) {
+                private customerService:CustomerService,
+                private facebook: FacebookService,
+                private authService: AuthService,) {
+       console.log('Initializing Facebook');
+
+        facebook.init({
+          appId: '133126570696425',
+          version: 'v2.9'
+        });
     	    this.loginModel={}
     	    this.toastr.setRootViewContainerRef(vcr);
     	     this.verifiactionForm = fb.group({
@@ -29,7 +44,12 @@ export class LoginComponent implements OnInit {
         this.loginModel.loginAS='saloon'
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+       this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+    });
+    }
 
      onLogin(){
        if (this.loginModel.loginAS=='saloon') {
@@ -71,5 +91,28 @@ export class LoginComponent implements OnInit {
           this.toastr.info( 'Please Select Login AS' );
         }
        }
-        
+   login() {
+    this.facebook.login()
+      .then((res: LoginResponse) => {
+        console.log('Logged in', res);
+      })
+      .catch(this.handleError);
+  }
+
+  signInWithGoogle(): void {
+    alert('hy')
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+ 
+  signInWithFB(): void {
+     alert('hy')
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+ 
+  signOut(): void {
+    this.authService.signOut();
+  }
+  private handleError(error) {
+    console.error('Error processing action', error);
+  }
 }
