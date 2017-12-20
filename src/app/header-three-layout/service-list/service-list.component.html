@@ -1,3 +1,6 @@
+	 <div class="loader-box" *ngIf="waitLoader==true">
+         <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
+ </div>
 	<!-- BEGIN CONTENT -->
 			<div class="page-content-wrapper">
 				<div class="page-content">
@@ -25,7 +28,7 @@
 										<div class="col-md-12 col-sm-12 col-xs-12 p-0">
 											<div class="add-emp-form">	
 												<div class="add-employee">
-													<a href="add-service.php" class="btn cus-btn">
+													<a routerLink="/header-three-layout/add-service" class="btn cus-btn">
 														<i class="fa fa-plus"></i> Add Services	
 													</a>
 												</div>
@@ -56,12 +59,12 @@
 					                                                        </a>
 					                                                    </li>
 					                                                    <li class="view-ic">
-					                                                        <a href="javascript:void(0);" data-toggle="tooltip" data-target="#view-employee" title="View" (click)="onview(data)">
+					                                                        <a href="javascript:void(0);" data-target="#view-service" data-toggle="modal"   (click)="onview(data)">
 					                                                            <i class="fa fa-eye"></i>
 					                                                        </a>
 					                                                    </li>
 					                                                    <li class="close-ic">
-					                                                        <a href="javascript:void(0);" data-toggle="tooltip"  title="Close" (click)="ondelete(data)">
+					                                                        <a href="javascript:void(0);" data-target="#conformation-modal" data-toggle="modal"  (click)="ondelete(data)">
 					                                                            <i class="fa fa-times"></i>
 					                                                        </a>
 					                                                    </li>
@@ -327,7 +330,7 @@
 						                                </div>
 						                                <div class="modal-footerbtn">
 												          	<span class="save-bt">
-												          		<button class="btn cut-btn" [disabled]="!addServicesForm.valid" (click)="onAddService()">update</button>
+												          		<button class="btn cut-btn" data-dismiss="modal" [disabled]="!addServicesForm.valid" (click)="onUpdate()">update</button>
 												          	</span>
 											          	</div>
 							            			</div>
@@ -339,14 +342,14 @@
 		</div>
 
 		<!-- ========== view employe list details-->
-		<div class="modal fade custom-modal" id="view-employee" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal fade custom-modal" id="view-service" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog modal-md" role="document">
 			    <div class="modal-content">
 			        <div class="modal-header">
 			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			            	<span aria-hidden="true">&times;</span>
 			            </button>
-			            <h4 class="modal-title" id="myModalLabel">Employee Details</h4>
+			            <h4 class="modal-title" id="myModalLabel">Service Details</h4>
 			        </div>
 			        <div class="modal-body">
 			            <div class="view-emp-detail">
@@ -360,7 +363,7 @@
 		            				</div> -->
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                     	<div class="employe-details">
-	                                    	<div class="info-list">
+	                                    	<div class="info-list service-details">
 
 
 
@@ -368,20 +371,22 @@
 
 
 				                          		<dl class="dl-horizontal">
-												  <dt>Employee Name</dt>
-												  <dd>{{addServicesModel.first_name}} {{addServicesModel.last_name}}</dd>
-												  <dt>Email</dt>
-												  <dd>{{addServicesModel.email}}</dd>
-												  <dt>Contact Number</dt>
-												  <dd>{{addServicesModel.contact_number}}</dd>
-												  <dt>Gender</dt>
-												  <dd>{{addServicesModel.gender}}</dd>
-												  <dt>Saloon Service</dt>
-												  <dd>{{addServicesModel.services}}</dd>
-												  <!-- <dt>Employee Address</dt>
-												  <dd>Headquarters 1120 N Street Sacramento 916-654-5266</dd> -->
-												  <dt>Description</dt>
-												  <dd>{{addServicesModel.details}}</dd>
+												  <dt>Service Name In English:</dt>
+												  <dd>{{addServicesModel.name_eng}}</dd>
+												  <dt>Service Name In Arabic:</dt>
+												  <dd>{{addServicesModel.name_arb}}</dd>
+												  <dt>Category:</dt>
+												  <dd>{{addServicesModel.category}}</dd>
+												  <dt>Time:</dt>
+												  <dd>{{addServicesModel.time}}</dd>
+												  <dt>Service Cost In English:</dt>
+												  <dd>{{addServicesModel.cost_eng}}</dd>
+												  <dt>Service Cost In Arabic:</dt>
+												  <dd>{{addServicesModel.cost_arb}}</dd>
+												  <dt>Service Description In English:</dt>
+												  <dd>{{addServicesModel.description_eng}}</dd>
+												  <dt>Service Description In Arabic:</dt>
+												  <dd>{{addServicesModel.description_arb}}</dd>
 												</dl>
 				                          	</div>
 	                                    </div>
@@ -402,16 +407,10 @@
 		<div class="modal fade custom-modal" id="conformation-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog modal-md" role="document">
 			    <div class="modal-content">
-			        <!-- <div class="modal-header">
-			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			            	<span aria-hidden="true">&times;</span>
-			            </button>
-			            <h4 class="modal-title" id="myModalLabel">Employee Details</h4>
-			        </div> -->
 			        <div class="modal-body">
 			            <div class="view-emp-detail">
 			            	<div class="confirm-info">
-			            		<h4>Are you sure you want to delete this user ?</h4>
+			            		<h4>Are you sure you want to delete this service ?</h4>
 			            		<div class="btn-conformation">
 			            			<span class="yes-confirm">
 			            				<button type="button" data-dismiss="modal" class="cut-btn btn" (click)="onYes()">Yes</button>

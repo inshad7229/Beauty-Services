@@ -115,7 +115,7 @@ export class ServiceListComponent implements OnInit {
       delete(this.addServicesModel.created_at)
       delete(this.addServicesModel.updated_at)
       delete(this.addServicesModel.status)
-        this.saloonServices.updateEmployee(this.addServicesModel)
+        this.saloonServices.updateservices(this.addServicesModel)
         .subscribe((data)=>{
               this.waitLoader=false
             if(data.response){
@@ -134,7 +134,7 @@ export class ServiceListComponent implements OnInit {
     }
     onYes(){
        this.waitLoader=true
-       this.saloonServices.deleteEmployeeById(this.addServicesModel.id)
+       this.saloonServices.deleteservicesById(this.addServicesModel.id)
         .subscribe((data)=>{
               this.waitLoader=false
             if(data.response){

@@ -6,6 +6,7 @@ import { HttpClientModule }    from '@angular/common/http';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import {TranslateModule} from '@ngx-translate/core';
+import { AgmCoreModule } from '@agm/core';
 
 
 import { SaloonSignupRoutingModule } from './saloon-signup-routing.module';
@@ -22,7 +23,11 @@ declare var $
 	    MultiselectDropdownModule,
 	    HttpClientModule,
 	    ToastModule.forRoot(),
-	    TranslateModule
+	    TranslateModule,
+	    AgmCoreModule.forRoot({
+	      apiKey: "AIzaSyCSqtRTdfc2DOAYpOut4KEwS1xL5or4ekI",
+	      libraries: ["places"]
+	    }),
     ],
     declarations: [SaloonSignupComponent],
     providers:[SaloonService]

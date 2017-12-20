@@ -30,6 +30,7 @@
                             </div>
                             <div class="form-wrap">
                                 <div class="tab-content">
+                                        </div>
                                     <div *ngIf="currentTab=='tab1'" class="saloon-form tab-pane {{tab1}}" id="tab_a">
                                          <form [formGroup]="accountCreationForm">
                                               <p class="info-text">{{ 'saloonSignup.message2' | translate }}<a href="javascript:void(0);">{{ 'saloonSignup.message3' | translate }}</a></p>
@@ -48,6 +49,8 @@
                                                     </p> 
                                                 </div>
                                             </div>
+
+                                             
                                             <div class="row">
                                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                     <label>{{ 'saloonSignup.enterName' | translate }}</label>
@@ -127,18 +130,25 @@
                                                 </div>
                                             </div>
                                             <div class="row">
+                                                {{latitude}}
+                                                {{longitude}}
                                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                     <label>{{ 'saloonSignup.enterYourCity' | translate }}</label>
-                                                    <input type="text" placeholder="{{ 'saloonSignup.enterYourCity' | translate }}" [formControl]="accountCreationForm.controls['city']" class="form-control" [(ngModel)]="accountCreationModel.city">
-                                                    <p  *ngIf="accountCreationForm.controls['city'].hasError('required') && accountCreationForm.controls['city'].touched">
+                                                    <!-- <input type="text" placeholder="{{ 'saloonSignup.enterYourCity' | translate }}" [formControl]="accountCreationForm.controls['city']" class="form-control" [(ngModel)]="accountCreationModel.city"> -->
+                                                <input placeholder="{{ 'saloonSignup.enterYourCity' | translate }}" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" [formControl]="accountCreationForm.controls['city']" class="form-control" [(ngModel)]="accountCreationModel.city"  #search>
+                                                <p  *ngIf="accountCreationForm.controls['city'].hasError('required') && accountCreationForm.controls['city'].touched">
                                                      City is <strong>required</strong>
-                                                    </p>
-                                                    <p  *ngIf="accountCreationForm.controls['city'].hasError('pattern')">
-                                                               Only alphabets are acceptable 
-                                                    </p>  
-                                                    <p  *ngIf="accountCreationForm.controls['city'].hasError('maxlength')">
-                                                               Max length is 30
-                                                    </p>
+                                                </p>
+                                                <p  *ngIf="accountCreationForm.controls['city'].hasError('pattern')">
+                                                           Only alphabets are acceptable 
+                                                </p>  
+                                                <p  *ngIf="accountCreationForm.controls['city'].hasError('maxlength')">
+                                                           Max length is 300
+                                                </p>
+                                              <agm-map [latitude]="accountCreationModel.latitude" [longitude]="accountCreationModel.longitude" [scrollwheel]="false" [zoom]="zoom">
+                                                <agm-marker [latitude]="accountCreationModel.latitude" [longitude]="accountCreationModel.longitude"></agm-marker>
+                                              </agm-map>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -246,7 +256,7 @@
                                                     </div>
                                                 </div>
                                             </form>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>

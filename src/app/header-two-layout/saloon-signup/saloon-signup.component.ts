@@ -1,13 +1,17 @@
-import { Component, OnInit,ViewContainerRef } from '@angular/core';
+import { Component, OnInit,ViewContainerRef ,ElementRef, ViewChild,NgZone} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastsManager , Toast} from 'ng2-toastr';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 import { TranslateService } from '@ngx-translate/core';
 
+import { } from 'googlemaps';
+import { MapsAPILoader } from '@agm/core';
+
 import {SaloonService} from '../../providers/saloon.service'
 import {SaloonDetailsModel,AccountCreationModel,VerifiactionModel} from '../../models/saloon.modal';
 declare var $
+declare var google
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 @Component({
     selector: 'app-saloon-signup',
@@ -15,6 +19,8 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
     styleUrls: ['./saloon-signup.component.scss']
 })
 export class SaloonSignupComponent implements OnInit {
+      @ViewChild("search")
+      public searchElementRef: ElementRef;
         accountCreationForm: FormGroup;
         verifiactionForm:FormGroup
         saloonDetailsForm:FormGroup
@@ -32,12 +38,22 @@ export class SaloonSignupComponent implements OnInit {
         tab1:string='active'
         tab2:string=''
         tab3:string=''
+       
+
+      public latitude: number;
+      public longitude: number;
+      public searchControl: FormControl;
+      public zoom: number;
+
+
 
     constructor(public router: Router, private fb: FormBuilder, 
                 private saloonServices:SaloonService,
                 vcr: ViewContainerRef,
                 private toastr: ToastsManager,
-                private translate: TranslateService)
+                private translate: TranslateService,
+                private mapsAPILoader: MapsAPILoader,
+                private ngZone: NgZone)
                  {
 
             this.toastr.setRootViewContainerRef(vcr); 
@@ -48,7 +64,7 @@ export class SaloonSignupComponent implements OnInit {
                 'contactNumber': [null, Validators.compose([Validators.required,Validators.maxLength(12),Validators.pattern('[0-9]*')])],
                 'password': [null, Validators.compose([Validators.required,Validators.maxLength(12)])],
                 'confirmPassword': [null, Validators.compose([Validators.required,Validators.maxLength(12)])],
-                'city': [null, Validators.compose([Validators.required,Validators.maxLength(30)])],
+                'city': [null, Validators.compose([Validators.required,Validators.maxLength(300)])],
                 'termCondition': [null, Validators.compose([Validators.required])]
             
         }) 
@@ -79,7 +95,53 @@ export class SaloonSignupComponent implements OnInit {
             { id:5, name: 'Option 5' },
             { id:6, name: 'Option 6' },
         ];
+
+
+         //set google maps defaults
+    this.zoom = 4;
+    this.accountCreationModel.latitude = 39.8282;
+    this.accountCreationModel.longitude = -98.5795;
+
+    //create search FormControl
+    this.searchControl = new FormControl();
+
+    //set current position
+    this.setCurrentPosition();
+
+    //load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: ["address"]
+      });
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+         // alert(place.formatted_address)
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+          
+          //set latitude, longitude and zoom
+          this.accountCreationModel.city=place.formatted_address
+          this.accountCreationModel.latitude = place.geometry.location.lat();
+          this.accountCreationModel.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });
+    });
     }
+
+    private setCurrentPosition() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.accountCreationModel.latitude = position.coords.latitude;
+        this.accountCreationModel.longitude = position.coords.longitude;
+        this.zoom = 12;
+      });
+    }
+  }
     onChange() {
         console.log(this.optionsModel);
     }
