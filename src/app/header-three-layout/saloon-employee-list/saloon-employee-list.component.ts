@@ -22,6 +22,12 @@ export class SaloonEmployeeListComponent implements OnInit {
 	services
 	addEmployee:AddEmployee=new AddEmployee()
 	updateEmployeeForm: FormGroup;
+left:number=1
+middle:number=2
+right:number=3
+activeLeft:string='active'
+activeMiddle:string=''
+activeRigth:string=''
     constructor(public router: Router, private fb: FormBuilder,
                 vcr: ViewContainerRef,
                 private toastr: ToastsManager,
@@ -154,4 +160,41 @@ export class SaloonEmployeeListComponent implements OnInit {
             }
          })
     }
+
+    ////////////////////////////pagination bloc////////////////
+onPrevious(){
+this.activeLeft=""
+this.activeMiddle=""
+this.activeRigth=""
+ if (this.left>3) {
+   this.left=this.left-3
+   this.middle=this.middle-3
+   this.right=this.right-3
+ }
+}
+onLeft(){
+this.activeLeft="active"
+this.activeMiddle=""
+this.activeRigth=""
+
+}
+onMiddle(){
+this.activeLeft=""
+this.activeMiddle="active"
+this.activeRigth=""
+}
+onRigth(){
+this.activeLeft=""
+this.activeMiddle=""
+this.activeRigth="active"
+}
+
+onNext(){
+this.activeLeft=""
+this.activeMiddle=""
+this.activeRigth=""
+ this.left=this.left+3
+   this.middle=this.middle+3
+   this.right=this.right+3
+}
 }

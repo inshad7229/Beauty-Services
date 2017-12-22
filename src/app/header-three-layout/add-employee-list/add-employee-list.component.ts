@@ -39,7 +39,6 @@ export class AddEmployeeListComponent implements OnInit {
                 'services': [null, Validators.compose([Validators.required,Validators.maxLength(100)])],
                 'detailsEng': [null, Validators.compose([Validators.required,Validators.maxLength(1000)])],
                 'detailsArb': [null, Validators.compose([Validators.required,Validators.maxLength(1000)])],
-                'employeeId': [null, Validators.compose([Validators.required])],
                 
 
 

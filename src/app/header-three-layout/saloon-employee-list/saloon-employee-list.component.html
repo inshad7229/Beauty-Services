@@ -29,7 +29,7 @@
 										<div class="col-md-12 col-sm-12 col-xs-12 p-0">
 											<div class="emp-list-sec">	
 												<div class="add-employee">
-													<a href="add-employee.php" class="btn cus-btn">
+													<a routerLink="/header-three-layout/add-employee-list" class="btn cus-btn">
 														<i class="fa fa-plus"></i> Add Employee	
 													</a>
 												</div>
@@ -48,8 +48,8 @@
 					                                        </tr>
 					                                    </thead>
 					                                    <tbody>
-					                                       <tr *ngFor="let data of employeeList; let i=index">
-					                                            <td>{{i+1}}</td>
+					                                       <tr *ngFor="let data of employeeList | paginate: { itemsPerPage: 3, currentPage: p }; let i=index  ">
+					                                            <td>{{i+1}}</td> 
 					                                            <td>
 					                                            	 <img *ngIf="!data.employee_image || data.employee_image==null" src="assets/img/user-pro-1.jpg" class="user-view" alt="NO-IMAGES">
 								                            			<img class="user-view" *ngIf="data.employee_image" [src]="imagePath(data.employee_image)" >
@@ -178,13 +178,18 @@
 												</div>
 												<div class="table-pagination">
 													<div class="pagination">
-													  <a href="#"><i class="fa fa-angle-left"></i></a>
-													  <a href="#">1</a>
-													  <a href="#" class="active">2</a>
-													  <a href="#">3</a>
-													  <a href="#"><i class="fa fa-angle-right"></i></a>
+													  <!-- <a href="javascript:void(0)"
+													   (click)="onPrevious()" ><i class="fa fa-angle-left"></i></a>
+													  <a href="javascript:void(0)" 
+													   (click)="onLeft()" class="{{activeLeft}}">{{left}}</a>
+													  <a (click)="onMiddle()" href="javascript:void(0)" class="{{activeMiddle}}">{{middle}}</a>
+													  <a (click)="onRigth()" href="javascript:void(0)" class="{{activeRigth}}">{{right}}</a>
+													  <a href="javascript:void(0)" 
+													   (click)="onNext()"><i class="fa fa-angle-right"></i></a> -->
+													   <pagination-controls (pageChange)="p = $event"  previousLabel=""  nextLabel="" ></pagination-controls>
 													</div>
 												</div>
+												<!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
 											</div>
 										</div>
 									</div>

@@ -40,12 +40,19 @@
 																	  <dd>{{userDetail.email}}</dd>
 																	  <dt>Contact Number</dt>
 																	  <dd>{{userDetail.contact_number}}</dd>
-																	  <dt>City</dt>
-																	  <dd>{{userDetail.city}}</dd>
 																	  <dt>Services Category</dt>
 																	  <dd>Saloon</dd>
 																	  <dt>Saloon Service</dt>
 																	  <dd>Hair, Skin, Nail Treatment</dd>
+																	  <dt>Opening Time</dt>
+																	  <dd>{{getHours(userDetail.opening_time.hour)}} : {{getMin(userDetail.opening_time.minute)}} {{getAmPm(userDetail.opening_time.hour)}}</dd>
+																	  <dt>Closing Time</dt>
+																	  <dd>{{getHours(userDetail.closing_time.hour)}} : {{getMin(userDetail.closing_time.minute)}} {{getAmPm(userDetail.closing_time.hour)}}</dd>
+																	  <dt>City</dt>
+																	  <dd>{{userDetail.city}}</dd>
+																	  <agm-map id="demo2" [latitude]="userDetail.latitude" [longitude]="userDetail.longitude" [scrollwheel]="false" [zoom]="zoom">
+                                        									<agm-marker [latitude]="userDetail.latitude" [longitude]="userDetail.longitude"></agm-marker>
+	                                              					</agm-map>
 																	</dl>
 									                          	</div>
 										                    </div>
@@ -80,14 +87,6 @@
 						                                            </div>
 						                                        </div>
 						                                        <div class="row">
-						                                            <!-- <div class="form-group col-md-6 col-sm-6 col-xs-12">
-						                                                <label>Enter Your State</label>
-						                                                <input type="text" placeholder="Enter Your State" class="form-control">
-						                                            </div> -->
-						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
-						                                                <label>Enter Your City</label>
-						                                                <input type="text" placeholder="Enter Your City" class="form-control" [formControl]="accountDetailsForm.controls['city']" [(ngModel)]="userDetail.city">
-						                                            </div>
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 					                                                  	<label>Select Service</label>
 					                                                    <div class="custom-select">
@@ -102,8 +101,6 @@
 					                                                        <ss-multiselect-dropdown [formControl]="accountDetailsForm.controls['selectService']" [options]="myOptions2" [(ngModel)]="optionsModel2" (ngModelChange)="onChange2($event)" ></ss-multiselect-dropdown>
 					                                                    </div>
 					                                                </div>
-						                                        </div>
-						                                        <div class="row">
 					                                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
 					                                                    <label>Select Category</label>
 					                                                    <div class="custom-select">
@@ -117,20 +114,41 @@
 					                                                        <ss-multiselect-dropdown [formControl]="accountDetailsForm.controls['selectCategory']"  [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
 					                                                    </div>
 					                                                </div>
-					                                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-					                                                  	<!-- <label>Select Service</label>
+					                                            </div>
+
+					                                            <div class="row">
+						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+					                                                  	<label>Opening Time</label>
 					                                                    <div class="custom-select">
-					                                                        <select class="form-control multiselect" placeholder="Select Services" multiple="multiple">
-					                                                            <option disabled="">Select Services</option>
-					                                                            <option name="nsw">Hair</option>
-					                                                            <option name="vic">Skin</option>
-					                                                            <option name="qld">Nail Treatment</option>
-					                                                            <option name="qld">Essentials</option>
-					                                                            <option name="qld">Innovations</option>
-					                                                        </select>
-					                                                    </div> -->
+					                                                    	<ngb-timepicker [(ngModel)]="userDetail.opening_time" [meridian]="true" [spinners]="false" [formControl]="accountDetailsForm.controls['time1']" ></ngb-timepicker>
+					                                                    </div>
+					                                                </div>
+					                                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+					                                                    <label>Closing Time</label>
+					                                                    <div class="custom-select">
+					                                                    	<ngb-timepicker [(ngModel)]="userDetail.closing_time" [meridian]="true" [spinners]="false" [formControl]="accountDetailsForm.controls['time2']" ></ngb-timepicker>
+					                                                    </div>
 					                                                </div>
 					                                            </div>
+
+						                                        <div class="row">
+						                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+						                                                <label>Enter Your City</label>
+						                                                <input placeholder="City" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" [formControl]="accountDetailsForm.controls['city']" class="form-control" [(ngModel)]="userDetail.city"  #search>
+						                                                <p  *ngIf="accountDetailsForm.controls['city'].hasError('required') && accountDetailsForm.controls['city'].touched">
+						                                                     City is <strong>required</strong>
+						                                                </p>
+						                                                <p  *ngIf="accountDetailsForm.controls['city'].hasError('pattern')">
+						                                                           Only alphabets are acceptable 
+						                                                </p>  
+						                                                <p  *ngIf="accountDetailsForm.controls['city'].hasError('maxlength')">
+						                                                           Max length is 300
+						                                                </p>
+	                                              						<agm-map id="demo" [latitude]="userDetail.latitude" [longitude]="userDetail.longitude" [scrollwheel]="false" [zoom]="zoom">
+	                                                						<agm-marker [latitude]="userDetail.latitude" [longitude]="userDetail.longitude"></agm-marker>
+	                                              					</agm-map>
+						                                            </div>
+						                                        </div>
 										                        <div class="row">
 									                            	<ul class="update-form-ul">
 									                            		<li>

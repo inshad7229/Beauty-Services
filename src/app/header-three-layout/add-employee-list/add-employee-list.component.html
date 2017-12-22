@@ -221,19 +221,11 @@
 							                                                </div>
 							                                                <div class="profile-upload">
 							                                                    <div class="input-btn">
-							                                                        <input type="file"  [formControl]="addEmployeeForm.controls['employeeId']" (change)="idUploadEvent($event)" />
+							                                                        <input type="file"  (change)="idUploadEvent($event)" value="demo" />
 							                                                        <button class="btn cus-btn"> 
 							                                                        <i class="fa fa-address-card"></i> Upload Id</button>
 							                                                    </div>
-							                                                    <p  *ngIf="addEmployeeForm.controls['employeeId'].hasError('required') && addEmployeeForm.controls['employeeId'].touched">
-								                                                    Employee Id is <strong>required</strong>
-								                                                </p>
-								                                                <p  *ngIf="addEmployeeForm.controls['employeeId'].hasError('pattern')">
-								                                                           only alphabets are acceptable 
-								                                                </p>
-								                                                <p  *ngIf="addEmployeeForm.controls['employeeId'].hasError('maxlength')">
-								                                                           max length is 100
-								                                                </p>
+							                                                    
 							                                                </div>
 							                                            </div>
 								                                    </div>

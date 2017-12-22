@@ -42,8 +42,10 @@ export class SaloonSignupComponent implements OnInit {
 
       public latitude: number;
       public longitude: number;
-      public searchControl: FormControl;
       public zoom: number;
+      time1 = {hour: 9, minute: 30};
+      time2 = {hour: 20, minute: 30};
+      meridian = true;
 
 
 
@@ -66,6 +68,7 @@ export class SaloonSignupComponent implements OnInit {
                 'confirmPassword': [null, Validators.compose([Validators.required,Validators.maxLength(12)])],
                 'city': [null, Validators.compose([Validators.required,Validators.maxLength(300)])],
                 'termCondition': [null, Validators.compose([Validators.required])]
+                
             
         }) 
        this.verifiactionForm = fb.group({
@@ -74,7 +77,9 @@ export class SaloonSignupComponent implements OnInit {
         }) 
        this.saloonDetailsForm = fb.group({
             'selectCategory': [null, Validators.compose([Validators.required])],
-            'selectService': [null, Validators.compose([Validators.required])]
+            'selectService': [null, Validators.compose([Validators.required])],
+            'time1': [null, Validators.compose([Validators.required])],
+            'time2': [null, Validators.compose([Validators.required])]
             
         }) 
     }
@@ -103,8 +108,7 @@ export class SaloonSignupComponent implements OnInit {
     this.accountCreationModel.longitude = -98.5795;
 
     //create search FormControl
-    this.searchControl = new FormControl();
-
+   
     //set current position
     this.setCurrentPosition();
 
@@ -141,6 +145,10 @@ export class SaloonSignupComponent implements OnInit {
         this.zoom = 12;
       });
     }
+  }
+
+  toggleMeridian() {
+      this.meridian = !this.meridian;
   }
     onChange() {
         console.log(this.optionsModel);
@@ -221,6 +229,8 @@ export class SaloonSignupComponent implements OnInit {
            this.saloonDetailsModel.saloonId=this.currentData.result.id
            this.saloonDetailsModel.services=a.toString()
            this.saloonDetailsModel.category=b.toString()
+           this.saloonDetailsModel.opening_time=JSON.stringify(this.time1)
+           this.saloonDetailsModel.closing_time=JSON.stringify(this.time2)
          this.saloonServices.SaloonUpdate(this.saloonDetailsModel)
         .subscribe((data)=>{
             console.log(data);

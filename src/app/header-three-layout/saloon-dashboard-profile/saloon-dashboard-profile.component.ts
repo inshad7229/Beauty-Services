@@ -1,10 +1,14 @@
-import { Component, OnInit,ViewContainerRef } from '@angular/core';
+import { Component, OnInit,ViewContainerRef ,ElementRef, ViewChild,NgZone} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastsManager , Toast} from 'ng2-toastr';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 import {SaloonService} from '../../providers/saloon.service'
+
+import { } from 'googlemaps';
+import { MapsAPILoader } from '@agm/core';
 declare var $
+declare var google
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 @Component({
@@ -13,6 +17,8 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
     styleUrls: ['./saloon-dashboard-profile.component.scss']
 })
 export class SaloonDashboardProfileComponent implements OnInit {
+   @ViewChild("search")
+      public searchElementRef: ElementRef;
 	userDetail=JSON.parse(localStorage['userdetails'])
     editOne:boolean=false
     editOne2:boolean=false
@@ -25,12 +31,19 @@ export class SaloonDashboardProfileComponent implements OnInit {
     passwordModel
     message
     tempImag
+    public latitude: number;
+    public longitude: number;
+    public zoom: number;
     constructor(public router: Router, private fb: FormBuilder, 
                 private saloonServices:SaloonService,
                 vcr: ViewContainerRef,
-                private toastr: ToastsManager) {
+                private toastr: ToastsManager,
+                private mapsAPILoader: MapsAPILoader,
+                private ngZone: NgZone) {
         this.passwordModel={}
         this.tempImag=this.userDetail.image
+        this.userDetail.opening_time=JSON.parse(this.userDetail.opening_time)
+        this.userDetail.closing_time=JSON.parse(this.userDetail.closing_time)
         this.userDetail.services=this.userDetail.services.split(',')
         //console.log('services',this.userDetail.services)
           for (var i = 0; i < this.userDetail.services.length; ++i) {
@@ -56,9 +69,11 @@ export class SaloonDashboardProfileComponent implements OnInit {
                 'name': [null, Validators.compose([Validators.required,Validators.maxLength(100)])],
                 'email': [null, Validators.compose([Validators.required,Validators.pattern(EMAIL_REGEX)])],
                 'contactNumber': [null, Validators.compose([Validators.required,Validators.maxLength(12),Validators.pattern('[0-9]*')])],
-                'city': [null, Validators.compose([Validators.required,Validators.maxLength(30)])],
+                'city': [null, Validators.compose([Validators.required,Validators.maxLength(300)])],
                 'selectCategory': [null, Validators.compose([Validators.required])],
-                'selectService': [null, Validators.compose([Validators.required])]
+                'selectService': [null, Validators.compose([Validators.required])],
+                'time1': [null, Validators.compose([Validators.required])],
+                'time2': [null, Validators.compose([Validators.required])]
             
         })
 
@@ -99,8 +114,80 @@ export class SaloonDashboardProfileComponent implements OnInit {
             { id:5, name: 'Option 5' },
             { id:6, name: 'Option 6' },
         ];
-    }
 
+         this.zoom = 4;
+    this.latitude = 39.8282;
+    this.longitude = -98.5795;
+
+    //create search FormControl
+   
+    //set current position
+    this.setCurrentPosition();
+
+    //load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: ["address"]
+      });
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+         // alert(place.formatted_address)
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+          
+          //set latitude, longitude and zoom
+          this.userDetail.city=place.formatted_address
+          this.userDetail.latitude = place.geometry.location.lat();
+          this.userDetail.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });
+    });
+    }
+   
+
+    private setCurrentPosition() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 12;
+      });
+    }
+  }
+
+
+getHours(value){
+  if (value>12) {
+    var a=value-12;
+    return '0'+a
+  }else{
+   if (value<10) {
+    return '0'+value
+   }else{
+     return value
+   } 
+  }
+
+}
+getMin(value){
+  if (value<10) {
+    return '0'+value
+   }else{
+     return value
+   }
+}
+getAmPm(value){
+  if (value>11) {
+    return 'Pm'
+   }else{
+     return 'Am'
+   }
+}
     onClickDetailsEdit(){
     	if (this.editOne==false) {
 	    	$("#row1").hide(600);
@@ -118,6 +205,7 @@ export class SaloonDashboardProfileComponent implements OnInit {
 	    	$("#row5").hide(500);
 		    $("#row6").show(500);
     		this.editOne2=true
+        
     	}else{
     		this.editOne2=false
     		$("#row5").show(500);
@@ -141,7 +229,11 @@ export class SaloonDashboardProfileComponent implements OnInit {
          this.userDetail.saloonId=this.userDetail.id
          this.userDetail.services=a.toString()
          this.userDetail.category=b.toString()
-         delete(this.userDetail.password)
+         this.userDetail.opening_time=JSON.stringify(this.userDetail.opening_time)
+         this.userDetail.closing_time=JSON.stringify(this.userDetail.closing_time)
+         delete(this.userDetail.created_at)
+         delete(this.userDetail.updated_at)
+         delete(this.userDetail.id)
          this.saloonServices.SaloonProfileUpdate(this.userDetail)
         .subscribe((data)=>{
             console.log(data);
@@ -154,6 +246,8 @@ export class SaloonDashboardProfileComponent implements OnInit {
                 this.userDetail=JSON.parse(localStorage['userdetails'])
                 this.userDetail.services=this.userDetail.services.split(',')
                 this.tempImag=this.userDetail.image
+                this.userDetail.opening_time=JSON.parse(this.userDetail.opening_time)
+                this.userDetail.closing_time=JSON.parse(this.userDetail.closing_time)
         //console.log('services',this.userDetail.services)
         this.optionsModel2=[]
           for (var i = 0; i < this.userDetail.services.length; ++i) {

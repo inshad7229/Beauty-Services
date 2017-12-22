@@ -24,3 +24,31 @@
 .overflow-hidden{
 	overflow: hidden;
 }
+.table-pagination .current > .ng-star-inserted{
+  border: 1px solid #ddd;
+  color: black;
+  float: left;
+  font-size: 16px;
+  margin-left: -1px;
+  color: #fff;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s ease 0s;
+}
+.table-pagination .ngx-pagination .current {
+    padding:0;
+    background:  #d5275a;
+    color: #fff;
+    cursor: default;
+    border-color:  #d5275a;
+}
+.table-pagination .ngx-pagination .disabled {
+  border: 1px solid #ddd;
+  color: black;
+  float: left;
+  font-size: 16px;
+  margin-left: -1px;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s ease 0s;
+}
