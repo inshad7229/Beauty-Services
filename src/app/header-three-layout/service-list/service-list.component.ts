@@ -5,7 +5,9 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 import { TranslateService } from '@ngx-translate/core';
 import {SaloonService} from '../../providers/saloon.service'
+import {CommonService} from '../../providers/common.service'
 import {AddServices} from '../../models/services'
+import { forkJoin } from "rxjs/observable/forkJoin";
 
 declare var $
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -24,17 +26,20 @@ export class ServiceListComponent implements OnInit {
 	userDetail=JSON.parse(localStorage['userdetails'])
 	waitLoader
 	serviceList
+  saloonServiceList
+  categoryList=[]
     constructor(public router: Router, private fb: FormBuilder,
                 vcr: ViewContainerRef,
                 private toastr: ToastsManager,
                 private translate: TranslateService,
-	                private saloonServices:SaloonService){
+	              private saloonServices:SaloonService,
+                private commonServices:CommonService){
 	          this.toastr.setRootViewContainerRef(vcr);
 	             	  this.addServicesForm = fb.group({
 	                'category': [null, Validators.compose([Validators.required,Validators.maxLength(100)])],
 	                'time': [null, Validators.compose([Validators.required,Validators.maxLength(100)])],
 	                'serviceName_eng': [null, Validators.compose([Validators.required,Validators.maxLength(100)])],
-	                'serviceName_arb': [null, Validators.compose([Validators.required,Validators.maxLength(100)])],
+	                //'serviceName_arb': [null, Validators.compose([Validators.required,Validators.maxLength(100)])],
 	                'serviceCost_eng': [null, Validators.compose([Validators.required,Validators.maxLength(100)])],
 	                'serviceCost_arb': [null, Validators.compose([Validators.required,Validators.maxLength(100)])],
 	                'serviceDes_eng': [null, Validators.compose([Validators.required,Validators.maxLength(500)])],
@@ -47,6 +52,7 @@ export class ServiceListComponent implements OnInit {
        ngOnInit() {
     	//this.appProvider.current.waitLoader=true
         this.getDetails()
+        this.getCategory()
 
         this.myOptions = [
             { id:1, name: 'Option 1' },
@@ -63,8 +69,8 @@ export class ServiceListComponent implements OnInit {
         .subscribe((data)=>{
               this.waitLoader=false
             if(data.response){
-              this.toastr.success('All employee list fetched successfully' ,'Success',{toastLife: 1000, showCloseButton: true})
-              this.serviceList=data.data
+              this.toastr.success('All service list fetched successfully' ,'Success',{toastLife: 1000, showCloseButton: true})
+              this.saloonServiceList=data.data
              // this.router.navigate(['/header-three-layout/saloon-employee-list']);
             }else if (data.message=='Employee not find') {
                this.toastr.error('Employee not find' ,'Updation Failed',{toastLife: 1000, showCloseButton: true});
@@ -74,6 +80,26 @@ export class ServiceListComponent implements OnInit {
             }
          })
   }
+
+  getCategory(){
+       this.waitLoader=true
+       forkJoin([ this.commonServices.getCategory(),  this.commonServices.getServices()])
+      .subscribe(results => {
+            var list=[]
+             this.waitLoader=false
+            console.log(results);
+            if(results){
+                this.categoryList=results[0].data
+                this.serviceList=results[1].data
+                for (var i = 0; i < this.categoryList.length; ++i) {
+                   list.push({id:this.categoryList[i].id,name:this.categoryList[i].category_eng})
+                }
+                this.myOptions=list
+              // this.toastr.success(data.message ,'Services Added successfully ',{toastLife: 1000, showCloseButton: true})
+              // this.router.navigate(['/header-three-layout/service-list']);
+            }
+         })     
+    }
      imagePath(path){
         if(path.indexOf('base64')==-1) {
             return 'http://18.216.88.154/public/beauti-service/'+path
@@ -84,17 +110,22 @@ export class ServiceListComponent implements OnInit {
     }
 
 	onEdit(data){
-	this.optionsModel=[]
-     let b=data.category.split(',')
-        //console.log('services',data.services)
-          for (var i = 0; i < b.length; ++i) {
-                 if (+b[i]!=NaN) {
-                  this.optionsModel.push(+b[i])
-                     // code...
-                 }
-              // code...
-          }
+	// this.optionsModel=[]
+ //     let b=data.category.split(',')
+ //        //console.log('services',data.services)map(function (img) { return img.title; })
+ //          for (var i = 0; i < b.length; ++i) {
+ //                 if (+b[i]!=NaN) {
+
+ //                   if (this.categoryList.map(function (img){return img.id}).indexOf(+b[i])!=-1) {
+ //                      this.optionsModel.push(+b[i])
+ //                     // code...
+ //                   }
+ //                     // code...
+ //                 }
+ //              // code...
+ //          }
      this.addServicesModel= Object.assign({}, data);
+     console.log(this.addServicesModel)
      // let a=Object.create(data);
     
 	}
@@ -115,6 +146,8 @@ export class ServiceListComponent implements OnInit {
       delete(this.addServicesModel.created_at)
       delete(this.addServicesModel.updated_at)
       delete(this.addServicesModel.status)
+      //let a=this.optionsModel.slice(0)
+     // this.addServicesModel.category=a.toString()
         this.saloonServices.updateservices(this.addServicesModel)
         .subscribe((data)=>{
               this.waitLoader=false
@@ -150,4 +183,87 @@ export class ServiceListComponent implements OnInit {
             }
          })
     }
+
+    getCategoryName(a){
+      let data =this.categoryList.filter(arg=>arg.id==a)
+      if(data.length>0){
+        return data[0].category_eng;
+      }
+    }
+
+    getServiceName(ser_id){
+      let data=this.serviceList.filter(arg=>arg.id==ser_id)
+      if (data.length>0) {
+      return data[0].services_eng
+        // code...
+      }
+    }
+
+    getServiceOption(){
+      if (this.addServicesModel.category_id) {
+        // code...
+        let data=this.serviceList.filter(arg=>arg.category_id==this.addServicesModel.category_id)
+        return data
+      }else{
+        return []
+      }
+    }
+
+getServicweNameEng(ser_id){
+  let data=this.serviceList.filter(arg=>arg.id==ser_id)
+      if (data.length>0) {
+      return data[0].services_eng
+        // code...
+      }
+}
+getServicweNameArb(ser_id){
+  let data=this.serviceList.filter(arg=>arg.id==ser_id)
+      if (data.length>0) {
+      return data[0].services_arb
+        // code...
+      }
+}
+
+getTime(time){
+  let a
+  switch (time) {
+    case "15":
+      a='15 Min'
+    case "30":
+      a='30 Min'
+    
+    case "45":
+      a='45 Min'
+    
+    case "60":
+      a='1 Hr'
+    
+    case "75":
+      a='1 Hr 15 Min'
+    
+    case "90":
+      a='1 Hr 30 Min'
+    
+    case "105":
+      a='1 Hr 45 Min'
+    
+    case "120":
+      a='2 Hr'
+    
+    case "135":
+      a='2 Hr 15 Mi'
+    
+    case "150":
+      a='2 Hr 30 Min'
+     case "165":
+      a='2 Hr 45 Min'
+    
+    case "180":
+      a='3 Hr'  
+    default:
+      0;
+
+     return a
+  }
+ }
 }

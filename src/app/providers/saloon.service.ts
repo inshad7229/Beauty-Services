@@ -155,6 +155,17 @@ export class SaloonService {
       
     );
   }
+
+
+  getCategory(): Observable<any> {
+    const url = `${ENV.mainApi}/categoryList`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`categoryList`)),
+        catchError(this.handleError('categoryList', []))
+      
+    );
+  }
    /**
    * Handle Http operation that failed.
    * Let the app continue.

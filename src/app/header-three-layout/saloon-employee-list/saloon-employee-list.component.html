@@ -1,6 +1,6 @@
 	<!-- END SIDEBAR -->
 			<!-- BEGIN CONTENT -->
- <div class="loader-box" *ngIf="appProvider.current.waitLoader==true">
+ <div class="loader-box" *ngIf="waitLoader==true">
          <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
  </div>
 			<div class="page-content-wrapper">
@@ -485,7 +485,9 @@
 												  <dt>Gender</dt>
 												  <dd>{{addEmployee.gender}}</dd>
 												  <dt>Saloon Service</dt>
-												  <dd>{{addEmployee.services}}</dd>
+												  <dd *ngIf="addEmployee.services"><!-- {{addEmployee.services}} -->
+												  	<span *ngFor="let a of addEmployee.services.split(',')">{{getServiceName(a)}}, </span>
+												  </dd>
 												  <!-- <dt>Employee Address</dt>
 												  <dd>Headquarters 1120 N Street Sacramento 916-654-5266</dd> -->
 												  <dt>Description</dt>

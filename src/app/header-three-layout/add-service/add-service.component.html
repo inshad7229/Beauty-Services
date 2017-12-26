@@ -38,7 +38,12 @@
 						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
 			                                                  	<label>Select Category</label>
 			                                                    <div class="custom-select">
-			                                                        <ss-multiselect-dropdown [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)" [formControl]="addServicesForm.controls['category']" ></ss-multiselect-dropdown>
+			                                                        <!-- <ss-multiselect-dropdown [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)" [formControl]="addServicesForm.controls['category']" ></ss-multiselect-dropdown> -->
+			                                                        <select class="form-control" placeholder="Select Category" [formControl]="addServicesForm.controls['category']"  [(ngModel)]="addServicesModel.category_id">
+			                                                            <option disabled="">Select Time</option>
+			                                                            <option *ngFor="let cat of categoryList" [value]="cat.id"><span>{{cat.category_eng}}</span></option>
+			                                                        </select>
+			                                                        <span class="caret"></span>
 			                                                        <p  *ngIf="addServicesForm.controls['category'].hasError('required') && addServicesForm.controls['category'].touched">
 					                                                     Category is <strong>required</strong>
 					                                                </p>
@@ -83,9 +88,26 @@
 						                                    </div>
 						                                </div>
 						                                <div class="row">
-						                                	<div class="form-group col-md-6 col-sm-6 col-xs-12">
-			                                                  	  <label>Service Name In English<small class="manidatory">*</small></label>
-						                                        <input type="text" placeholder="Service Name In English" [formControl]="addServicesForm.controls['serviceName_eng'] " [(ngModel)]="addServicesModel.name_eng"  class="form-control">
+						                                	<div class="form-group col-md-12 col-sm-12 col-xs-12">
+			                                                  	  <label>Select Services<small class="manidatory">*</small></label>
+						                                        <!-- <input type="text" placeholder="Service Name In English" [formControl]="addServicesForm.controls['serviceName_eng'] " [(ngModel)]="addServicesModel.name_eng"  class="form-control"> -->
+						                                        <div class="custom-select">
+						                                        <select class="form-control" placeholder="Select Category" [formControl]="addServicesForm.controls['serviceName_eng']"  [(ngModel)]="addServicesModel.service_id">
+			                                                            <option disabled="">Select service</option>
+			                                                            <option *ngFor="let serv of getServiceOption()" [value]="serv.id"><span>{{serv.services_eng}}</span></option>
+			                                                            <!-- <option value="30">30 Min</option>
+			                                                            <option value="45">45 Min</option>
+			                                                            <option value="60">1 Hr</option>
+			                                                            <option value="75">1 Hr 15 Min</option>
+			                                                            <option value="90">1 Hr 30 Min</option>
+			                                                            <option value="105">1 Hr 45 Min</option>
+			                                                            <option value="120">2 Hr</option>
+			                                                            <option value="135">2 Hr 15 Min</option>
+			                                                            <option value="150">2 Hr 30 Min</option>
+			                                                            <option value="165">2 Hr 45 Min</option>
+			                                                            <option value="180">3 Hr</option> -->
+			                                                        </select>
+			                                                        <span class="caret"></span>
 						                                          <p  *ngIf="addServicesForm.controls['serviceName_eng'].hasError('required') && addServicesForm.controls['serviceName_eng'].touched">
 					                                                     Service Name in english  is <strong>required</strong>
 					                                                </p>
@@ -95,8 +117,9 @@
 					                                                <p  *ngIf="addServicesForm.controls['serviceName_eng'].hasError('maxlength')">
 					                                                           max length is 100
 					                                                </p>
+					                                            </div>
 			                                                </div>
-						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                    <!-- <div class="form-group col-md-6 col-sm-6 col-xs-12">
 						                                          <label>Service Name In Arabic<small class="manidatory">*</small></label>
 						                                        <input type="text" placeholder="Service Name In Arabic" [formControl]="addServicesForm.controls['serviceName_arb']" class="form-control" [(ngModel)]="addServicesModel.name_arb">
 						                                        <p  *ngIf="addServicesForm.controls['serviceName_arb'].hasError('required') && addServicesForm.controls['serviceName_arb'].touched">
@@ -108,7 +131,7 @@
 					                                                <p  *ngIf="addServicesForm.controls['serviceName_arb'].hasError('maxlength')">
 					                                                           max length is 100
 					                                                </p>
-						                                    </div>
+						                                    </div> -->
 						                                </div>
 						                                <div class="row">
 						                                	<div class="form-group col-md-6 col-sm-6 col-xs-12">

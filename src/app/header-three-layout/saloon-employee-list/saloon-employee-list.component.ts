@@ -28,6 +28,8 @@ right:number=3
 activeLeft:string='active'
 activeMiddle:string=''
 activeRigth:string=''
+waitLoader
+serviceList
     constructor(public router: Router, private fb: FormBuilder,
                 vcr: ViewContainerRef,
                 private toastr: ToastsManager,
@@ -57,7 +59,7 @@ activeRigth:string=''
     ngOnInit() {
     	//this.appProvider.current.waitLoader=true
         this.getDetails()
-
+        this.getserviceList()
         this.myOptions2 = [
             { id:1, name: 'Option 1' },
             { id:2, name: 'Option 2' },
@@ -68,10 +70,10 @@ activeRigth:string=''
         ];
     }
   getDetails(){
-    this.appProvider.current.waitLoader=true
+    this.waitLoader=true
      this.saloonServices.getEmployeeById(this.userDetail.id)
         .subscribe((data)=>{
-              this.appProvider.current.waitLoader=false
+              this.waitLoader=false
             if(data.response){
               this.toastr.success('All employee list fetched successfully' ,'Success',{toastLife: 1000, showCloseButton: true})
               this.employeeList=data.data
@@ -84,6 +86,25 @@ activeRigth:string=''
             }
          })
   }
+
+   getserviceList(){
+          this.waitLoader=true
+        this.saloonServices.getservicesById(this.userDetail.id)
+        .subscribe((data)=>{
+            var list=[]
+             this.waitLoader=false
+            console.log(data);
+            if(data.response){
+                this.serviceList=data.data
+                for (var i = 0; i < this.serviceList.length; ++i) {
+                   list.push({id:this.serviceList[i].id,name:this.serviceList[i].name_eng})
+                }
+                this.myOptions2=list
+              // this.toastr.success(data.message ,'Services Added successfully ',{toastLife: 1000, showCloseButton: true})
+              // this.router.navigate(['/header-three-layout/service-list']);
+            }
+         }) 
+    }
      imagePath(path){
         if(path.indexOf('base64')==-1) {
             return 'http://18.216.88.154/public/beauti-service/'+path
@@ -99,7 +120,12 @@ activeRigth:string=''
         //console.log('services',data.services)
           for (var i = 0; i < b.length; ++i) {
                  if (+b[i]!=NaN) {
-                  this.optionsModel2.push(+b[i])
+
+                    if (this.serviceList.map(function (img){return img.id}).indexOf(+b[i])!=-1) {
+                       this.optionsModel2.push(+b[i])
+                     // code...
+                   }
+                 
                      // code...
                  }
               // code...
@@ -121,16 +147,18 @@ activeRigth:string=''
     onUpdate(){
       // console.log(this.addEmployee)
       // this.addEmployee=Object.assign(this.addEmployee);
-      this.appProvider.current.waitLoader=true
+      this.waitLoader=true
       delete(this.addEmployee.created_at)
       delete(this.addEmployee.updated_at)
       delete(this.addEmployee.status)
+      let a=this.optionsModel2.slice(0)
+      this.addEmployee.services=a.toString()
         this.saloonServices.updateEmployee(this.addEmployee)
         .subscribe((data)=>{
-              this.appProvider.current.waitLoader=false
+              this.waitLoader=false
             if(data.response){
               this.getDetails()
-              this.appProvider.current.waitLoader=false
+              this.waitLoader=false
               this.toastr.success('Employee details updated successfully' ,'Success',{toastLife: 1000, showCloseButton: true})
              /// this.employeeList=data.data
              // this.router.navigate(['/header-three-layout/saloon-employee-list']);
@@ -143,10 +171,10 @@ activeRigth:string=''
          })
     }
     onYes(){
-       this.appProvider.current.waitLoader=true
+       this.waitLoader=true
        this.saloonServices.deleteEmployeeById(this.addEmployee.id)
         .subscribe((data)=>{
-              this.appProvider.current.waitLoader=false
+              this.waitLoader=false
             if(data.response){
               this.getDetails()
               this.toastr.success('Employee deleted successfully' ,'Success',{toastLife: 1000, showCloseButton: true})
@@ -160,41 +188,46 @@ activeRigth:string=''
             }
          })
     }
-
+getServiceName(a){
+      let data =this.serviceList.filter(arg=>arg.id==a)
+      if(data.length>0){
+        return data[0].name_eng;
+      }
+    }
     ////////////////////////////pagination bloc////////////////
-onPrevious(){
-this.activeLeft=""
-this.activeMiddle=""
-this.activeRigth=""
- if (this.left>3) {
-   this.left=this.left-3
-   this.middle=this.middle-3
-   this.right=this.right-3
- }
-}
-onLeft(){
-this.activeLeft="active"
-this.activeMiddle=""
-this.activeRigth=""
+// onPrevious(){
+// this.activeLeft=""
+// this.activeMiddle=""
+// this.activeRigth=""
+//  if (this.left>3) {
+//    this.left=this.left-3
+//    this.middle=this.middle-3
+//    this.right=this.right-3
+//  }
+// }
+// onLeft(){
+// this.activeLeft="active"
+// this.activeMiddle=""
+// this.activeRigth=""
 
-}
-onMiddle(){
-this.activeLeft=""
-this.activeMiddle="active"
-this.activeRigth=""
-}
-onRigth(){
-this.activeLeft=""
-this.activeMiddle=""
-this.activeRigth="active"
-}
+// }
+// onMiddle(){
+// this.activeLeft=""
+// this.activeMiddle="active"
+// this.activeRigth=""
+// }
+// onRigth(){
+// this.activeLeft=""
+// this.activeMiddle=""
+// this.activeRigth="active"
+// }
 
-onNext(){
-this.activeLeft=""
-this.activeMiddle=""
-this.activeRigth=""
- this.left=this.left+3
-   this.middle=this.middle+3
-   this.right=this.right+3
-}
+// onNext(){
+// this.activeLeft=""
+// this.activeMiddle=""
+// this.activeRigth=""
+//  this.left=this.left+3
+//    this.middle=this.middle+3
+//    this.right=this.right+3
+// }
 }

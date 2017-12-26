@@ -10,7 +10,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import { AddServiceRoutingModule } from './add-service-routing.module';
 import { AddServiceComponent } from './add-service.component';
 import {SaloonService} from '../../providers/saloon.service'
-
+import {CommonService} from '../../providers/common.service'
 @NgModule({
     imports: [
     CommonModule, 
@@ -22,6 +22,6 @@ import {SaloonService} from '../../providers/saloon.service'
     ToastModule.forRoot(),
     TranslateModule],
     declarations: [AddServiceComponent],
-    providers:[SaloonService]
+    providers:[SaloonService,CommonService]
 })
 export class AddServiceModule {}
