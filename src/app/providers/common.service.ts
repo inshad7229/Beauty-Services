@@ -45,6 +45,18 @@ export class CommonService {
   }
 
 
+
+   getAllSaloonList(): Observable<any> {
+    const url = `${ENV.mainApi}/AllSaloonList`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`AllSaloonList`)),
+        catchError(this.handleError('AllSaloonList', []))
+      
+    );
+  }
+
+
    /**
    * Handle Http operation that failed.
    * Let the app continue.

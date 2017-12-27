@@ -19,8 +19,8 @@
                             <li class="dropdown" *ngFor="let cat of categoryList">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>{{cat.category_eng}}</span></a>
                             <ul class="sub-service dropdown-content dropdown-menu animated fadeInUp">
-                                <li *ngFor="let ser of cat.servicesData">
-                                    <a  routerLink="/header-two-layout/searched-saloon">{{ser.services_eng}}</a>
+                                <li *ngFor="let ser of cat.servicesData" (click)='services(ser.services_eng)'>
+                                    <a  href="javascript:void(0)">{{ser.services_eng}}</a>
                                 </li>
                                <!--  <li>
                                     <a href="javascript:void(0);">Women's Haircut</a>

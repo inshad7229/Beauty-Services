@@ -15,7 +15,9 @@ const routes: Routes = [
                     { path: 'forgot-password', loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule' }, 
                     { path: 'login', loadChildren: './login/login.module#LoginModule' }, 
                     { path: 'searched-saloon', loadChildren: './searched-saloon/searched-saloon.module#SearchedSaloonModule' }, 
-                    { path: 'searched-services', loadChildren: './searched-services/searched-services.module#SearchedServicesModule' }, 
+                    { path: 'searched-services', loadChildren: './searched-services/searched-services.module#SearchedServicesModule' },
+                    { path: 'saloon-details', loadChildren: './saloon-details/saloon-details.module#SaloonDetailsModule' },  
+                    { path: 'saloon-details/:id', loadChildren: './saloon-details/saloon-details.module#SaloonDetailsModule' },  
                     
 
                     ]

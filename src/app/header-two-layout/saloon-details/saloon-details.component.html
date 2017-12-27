@@ -1,16 +1,14 @@
- <div class="loader-box" *ngIf="waitLoader==true">
-         <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
- </div>
+
         <section class="search-saloonsec">
             <div class="container-fluid">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h4 class="header-heading">
                         <ul class="breadcrumb">
                             <li>
-                                <a href="javascript:void(0)">Home</a>
+                                <a href="index.php">Home</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">Salon Page</a>
+                                <a href="index.php">Services Page</a>
                             </li>
                         </ul>
                     </h4>
@@ -174,7 +172,7 @@
                             <div class="service-show-sec">
                                 <div class="filter-content">
                                     <div class="sorting-div wow fadeInDown" wow-data-delay="0.4s">
-                                        <span class="showing-list" *ngIf="saloonList">Showing {{saloonList.length}} results</span>
+                                        <span class="showing-list">Showing 200 results</span>
                                         <span class="sort-by">
                                             <div class="col-md-4 col-sm-4 col-xs-12 p-0">
                                                 <label>Sort BY</label>    
@@ -192,128 +190,18 @@
                                             </div>
                                         </span>
                                     </div>
-                                    <div class="service-list-sec salon-section">
-                                        <div class="wrap-service" *ngFor="let saloon of saloonList">
+                                    <div class="service-list-sec">
+                                        <div class="wrap-service">
                                             <div class="img-content-sec">
                                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 p-l-0">
                                                     <div class="service-img">
-                                                        <img *ngIf="!saloon.image || saloon.image=='null' || saloon.image==null " src="assets/img/saloon-1.jpg" class="img-responsive">
-                                                        <img *ngIf="saloon.image && saloon.image!='null' && saloon.image!=null " [src]="imagePath(saloon.image)" class="img-responsive">
+                                                        <img src="assets/img/service-1.jpg" class="img-responsive">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                                     <div class="service-inner-des">
                                                         <h5 class="name-saloon">
-                                                            <a href="javascript:void(0);"><span>{{saloon.saloon_name}}</span></a>
-                                                        </h5>
-                                                        <address><span>{{saloon.city}}</span></address>
-                                                        <ul class="rating-points">
-                                                            <li>
-                                                                <span class="rating-star">
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star-half-o"></i>
-                                                                </span>
-                                                                <span class="star-number">(200)</span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="dollor-select">
-                                                                    <span class="card-check" *ngIf="saloon.cardPay">
-                                                                        <i class="fa fa-credit-card"></i>
-                                                                        <p><i class="fa fa-check-circle"></i></p>
-                                                                    </span>
-                                                                    <ul class="dollor-view">
-                                                                        <li class="active">
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                        <li class="active">
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                    </ul>
-                                                                </span>
-                                                            </li>
-                                                        </ul>
-                                                        <p class="description-salon">
-                                                            {{saloon.description_eng}}
-                                                            <!-- <a href="javascript:void(0);">Read More</a> -->
-                                                        </p>    
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="esact-service salon-sec">
-                                               <!-- <p class="popular-service">Popular Services</p> -->
-                                                <div class="searched-service" *ngFor="let ser of saloon.saloonServices">
-                                                    <ul class="searched-ul {{getClass(ser.servicesData.services_eng)}}" >
-                                                        <li>
-                                                            <span class="service-name">
-                                                                <span>{{ser.servicesData.services_eng}}</span>
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> <span>{{getTime(ser.time)}}</span></span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub"><span>AED {{ser.cost_eng}}</span>
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <!-- <div class="searched-service relevant-de">
-                                                    <ul class="searched-ul">
-                                                        <li>
-                                                            <span class="service-name">
-                                                                Whitening Facial
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 1h 15 Min</span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub">AED 275
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="searched-service relevant-de2">
-                                                    <ul class="searched-ul">
-                                                        <li>
-                                                            <span class="service-name">
-                                                                Hair Trim
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 15 Min</span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub">AED 80
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div> -->
-                                            </div>
-                                        </div>
-                                        <!-- <div class="wrap-service">
-                                            <div class="img-content-sec">
-                                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 p-l-0">
-                                                    <div class="service-img">
-                                                        <img src="assets/img/saloon-2.jpg" class="img-responsive">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                                                    <div class="service-inner-des">
-                                                        <h5 class="name-saloon">
-                                                            <a href="javascript:void(0);">Bebe Beauty Salon (Ledies)</a>
+                                                            <a href="javascript:void(0);">Sasha Beauty Salon (Ladies)</a>
                                                         </h5>
                                                         <address>9566 Destiny USA Dr E208, Syracuse, NY 13290, USA</address>
                                                         <ul class="rating-points">
@@ -325,7 +213,7 @@
                                                                     <i class="fa fa-star"></i>
                                                                     <i class="fa fa-star-half-o"></i>
                                                                 </span>
-                                                                <span class="star-number">(100)</span>
+                                                                <span class="star-number">(18)</span>
                                                             </li>
                                                             <li>
                                                                 <span class="dollor-select">
@@ -337,7 +225,7 @@
                                                                         <li class="active">
                                                                             <i class="fa fa-usd"></i>
                                                                         </li>
-                                                                        <li class="">
+                                                                        <li class="active">
                                                                             <i class="fa fa-usd"></i>
                                                                         </li>
                                                                         <li>
@@ -357,17 +245,16 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="esact-service salon-sec">
-                                                <p class="popular-service">Popular Services</p>
-                                                <div class="searched-service relevant-de">
-                                                    <ul class="searched-ul ">
+                                            <div class="esact-service">
+                                                <div class="searched-service">
+                                                    <ul class="searched-ul">
                                                         <li>
                                                             <span class="service-name">
-                                                                Extension Removal by Piece(Form another salon)
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 15 Min</span>
+                                                                Haircut 
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 30 Min</span>
                                                             </span>
                                                             <span class="price-and-book">
-                                                                <span class="price-nub">AED 10
+                                                                <span class="price-nub">AED 80
                                                                 </span>
                                                                 <span class="book-btn">
                                                                     <a class="btn cus-btn" href="javascript:void(0);">Book</a>
@@ -380,11 +267,11 @@
                                                     <ul class="searched-ul">
                                                         <li>
                                                             <span class="service-name">
-                                                                Hair Cut
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 1h 15 Min</span>
+                                                                Hair Smoothing 
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 15 Min</span>
                                                             </span>
                                                             <span class="price-and-book">
-                                                                <span class="price-nub">AED 125
+                                                                <span class="price-nub">AED 40
                                                                 </span>
                                                                 <span class="book-btn">
                                                                     <a class="btn cus-btn" href="javascript:void(0);">Book</a>
@@ -397,11 +284,11 @@
                                                     <ul class="searched-ul">
                                                         <li>
                                                             <span class="service-name">
-                                                                Hair Trim
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 15 Min</span>
+                                                                Hair Color
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 40 Min</span>
                                                             </span>
                                                             <span class="price-and-book">
-                                                                <span class="price-nub">AED 80
+                                                                <span class="price-nub">AED 300
                                                                 </span>
                                                                 <span class="book-btn">
                                                                     <a class="btn cus-btn" href="javascript:void(0);">Book</a>
@@ -416,13 +303,13 @@
                                             <div class="img-content-sec">
                                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 p-l-0">
                                                     <div class="service-img">
-                                                        <img src="assets/img/saloon-3.jpg" class="img-responsive">
+                                                        <img src="assets/img/service-2.jpg" class="img-responsive">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                                     <div class="service-inner-des">
                                                         <h5 class="name-saloon">
-                                                            <a href="javascript:void(0);">Morning Glory Health & Beauty Salon</a>
+                                                            <a href="javascript:void(0);">Platinum Black Beauty Salon</a>
                                                         </h5>
                                                         <address>9566 Destiny USA Dr E208, Syracuse, NY 13290, USA</address>
                                                         <ul class="rating-points">
@@ -434,7 +321,7 @@
                                                                     <i class="fa fa-star"></i>
                                                                     <i class="fa fa-star-half-o"></i>
                                                                 </span>
-                                                                <span class="star-number">(216)</span>
+                                                                <span class="star-number">(18)</span>
                                                             </li>
                                                             <li>
                                                                 <span class="dollor-select">
@@ -449,7 +336,7 @@
                                                                         <li class="active">
                                                                             <i class="fa fa-usd"></i>
                                                                         </li>
-                                                                        <li class="active">
+                                                                        <li>
                                                                             <i class="fa fa-usd"></i>
                                                                         </li>
                                                                         <li>
@@ -466,34 +353,16 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="esact-service salon-sec">
-                                                <p class="popular-service">Popular Services</p>
-                                                <div class="searched-service relevant-de">
-                                                    <ul class="searched-ul ">
-                                                        <li>
-                                                            <span class="service-name">
-                                                                Bridal Up Style (In Salon)
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 1h</span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub">AED 1,500
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="searched-service relevant-de">
+                                            <div class="esact-service">
+                                                <div class="searched-service">
                                                     <ul class="searched-ul">
                                                         <li>
                                                             <span class="service-name">
-                                                                Bridal Makeup (In Salon)
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 2h</span>
+                                                                Shampoo
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 30 Min</span>
                                                             </span>
                                                             <span class="price-and-book">
-                                                                <span class="price-nub">AED 1,500
+                                                                <span class="price-nub">AED 80
                                                                 </span>
                                                                 <span class="book-btn">
                                                                     <a class="btn cus-btn" href="javascript:void(0);">Book</a>
@@ -502,15 +371,32 @@
                                                         </li>
                                                     </ul>
                                                 </div>
+                                                <!-- <div class="searched-service relevant-de">
+                                                    <ul class="searched-ul">
+                                                        <li>
+                                                            <span class="service-name">
+                                                                Child Hair Cut (10 year and below) 
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 15 Min</span>
+                                                            </span>
+                                                            <span class="price-and-book">
+                                                                <span class="price-nub">AED 40
+                                                                </span>
+                                                                <span class="book-btn">
+                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
+                                                                </span>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div> -->
                                                 <div class="searched-service relevant-de2">
                                                     <ul class="searched-ul">
                                                         <li>
                                                             <span class="service-name">
-                                                            Moroccan Bath with Massage
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 60 Min</span>
+                                                                Hair Trim
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 30 Min</span>
                                                             </span>
                                                             <span class="price-and-book">
-                                                                <span class="price-nub">AED 199
+                                                                <span class="price-nub">AED 200
                                                                 </span>
                                                                 <span class="book-btn">
                                                                     <a class="btn cus-btn" href="javascript:void(0);">Book</a>
@@ -520,7 +406,115 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                        </div> -->
+                                        </div>
+                                        <div class="wrap-service">
+                                            <div class="img-content-sec">
+                                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 p-l-0">
+                                                    <div class="service-img">
+                                                        <img src="assets/img/service-3.jpg" class="img-responsive">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                                    <div class="service-inner-des">
+                                                        <h5 class="name-saloon">
+                                                            <a href="javascript:void(0);">Platinum Black Beauty Salon</a>
+                                                        </h5>
+                                                        <address>9566 Destiny USA Dr E208, Syracuse, NY 13290, USA</address>
+                                                        <ul class="rating-points">
+                                                            <li>
+                                                                <span class="rating-star">
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star-half-o"></i>
+                                                                </span>
+                                                                <span class="star-number">(18)</span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="dollor-select">
+                                                                    <span class="card-check">
+                                                                        <i class="fa fa-credit-card"></i>
+                                                                        <p><i class="fa fa-check-circle"></i></p>
+                                                                    </span>
+                                                                    <ul class="dollor-view">
+                                                                        <li class="active">
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                        <li class="active">
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                    </ul>
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                        <p class="description-salon">
+                                                            Sasha Beauty Salon is not a name unheard of in the Dubai beauty scene. With a chain of world class salons and only the very best quality of services, Sasha beauty is a name associated with reliable beauty care. The salon has an extensive...
+                                                            <a href="javascript:void(0);">Read More</a>
+                                                        </p>    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="esact-service">
+                                                <div class="searched-service">
+                                                    <ul class="searched-ul">
+                                                        <li>
+                                                            <span class="service-name">
+                                                                Hair Straight
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 30 Min</span>
+                                                            </span>
+                                                            <span class="price-and-book">
+                                                                <span class="price-nub">AED 80
+                                                                </span>
+                                                                <span class="book-btn">
+                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
+                                                                </span>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <!-- <div class="searched-service relevant-de">
+                                                    <ul class="searched-ul">
+                                                        <li>
+                                                            <span class="service-name">
+                                                                Child Hair Cut (10 year and below) 
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 15 Min</span>
+                                                            </span>
+                                                            <span class="price-and-book">
+                                                                <span class="price-nub">AED 40
+                                                                </span>
+                                                                <span class="book-btn">
+                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
+                                                                </span>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div> -->
+                                                <!-- <div class="searched-service relevant-de2">
+                                                    <ul class="searched-ul">
+                                                        <li>
+                                                            <span class="service-name">
+                                                                Front Cut
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 15 Min</span>
+                                                            </span>
+                                                            <span class="price-and-book">
+                                                                <span class="price-nub">AED 16
+                                                                </span>
+                                                                <span class="book-btn">
+                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
+                                                                </span>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div> -->
+                                            </div>
+                                        </div>
                                     </div>
                                 </div> 
                             </div>

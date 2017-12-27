@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {CommonService} from '../../providers/common.service'
+import {AppProvider} from '../../providers/app.provider';
+
 
 @Component({
     selector: 'app-header-one',
@@ -13,7 +15,10 @@ export class HeaderOneComponent implements OnInit {
 customer
 waitLoader
 categoryList
-    constructor(public router: Router,private translate: TranslateService,private commonServices:CommonService) {}
+    constructor(public router: Router,
+                private translate: TranslateService,
+                private commonServices:CommonService,
+                private appProvider:AppProvider) {}
 
     ngOnInit() {
     	if (localStorage['userdetails']) {
@@ -69,5 +74,10 @@ categoryList
               // this.router.navigate(['/header-three-layout/service-list']);
             }
          }) 
+    }
+    services(ser){
+      this.appProvider.current.serviceSearched=ser
+     // this.router.navigate(['/header-three-layout/saloon-dashboard']);
+      this.router.navigate(["/header-two-layout/searched-saloon"])
     }
 }
