@@ -34,6 +34,16 @@ export class CommonService {
     );
   }
 
+   getCategoryWithServices(): Observable<any> {
+    const url = `${ENV.mainApi}/categorywithservices`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`categorywithservices`)),
+        catchError(this.handleError('categorywithservices', []))
+      
+    );
+  }
+
 
    /**
    * Handle Http operation that failed.

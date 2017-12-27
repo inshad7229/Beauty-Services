@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import {AppProvider} from './providers/app.provider';
 import { NotfoundComponent } from './notfound/notfound.component';
 import {AuthGuard} from './guard/auth.guard'
-import {FooterComponent} from './shared-layout/footer/footer.component'
+import {FooterComponent} from './shared-layout/footer/footer.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {

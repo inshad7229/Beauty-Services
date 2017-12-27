@@ -40,10 +40,10 @@
 																	  <dd>{{userDetail.email}}</dd>
 																	  <dt>Contact Number</dt>
 																	  <dd>{{userDetail.contact_number}}</dd>
-																	  <dt>Services Category</dt>
+																	  <!-- <dt>Services Category</dt>
 																	  <dd>Saloon</dd>
 																	  <dt>Saloon Service</dt>
-																	  <dd>Hair, Skin, Nail Treatment</dd>
+																	  <dd>Hair, Skin, Nail Treatment</dd> -->
 																	  <dt>Opening Time</dt>
 																	  <dd>{{getHours(userDetail.opening_time.hour)}} : {{getMin(userDetail.opening_time.minute)}} {{getAmPm(userDetail.opening_time.hour)}}</dd>
 																	  <dt>Closing Time</dt>
@@ -86,35 +86,20 @@
 						                                                <input type="text" placeholder="Enter Contact Number" class="form-control" [formControl]="accountDetailsForm.controls['contactNumber']" [(ngModel)]="userDetail.contact_number">
 						                                            </div>
 						                                        </div>
-						                                        <div class="row">
+						                                   <!--      <div class="row">
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 					                                                  	<label>Select Service</label>
 					                                                    <div class="custom-select">
-					                                                       <!--  <select class="form-control multiselect" placeholder="Select Services" multiple="multiple">
-					                                                            <option disabled="">Select Services</option>
-					                                                            <option name="nsw">Hair</option>
-					                                                            <option name="vic">Skin</option>
-					                                                            <option name="qld">Nail Treatment</option>
-					                                                            <option name="qld">Essentials</option>
-					                                                            <option name="qld">Innovations</option>
-					                                                        </select> -->
 					                                                        <ss-multiselect-dropdown [formControl]="accountDetailsForm.controls['selectService']" [options]="myOptions2" [(ngModel)]="optionsModel2" (ngModelChange)="onChange2($event)" ></ss-multiselect-dropdown>
 					                                                    </div>
 					                                                </div>
 					                                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
 					                                                    <label>Select Category</label>
 					                                                    <div class="custom-select">
-					                                                        <!-- <select class="form-control multiselect" placeholder="Select Category" multiple="multiple">
-					                                                            <option disabled="">Select Category</option>
-					                                                            <option name="nsw">Saloon</option>
-					                                                            <option name="vic">spa</option>
-					                                                            <option name="qld">Stylist</option>
-					                                                            <option name="wa">Ayurveda</option>
-					                                                        </select> -->
 					                                                        <ss-multiselect-dropdown [formControl]="accountDetailsForm.controls['selectCategory']"  [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
 					                                                    </div>
 					                                                </div>
-					                                            </div>
+					                                            </div> -->
 
 					                                            <div class="row">
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">

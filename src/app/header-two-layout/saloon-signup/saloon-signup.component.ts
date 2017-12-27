@@ -76,8 +76,8 @@ export class SaloonSignupComponent implements OnInit {
             
         }) 
        this.saloonDetailsForm = fb.group({
-            'selectCategory': [null, Validators.compose([Validators.required])],
-            'selectService': [null, Validators.compose([Validators.required])],
+            // 'selectCategory': [null, Validators.compose([Validators.required])],
+            // 'selectService': [null, Validators.compose([Validators.required])],
             'time1': [null, Validators.compose([Validators.required])],
             'time2': [null, Validators.compose([Validators.required])]
             
@@ -224,11 +224,11 @@ export class SaloonSignupComponent implements OnInit {
     }
 
     onSubmit(){
-            let a=this.optionsModel2.slice(0)
-            let b=this.optionsModel.slice(0)
+            //let a=this.optionsModel2.slice(0)
+           // let b=this.optionsModel.slice(0)
            this.saloonDetailsModel.saloonId=this.currentData.result.id
-           this.saloonDetailsModel.services=a.toString()
-           this.saloonDetailsModel.category=b.toString()
+          // this.saloonDetailsModel.services=a.toString()
+           //this.saloonDetailsModel.category=b.toString()
            this.saloonDetailsModel.opening_time=JSON.stringify(this.time1)
            this.saloonDetailsModel.closing_time=JSON.stringify(this.time2)
          this.saloonServices.SaloonUpdate(this.saloonDetailsModel)

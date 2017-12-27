@@ -229,40 +229,44 @@ getTime(time){
   switch (time) {
     case "15":
       a='15 Min'
+      //alert(a)
+      return a;
     case "30":
       a='30 Min'
-    
+    return a;
     case "45":
       a='45 Min'
-    
+    return a;
     case "60":
       a='1 Hr'
-    
+    return a;
     case "75":
       a='1 Hr 15 Min'
-    
+    return a;
     case "90":
       a='1 Hr 30 Min'
-    
+    return a;
     case "105":
       a='1 Hr 45 Min'
-    
+    return a;
     case "120":
       a='2 Hr'
-    
+    return a;
     case "135":
       a='2 Hr 15 Mi'
-    
+    return a;
     case "150":
       a='2 Hr 30 Min'
+    return a;
      case "165":
       a='2 Hr 45 Min'
-    
+     return a;
     case "180":
-      a='3 Hr'  
+      a='3 Hr' 
+     return a; 
     default:
       0;
-
+// alert(a)
      return a
   }
  }

@@ -101,7 +101,7 @@ export class AddEmployeeListComponent implements OnInit {
             if(data.response){
                 this.serviceList=data.data
                 for (var i = 0; i < this.serviceList.length; ++i) {
-                   list.push({id:this.serviceList[i].id,name:this.serviceList[i].service_eng})
+                   list.push({id:this.serviceList[i].servicesData.id,name:this.serviceList[i].servicesData.services_eng})
                 }
                 this.myOptions2=list
               // this.toastr.success(data.message ,'Services Added successfully ',{toastLife: 1000, showCloseButton: true})

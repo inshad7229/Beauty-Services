@@ -44,25 +44,25 @@ export class SaloonDashboardProfileComponent implements OnInit {
         this.tempImag=this.userDetail.image
         this.userDetail.opening_time=JSON.parse(this.userDetail.opening_time)
         this.userDetail.closing_time=JSON.parse(this.userDetail.closing_time)
-        this.userDetail.services=this.userDetail.services.split(',')
-        //console.log('services',this.userDetail.services)
-          for (var i = 0; i < this.userDetail.services.length; ++i) {
-                 if (+this.userDetail.services[i]!=NaN) {
-                  this.optionsModel2.push(+this.userDetail.services[i])
-                     // code...
-                 }
-              // code...
-          }
+        // this.userDetail.services=this.userDetail.services.split(',')
+        // //console.log('services',this.userDetail.services)
+        //   for (var i = 0; i < this.userDetail.services.length; ++i) {
+        //          if (+this.userDetail.services[i]!=NaN) {
+        //           this.optionsModel2.push(+this.userDetail.services[i])
+        //              // code...
+        //          }
+        //       // code...
+        //   }
 
-          this.userDetail.category=this.userDetail.category.split(',')
-        console.log('services',this.userDetail.category)
-          for (var j = 0; j < this.userDetail.category.length; ++j) {
-                 if (+this.userDetail.category[j]!=NaN) {
-                  this.optionsModel.push(+this.userDetail.category[j])
-                     // code...
-                 }
-              // code...
-          }
+        //   this.userDetail.category=this.userDetail.category.split(',')
+        // console.log('services',this.userDetail.category)
+        //   for (var j = 0; j < this.userDetail.category.length; ++j) {
+        //          if (+this.userDetail.category[j]!=NaN) {
+        //           this.optionsModel.push(+this.userDetail.category[j])
+        //              // code...
+        //          }
+        //       // code...
+        //   }
           this.toastr.setRootViewContainerRef(vcr);
           this.accountDetailsForm = fb.group({
                 'saloonName': [null, Validators.compose([Validators.required,Validators.maxLength(150)])],
@@ -70,8 +70,8 @@ export class SaloonDashboardProfileComponent implements OnInit {
                 'email': [null, Validators.compose([Validators.required,Validators.pattern(EMAIL_REGEX)])],
                 'contactNumber': [null, Validators.compose([Validators.required,Validators.maxLength(12),Validators.pattern('[0-9]*')])],
                 'city': [null, Validators.compose([Validators.required,Validators.maxLength(300)])],
-                'selectCategory': [null, Validators.compose([Validators.required])],
-                'selectService': [null, Validators.compose([Validators.required])],
+                // 'selectCategory': [null, Validators.compose([Validators.required])],
+                // 'selectService': [null, Validators.compose([Validators.required])],
                 'time1': [null, Validators.compose([Validators.required])],
                 'time2': [null, Validators.compose([Validators.required])]
             

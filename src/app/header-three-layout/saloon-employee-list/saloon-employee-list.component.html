@@ -58,7 +58,9 @@
 					                                            <td>{{data.details}}</td>
 					                                            <td>{{data.contact_number}}</td>
 					                                            <td>{{data.email}}</td>
-					                                            <td>{{data.services}}</td>
+					                                            <td *ngIf="data.services && serviceList">
+					                                            	<span *ngFor="let a of data.services.split(',')">{{getServiceName(a)}}, </span>
+					                                            </td>
 					                                            <td>{{data.gender}}</td>
 					                                            <td>
 					                                            	<ul class="action-icon">
@@ -227,7 +229,7 @@
                                                 </div>
                                                 <div class="profile-upload">
                                                     <div class="input-btn">
-                                                        <input type="file" />
+                                                        <input type="file" (change)="imageUploadEvent($event)" accept="image/gif, image/jpeg, image/png" />
                                                         <button class="btn cus-btn"> 
                                                         <i class="fa fa-file-image-o"></i> Employee Image</button>
                                                     </div>

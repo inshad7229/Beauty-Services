@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HeaderOneLayoutRoutingModule } from './header-one-layout-routing.module';
 import {  HeaderOneLayoutComponent} from './header-one-layout.component';
 import { HeaderOneComponent} from '../shared-layout/header-one/header-one.component'
+import {CommonService} from '../providers/common.service'
 
 @NgModule({
     imports: [
@@ -12,6 +13,7 @@ import { HeaderOneComponent} from '../shared-layout/header-one/header-one.compon
         HeaderOneLayoutRoutingModule,
         TranslateModule
     ],
-    declarations: [HeaderOneLayoutComponent,HeaderOneComponent]
+    declarations: [HeaderOneLayoutComponent,HeaderOneComponent],
+    providers:[CommonService]
 })
 export class HeaderOneLayoutModule {}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CommonService} from '../../providers/common.service'
 
 declare var jQuery:any;
 declare var $ :any;
@@ -14,7 +15,9 @@ declare var WOW;
 export class HomePageComponent implements OnInit {
     saloon
     customer
-    constructor() {}
+    waitLoader
+    categoryList
+    constructor(private commonServices:CommonService) {}
 
     ngOnInit() {
     	  
@@ -137,6 +140,22 @@ export class HomePageComponent implements OnInit {
                 time: 1000
             });
         });
+     this.getserviceList()
+    }
 
+    getserviceList(){
+          this.waitLoader=true
+        this.commonServices.getCategoryWithServices()
+        .subscribe((data)=>{
+            var list=[]
+             this.waitLoader=false
+            console.log(data);
+            if(data.response){
+                this.categoryList=data.data
+               
+              // this.toastr.success(data.message ,'Services Added successfully ',{toastLife: 1000, showCloseButton: true})
+              // this.router.navigate(['/header-three-layout/service-list']);
+            }
+         }) 
     }
 }

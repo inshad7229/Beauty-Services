@@ -54,6 +54,8 @@ serviceList
 
             
         })
+
+    this.updateEmployeeForm.controls['email'].disable();
     }
 
     ngOnInit() {
@@ -97,7 +99,7 @@ serviceList
             if(data.response){
                 this.serviceList=data.data
                 for (var i = 0; i < this.serviceList.length; ++i) {
-                   list.push({id:this.serviceList[i].id,name:this.serviceList[i].name_eng})
+                   list.push({id:this.serviceList[i].servicesData.id,name:this.serviceList[i].servicesData.services_eng})
                 }
                 this.myOptions2=list
               // this.toastr.success(data.message ,'Services Added successfully ',{toastLife: 1000, showCloseButton: true})
@@ -121,7 +123,7 @@ serviceList
           for (var i = 0; i < b.length; ++i) {
                  if (+b[i]!=NaN) {
 
-                    if (this.serviceList.map(function (img){return img.id}).indexOf(+b[i])!=-1) {
+                    if (this.serviceList.map(function (img){return img.servicesData.id}).indexOf(+b[i])!=-1) {
                        this.optionsModel2.push(+b[i])
                      // code...
                    }
@@ -189,10 +191,32 @@ serviceList
          })
     }
 getServiceName(a){
-      let data =this.serviceList.filter(arg=>arg.id==a)
+      let data =this.serviceList.filter(arg=>arg.servicesData.id==a)
       if(data.length>0){
-        return data[0].name_eng;
+        return data[0].servicesData.services_eng;
       }
+    }
+
+ imageUploadEvent(evt: any) {
+        if (!evt.target) {
+            return;
+        }
+        if (!evt.target.files) {
+            return;
+        }
+        if (evt.target.files.length !== 1) {
+            return;
+        }
+        const file = evt.target.files[0];
+        if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif' && file.type !== 'image/jpg') {
+            return;
+        }
+        const fr = new FileReader();
+        fr.onloadend = (loadEvent) => {
+            this.addEmployee.employee_image= fr.result;
+            console.log(this.addEmployee.employee_image)
+        };
+        fr.readAsDataURL(file);
     }
     ////////////////////////////pagination bloc////////////////
 // onPrevious(){
