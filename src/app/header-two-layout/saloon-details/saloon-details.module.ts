@@ -7,14 +7,12 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { HttpClientModule }    from '@angular/common/http';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 
-import { OwlModule } from 'ngx-owl-carousel';
-
 
 import {SaloonService} from '../../providers/saloon.service'
 import {CommonService} from '../../providers/common.service'
 
 @NgModule({
-    imports: [CommonModule, SaloonDetailsRoutingModule,MatTabsModule,HttpClientModule,ToastModule.forRoot(),OwlModule],
+    imports: [CommonModule, SaloonDetailsRoutingModule,MatTabsModule,HttpClientModule,ToastModule.forRoot()],
     declarations: [SaloonDetailsComponent],
     providers:[SaloonService,CommonService]
 })
