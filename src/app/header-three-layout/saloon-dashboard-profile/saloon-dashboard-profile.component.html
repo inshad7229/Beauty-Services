@@ -238,6 +238,55 @@
 									                    	</form>
 									                    </div>
 									                </div>
+									                <div class="salon-images-sec">
+									                	<h4 class="title-form-head" id="change">Salon Images<a class="edit-btn" href="javascript:;" >
+										                    <span class="fa fa-pencil-square-o" id="show3"></span>
+										                    </a></h4>
+											                <div id="row20">
+											                      <div class="col-md-12 col-sm-12 col-xs-12">
+											                         <div class="row">
+						                                            	<div *ngFor="let imagedata of saloonImage; let i=index" class="form-group col-md-3 col-sm-3 col-xs-12">
+						                                            		<div class="wrap-div cuatom-img">
+													                            <img *ngIf="!imagedata.image " src="assets/img/saloon-user.png" class="img-responsive">
+										                            			<img *ngIf="imagedata.image" [src]="imagePath(imagedata.image)" class="img-responsive">
+													                            <span class="upload-img">
+													                            <button *ngIf="!imagedata.id" class="btn cut-btn" type="submit" >upload Image</button>
+													                             <button *ngIf="imagedata.id" class="btn cut-btn" type="submit">Update Image</button>
+													                            <input class="profile-btn cut-btn" name="image" type="file" (change)="onMultipalImageUpload($event,i)" >
+													                            </span>
+													                            <span id="cross-btn" class="fa fa-remove" (click)="onRemoveImage(i,imagedata)"></span>
+													                        </div>
+						                                            	</div>
+						                                            	<!-- <div class="form-group col-md-3 col-sm-3 col-xs-12">
+						                                            		<div class="wrap-div cuatom-img">
+													                            <img src="assets/img/saloon-user.png" class="img-responsive">
+													                            <span class="upload-img">
+													                            	<button class="btn cut-btn" type="submit">upload Image</button>
+													                            	<input class="profile-btn cut-btn" name="image" type="file">
+													                            </span>
+													                            <span id="cross-btn" class="fa fa-remove"></span>
+													                        </div>
+						                                            	</div> -->
+						                                            	<div class="append-sec">
+						                                            		
+						                                            	</div>
+						                                            	<div *ngIf="saloonImage.length<7" class="form-group col-md-3 col-sm-3 col-xs-12">
+							                                            	<div class="add-btn-sec" style="position:relative;">
+							                                            		<!-- <img src="img/add-more.png" alt="salon-img" class="img-responsive"> -->
+							                                            		<button class="btn cut-btn" type="submit" (click)="onAddOneMoreImage()">
+							                                            			<i class="fa fa-plus"></i> 	Add Images
+							                                            		</button>
+							                                            	</div>
+						                                            	</div>
+						                                            </div>
+											                      </div>
+											                </div>
+										                   <!-- 	<div id="row6">
+											                    <div class="col-md-12 col-sm-12 col-xs-12">
+											                    	
+											                    </div>
+											                </div> -->
+									                </div>
 							                   </div>
 							              </div> 
 										</div>

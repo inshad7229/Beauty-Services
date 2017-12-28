@@ -22,6 +22,7 @@ export class SaloonDashboardProfileComponent implements OnInit {
 	userDetail=JSON.parse(localStorage['userdetails'])
     editOne:boolean=false
     editOne2:boolean=false
+    editOne3:boolean=false
     accountDetailsForm: FormGroup;
     passwordForm: FormGroup;
     optionsModel: number[]=[];
@@ -31,6 +32,7 @@ export class SaloonDashboardProfileComponent implements OnInit {
     passwordModel
     message
     tempImag
+    saloonImage=[]
     public latitude: number;
     public longitude: number;
     public zoom: number;
@@ -42,8 +44,8 @@ export class SaloonDashboardProfileComponent implements OnInit {
                 private ngZone: NgZone) {
         this.passwordModel={}
         this.tempImag=this.userDetail.image
-        this.userDetail.opening_time=JSON.parse(this.userDetail.opening_time)
-        this.userDetail.closing_time=JSON.parse(this.userDetail.closing_time)
+        // this.userDetail.opening_time=JSON.parse(this.userDetail.opening_time)
+        // this.userDetail.closing_time=JSON.parse(this.userDetail.closing_time)
         // this.userDetail.services=this.userDetail.services.split(',')
         // //console.log('services',this.userDetail.services)
         //   for (var i = 0; i < this.userDetail.services.length; ++i) {
@@ -88,8 +90,9 @@ export class SaloonDashboardProfileComponent implements OnInit {
     }
 
     ngOnInit() {
-    	$("#row2").hide();
+    $("#row2").hide();
 		$("#row6").hide();
+    $("#row6").hide();
                 // $("#show1").click(function(){
                 //     $("#row1").hide(600);
                 //     $("#row2").show(600);
@@ -222,6 +225,10 @@ getAmPm(value){
     	this.editOne2=false
         $("#row5").show(500);
 		$("#row6").hide(500);
+    }
+
+    onImage(){
+
     }
     onUpdateDetails(){
          let a=this.optionsModel2.slice(0)
@@ -360,4 +367,77 @@ getAmPm(value){
          return  path
       }
     }
+
+    onAddOneMoreImage(){
+      if (this.saloonImage.length<7) {
+          this.saloonImage.push({id:null,saloon_id:this.userDetail.id,image:null})
+      }
+    }
+
+    onRemoveImage(i,imagedata){
+
+    }
+
+  onMultipalImageUpload(evt: any,i){
+    alert(i)
+     if (!evt.target) {
+            return;
+        }
+        if (!evt.target.files) {
+            return;
+        }
+        if (evt.target.files.length !== 1) {
+            return;
+        }
+        const file = evt.target.files[0];
+        if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif' && file.type !== 'image/jpg') {
+            return;
+        }
+        const fr = new FileReader();
+        fr.onloadend = (loadEvent) => {
+            this.saloonImage[i].image= fr.result;
+            console.log(this.saloonImage[i].image)
+            if (this.saloonImage[i].id) {
+              this.OnEditImage(i)
+            }else if (!this.saloonImage[i].id) {
+              this.onUploadImage(i)
+            }
+        };
+        fr.readAsDataURL(file);
+        
+  }
+  OnEditImage(i){
+    let a={
+      id:this.saloonImage[i].id,
+      saloon_id:this.saloonImage[i].saloon_id,
+      image:this.saloonImage[i].image
+    }
+        this.passwordModel.saloonId=this.userDetail.id
+        this.saloonServices.SaloonImageUpload(a)
+        .subscribe((data)=>{
+            console.log(data);
+            if(data.response){
+             this.toastr.success(data.message ,'Image updated',{toastLife: 1000, showCloseButton: true})
+           }else {
+              this.toastr.error( 'Something Went Wrong Please Try Again' ,'Updation Failed',{toastLife: 1000, showCloseButton: true});
+            }
+         })
+  }
+  onUploadImage(i){
+         let a={
+            saloon_id:this.saloonImage[i].saloon_id,
+            image:this.saloonImage[i].image
+          }
+        this.saloonServices.SaloonImageUpload(a)
+        .subscribe((data)=>{
+            console.log(data);
+            if(data.response){
+             this.saloonImage[i].id=data.data.id
+             this.saloonImage[i].image=data.data.image
+             this.toastr.success(data.message ,'Image uploaded',{toastLife: 1000, showCloseButton: true})
+           }else {
+              this.toastr.error( 'Something Went Wrong Please Try Again' ,'Updation Failed',{toastLife: 1000, showCloseButton: true});
+            }
+         })
+  }
 }

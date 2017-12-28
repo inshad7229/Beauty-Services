@@ -1,522 +1,510 @@
-
-        <section class="search-saloonsec">
+         <div class="loader-box" *ngIf="waitLoader==true">
+             <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
+        </div>
+        <section class="salon-slider" >
+            <div class="owl-demo1 owl-theme" *ngIf="saloonData">
+                <!-- <div class="item" *ngFor="let img of saloonData.SaloonImages ">http://18.216.88.154/public/beauti-service/{{saloonData.SaloonImages[0].image}}
+                    <img src="http://18.216.88.154/public/beauti-service/{{img.image}}" alt="slideimag" class="img-responsive">
+                </div> -->
+                <div class="item" *ngIf="saloonData.SaloonImages.length>0">
+                    <img [src]="getimage1()" alt="slideimag" class="img-responsive">
+                </div>
+                <div class="item" *ngIf="saloonData.SaloonImages.length>1">
+                    <img [src]="getimage2()" alt="slideimag" class="img-responsive">
+                </div>
+                <div class="item" *ngIf="saloonData.SaloonImages.length>2">
+                    <img [src]="getimage3()" alt="slideimag" class="img-responsive">
+                </div>
+                <div class="item" *ngIf="saloonData.SaloonImages.length>3">
+                    <img [src]="getimage4()" alt="slideimag" class="img-responsive">
+                </div>
+                <div class="item" *ngIf="saloonData.SaloonImages.length>4">
+                    <img [src]="getimage5()" alt="slideimag" class="img-responsive">
+                </div>
+                <div class="item" *ngIf="saloonData.SaloonImages.length>5">
+                    <img [src]="getimage6()" alt="slideimag" class="img-responsive">
+                </div>
+            </div>
+            <div class="salon-details-header">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="index.php">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">USA</a>
+                    </li>
+                </ul>
+                <span *ngIf="saloonData">{{saloonData.saloon_name}}</span>
+            </div>
+        </section>
+        <section class="Salon-details-sec" *ngIf="saloonData">
             <div class="container-fluid">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h4 class="header-heading">
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="index.php">Home</a>
-                            </li>
-                            <li>
-                                <a href="index.php">Services Page</a>
-                            </li>
-                        </ul>
-                    </h4>
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <div class="filter-section">
-                                <div class="header-saloon">
-                                    <h4>Filter</h4><a href="javascript:void(0);">Clear All</a>
-                                </div>
-                                <div class="filter-content">
-                                    <div class="filter-inner">
-                                        <h5 class="text-left">Price</h5>
-                                        <ul class="priceul price-inline">
-                                            <li>
-                                                <label class="remember-me">
-                                                    <input type="checkbox"> $
-                                                    <span></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="remember-me">
-                                                    <input type="checkbox" checked="checked"> $$
-                                                    <span></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="remember-me">
-                                                    <input type="checkbox"> $$$
-                                                    <span></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="remember-me">
-                                                    <input type="checkbox"> $$$$
-                                                    <span></span>
-                                                </label>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="filter-inner">
-                                        <h5 class="text-left">Area</h5>
-                                        <ul class="priceul area-ul">
-                                            <li>
-                                                <label class="remember-me">
-                                                    <input type="checkbox"> <p>Business Bay</p>
-                                                    <span></span>
-                                                </label>
-                                                <small class="sm-1">1</small>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="filter-inner">
-                                        <h5 class="text-left">Ctegories</h5>
-                                        <ul class="category-ul">
-                                            <li>
-                                              Spa <span class="remove-cross"><a href="#">X</a></span> 
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="filter-inner">
-                                        <h5 class="text-left">Services</h5>
-                                        <ul class="priceul area-ul">
-                                            <li>
-                                                <label class="remember-me">
-                                                    <input type="checkbox"> <p>Hair Coloring</p>
-                                                    <span></span>
-                                                </label>
-                                                <small class="sm-1">281</small>
-                                            </li>
-                                            <li>
-                                                <label class="remember-me">
-                                                    <input type="checkbox"> <p>Blow Dry</p>
-                                                    <span></span>
-                                                </label>
-                                                <small class="sm-1">231</small>
-                                            </li>
-                                            <li>
-                                                <label class="remember-me">
-                                                    <input type="checkbox" checked="checked"> <p>Haircut</p>
-                                                    <span></span>
-                                                </label>
-                                                <small class="sm-1">231</small>
-                                            </li>
-                                            <li>
-                                                <label class="remember-me">
-                                                    <input type="checkbox"> <p>Hair Highlight</p>
-                                                    <span></span>
-                                                </label>
-                                                <small class="sm-1">200</small>
-                                            </li>
-                                            <li>
-                                                <label class="remember-me">
-                                                    <input type="checkbox"> <p>Women's Haircut</p>
-                                                    <span></span>
-                                                </label>
-                                                <small class="sm-1">207</small>
-                                            </li>
-                                            <li>
-                                                <a class="load-more" href="javascript:void(0);">
-                                                    <i class="fa fa-plus"></i> Load More
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="filter-inner">
-                                        <h5 class="text-left">Service's Price</h5>
-                                        <div class="filter-sub-categ">
-                                            <span class="min-range">
-                                                <span class="left-range">AED 200.00</span>   
-                                                <span class="right-range">AED 200.00</span>   
-                                            </span>
-                                            <input id="rane-slide" type="text" class="span2" value="" data-slider-max="4684350" data-slider-step="5" data-slider-value="[0,4684350]"/> 
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="row wrap-salon-dp">
+                        <div class="col-md-9 col-sm-12 col-xs-12 p-l-0 salon-d">
+                            <div class="salon-des-consec">
+                                <!-- Wizard container -->
+                                <div class="wizard-container">
+                                    <div class="card wizard-card" data-color="red" id="wizard">
+                                        <div class="wizard-navigation">
+                                            <ul class="custome-tab">
+                                                <li class="active">
+                                                    <a href="#details" data-toggle="tab">About</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#captain" data-toggle="tab">Services</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#description" data-toggle="tab">Review</a>
+                                                </li>
+                                            </ul>
                                         </div>
-                                    </div>
-                                    <div class="filter-inner">
-                                        <h5 class="text-left">Date</h5>
-                                        <div class="col-md-12 col-sm-12 col-xs-12 p-l-0">
-                                            <div class="date-wrsap">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </span>
-                                                    <input type="text" class="form-control datetimepicker1" placeholder="Username" aria-describedby="basic-addon1">
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="details">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="about-us-sec">
+                                                        <p>
+                                                            {{saloonData.description_eng}}
+                                                        </p>
+                                                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                                        <p> Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                        </p> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="captain">
+                                                <div class="services-tab-sec">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="service-listwrap" *ngFor="let cat of saloonData.saloonCategory" >
+                                                            <a href="javascript:void(0)" #ref (click)="openCategory(ref)">
+                                                                <span class="right-icon">
+                                                                    <i class="fa fa-angle-up"></i>
+                                                                </span>
+                                                                {{cat.categoryData.category_eng}} ({{cat.categoryData.categoryServices.length}})
+                                                            </a>
+                                                            <div class="sub-menulist" style="display: none">
+                                                                <div class="list-content gray-line" *ngFor="let ser of cat.categoryData.categoryServices">
+                                                                    <div class="col-sm-8 p-0 service-bt">
+                                                                        <h4>{{ser.servicesData.services_eng}}</h4>
+                                                                        <small><a href="javascript:void(0)">Show Details</a> <span>{{getTime(ser.time)}}</span></small>
+                                                                    </div>
+                                                                    <div class="col-sm-4 p-0 service-prl">
+                                                                        <div class="price-value">
+                                                                            <span class="aed-total"><h6>AED {{ser.cost_eng}}</h6></span>
+                                                                            <span class="add-cart-icon">
+                                                                                <a href="#">
+                                                                                    <i class="fa fa-plus"></i>
+                                                                                </a>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- <div class="list-content">
+                                                                    <div class="col-sm-8 p-0 service-bt">
+                                                                        <h4>Perm Cut</h4>
+                                                                        <small><a href="#">Show Details</a><span>45 Min</span></small>
+                                                                    </div>
+                                                                    <div class="col-sm-4 p-0 service-prl">
+                                                                        <div class="price-value">
+                                                                            <span class="aed-total"><h6>AED 190</h6></span>
+                                                                            <span class="add-cart-icon">
+                                                                                <a href="#">
+                                                                                    <i class="fa fa-plus"></i>
+                                                                                </a>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> -->
+                                                            </div>
+                                                        </div>
+                                                      <!--   <div class="service-listwrap">
+                                                            <a href="javascript:void(0)">
+                                                                <span class="right-icon">
+                                                                    <i class="fa fa-angle-up"></i>
+                                                                </span>
+                                                                African Hair cornrow (2)
+                                                            </a>
+                                                            <div class="sub-menulist">
+                                                                <div class="list-content gray-line">
+                                                                    <div class="col-sm-8 p-0 service-bt">
+                                                                        <h4>African Lines with Own Extentions</h4>
+                                                                        <small><a href="#">Show Details</a><span>30 Min</span></small>
+                                                                    </div>
+                                                                    <div class="col-sm-4 p-0 service-prl">
+                                                                        <div class="price-value">
+                                                                            <span class="aed-total"><h6>AED 180</h6></span>
+                                                                            <span class="add-cart-icon">
+                                                                                <a href="#">
+                                                                                    <i class="fa fa-plus"></i>
+                                                                                </a>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="list-content">
+                                                                    <div class="col-sm-8 p-0 service-bt">
+                                                                        <h4>Perm Cut</h4>
+                                                                        <small><a href="#">Show Details</a><span>45 Min</span></small>
+                                                                    </div>
+                                                                    <div class="col-sm-4 p-0 service-prl">
+                                                                        <div class="price-value">
+                                                                            <span class="aed-total"><h6>AED 190</h6></span>
+                                                                            <span class="add-cart-icon">
+                                                                                <a href="#">
+                                                                                    <i class="fa fa-plus"></i>
+                                                                                </a>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="service-listwrap">
+                                                            <a href="javascript:void(0)">
+                                                                <span class="right-icon">
+                                                                    <i class="fa fa-angle-up"></i>
+                                                                </span>
+                                                                Afro Hair Below Dry & Styling (2)
+                                                            </a>
+                                                            <div class="sub-menulist">
+                                                                <div class="list-content gray-line">
+                                                                    <div class="col-sm-8 p-0 service-bt">
+                                                                        <h4>Hot Iron Styling OR Styling</h4>
+                                                                        <small><a href="#">Show Details</a><span>45 Min</span></small>
+                                                                    </div>
+                                                                    <div class="col-sm-4 p-0 service-prl">
+                                                                        <div class="price-value">
+                                                                            <span class="aed-total"><h6>AED 60</h6></span>
+                                                                            <span class="add-cart-icon">
+                                                                                <a href="#">
+                                                                                    <i class="fa fa-plus"></i>
+                                                                                </a>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="list-content">
+                                                                    <div class="col-sm-8 p-0 service-bt">
+                                                                        <h4>Wash & Below Dry</h4>
+                                                                        <small><a href="#">Show Details</a><span>45 Min</span></small>
+                                                                    </div>
+                                                                    <div class="col-sm-4 p-0 service-prl">
+                                                                        <div class="price-value">
+                                                                            <span class="aed-total"><h6>AED 190</h6></span>
+                                                                            <span class="add-cart-icon">
+                                                                                <a href="#">
+                                                                                    <i class="fa fa-plus"></i>
+                                                                                </a>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="service-listwrap">
+                                                            <a href="javascript:void(0)">
+                                                                <span class="right-icon">
+                                                                    <i class="fa fa-angle-up"></i>
+                                                                </span>
+                                                                Afro Hair Braiding (2)
+                                                            </a>
+                                                            <div class="sub-menulist">
+                                                                <div class="list-content gray-line">
+                                                                    <div class="col-sm-8 p-0 service-bt">
+                                                                        <h4>Big size with Own Extension (Short Hair)</h4>
+                                                                        <small><a href="#">Show Details</a><span>30 Min</span></small>
+                                                                    </div>
+                                                                    <div class="col-sm-4 p-0 service-prl">
+                                                                        <div class="price-value">
+                                                                            <span class="aed-total"><h6>AED 50</h6></span>
+                                                                            <span class="add-cart-icon">
+                                                                                <a href="#">
+                                                                                    <i class="fa fa-plus"></i>
+                                                                                </a>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="list-content">
+                                                                    <div class="col-sm-8 p-0 service-bt">
+                                                                        <h4>Perm Cut</h4>
+                                                                        <small><a href="#">Show Details</a><span>45 Min</span></small>
+                                                                    </div>
+                                                                    <div class="col-sm-4 p-0 service-prl">
+                                                                        <div class="price-value">
+                                                                            <span class="aed-total"><h6>AED 190</h6></span>
+                                                                            <span class="add-cart-icon">
+                                                                                <a href="#">
+                                                                                    <i class="fa fa-plus"></i>
+                                                                                </a>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="service-listwrap">
+                                                            <a href="javascript:void(0)">
+                                                                <span class="right-icon">
+                                                                    <i class="fa fa-angle-up"></i>
+                                                                </span>
+                                                                Afro Haircut (2)
+                                                            </a>
+                                                            <div class="sub-menulist">
+                                                                <div class="list-content gray-line">
+                                                                    <div class="col-sm-8 p-0 service-bt">
+                                                                        <h4>Blow Dry</h4>
+                                                                        <small><a href="#">Show Details</a><span>30 Min</span></small>
+                                                                    </div>
+                                                                    <div class="col-sm-4 p-0 service-prl">
+                                                                        <div class="price-value">
+                                                                            <span class="aed-total"><h6>AED 50</h6></span>
+                                                                            <span class="add-cart-icon">
+                                                                                <a href="#">
+                                                                                    <i class="fa fa-plus"></i>
+                                                                                </a>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="list-content">
+                                                                    <div class="col-sm-8 p-0 service-bt">
+                                                                        <h4>Perm Cut</h4>
+                                                                        <small><a href="#">Show Details</a><span>45 Min</span></small>
+                                                                    </div>
+                                                                    <div class="col-sm-4 p-0 service-prl">
+                                                                        <div class="price-value">
+                                                                            <span class="aed-total"><h6>AED 190</h6></span>
+                                                                            <span class="add-cart-icon">
+                                                                                <a href="#">
+                                                                                    <i class="fa fa-plus"></i>
+                                                                                </a>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="description">
+                                                <div class="review-wrap">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="review-heading">
+                                                            <h4>Review</h4>
+                                                            <span class="add-rating">
+                                                                <a href="#"><i class="fa fa-plus-circle"></i>Rating</a>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-4 col-xs-4 text-center">
+                                                            <h1 class="rating-num">
+                                                                4.0</h1>
+                                                            <div class="rating">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star-half-o"></i>
+                                                            </div>
+                                                            <div class="total-starpoint">
+                                                                 <i class="fa fa-user"></i> 1,050,008 total
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-8 col-sm-8 col-xs-8">
+                                                            <div class="rating-desc">
+                                                                <div class="row">
+                                                                    <div class="col-xs-3 col-md-3 text-right">
+                                                                        <i class="fa fa-star"></i>5 
+                                                                    </div>
+                                                                    <div class="col-xs-8 col-md-9">
+                                                                        <div class="progress progress-striped">
+                                                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                                                aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                                                                <span class="sr-only">80%</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- end 5 -->
+                                                                <div class="row">
+                                                                     <div class="col-xs-3 col-md-3 text-right">
+                                                                        <i class="fa fa-star"></i>4
+                                                                    </div>
+                                                                    <div class="col-xs-8 col-md-9">
+                                                                        <div class="progress">
+                                                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                                                aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                                                                <span class="sr-only">60%</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- end 4 -->
+                                                                <div class="row">
+                                                                    <div class="col-xs-3 col-md-3 text-right">
+                                                                        <i class="fa fa-star"></i>3
+                                                                    </div>
+                                                                    <div class="col-xs-8 col-md-9">
+                                                                        <div class="progress">
+                                                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
+                                                                                aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                                                <span class="sr-only">40%</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- end 3 -->
+                                                                <div class="row">
+                                                                    <div class="col-xs-3 col-md-3 text-right">
+                                                                        <i class="fa fa-star"></i>2
+                                                                    </div>
+                                                                    <div class="col-xs-8 col-md-9">
+                                                                        <div class="progress">
+                                                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
+                                                                                aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                                                                <span class="sr-only">20%</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- end 2 -->
+                                                                <div class="row">
+                                                                    <div class="col-xs-3 col-md-3 text-right">
+                                                                        <i class="fa fa-star"></i>1
+                                                                    </div>
+                                                                    <div class="col-xs-8 col-md-9">
+                                                                        <div class="progress">
+                                                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+                                                                                aria-valuemin="0" aria-valuemax="100" style="width: 15%">
+                                                                                <span class="sr-only">15%</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- end 1 -->
+                                                            </div>
+                                                            <!-- end row -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="userlist-rating">
+                                                        <div class="review-wrap-list">
+                                                            <div class="col-md-1 col-sm-1 col-xs-2 p-0">
+                                                                <div class="rating-user">
+                                                                    <img src="img/user-pro-2.jpg" alt="rating-img" >
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-11 col-sm-10 col-xs-10">
+                                                                <div class="review-content">
+                                                                    <h3>Barry Alen</h3>
+                                                                    <span class="user-star">
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star-half-o"></i>
+                                                                    </span>
+                                                                    <span class="time-day pull-right">2 week ago</span>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="review-wrap-list">
+                                                            <div class="col-md-1 col-sm-1 col-xs-2 p-0">
+                                                                <div class="rating-user">
+                                                                    <img src="img/user-pro-1.jpg" alt="rating-img" >
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-11 col-sm-10 col-xs-10">
+                                                                <div class="review-content">
+                                                                    <h3>Barry Alen</h3>
+                                                                    <span class="user-star">
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star-half-o"></i>
+                                                                    </span>
+                                                                    <span class="time-day pull-right">2 week ago</span>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="filter-time">
-                                            <p>Time</p>
-                                            <ul class="time-ul">
+                                    </div>
+                                </div>
+                                <!-- wizard container -->
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12 p-l-0 salon-m">
+                            <div class="salon-det-sidebar">
+                                <div class="salon-add-map">
+                                    <div id="googleMap" style="width:100%;height:200px;"></div>
+                                    <div class="address-salon">
+                                        <h4 *ngIf="saloonData">{{saloonData.saloon_name}}</h4>
+                                        <p class="addres-salon">{{saloonData.city}}</p>
+                                        <div class="Opening-hours">
+                                            <a id="opening" href="javascript:void(0);" #ref2 (click)="openCategory2(ref2)">Opening Hours 
+                                                <span class="pull-right">
+                                                <i class="fa fa-plus-circle"></i>  
+                                                </span>
+                                            </a>
+                                            <ul class="timing-ul" style="display: none">
                                                 <li>
-                                                    <label class="remember-me">
-                                                        <input type="checkbox" checked="checked"> <p>Any Time</p>
-                                                        <span></span>
-                                                    </label>
+                                                    <span class="week-name">Sunday</span>
+                                                    <span class="opening-time">{{saloonData.opening_time}} - {{saloonData.closing_time}}</span>
                                                 </li>
                                                 <li>
-                                                    <label class="remember-me">
-                                                        <input type="checkbox"> <p>Morning</p>
-                                                        <span></span>
-                                                    </label>
+                                                    <span class="week-name">Monday</span>
+                                                    <span class="opening-time">{{saloonData.opening_time}} - {{saloonData.closing_time}}</span>
                                                 </li>
                                                 <li>
-                                                    <label class="remember-me">
-                                                        <input type="checkbox"> <p>Afternoon</p>
-                                                        <span></span>
-                                                    </label>
+                                                    <span class="week-name">Tuesday</span>
+                                                    <span class="opening-time">{{saloonData.opening_time}} - {{saloonData.closing_time}}</span>
                                                 </li>
                                                 <li>
-                                                    <label class="remember-me">
-                                                        <input type="checkbox"> <p>Evening</p>
-                                                        <span></span>
-                                                    </label>
+                                                    <span class="week-name">Wednesday</span>
+                                                    <span class="opening-time">{{saloonData.opening_time}} - {{saloonData.closing_time}}</span>
+                                                </li>
+                                                <li>
+                                                    <span class="week-name">Thursday</span>
+                                                    <span class="opening-time">{{saloonData.opening_time}} - {{saloonData.closing_time}}</span>
+                                                </li>
+                                                <li>
+                                                    <span class="week-name">Friday</span>
+                                                    <span class="opening-time">{{saloonData.opening_time}} - {{saloonData.closing_time}}</span>
+                                                </li>
+                                                <li>
+                                                    <span class="week-name">Saturday</span>
+                                                    <span class="opening-time">{{saloonData.opening_time}} - {{saloonData.closing_time}}</span>
                                                 </li>
                                             </ul>
+                                        </div>
+                                        <div class="credit-card-salon" *ngIf="saloonData.cardPay">
+                                            <span class="card-check">
+                                                <i class="fa fa-credit-card"></i>
+                                                <p><i class="fa fa-check-circle"></i></p>
+                                            </span>
+                                            This saloon accepted credit Card
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 custom-p">
-                            <div class="service-show-sec">
-                                <div class="filter-content">
-                                    <div class="sorting-div wow fadeInDown" wow-data-delay="0.4s">
-                                        <span class="showing-list">Showing 200 results</span>
-                                        <span class="sort-by">
-                                            <div class="col-md-4 col-sm-4 col-xs-12 p-0">
-                                                <label>Sort BY</label>    
-                                            </div>
-                                            <div class="col-md-8 col-sm-8 col-xs-12 p-0">
-                                                <div class="custom-select">
-                                                    <select class="form-control txtfield" placeholder="Select">
-                                                        <option value="" selected="">Relevance</option>
-                                                        <option value="">Lowest</option>
-                                                        <option value="">Highest</option>
-                                                        <option value="">Proximity</option>
-                                                    </select>
-                                                    <span class="caret"></span>
-                                                </div>
-                                            </div>
-                                        </span>
-                                    </div>
-                                    <div class="service-list-sec">
-                                        <div class="wrap-service">
-                                            <div class="img-content-sec">
-                                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 p-l-0">
-                                                    <div class="service-img">
-                                                        <img src="assets/img/service-1.jpg" class="img-responsive">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                                                    <div class="service-inner-des">
-                                                        <h5 class="name-saloon">
-                                                            <a href="javascript:void(0);">Sasha Beauty Salon (Ladies)</a>
-                                                        </h5>
-                                                        <address>9566 Destiny USA Dr E208, Syracuse, NY 13290, USA</address>
-                                                        <ul class="rating-points">
-                                                            <li>
-                                                                <span class="rating-star">
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star-half-o"></i>
-                                                                </span>
-                                                                <span class="star-number">(18)</span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="dollor-select">
-                                                                    <span class="card-check">
-                                                                        <i class="fa fa-credit-card"></i>
-                                                                        <p><i class="fa fa-check-circle"></i></p>
-                                                                    </span>
-                                                                    <ul class="dollor-view">
-                                                                        <li class="active">
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                        <li class="active">
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                    </ul>
-                                                                </span>
-                                                            </li>
-                                                        </ul>
-                                                        <p class="description-salon">
-                                                            Sasha Beauty Salon is not a name unheard of in the Dubai beauty scene. With a chain of world class salons and only the very best quality of services, Sasha beauty is a name associated with reliable beauty care. The salon has an extensive...
-                                                            <a href="javascript:void(0);">Read More</a>
-                                                        </p>    
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="esact-service">
-                                                <div class="searched-service">
-                                                    <ul class="searched-ul">
-                                                        <li>
-                                                            <span class="service-name">
-                                                                Haircut 
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 30 Min</span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub">AED 80
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="searched-service relevant-de">
-                                                    <ul class="searched-ul">
-                                                        <li>
-                                                            <span class="service-name">
-                                                                Hair Smoothing 
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 15 Min</span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub">AED 40
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="searched-service relevant-de2">
-                                                    <ul class="searched-ul">
-                                                        <li>
-                                                            <span class="service-name">
-                                                                Hair Color
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 40 Min</span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub">AED 300
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="wrap-service">
-                                            <div class="img-content-sec">
-                                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 p-l-0">
-                                                    <div class="service-img">
-                                                        <img src="assets/img/service-2.jpg" class="img-responsive">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                                                    <div class="service-inner-des">
-                                                        <h5 class="name-saloon">
-                                                            <a href="javascript:void(0);">Platinum Black Beauty Salon</a>
-                                                        </h5>
-                                                        <address>9566 Destiny USA Dr E208, Syracuse, NY 13290, USA</address>
-                                                        <ul class="rating-points">
-                                                            <li>
-                                                                <span class="rating-star">
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star-half-o"></i>
-                                                                </span>
-                                                                <span class="star-number">(18)</span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="dollor-select">
-                                                                    <span class="card-check">
-                                                                        <i class="fa fa-credit-card"></i>
-                                                                        <p><i class="fa fa-check-circle"></i></p>
-                                                                    </span>
-                                                                    <ul class="dollor-view">
-                                                                        <li class="active">
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                        <li class="active">
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                    </ul>
-                                                                </span>
-                                                            </li>
-                                                        </ul>
-                                                        <p class="description-salon">
-                                                            Sasha Beauty Salon is not a name unheard of in the Dubai beauty scene. With a chain of world class salons and only the very best quality of services, Sasha beauty is a name associated with reliable beauty care. The salon has an extensive...
-                                                            <a href="javascript:void(0);">Read More</a>
-                                                        </p>    
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="esact-service">
-                                                <div class="searched-service">
-                                                    <ul class="searched-ul">
-                                                        <li>
-                                                            <span class="service-name">
-                                                                Shampoo
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 30 Min</span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub">AED 80
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <!-- <div class="searched-service relevant-de">
-                                                    <ul class="searched-ul">
-                                                        <li>
-                                                            <span class="service-name">
-                                                                Child Hair Cut (10 year and below) 
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 15 Min</span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub">AED 40
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div> -->
-                                                <div class="searched-service relevant-de2">
-                                                    <ul class="searched-ul">
-                                                        <li>
-                                                            <span class="service-name">
-                                                                Hair Trim
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 30 Min</span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub">AED 200
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="wrap-service">
-                                            <div class="img-content-sec">
-                                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 p-l-0">
-                                                    <div class="service-img">
-                                                        <img src="assets/img/service-3.jpg" class="img-responsive">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                                                    <div class="service-inner-des">
-                                                        <h5 class="name-saloon">
-                                                            <a href="javascript:void(0);">Platinum Black Beauty Salon</a>
-                                                        </h5>
-                                                        <address>9566 Destiny USA Dr E208, Syracuse, NY 13290, USA</address>
-                                                        <ul class="rating-points">
-                                                            <li>
-                                                                <span class="rating-star">
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star-half-o"></i>
-                                                                </span>
-                                                                <span class="star-number">(18)</span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="dollor-select">
-                                                                    <span class="card-check">
-                                                                        <i class="fa fa-credit-card"></i>
-                                                                        <p><i class="fa fa-check-circle"></i></p>
-                                                                    </span>
-                                                                    <ul class="dollor-view">
-                                                                        <li class="active">
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                        <li class="active">
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-usd"></i>
-                                                                        </li>
-                                                                    </ul>
-                                                                </span>
-                                                            </li>
-                                                        </ul>
-                                                        <p class="description-salon">
-                                                            Sasha Beauty Salon is not a name unheard of in the Dubai beauty scene. With a chain of world class salons and only the very best quality of services, Sasha beauty is a name associated with reliable beauty care. The salon has an extensive...
-                                                            <a href="javascript:void(0);">Read More</a>
-                                                        </p>    
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="esact-service">
-                                                <div class="searched-service">
-                                                    <ul class="searched-ul">
-                                                        <li>
-                                                            <span class="service-name">
-                                                                Hair Straight
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 30 Min</span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub">AED 80
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <!-- <div class="searched-service relevant-de">
-                                                    <ul class="searched-ul">
-                                                        <li>
-                                                            <span class="service-name">
-                                                                Child Hair Cut (10 year and below) 
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 15 Min</span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub">AED 40
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div> -->
-                                                <!-- <div class="searched-service relevant-de2">
-                                                    <ul class="searched-ul">
-                                                        <li>
-                                                            <span class="service-name">
-                                                                Front Cut
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 15 Min</span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub">AED 16
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> 
+                            <div class="book-nowsec">
+                                <div class="total-mony">
+                                    <span class="booknow">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        <span class="circle-value">2</span>
+                                    </span>
+                                    <span class="price-span">AED 100.00</span>
+                                </div>
+                                <div class="book-nowbtn">
+                                    <a href="javascript:void(0);" class="btn cut-btn">Book Now</a>
+                                </div>
                             </div>
                         </div>
                     </div>

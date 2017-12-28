@@ -38,8 +38,10 @@
     "fullcalendar": "^3.7.0",
     "ng2-dropdown-multiselect": "^1.2.0",
     "ng2-toastr": "^4.1.2",
+    "ngx-bootstrap": "^2.0.0-rc.0",
     "ngx-facebook": "^2.4.0",
     "ngx-multiselect": "^1.1.0",
+    "ngx-owl-carousel": "^2.0.4",
     "ngx-pagination": "^3.0.3",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"

@@ -166,6 +166,27 @@ export class SaloonService {
       
     );
   }
+
+
+  SaloonImageUpload(data): Observable<any> {
+    const url = `${ENV.mainApi}/SaloonImageUpload`;
+    return this.http.post<any>(url,data,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`SaloonImageUpload`)),
+        catchError(this.handleError('SaloonImageUpload', []))
+      
+    );
+  }
+
+  SaloonImageEdit(data): Observable<any> {
+    const url = `${ENV.mainApi}/saloonServicesUpdate`;
+    return this.http.post<any>(url,data,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`saloonServicesUpdate`)),
+        catchError(this.handleError('saloonServicesUpdate', []))
+      
+    );
+  }
    /**
    * Handle Http operation that failed.
    * Let the app continue.
