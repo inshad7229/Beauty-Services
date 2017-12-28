@@ -1,3 +1,7 @@
+ <div class="loader-box" *ngIf="waitLoader==true">
+             <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
+        </div>
+
 <div class="page-content-wrapper">
 				<div class="page-content">
 					<ul class="page-breadcrumb breadcrumb hide">
@@ -29,61 +33,61 @@
 							                   <div class="profile-form">
 							                   		<div class="first-secwrap">
 							                   			<div id="row1">
-										                    <div class="col-md-9 col-sm-9 col-xs-12 ">
+										                    <div class="col-md-9 col-sm-9 col-xs-12 " *ngIf="profileData">
 									                          	<div class="info-list">
 									                          		<dl class="dl-horizontal">
 																	  <dt>Saloon Name</dt>
-																	  <dd>{{userDetail.saloon_name}}</dd>
+																	  <dd>{{profileData.saloon_name}}</dd>
 																	  <dt>Name</dt>
-																	  <dd>{{userDetail.name}}</dd>
+																	  <dd>{{profileData.name}}</dd>
 																	  <dt>Email</dt>
-																	  <dd>{{userDetail.email}}</dd>
+																	  <dd>{{profileData.email}}</dd>
 																	  <dt>Contact Number</dt>
-																	  <dd>{{userDetail.contact_number}}</dd>
+																	  <dd>{{profileData.contact_number}}</dd>
 																	  <!-- <dt>Services Category</dt>
 																	  <dd>Saloon</dd>
 																	  <dt>Saloon Service</dt>
 																	  <dd>Hair, Skin, Nail Treatment</dd> -->
 																	  <dt>Opening Time</dt>
-																	  <dd>{{getHours(userDetail.opening_time.hour)}} : {{getMin(userDetail.opening_time.minute)}} {{getAmPm(userDetail.opening_time.hour)}}</dd>
+																	  <dd>{{getHours(profileData.opening_time)}} : {{getMin(profileData.opening_time)}} {{getAmPm(profileData.opening_time)}}</dd>
 																	  <dt>Closing Time</dt>
-																	  <dd>{{getHours(userDetail.closing_time.hour)}} : {{getMin(userDetail.closing_time.minute)}} {{getAmPm(userDetail.closing_time.hour)}}</dd>
+																	  <dd>{{getHours(profileData.closing_time)}} : {{getMin(profileData.closing_time)}} {{getAmPm(profileData.closing_time)}}</dd>
 																	  <dt>City</dt>
-																	  <dd>{{userDetail.city}}</dd>
-																	  <agm-map id="demo2" [latitude]="userDetail.latitude" [longitude]="userDetail.longitude" [scrollwheel]="false" [zoom]="zoom">
-                                        									<agm-marker [latitude]="userDetail.latitude" [longitude]="userDetail.longitude"></agm-marker>
+																	  <dd>{{profileData.city}}</dd>
+																	  <agm-map id="demo2" [latitude]="getLat(profileData.latitude)" [longitude]="getLon(profileData.longitude)" [scrollwheel]="false" [zoom]="zoom">
+                                        									<agm-marker [latitude]="getLat(profileData.latitude)" [longitude]="getLon(profileData.longitude)"></agm-marker>
 	                                              					</agm-map>
 																	</dl>
 									                          	</div>
 										                    </div>
-									                      	<div class="col-md-3 col-sm-3 col-xs-12">
+									                      	<div class="col-md-3 col-sm-3 col-xs-12" *ngIf="dataforedit">
 										                        <div class="wrap-div outer-img">
-										                            <img *ngIf="!userDetail.image" src="assets/img/saloon-user.png" class="img-responsive">
-										                            <img *ngIf="userDetail.image" src="http://18.216.88.154/public/beauti-service/{{userDetail.image}}" class="img-responsive">
+										                            <img *ngIf="!dataforedit.image" src="assets/img/saloon-user.png" class="img-responsive">
+										                            <img *ngIf="dataforedit.image" src="http://18.216.88.154/public/beauti-service/{{dataforedit.image}}" class="img-responsive">
 										                        </div>
 									                      	</div>
 									                    </div>
-									                    <div id="row2">
+									                    <div id="row2" *ngIf="dataforedit">
 									                    	<form [formGroup]="accountDetailsForm">
 									                    		<div class="col-md-9 col-md-9 col-xs-12">
 										                    	<div class="row">
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 						                                                <label>Enter Saloon Name</label>
-						                                                <input type="text" placeholder="Enter Saloon Name" class="form-control" [formControl]="accountDetailsForm.controls['saloonName']" [(ngModel)]="userDetail.saloon_name">
+						                                                <input type="text" placeholder="Enter Saloon Name" class="form-control" [formControl]="accountDetailsForm.controls['saloonName']" [(ngModel)]="dataforedit.saloon_name">
 						                                            </div>
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 						                                                <label>Enter Name</label>
-						                                                <input type="text" placeholder="Enter Name" class="form-control" [formControl]="accountDetailsForm.controls['name']" [(ngModel)]="userDetail.name">
+						                                                <input type="text" placeholder="Enter Name" class="form-control" [formControl]="accountDetailsForm.controls['name']" [(ngModel)]="dataforedit.name">
 						                                            </div>
 						                                        </div>
 						                                        <div class="row">
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 						                                                <label>Enter Email</label>
-						                                                <input type="text" placeholder="Enter Email" class="form-control" [formControl]="accountDetailsForm.controls['email']" [(ngModel)]="userDetail.email" >
+						                                                <input type="text" placeholder="Enter Email" class="form-control" [formControl]="accountDetailsForm.controls['email']" [(ngModel)]="dataforedit.email" >
 						                                            </div>
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 						                                                <label>Enter Contact Number</label>
-						                                                <input type="text" placeholder="Enter Contact Number" class="form-control" [formControl]="accountDetailsForm.controls['contactNumber']" [(ngModel)]="userDetail.contact_number">
+						                                                <input type="text" placeholder="Enter Contact Number" class="form-control" [formControl]="accountDetailsForm.controls['contactNumber']" [(ngModel)]="dataforedit.contact_number">
 						                                            </div>
 						                                        </div>
 						                                   <!--      <div class="row">
@@ -105,13 +109,13 @@
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 					                                                  	<label>Opening Time</label>
 					                                                    <div class="custom-select">
-					                                                    	<ngb-timepicker [(ngModel)]="userDetail.opening_time" [meridian]="true" [spinners]="false" [formControl]="accountDetailsForm.controls['time1']" ></ngb-timepicker>
+					                                                    	<ngb-timepicker [(ngModel)]="time.opening_time" [meridian]="true" [spinners]="false" [formControl]="accountDetailsForm.controls['time1']" ></ngb-timepicker>
 					                                                    </div>
 					                                                </div>
 					                                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
 					                                                    <label>Closing Time</label>
 					                                                    <div class="custom-select">
-					                                                    	<ngb-timepicker [(ngModel)]="userDetail.closing_time" [meridian]="true" [spinners]="false" [formControl]="accountDetailsForm.controls['time2']" ></ngb-timepicker>
+					                                                    	<ngb-timepicker [(ngModel)]="time.closing_time" [meridian]="true" [spinners]="false" [formControl]="accountDetailsForm.controls['time2']" ></ngb-timepicker>
 					                                                    </div>
 					                                                </div>
 					                                            </div>
@@ -119,7 +123,7 @@
 						                                        <div class="row">
 						                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
 						                                                <label>Enter Your City</label>
-						                                                <input placeholder="City" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" [formControl]="accountDetailsForm.controls['city']" class="form-control" [(ngModel)]="userDetail.city"  #search>
+						                                                <input placeholder="City" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" [formControl]="accountDetailsForm.controls['city']" class="form-control" [(ngModel)]="dataforedit.city"  #search>
 						                                                <p  *ngIf="accountDetailsForm.controls['city'].hasError('required') && accountDetailsForm.controls['city'].touched">
 						                                                     City is <strong>required</strong>
 						                                                </p>
@@ -129,8 +133,8 @@
 						                                                <p  *ngIf="accountDetailsForm.controls['city'].hasError('maxlength')">
 						                                                           Max length is 300
 						                                                </p>
-	                                              						<agm-map id="demo" [latitude]="userDetail.latitude" [longitude]="userDetail.longitude" [scrollwheel]="false" [zoom]="zoom">
-	                                                						<agm-marker [latitude]="userDetail.latitude" [longitude]="userDetail.longitude"></agm-marker>
+	                                              						<agm-map id="demo" [latitude]="getLat(dataforedit.latitude)" [longitude]="getLon(dataforedit.longitude)" [scrollwheel]="false" [zoom]="zoom">
+                                        									<agm-marker [latitude]="getLat(dataforedit.latitude)" [longitude]="getLon(dataforedit.longitude)"></agm-marker>
 	                                              					</agm-map>
 						                                            </div>
 						                                        </div>
@@ -145,10 +149,10 @@
 									                            	</ul>
 										                        </div>
 										                    </div>
-									                      	<div class="col-md-3 col-sm-3 col-xs-12">
+									                      	<div class="col-md-3 col-sm-3 col-xs-12" *ngIf="dataforedit">
 										                        <div class="wrap-div outer-img">
-										                            <img *ngIf="!userDetail.image " src="assets/img/saloon-user.png" class="img-responsive">
-										                            <img *ngIf="userDetail.image" [src]="imagePath(userDetail.image)" class="img-responsive">
+										                            <img *ngIf="!dataforedit.image " src="assets/img/saloon-user.png" class="img-responsive">
+										                            <img *ngIf="dataforedit.image" [src]="imagePath(dataforedit.image)" class="img-responsive">
 										                            <span class="upload-img">
 										                            <button class="btn cut-btn" type="submit">Change Profile</button>
 										                            <input class="profile-btn cut-btn" name="image" type="file" (change)="imageUploadEvent($event)" accept="image/gif, image/jpeg, image/png" />
@@ -244,8 +248,25 @@
 										                    </a></h4>
 											                <div id="row20">
 											                      <div class="col-md-12 col-sm-12 col-xs-12">
+											                      	<div class="row">
+											                      		<div  class="form-group col-md-3 col-sm-3 col-xs-12">
+							                                            	<ngx-croppie *ngIf="croppieImageHorigontal" #ngxCroppie [croppieOptions]="croppieOptionsHorigontal" [imageUrl]="croppieImageHorigontal" (result)="newImageResultFromCroppieHorigontal($event)"></ngx-croppie>
+							                                            	
+						                                            	</div>
+
+						                                            	<div class="form-group col-sm-9 col-md-9 col-xs-12">
+							                                            		<ul class="update-form-ul" *ngIf="croppieImageHorigontal">
+										                            		<li>
+										                            			<button  type="button" class="btn cut-btn" (click)="saveImageFromCroppieHorigontal(myForm)">Save</button>
+										                            		</li>
+										                            		<li>
+										                            			<a href="javascript:void(0);" class="btn cut-btn"  (click)="cancelCroppieEditHorigontal()">Cancel</a>
+										                            		</li>
+										                            	</ul>
+							                                            	</div>
+											                      	</div>
 											                         <div class="row">
-						                                            	<div *ngFor="let imagedata of saloonImage; let i=index" class="form-group col-md-3 col-sm-3 col-xs-12">
+						                                            	<div *ngFor="let imagedata of saloonImage2; let i=index" class="form-group col-md-3 col-sm-3 col-xs-12">
 						                                            		<div class="wrap-div cuatom-img">
 													                            <img *ngIf="!imagedata.image " src="assets/img/saloon-user.png" class="img-responsive">
 										                            			<img *ngIf="imagedata.image" [src]="imagePath(imagedata.image)" class="img-responsive">
@@ -270,7 +291,7 @@
 						                                            	<div class="append-sec">
 						                                            		
 						                                            	</div>
-						                                            	<div *ngIf="saloonImage.length<7" class="form-group col-md-3 col-sm-3 col-xs-12">
+						                                            	<div *ngIf="saloonImage2.length<7" class="form-group col-md-3 col-sm-3 col-xs-12">
 							                                            	<div class="add-btn-sec" style="position:relative;">
 							                                            		<!-- <img src="img/add-more.png" alt="salon-img" class="img-responsive"> -->
 							                                            		<button class="btn cut-btn" type="submit" (click)="onAddOneMoreImage()">
@@ -278,6 +299,25 @@
 							                                            		</button>
 							                                            	</div>
 						                                            	</div>
+						                                            	
+						                                            	 <!-- <div class="fileinput text-center fileinput-new" data-provides="fileinput">
+							                                                 <ngx-croppie *ngIf="croppieImageHorigontal" #ngxCroppie [croppieOptions]="croppieOptionsHorigontal" [imageUrl]="croppieImageHorigontal" (result)="newImageResultFromCroppieHorigontal($event)"></ngx-croppie>
+							                                                <div class="fileinput-preview fileinput-exists" style="display:none;">
+							                                                     <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieHorigontal(myForm)">
+							                                                    Save
+							                                                    <div class="ripple-container"></div>
+							                                                    </span>    
+							                                                    <span class="btn btn-danger btn-round file_remove" data-dismiss="modal" (click)="cancelCroppieEditHorigontal()">
+							                                                        <i class="fa fa-times"></i> Cancel
+							                                                        <div class="ripple-container"></div>
+							                                                    </span>
+							                                                </div> -->
+							                                               <!--  <span class="btn custom-btn btn-round btn-file fileinput-noexists">
+							                                                    <span class="fileinput-new">Change</span>
+							                                                    <input type="file" class="file-type" id="fileupload" #imageUploadHorigontal (change)="imageUploadEventHorigontal($event)" accept="image/gif, image/jpeg, image/png" />
+							                                                    <div class="ripple-container"></div>
+							                                                </span> -->
+							                                            <!-- </div> -->
 						                                            </div>
 											                      </div>
 											                </div>

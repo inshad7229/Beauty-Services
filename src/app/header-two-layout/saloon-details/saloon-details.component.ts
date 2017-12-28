@@ -1,7 +1,6 @@
 import { Component, OnInit,ViewContainerRef ,ViewChild} from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { ToastsManager , Toast} from 'ng2-toastr';
-import {OwlCarousel} from 'ngx-owl-carousel';
 
 import {SaloonService} from '../../providers/saloon.service'
 
@@ -15,7 +14,7 @@ declare var WOW
     styleUrls: ['./saloon-details.component.scss']
 })
 export class SaloonDetailsComponent implements OnInit {
-    @ViewChild('owlElement') owlElement: OwlCarousel
+
 	id
 	waitLoader
 	saloonData
@@ -31,10 +30,7 @@ export class SaloonDetailsComponent implements OnInit {
     	alert(this.id)
         this.getSaloonData()
     }
-   fun() {
-     this.owlElement.next([200])
-     //duration 200ms
-   }
+  
     ngOnInit() {
     	  // 	$(window).scroll(function() {
 			    //     if ($(this).scrollTop() > 1){  

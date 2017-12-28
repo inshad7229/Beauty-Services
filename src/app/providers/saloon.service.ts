@@ -187,6 +187,16 @@ export class SaloonService {
       
     );
   }
+
+    getSaloonProfileData(id): Observable<any> {
+    const url = `${ENV.mainApi}/saloonDetailsById/${id}`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`saloonDetailsById`)),
+        catchError(this.handleError('saloonDetailsById', []))
+      
+    );
+  }
    /**
    * Handle Http operation that failed.
    * Let the app continue.

@@ -4,6 +4,8 @@ import { ToastsManager , Toast} from 'ng2-toastr';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 import {SaloonService} from '../../providers/saloon.service'
+import { NgxCroppieComponent } from 'ngx-croppie';
+import { CroppieOptions } from 'croppie';
 
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
@@ -18,6 +20,36 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 })
 export class SaloonDashboardProfileComponent implements OnInit {
    @ViewChild("search")
+    @ViewChild('ngxCroppie') ngxCroppie: NgxCroppieComponent;
+    widthPx = '350';
+    heightPx = '350';
+    imageUrl = ''; 
+    currentImageHorigontal: string;
+    croppieImageHorigontal: string;
+    activeIndex:number
+     public get imageToDisplayHorigontal() {
+        if (this.currentImageHorigontal) {
+            return this.currentImageHorigontal;
+        }
+        if (this.imageUrl) {
+            return this.imageUrl;
+        }
+        return `http://placehold.it/${300}x${50}`;
+    }
+
+    public get croppieOptionsHorigontal(): CroppieOptions {
+        const opts: CroppieOptions = {};
+        opts.viewport = {
+            width: parseInt('300', 10),
+            height: parseInt('300', 10)
+        };
+        opts.boundary = {
+            width: parseInt(this.widthPx, 10),
+            height: parseInt(this.heightPx, 10)
+        };
+        opts.enforceBoundary = true;
+        return opts;
+    }
       public searchElementRef: ElementRef;
 	userDetail=JSON.parse(localStorage['userdetails'])
     editOne:boolean=false
@@ -30,12 +62,17 @@ export class SaloonDashboardProfileComponent implements OnInit {
     optionsModel2: number[]=[];
     myOptions2: IMultiSelectOption[];
     passwordModel
+    profileData
+    dataforedit
     message
     tempImag
+    waitLoader
     saloonImage=[]
+    saloonImage2=[]
     public latitude: number;
     public longitude: number;
     public zoom: number;
+    time
     constructor(public router: Router, private fb: FormBuilder, 
                 private saloonServices:SaloonService,
                 vcr: ViewContainerRef,
@@ -43,6 +80,7 @@ export class SaloonDashboardProfileComponent implements OnInit {
                 private mapsAPILoader: MapsAPILoader,
                 private ngZone: NgZone) {
         this.passwordModel={}
+        this.time={}
         this.tempImag=this.userDetail.image
         // this.userDetail.opening_time=JSON.parse(this.userDetail.opening_time)
         // this.userDetail.closing_time=JSON.parse(this.userDetail.closing_time)
@@ -150,8 +188,31 @@ export class SaloonDashboardProfileComponent implements OnInit {
         });
       });
     });
+    this.getProfileDta()
     }
-   
+getLat(lat){
+  return parseInt(lat)
+
+}
+getLon(long){
+ return parseInt(long)
+}
+
+     getProfileDta(){
+       this.waitLoader=true
+          this.saloonServices.getSaloonProfileData(this.userDetail.id)
+          .subscribe((data)=>{
+            this.waitLoader=false
+              console.log(data);
+              if(data.response){
+                this.profileData=data.data[0]
+                this.saloonImage=data.data[0].SaloonImages
+               this.toastr.success(data.message ,'Image updated',{toastLife: 1000, showCloseButton: true})
+             }else {
+                this.toastr.error( 'Something Went Wrong Please Try Again' ,'Updation Failed',{toastLife: 1000, showCloseButton: true});
+              }
+           })
+  }
 
     private setCurrentPosition() {
     if ("geolocation" in navigator) {
@@ -165,27 +226,33 @@ export class SaloonDashboardProfileComponent implements OnInit {
 
 
 getHours(value){
-  if (value>12) {
-    var a=value-12;
+  let value2=value.split(':')
+  let value3=parseInt(value2[0])
+  if (value3>12) {
+    var a=value3-12;
     return '0'+a
   }else{
-   if (value<10) {
-    return '0'+value
+   if (value3<10) {
+    return '0'+value3
    }else{
-     return value
+     return value3
    } 
   }
 
 }
 getMin(value){
-  if (value<10) {
-    return '0'+value
+    let value2=value.split(':')
+  let value3=parseInt(value2[1])
+  if (value3<10) {
+    return '0'+value3
    }else{
-     return value
+     return value3
    }
 }
 getAmPm(value){
-  if (value>11) {
+   let value2=value.split(':')
+  let value3=parseInt(value2[0])
+  if (value3>11) {
     return 'Pm'
    }else{
      return 'Am'
@@ -196,6 +263,17 @@ getAmPm(value){
 	    	$("#row1").hide(600);
 		    $("#row2").show(600);
     		this.editOne=true
+        this.dataforedit=this.profileData
+         let value2=this.dataforedit.opening_time.split(':')
+         let value3=this.dataforedit.closing_time.split(':')
+        this.time.opening_time={
+          hour:parseInt(value2[0]),
+          minute:parseInt(value2[1])
+        }
+        this.time.closing_time={
+          hour:parseInt(value3[0]),
+          minute:parseInt(value3[1])
+        }
     	}else{
     		this.editOne=false
     		$("#row1").show(600);
@@ -233,15 +311,15 @@ getAmPm(value){
     onUpdateDetails(){
          let a=this.optionsModel2.slice(0)
          let b=this.optionsModel.slice(0)
-         this.userDetail.saloonId=this.userDetail.id
-         this.userDetail.services=a.toString()
-         this.userDetail.category=b.toString()
-         this.userDetail.opening_time=JSON.stringify(this.userDetail.opening_time)
-         this.userDetail.closing_time=JSON.stringify(this.userDetail.closing_time)
-         delete(this.userDetail.created_at)
-         delete(this.userDetail.updated_at)
-         delete(this.userDetail.id)
-         this.saloonServices.SaloonProfileUpdate(this.userDetail)
+         this.dataforedit.saloonId=this.userDetail.id
+         this.dataforedit.services=a.toString()
+         this.dataforedit.category=b.toString()
+         this.dataforedit.opening_time=this.time.opening_time.hour+':'+this.time.opening_time.minute
+         this.dataforedit.closing_time=this.time.closing_time.hour+':'+this.time.closing_time.minute
+         delete(this.dataforedit.created_at)
+         delete(this.dataforedit.updated_at)
+         delete(this.dataforedit.id)
+         this.saloonServices.SaloonProfileUpdate(this.dataforedit)
         .subscribe((data)=>{
             console.log(data);
             if(data.response){
@@ -249,31 +327,32 @@ getAmPm(value){
                 this.editOne=false
                 $("#row1").show(600);
                 $("#row2").hide(600);
-                localStorage['userdetails']=JSON.stringify(data.data)
-                this.userDetail=JSON.parse(localStorage['userdetails'])
-                this.userDetail.services=this.userDetail.services.split(',')
-                this.tempImag=this.userDetail.image
-                this.userDetail.opening_time=JSON.parse(this.userDetail.opening_time)
-                this.userDetail.closing_time=JSON.parse(this.userDetail.closing_time)
-        //console.log('services',this.userDetail.services)
-        this.optionsModel2=[]
-          for (var i = 0; i < this.userDetail.services.length; ++i) {
-                 if (+this.userDetail.services[i]!=NaN) {
-                  this.optionsModel2.push(+this.userDetail.services[i])
-                     // code...
-                 }
-              // code...
-          }
-          this.optionsModel=[]
-          this.userDetail.category=this.userDetail.category.split(',')
-        console.log('services',this.userDetail.category)
-          for (var j = 0; j < this.userDetail.category.length; ++j) {
-                 if (+this.userDetail.category[j]!=NaN) {
-                  this.optionsModel.push(+this.userDetail.category[j])
-                     // code...
-                 }
-              // code...
-          }
+                this.getProfileDta()
+        //         localStorage['userdetails']=JSON.stringify(data.data)
+        //         this.userDetail=JSON.parse(localStorage['userdetails'])
+        //         this.userDetail.services=this.userDetail.services.split(',')
+        //         this.tempImag=this.userDetail.image
+        //         this.userDetail.opening_time=JSON.parse(this.userDetail.opening_time)
+        //         this.userDetail.closing_time=JSON.parse(this.userDetail.closing_time)
+        // //console.log('services',this.userDetail.services)
+        // this.optionsModel2=[]
+        //   for (var i = 0; i < this.userDetail.services.length; ++i) {
+        //          if (+this.userDetail.services[i]!=NaN) {
+        //           this.optionsModel2.push(+this.userDetail.services[i])
+        //              // code...
+        //          }
+        //       // code...
+        //   }
+        //   this.optionsModel=[]
+        //   this.userDetail.category=this.userDetail.category.split(',')
+        // console.log('services',this.userDetail.category)
+        //   for (var j = 0; j < this.userDetail.category.length; ++j) {
+        //          if (+this.userDetail.category[j]!=NaN) {
+        //           this.optionsModel.push(+this.userDetail.category[j])
+        //              // code...
+        //          }
+        //       // code...
+        //   }
               // setTimeout(()=>{
                 // this.router.navigate(['/header-two-layout/login']);
               // },3000)
@@ -369,8 +448,8 @@ getAmPm(value){
     }
 
     onAddOneMoreImage(){
-      if (this.saloonImage.length<7) {
-          this.saloonImage.push({id:null,saloon_id:this.userDetail.id,image:null})
+      if (this.saloonImage2.length<7) {
+          this.saloonImage2.push({id:null,saloon_id:this.userDetail.id,image:null})
       }
     }
 
@@ -379,7 +458,8 @@ getAmPm(value){
     }
 
   onMultipalImageUpload(evt: any,i){
-    alert(i)
+    //alert(i)
+    this.activeIndex=i
      if (!evt.target) {
             return;
         }
@@ -395,13 +475,10 @@ getAmPm(value){
         }
         const fr = new FileReader();
         fr.onloadend = (loadEvent) => {
-            this.saloonImage[i].image= fr.result;
-            console.log(this.saloonImage[i].image)
-            if (this.saloonImage[i].id) {
-              this.OnEditImage(i)
-            }else if (!this.saloonImage[i].id) {
-              this.onUploadImage(i)
-            }
+            //this.saloonImage2[i].image= fr.result;
+            this.croppieImageHorigontal=fr.result
+            //console.log(this.saloonImage2[i].image)
+            
         };
         fr.readAsDataURL(file);
         
@@ -440,4 +517,50 @@ getAmPm(value){
             }
          })
   }
+
+      newImageResultFromCroppieHorigontal(img: string) {
+        this.croppieImageHorigontal = img;
+        console.log(this.croppieImageHorigontal)
+    }
+
+    saveImageFromCroppieHorigontal() {
+        this.currentImageHorigontal = this.croppieImageHorigontal;
+        if (this.currentImageHorigontal) {
+          this.saloonImage2[this.activeIndex].image=this.currentImageHorigontal
+           if (this.saloonImage2[this.activeIndex].id) {
+             this.croppieImageHorigontal = '';
+             this.currentImageHorigontal = ''
+            }else if (!this.saloonImage2[this.activeIndex].id) {
+              this.croppieImageHorigontal = '';
+              this.currentImageHorigontal = ''
+            }
+        }
+    }
+
+    cancelCroppieEditHorigontal() {
+       
+        this.croppieImageHorigontal = '';
+        this.currentImageHorigontal = ''
+    }
+
+    // imageUploadEventHorigontal(evt: any) {
+    //     if (!evt.target) {
+    //         return;
+    //     }
+    //     if (!evt.target.files) {
+    //         return;
+    //     }
+    //     if (evt.target.files.length !== 1) {
+    //         return;
+    //     }
+    //     const file = evt.target.files[0];
+    //     if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif' && file.type !== 'image/jpg') {
+    //         return;
+    //     }
+    //     const fr = new FileReader();
+    //     fr.onloadend = (loadEvent) => {
+    //         this.croppieImageHorigontal = fr.result;
+    //     };
+    //     fr.readAsDataURL(file);
+    // }
 }

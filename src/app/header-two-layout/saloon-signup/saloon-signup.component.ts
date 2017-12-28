@@ -43,8 +43,8 @@ export class SaloonSignupComponent implements OnInit {
       public latitude: number;
       public longitude: number;
       public zoom: number;
-      time1 = {hour: 9, minute: 30};
-      time2 = {hour: 20, minute: 30};
+      time1 ;
+      time2 ;
       meridian = true;
 
 
@@ -57,6 +57,12 @@ export class SaloonSignupComponent implements OnInit {
                 private mapsAPILoader: MapsAPILoader,
                 private ngZone: NgZone)
                  {
+            this.time1={}
+            this.time2={}
+            this.time1.hour=9
+            this.time1.minute=30
+            this.time2.hour=20
+            this.time2.minute=30
 
             this.toastr.setRootViewContainerRef(vcr); 
             this.accountCreationForm = fb.group({
@@ -229,8 +235,10 @@ export class SaloonSignupComponent implements OnInit {
            this.saloonDetailsModel.saloonId=this.currentData.result.id
           // this.saloonDetailsModel.services=a.toString()
            //this.saloonDetailsModel.category=b.toString()
-           this.saloonDetailsModel.opening_time=JSON.stringify(this.time1)
-           this.saloonDetailsModel.closing_time=JSON.stringify(this.time2)
+            this.saloonDetailsModel.opening_time=this.time1.opening_time.hour+':'+this.time1.opening_time.minute
+         this.saloonDetailsModel.closing_time=this.time2.closing_time.hour+':'+this.time2.closing_time.minute
+           // this.saloonDetailsModel.opening_time=JSON.stringify(this.time1)
+           // this.saloonDetailsModel.closing_time=JSON.stringify(this.time2)
          this.saloonServices.SaloonUpdate(this.saloonDetailsModel)
         .subscribe((data)=>{
             console.log(data);
