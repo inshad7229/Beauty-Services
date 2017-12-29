@@ -67,6 +67,16 @@ export class CommonService {
     );
   }
 
+  getAllServiceBySaloon(id): Observable<any> {
+    const url = `${ENV.mainApi}/findAllServiceBySaloon/${id}`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`findAllServiceBySaloon`)),
+        catchError(this.handleError('findAllServiceBySaloon', []))
+      
+    );
+  }
+
 
    /**
    * Handle Http operation that failed.

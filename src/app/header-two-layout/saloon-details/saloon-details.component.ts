@@ -277,12 +277,29 @@ getLon(long){
 }
 
 onselectService(data){
- if (this.selectedServices.map(function (img) { return img.id; }).indexOf(data.id)==-1) {
-  this.selectedServices.push(data)
+ if (this.selectedServices.map(function (img) { return img.service_id; }).indexOf(data.service_id)==-1) {
+  this.selectedServices.push(
+    {
+    saloon_id:data.saloon_id,
+    category_id:data.category_id,
+    service_id:data.service_id,
+    cost_eng:data.cost_eng,
+    cost_arb:data.cost_arb,
+    description_eng:data.description_eng,
+    description_arb:data.description_eng,
+    time:data.time,
+    services_eng:data.servicesData.services_eng,
+    services_arb:data.servicesData.services_arb,
+    image:data.servicesData.image,
+    date:null,
+    startTime:null,
+    endTime:null,
+    emp_id:null
+  })
   this.totalAmount=this.totalAmount+parseInt(data.cost_eng)
    // code...
  }else{
-   let index=this.selectedServices.map(function (img) { return img.id; }).indexOf(data.id)
+   let index=this.selectedServices.map(function (img) { return img.service_id; }).indexOf(data.service_id)
    this.selectedServices.splice(index,1)
     this.totalAmount=this.totalAmount-parseInt(data.cost_eng)
  }
@@ -290,9 +307,9 @@ onselectService(data){
 }
 getStatus(data){
   if (this.selectedServices.length>0) {
-        if (this.selectedServices.map(function (img) { return img.id; }).indexOf(data.id)==-1) {
+        if (this.selectedServices.map(function (img) { return img.service_id; }).indexOf(data.service_id)==-1) {
            return false
-          }else if(this.selectedServices.map(function (img) { return img.id; }).indexOf(data.id)!=-1){
+          }else if(this.selectedServices.map(function (img) { return img.service_id; }).indexOf(data.service_id)!=-1){
             return true
           }else{
             return false

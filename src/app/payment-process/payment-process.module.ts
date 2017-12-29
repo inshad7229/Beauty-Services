@@ -1,5 +1,6 @@
 import { NgModule,OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 
 import { PaymentProcessRoutingModule } from './payment-process-routing.module';
 import { PaymentProcessComponent } from './payment-process.component';
@@ -17,6 +18,8 @@ import {CommonService} from '../providers/common.service'
     imports: [CommonModule, PaymentProcessRoutingModule,
     MatTabsModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     CalendarModule.forRoot(), 
     NgbModalModule.forRoot(),
     ToastModule.forRoot(),

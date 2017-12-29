@@ -59,8 +59,13 @@ export class PaymentProcessComponent implements OnInit {
 	id
 	waitLoader
 	saloonData
+  saloonServicesList
+  saloonEmployeeList
+  currentServiceId:number
+  currentIndex:number
   totalAmount:number=0
   time
+  timeSlot=[]
   showpatOtion:string='card'
     constructor(public router: Router, 
     	        private saloonServices:SaloonService,
@@ -100,13 +105,15 @@ getLon(long){
 }
     getSaloonData(){
     	 this.waitLoader=true
-        this.commonService.getAllSaloonData(this.id)
+        this.commonService.getAllServiceBySaloon(this.id)
         .subscribe((data)=>{
             var list=[]
              this.waitLoader=false
             console.log(data);
             if(data.response){
                 this.saloonData=data.data
+                this.saloonServicesList=this.saloonData.saloonServices
+                this.saloonEmployeeList=this.saloonData.saloonEmployee
                  var owl = $(".owl-demo1");
              
                 owl.owlCarousel({
@@ -126,12 +133,99 @@ getLon(long){
             }
          }) 
     }
-    getimage1(){
 
-    return 'http://18.216.88.154/public/beauti-service/'+this.saloonData.SaloonImages[0].image
+    onSelectEmployee(ser,i){
+     this.currentServiceId=ser.service_id
+     this.currentIndex=i
     }
 
-        
+    getEmplloyeListForService(){
+      let data=this.saloonServicesList.filter(arg=>arg.service_id==this.currentServiceId && arg.saloon_id==this.id)
+      if (data.length>0) {
+        // code...
+        return data[0].servicesData.serByEmplnServiceData.filter(arg=> arg.saloon_id==this.id)
+      }else{
+        return []
+      }
+    }
+    onSelectEmployeeRadio(value){
+      //alert(this.currentIndex)
+      //alert(value)his.selectedServices[this.currentIndex] is undefined
+      this.selectedServices[this.currentIndex].emp_id=value
+
+    }
+    getimage(img){
+    return 'http://18.216.88.154/public/beauti-service/'+img
+    }
+
+    getEmpImg(emp_id){
+      let data=this.saloonEmployeeList.filter(arg=>arg.id==emp_id)
+      if (data.length>0) {
+        // code...
+        return 'http://18.216.88.154/public/beauti-service/'+data[0].employee_image
+      }else{
+        return 'assets/img/user-pay.svg'
+      }
+
+    }
+    getEmpName(emp_id){
+      let data=this.saloonEmployeeList.filter(arg=>arg.id==emp_id)
+      if (data.length>0) {
+        // code...
+        return data[0].first_name+' '+data[0].last_name
+      }
+    }
+   
+    onTimeSelect(ser){
+      this.timeSlot=[]
+       let openingTime=this.saloonData.opening_time.split(':')
+       let closingTime=this.saloonData.closing_time.split(':')
+       let time1=parseInt(openingTime[0])*60+parseInt(openingTime[1])
+       let time2=parseInt(closingTime[0])*60+parseInt(closingTime[1])
+       let length=(time2-time1)/parseInt(ser.time)
+       if (length>0) {
+         let time3=time1;
+         let time4=time3+parseInt(ser.time)
+         for (var i = 0; i < length; ++i) {
+           if (time3<time2 && time4< time2) {
+               this.timeSlot.push({start:time3,end:time4})
+               time3=time3+parseInt(ser.time)
+               time4=time4+parseInt(ser.time)
+           }
+             // code...
+         }
+       }
+    }
+    
+getHours(time){
+  let a=Math.floor(time/60)
+  if (a<10) {
+    return '0'+a
+  }else{
+    if (a>12) {
+      let b=a-12;
+      return '0'+b// code...
+    }else{
+      return a
+    }
+  }
+}
+getMint(time){
+ let a=Math.floor(time%60)
+ if (a<10) {
+    return '0'+a
+  }else{
+    return a
+  }
+}
+getAmPm(time){
+  let a=Math.floor(time/60)
+  if (a>11) {
+    return 'Pm'
+  }else{
+     return 'Am'
+  }
+}    
     openCategory(ref){
             $(ref).toggleClass('active');
             $(ref).next('.sub-menulist').slideToggle('500');
@@ -196,12 +290,12 @@ getLon(long){
 }
 
 onselectService(data){
- if (this.selectedServices.map(function (img) { return img.id; }).indexOf(data.id)==-1) {
+ if (this.selectedServices.map(function (img) { return img.saloon_id; }).indexOf(data.saloon_id)==-1) {
   this.selectedServices.push(data)
   this.totalAmount=this.totalAmount+parseInt(data.cost_eng)
    // code...
  }else{
-   let index=this.selectedServices.map(function (img) { return img.id; }).indexOf(data.id)
+   let index=this.selectedServices.map(function (img) { return img.saloon_id; }).indexOf(data.saloon_id)
    this.selectedServices.splice(index,1)
     this.totalAmount=this.totalAmount-parseInt(data.cost_eng)
  }
@@ -209,9 +303,9 @@ onselectService(data){
 }
 getStatus(data){
   if (this.selectedServices.length>0) {
-        if (this.selectedServices.map(function (img) { return img.id; }).indexOf(data.id)==-1) {
+        if (this.selectedServices.map(function (img) { return img.saloon_id; }).indexOf(data.saloon_id)==-1) {
            return false
-          }else if(this.selectedServices.map(function (img) { return img.id; }).indexOf(data.id)!=-1){
+          }else if(this.selectedServices.map(function (img) { return img.saloon_id; }).indexOf(data.saloon_id)!=-1){
             return true
           }else{
             return false
@@ -259,18 +353,18 @@ getStatus(data){
   // }
 
   addEvent(): void {
-    this.events.push({
-      title: 'New event',
-      start: startOfDay(new Date()),
-      end: endOfDay(new Date()),
-      color: colors.red,
-      draggable: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      }
-    });
-    this.refresh.next();
+    // this.events.push({
+    //   title: 'New event',
+    //   start: startOfDay(new Date()),
+    //   end: endOfDay(new Date()),
+    //   color: colors.red,
+    //   draggable: true,
+    //   resizable: {
+    //     beforeStart: true,
+    //     afterEnd: true
+    //   }
+    // });
+    // this.refresh.next();
   }
 
 }

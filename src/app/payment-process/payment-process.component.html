@@ -52,25 +52,27 @@
                                                             <a href="javascript:void(0);" data-toggle="modal" data-target="#professional-typ">Select</a>
                                                         </span>
                                                     </div> -->
-                                                    <div class="service-listwrap" *ngFor="let ser of selectedServices" >
+                                                    <div class="service-listwrap" *ngFor="let ser of selectedServices;let i=index" >
                                                             <a href="javascript:void(0)" #ref (click)="openCategory(ref)">
                                                                 <span class="right-icon">
                                                                     <i class="fa fa-angle-up"></i>
                                                                 </span>
                                                                 <!-- {{cat.categoryData.category_eng}} ({{cat.categoryData.categoryServices.length}}) -->
-                                                                {{ser.servicesData.services_eng}}
+                                                                {{ser.services_eng}}
                                                             </a>
                                                             <div class="sub-menulist" style="display: none">
                                                                 <div class="list-content gray-line" >
                                                                     <div class="col-sm-8 p-0 service-bt">
                                                                         <!-- <h4>{{ser.servicesData.services_eng}}</h4> -->
                                                                         <!-- <small><a href="javascript:void(0)">Show Details</a> <span>{{getTime(ser.time)}}</span></small> -->
-                                                                        <h4 class="select-categ">{{ser.servicesData.services_eng}}</h4><small class="timeslot">{{getTime(ser.time)}}</small>
+                                                                        <h4 class="select-categ">{{ser.services_eng}}</h4><small class="timeslot">{{getTime(ser.time)}}</small>
                                                                         <div class="select-categ-under-div">
                                                                           <span class="heading-profes">
-                                                                            <img alt="user-svg" src="assets/img/user-pay.svg">
+                                                                            <span *ngIf="ser.emp_id!=null">{{getEmpName(ser.emp_id)}}</span>
+                                                                            <img *ngIf="ser.emp_id==null" alt="user-svg" src="assets/img/user-pay.svg">
+                                                                            <img *ngIf="ser.emp_id!=null" alt="user-svg" [src]="getEmpImg(ser.emp_id)">
                                                                             <!-- <p>Select Any Professional</p> -->
-                                                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#professional-typ">Select Any Professional</a>
+                                                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#professional-typ" (click)="onSelectEmployee(ser,i)"><span *ngIf="ser.emp_id==null">Select Any Professional</span> <span *ngIf="ser.emp_id!=null">Change  Professional</span></a>
                                                                           </span>
                                                                         </div>
                                                                     </div>
@@ -78,15 +80,15 @@
                                                                         <div class="price-value">
                                                                             <span class="aed-total"><h6>AED {{ser.cost_eng}}</h6></span>
                                                                             <span class="add-cart-icon">
-                                                                                <a href="javascript:void(0)" (click)="onselectService(ser)">
+                                                                                <a href="javascript:void(0)" (click)="onselectService(ser,i)">
                                                                               
                                                                                     <i  class="fa fa-minus"></i>
                                                                                 </a>
                                                                             </span>
                                                                         </div>
                                                                         <div class="slkt-tim-div">
-                                                                          <a href="javascript:;" data-toggle="modal" data-target="#proceed-time">Select Time</a>
-                                                                          <a href="javascript:;">Change Time</a>
+                                                                          <a *ngIf="ser.emp_id!=null" href="javascript:;" data-toggle="modal" data-target="#proceed-time" (click)="onTimeSelect(ser)">Select Time</a>
+                                                                          <a *ngIf="ser.emp_id!=null" href="javascript:;">Change Time</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -308,17 +310,18 @@
                     <div class="sign-selectoption">
                         <div class="col-md-12 col-xs-12 col-sm-12 p-0">
                             <div class="professional-type">
-                                <ul class="profe-ul">
-                                    <li>
+                                <ul class="profe-ul" *ngIf="currentServiceId">
+                                    <li *ngFor=" let emp of getEmplloyeListForService();let i=index">
                                         <div class="custom-radio">
-                                            <input type="radio" id="radio01" name="radio"/>
-                                            <label for="radio01">
-                                               <img src="assets/img/user-pay.svg" class="img-responsive"> 
-                                               <small>Any Professional</small> <span><span></span></span>
+                                            <input type="radio" id="{{i}}" name="empId" [(ngModel)]="emp.check" value="{{emp.employee_id}}" (change)="onSelectEmployeeRadio(emp.check)" />
+                                            <label for="{{i}}">
+                                               <img *ngIf="!emp.employeeDetails.employee_image" src="assets/img/user-pay.svg" class="img-responsive">
+                                               <img *ngIf="emp.employeeDetails.employee_image" [src]="getimage(emp.employeeDetails.employee_image)" class="img-responsive"> 
+                                               <small>{{emp.employeeDetails.first_name}} {{emp.employeeDetails.last_name}}</small> <span><span></span></span>
                                             </label>
                                         </div>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <div class="custom-radio">
                                             <input type="radio" id="radio02" name="radio"/>
                                             <label for="radio02">
@@ -347,7 +350,7 @@
                                     </li>
                                     <li>
                                         
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -443,18 +446,10 @@
                             </div>
                             <div class="time-sec">
                               <h4>Choose Your Time Slot</h4>
-                              <ul class="time-slot-ul">
-                                <li class="dull-date">01:00 - 02:00</li>
-                                <li>02:00 - 03:00</li>
-                                <li>01:00 - 02:00</li>
-                                <li>01:00 - 02:00</li>
-                                <li>01:00 - 02:00</li>
-                                <li>01:00 - 02:00</li>
-                                <li>01:00 - 02:00</li>
-                                <li>01:00 - 02:00</li>
-                                <li>01:00 - 02:00</li>
-                                <li>02:00 - 03:00</li>
-                                <li>01:00 - 02:00</li>
+                              <ul class="time-slot-ul" *ngIf="timeSlot.length>0">
+                                <!-- <li class="dull-date">01:00 - 02:00</li> -->
+                                <li *ngFor="let time of timeSlot">{{getHours(time.start)}}:{{getMint(time.start)}} {{getAmPm(time.start)}} - {{getHours(time.end)}}:{{getMint(time.end)}} {{getAmPm(time.end)}}</li>
+                                <!-- <li>01:00 - 02:00</li>
                                 <li>01:00 - 02:00</li>
                                 <li>01:00 - 02:00</li>
                                 <li>01:00 - 02:00</li>
@@ -468,6 +463,14 @@
                                 <li>01:00 - 02:00</li>
                                 <li>01:00 - 02:00</li>
                                 <li>01:00 - 02:00</li>
+                                <li>01:00 - 02:00</li>
+                                <li>02:00 - 03:00</li>
+                                <li>01:00 - 02:00</li>
+                                <li>01:00 - 02:00</li>
+                                <li>01:00 - 02:00</li>
+                                <li>01:00 - 02:00</li>
+                                <li>01:00 - 02:00</li>
+                                <li>01:00 - 02:00</li> -->
                               </ul>
                             </div>
                         </div>
