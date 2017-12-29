@@ -46,3 +46,39 @@ agm-map {
 	text-decoration: none;
 	outline: none;
 }
+.timeslot {
+    float: left;
+    width: auto;
+    margin: 5px 10px;
+}
+.select-categ {
+    float: left;
+    width: auto;
+    display: inline-block;
+}
+.select-categ-under-div {
+    float: left;
+    width: 100%;
+    margin-top: 5px;
+}
+.slkt-tim-div {
+    float: right;
+    width: 100%;
+    text-align: right;
+    padding-right: 20px;
+}
+.slkt-tim-div a {
+    color: #d5275a;
+    font-size: 16px;
+    text-decoration: none;
+    margin-left: 10px;
+}
+// .week-sec .cal-month-view .cal-cell-top {
+//     min-height: 60px;
+//     padding-top: 20px;
+// }
+// .week-sec .cal-month-view .cal-day-number {
+//     float: none;
+//     padding-top: 12px;
+//     display: inline-block;
+// }

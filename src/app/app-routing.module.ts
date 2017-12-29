@@ -9,6 +9,8 @@ const routes: Routes = [
 { path: 'header-two-layout', loadChildren: './header-two-layout/header-two-layout.module#HeaderTwoLayoutModule'},
 { path: 'header-three-layout', loadChildren: './header-three-layout/header-three-layout.module#HeaderThreeLayoutModule'},
 { path: 'header-four-layout', loadChildren: './header-four-layout/header-four-layout.module#HeaderFourLayoutModule'},
+{ path: 'payment-process', loadChildren: './payment-process/payment-process.module#PaymentProcessModule'},
+{ path: 'payment-process/:id', loadChildren: './payment-process/payment-process.module#PaymentProcessModule'},
 // {path:'first',component:FirstComponent},
 // {path:'second',component:SecondComponent},
 // {path:'third',component:ThirdComponent,canActivate:[AuthGuard]},

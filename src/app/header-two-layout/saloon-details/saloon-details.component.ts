@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewContainerRef ,ViewChild} from '@angular/core';
+import { Component, OnInit,ViewContainerRef ,ElementRef, ViewChild,NgZone} from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { ToastsManager , Toast} from 'ng2-toastr';
 
@@ -6,32 +6,81 @@ import {SaloonService} from '../../providers/saloon.service'
 
 import {CommonService} from '../../providers/common.service'
 import {AppProvider} from '../../providers/app.provider'
-declare var $
+
 declare var WOW
+import { } from 'googlemaps';
+import { MapsAPILoader } from '@agm/core';
+declare var $
+declare var google
 @Component({
     selector: 'app-saloon-details',
     templateUrl: './saloon-details.component.html',
     styleUrls: ['./saloon-details.component.scss']
 })
 export class SaloonDetailsComponent implements OnInit {
+@ViewChild("search")
+public searchElementRef: ElementRef;
+
+
 
 	id
 	waitLoader
 	saloonData
+  selectedServices=[]
+  totalAmount:number=0
+      public latitude: number;
+    public longitude: number;
+    public zoom: number;
+    time
     constructor(public router: Router, 
     	        private saloonServices:SaloonService,
     	        vcr: ViewContainerRef,
     	        private toastr: ToastsManager,
     	        private commonService:CommonService,
     	        private appProvider:AppProvider,
-    	        private route: ActivatedRoute,) {
+    	        private route: ActivatedRoute,
+              private mapsAPILoader: MapsAPILoader,
+              private ngZone: NgZone) {
     	        this.toastr.setRootViewContainerRef(vcr);
     	this.id = +this.route.snapshot.paramMap.get('id');
-    	alert(this.id)
+    	//alert(this.id)
         this.getSaloonData()
     }
   
     ngOnInit() {
+
+            this.zoom = 4;
+    this.latitude = 39.8282;
+    this.longitude = -98.5795;
+
+    //create search FormControl
+   
+    //set current position
+    this.setCurrentPosition();
+
+    //load Places Autocomplete
+    // this.mapsAPILoader.load().then(() => {
+    //   let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+    //     types: ["address"]
+    //   });
+    //   autocomplete.addListener("place_changed", () => {
+    //     this.ngZone.run(() => {
+    //       //get the place result
+    //       let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+    //      // alert(place.formatted_address)
+    //       //verify result
+    //       if (place.geometry === undefined || place.geometry === null) {
+    //         return;
+    //       }
+          
+    //       //set latitude, longitude and zoom
+    //       // this.userDetail.city=place.formatted_address
+    //       // this.userDetail.latitude = place.geometry.location.lat();
+    //       // this.userDetail.longitude = place.geometry.location.lng();
+    //       this.zoom = 12;
+    //     });
+    //   });
+    // });
     	  // 	$(window).scroll(function() {
 			    //     if ($(this).scrollTop() > 1){  
 			    //         $('header').addClass("sticky");
@@ -88,7 +137,24 @@ export class SaloonDetailsComponent implements OnInit {
 			    // })
 			    this.getSaloonData()
     }
+  private setCurrentPosition() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 12;
+      });
+    }
+  }
 
+
+ getLat(lat){
+  return parseInt(lat)
+
+}
+getLon(long){
+ return parseInt(long)
+}
     getSaloonData(){
     	 this.waitLoader=true
         this.commonService.getAllSaloonData(this.id)
@@ -97,7 +163,7 @@ export class SaloonDetailsComponent implements OnInit {
              this.waitLoader=false
             console.log(data);
             if(data.response){
-                this.saloonData=data.data[0]
+                this.saloonData=data.data
                  var owl = $(".owl-demo1");
              
                 owl.owlCarousel({
@@ -209,4 +275,36 @@ export class SaloonDetailsComponent implements OnInit {
   }
   
 }
+
+onselectService(data){
+ if (this.selectedServices.map(function (img) { return img.id; }).indexOf(data.id)==-1) {
+  this.selectedServices.push(data)
+  this.totalAmount=this.totalAmount+parseInt(data.cost_eng)
+   // code...
+ }else{
+   let index=this.selectedServices.map(function (img) { return img.id; }).indexOf(data.id)
+   this.selectedServices.splice(index,1)
+    this.totalAmount=this.totalAmount-parseInt(data.cost_eng)
+ }
+
+}
+getStatus(data){
+  if (this.selectedServices.length>0) {
+        if (this.selectedServices.map(function (img) { return img.id; }).indexOf(data.id)==-1) {
+           return false
+          }else if(this.selectedServices.map(function (img) { return img.id; }).indexOf(data.id)!=-1){
+            return true
+          }else{
+            return false
+          }
+  }else{
+    return false
+  }
+}
+
+onSchedule(){
+localStorage['selectedServices']=JSON.stringify(this.selectedServices)
+this.router.navigate(['/payment-process/3']);
+}
+
 }

@@ -21,8 +21,8 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 export class SaloonDashboardProfileComponent implements OnInit {
    @ViewChild("search")
     @ViewChild('ngxCroppie') ngxCroppie: NgxCroppieComponent;
-    widthPx = '350';
-    heightPx = '350';
+    widthPx = '612';
+    heightPx = '408';
     imageUrl = ''; 
     currentImageHorigontal: string;
     croppieImageHorigontal: string;
@@ -40,8 +40,8 @@ export class SaloonDashboardProfileComponent implements OnInit {
     public get croppieOptionsHorigontal(): CroppieOptions {
         const opts: CroppieOptions = {};
         opts.viewport = {
-            width: parseInt('300', 10),
-            height: parseInt('300', 10)
+            width: parseInt('612', 10),
+            height: parseInt('408', 10)
         };
         opts.boundary = {
             width: parseInt(this.widthPx, 10),
@@ -448,8 +448,8 @@ getAmPm(value){
     }
 
     onAddOneMoreImage(){
-      if (this.saloonImage2.length<7) {
-          this.saloonImage2.push({id:null,saloon_id:this.userDetail.id,image:null})
+      if (this.saloonImage.length<7) {
+          this.saloonImage.push({id:null,saloon_id:this.userDetail.id,image:null})
       }
     }
 
@@ -475,9 +475,9 @@ getAmPm(value){
         }
         const fr = new FileReader();
         fr.onloadend = (loadEvent) => {
-            //this.saloonImage2[i].image= fr.result;
+            //this.saloonImage[i].image= fr.result;
             this.croppieImageHorigontal=fr.result
-            //console.log(this.saloonImage2[i].image)
+            //console.log(this.saloonImage[i].image)
             
         };
         fr.readAsDataURL(file);
@@ -490,7 +490,7 @@ getAmPm(value){
       image:this.saloonImage[i].image
     }
         this.passwordModel.saloonId=this.userDetail.id
-        this.saloonServices.SaloonImageUpload(a)
+        this.saloonServices.SaloonImageEdit(a)
         .subscribe((data)=>{
             console.log(data);
             if(data.response){
@@ -526,11 +526,13 @@ getAmPm(value){
     saveImageFromCroppieHorigontal() {
         this.currentImageHorigontal = this.croppieImageHorigontal;
         if (this.currentImageHorigontal) {
-          this.saloonImage2[this.activeIndex].image=this.currentImageHorigontal
-           if (this.saloonImage2[this.activeIndex].id) {
+          this.saloonImage[this.activeIndex].image=this.currentImageHorigontal
+           if (this.saloonImage[this.activeIndex].id) {
+             this.OnEditImage(this.activeIndex)
              this.croppieImageHorigontal = '';
              this.currentImageHorigontal = ''
-            }else if (!this.saloonImage2[this.activeIndex].id) {
+            }else if (!this.saloonImage[this.activeIndex].id) {
+             this.onUploadImage(this.activeIndex)
               this.croppieImageHorigontal = '';
               this.currentImageHorigontal = ''
             }

@@ -3,7 +3,7 @@
         </div>
         <section class="salon-slider" >
             <div class="owl-demo1 owl-theme" *ngIf="saloonData">
-                <!-- <div class="item" *ngFor="let img of saloonData.SaloonImages ">http://18.216.88.154/public/beauti-service/{{saloonData.SaloonImages[0].image}}
+                <!-- <div class="item" *ngFor="let img of saloonData.SaloonImages " id="{{i}}">
                     <img src="http://18.216.88.154/public/beauti-service/{{img.image}}" alt="slideimag" class="img-responsive">
                 </div> -->
                 <div class="item" *ngIf="saloonData.SaloonImages.length>0">
@@ -93,14 +93,15 @@
                                                                         <div class="price-value">
                                                                             <span class="aed-total"><h6>AED {{ser.cost_eng}}</h6></span>
                                                                             <span class="add-cart-icon">
-                                                                                <a href="#">
-                                                                                    <i class="fa fa-plus"></i>
+                                                                                <a href="javascript:void(0)" (click)="onselectService(ser)">
+                                                                                    <i *ngIf="getStatus(ser)==false" class="fa fa-plus"></i>
+                                                                                    <i *ngIf="getStatus(ser)==true" class="fa fa-minus"></i>
                                                                                 </a>
                                                                             </span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <!-- <div class="list-content">
+                                                                <!-- <div class="list-content">fa fa-minus
                                                                     <div class="col-sm-8 p-0 service-bt">
                                                                         <h4>Perm Cut</h4>
                                                                         <small><a href="#">Show Details</a><span>45 Min</span></small>
@@ -442,10 +443,14 @@
                         </div>
                         <div class="col-md-3 col-sm-12 col-xs-12 p-l-0 salon-m">
                             <div class="salon-det-sidebar">
-                                <div class="salon-add-map">
-                                    <div id="googleMap" style="width:100%;height:200px;"></div>
+                                <div class="salon-add-map" *ngIf="saloonData">
+                                    <div  style="width:100%;height:200px;">
+                                        <agm-map id="demo2" [latitude]="getLat(saloonData.latitude)" [longitude]="getLon(saloonData.longitude)" [scrollwheel]="false" [zoom]="zoom">
+                                                                            <agm-marker [latitude]="getLat(saloonData.latitude)" [longitude]="getLon(saloonData.longitude)"></agm-marker>
+                                                                    </agm-map>
+                                    </div>
                                     <div class="address-salon">
-                                        <h4 *ngIf="saloonData">{{saloonData.saloon_name}}</h4>
+                                        <h4 >{{saloonData.saloon_name}}</h4>
                                         <p class="addres-salon">{{saloonData.city}}</p>
                                         <div class="Opening-hours">
                                             <a id="opening" href="javascript:void(0);" #ref2 (click)="openCategory2(ref2)">Opening Hours 
@@ -498,12 +503,12 @@
                                 <div class="total-mony">
                                     <span class="booknow">
                                         <i class="fa fa-shopping-cart"></i>
-                                        <span class="circle-value">2</span>
+                                        <span class="circle-value">{{selectedServices.length}}</span>
                                     </span>
-                                    <span class="price-span">AED 100.00</span>
+                                    <span class="price-span">AED {{totalAmount}}</span>
                                 </div>
                                 <div class="book-nowbtn">
-                                    <a href="javascript:void(0);" class="btn cut-btn">Book Now</a>
+                                    <button href="javascript:void(0);" class="btn cut-btn" [disabled]="totalAmount==0" (click)="onSchedule()">Schedule Appointment</button>
                                 </div>
                             </div>
                         </div>

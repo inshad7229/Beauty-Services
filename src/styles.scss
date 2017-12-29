@@ -52,3 +52,44 @@
   text-decoration: none;
   transition: background-color 0.3s ease 0s;
 }
+.custom-week-sec .cal-month-view .cal-cell-top {
+    min-height: 60px;
+    padding-top: 10px;
+}
+.custom-week-sec .cal-month-view .cal-day-number {
+    float: none;
+    display: inline-block;
+}
+.time-sec {
+  float: left;
+  width: 100%;
+}
+.time-slot-ul {
+  float: left;
+  width: 100%;
+  padding-left: 0;
+  list-style: none;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-right: none;
+  height: 200px;
+  overflow-y: auto;
+}
+.time-sec h4 {
+  background-color: rgb(213, 39, 90);
+  padding: 15px 0;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  color:#fff;
+}
+.time-slot-ul li {
+  float: left;
+  width: 25%;
+  display: inline-block;
+  padding: 15px 0;
+  border-right: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+.dull-date {
+  background-color:#eaeaea;
+}

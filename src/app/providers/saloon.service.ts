@@ -179,11 +179,11 @@ export class SaloonService {
   }
 
   SaloonImageEdit(data): Observable<any> {
-    const url = `${ENV.mainApi}/saloonServicesUpdate`;
+    const url = `${ENV.mainApi}/saloonImageEdit`;
     return this.http.post<any>(url,data,httpOptions)
     .pipe(
-        tap(heroes => this.log(`saloonServicesUpdate`)),
-        catchError(this.handleError('saloonServicesUpdate', []))
+        tap(heroes => this.log(`saloonImageEdit`)),
+        catchError(this.handleError('saloonImageEdit', []))
       
     );
   }
