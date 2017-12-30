@@ -45,7 +45,7 @@ export class PaymentProcessComponent implements OnInit {
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
   view: string = 'month';
-  locale='ar'
+  locale='en'
   viewDate: Date = new Date();
 
   modalData: {
@@ -62,11 +62,21 @@ export class PaymentProcessComponent implements OnInit {
   saloonServicesList
   saloonEmployeeList
   currentServiceId:number
-  currentIndex:number
+  currentIndex:number;
+  scheduleIndex:number
   totalAmount:number=0
+  cusrrentService:any;
   time
   timeSlot=[]
+  selectedDate
   showpatOtion:string='card'
+  bookedTime1='11:30'
+  bookedTime2='12:15'
+  bookedHistory=[
+  {bookedTime1:'11:30',bookedTime2:'12:15'},
+  {bookedTime1:'12:25',bookedTime2:'13:20'},
+  {bookedTime1:'15:45',bookedTime2:'19:20'}
+  ]
     constructor(public router: Router, 
     	        private saloonServices:SaloonService,
     	        vcr: ViewContainerRef,
@@ -143,7 +153,7 @@ getLon(long){
       let data=this.saloonServicesList.filter(arg=>arg.service_id==this.currentServiceId && arg.saloon_id==this.id)
       if (data.length>0) {
         // code...
-        return data[0].servicesData.serByEmplnServiceData.filter(arg=> arg.saloon_id==this.id)
+        return data[0].servicesData.serByEmplnServiceData
       }else{
         return []
       }
@@ -177,6 +187,9 @@ getLon(long){
     }
    
     onTimeSelect(ser){
+      this.cusrrentService=ser
+      this.selectedDate=null
+      this.scheduleIndex=null;
       this.timeSlot=[]
        let openingTime=this.saloonData.opening_time.split(':')
        let closingTime=this.saloonData.closing_time.split(':')
@@ -188,7 +201,7 @@ getLon(long){
          let time4=time3+parseInt(ser.time)
          for (var i = 0; i < length; ++i) {
            if (time3<time2 && time4< time2) {
-               this.timeSlot.push({start:time3,end:time4})
+               this.timeSlot.push({start:time3,end:time4,checkStatus:false})
                time3=time3+parseInt(ser.time)
                time4=time4+parseInt(ser.time)
            }
@@ -221,11 +234,128 @@ getMint(time){
 getAmPm(time){
   let a=Math.floor(time/60)
   if (a>11) {
-    return 'Pm'
+    return 'PM'
   }else{
-     return 'Am'
+     return 'AM'
   }
-}    
+}
+
+getClass(time,index){
+  // let time1=this.bookedTime1.split(':')
+  // let time2=this.bookedTime2.split(':')
+  // let time3=parseInt(time1[0])*60+parseInt(time1[1])
+  // let time4=parseInt(time2[0])*60+parseInt(time2[1])
+  // console.log('time3',time3)
+  // console.log('time4',time4)
+  // console.log('start',time.start)
+  // console.log('end',time.end)
+
+  if (time.checkStatus==true) {
+    if (time.secheuleStart && time.secheuleEnd) {
+      return 'dull-date2'
+      // code...
+    }else{
+       return 'dull-date'
+    }
+
+  }else{
+           for (var i = 0; i < this.bookedHistory.length; ++i) {
+         let time1=this.bookedHistory[i].bookedTime1.split(':')
+          let time2=this.bookedHistory[i].bookedTime2.split(':')
+          let time3=parseInt(time1[0])*60+parseInt(time1[1])
+          let time4=parseInt(time2[0])*60+parseInt(time2[1])
+          console.log('time3',time3)
+          console.log('time4',time4)
+          console.log('start',time.start)
+          console.log('end',time.end)
+          if (time.start < time3 && time.end <= time3) {
+        // return ''
+      }
+      else if (time.start > time4 && time.end > time4) {
+
+        // return ''
+
+      }else if (time.start <= time3 && time.end <= time4) {
+         this.timeSlot[index].checkStatus=true
+         return 'dull-date'
+
+      }else if (time.start > time3 && time.end <= time4) {
+         this.timeSlot[index].checkStatus=true
+         return 'dull-date'
+      }else if (time.start < time3 && time.end >time4) {
+        // code...
+         this.timeSlot[index].checkStatus=true
+         return 'dull-date'
+      }
+      else if (time.start < time4 && time.end >time4) {
+         this.timeSlot[index].checkStatus=true
+         return 'dull-date'
+      }
+    } 
+  }
+
+  
+
+} 
+
+onSelectSedule(time,index){
+  if (time.checkStatus==true) {
+
+  }else{
+    this.scheduleIndex=index;
+    for (var i = 0; i < this.timeSlot.length; i++) {
+        if (this.timeSlot[i].secheuleStart && this.timeSlot[i].secheuleEnd) {
+          this.timeSlot[i].checkStatus=false
+        }
+    }
+    this.timeSlot[index].secheuleStart=time.start
+    this.timeSlot[index].secheuleEnd=time.end
+    this.timeSlot[index].checkStatus=true
+
+  }
+}
+rest(){
+  this.scheduleIndex=null;
+  for (var i = 0; i < this.timeSlot.length; i++) {
+        if (this.timeSlot[i].secheuleStart && this.timeSlot[i].secheuleEnd) {
+          this.timeSlot[i].checkStatus=false
+          this.timeSlot[i].secheuleStart=false
+          this.timeSlot[i].secheuleEnd=false
+        }
+    }
+}
+onPrevious(){
+ this.rest()
+}
+onToday(){
+ this.rest()
+}
+onNext(){
+ this.rest()
+}
+creatConfirmation(){
+  console.log(JSON.stringify(this.timeSlot[this.scheduleIndex]))
+
+  let startTime=this.getHours(this.timeSlot[this.scheduleIndex].secheuleStart)+':'+this.getMint(this.timeSlot[this.scheduleIndex].secheuleStart)
+  let endTime=this.getHours(this.timeSlot[this.scheduleIndex].secheuleEnd)+':'+this.getMint(this.timeSlot[this.scheduleIndex].secheuleEnd)
+   this.selectedServices[this.currentIndex].startTime=startTime
+   this.selectedServices[this.currentIndex].endTime=endTime
+   this.selectedServices[this.currentIndex].startTime1=this.timeSlot[this.scheduleIndex].secheuleStart
+   this.selectedServices[this.currentIndex].endTime1=this.timeSlot[this.scheduleIndex].secheuleEnd
+   this.selectedServices[this.currentIndex].date=this.selectedDate
+} 
+
+onCoinfirmAppointment(ser){
+  this.waitLoader=true
+        this.commonService.saloonUpdate(this.id)
+        .subscribe((data)=>{
+            var list=[]
+             this.waitLoader=false
+            if(data.response){
+            }
+         })
+
+}
     openCategory(ref){
             $(ref).toggleClass('active');
             $(ref).next('.sub-menulist').slideToggle('500');
@@ -322,14 +452,62 @@ getStatus(data){
 
 
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-      alert(date)
+      //alert(date)
+     this.selectedDate=null
+     this.rest()
     if (isSameMonth(date, this.viewDate)) {
+        let currentDateTime=new Date()
+        let current=currentDateTime.getFullYear()
+        let selecteddate=date.getDate()
+        let selectedMonth=date.getMonth()+1
+        let selectedyear=date.getFullYear()
+        let date1
+        let month1
+        let year
+        if(selecteddate<10){
+          date1='0'+selecteddate
+        }else{
+          date1=selecteddate
+        }
+
+        if(selectedMonth<10){
+          month1='0'+selectedMonth
+        }else{
+          month1=selectedMonth
+        }
+        if (currentDateTime.getFullYear() < date.getFullYear()) {
+            
+              this.selectedDate=selectedyear+'-'+month1+'-'+date1
+           
+        }else if (currentDateTime.getFullYear() == date.getFullYear()) {
+            if (currentDateTime.getMonth() <  date.getMonth()) {
+                this.selectedDate=selectedyear+'-'+month1+'-'+date1
+            }else if (currentDateTime.getMonth() ==  date.getMonth()) {
+              // code...
+              if (currentDateTime.getDate() <  date.getDate()) {
+                 this.selectedDate=selectedyear+'-'+month1+'-'+date1
+              }else if (currentDateTime.getDate() ==  date.getDate()) {
+
+
+                this.selectedDate=selectedyear+'-'+month1+'-'+date1
+              }else{
+                 this.selectedDate=null
+              }
+            }else{
+              this.selectedDate=null
+            }
+           
+        }else if (currentDateTime.getFullYear() < date.getFullYear()) {
+           this.selectedDate=null
+        }
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
         events.length === 0
       ) {
+        
         this.activeDayIsOpen = false;
       } else {
+       // this.rest()
         this.activeDayIsOpen = true;
         this.viewDate = date;
       }

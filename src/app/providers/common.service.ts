@@ -76,6 +76,15 @@ export class CommonService {
       
     );
   }
+  saloonUpdate(data): Observable<any> {
+    const url = `${ENV.mainApi}/createAppointment`;
+    return this.http.post<any>(url,data,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`createAppointment`)),
+        catchError(this.handleError('createAppointment', []))
+      
+    );
+  }
 
 
    /**

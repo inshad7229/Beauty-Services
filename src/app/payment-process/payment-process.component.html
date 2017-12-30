@@ -68,15 +68,15 @@
                                                                         <h4 class="select-categ">{{ser.services_eng}}</h4><small class="timeslot">{{getTime(ser.time)}}</small>
                                                                         <div class="select-categ-under-div">
                                                                           <span class="heading-profes">
-                                                                            <span *ngIf="ser.emp_id!=null">{{getEmpName(ser.emp_id)}}</span>
                                                                             <img *ngIf="ser.emp_id==null" alt="user-svg" src="assets/img/user-pay.svg">
                                                                             <img *ngIf="ser.emp_id!=null" alt="user-svg" [src]="getEmpImg(ser.emp_id)">
+                                                                            <span class="empy-name" *ngIf="ser.emp_id!=null">{{getEmpName(ser.emp_id)}}</span>
                                                                             <!-- <p>Select Any Professional</p> -->
-                                                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#professional-typ" (click)="onSelectEmployee(ser,i)"><span *ngIf="ser.emp_id==null">Select Any Professional</span> <span *ngIf="ser.emp_id!=null">Change  Professional</span></a>
+                                                                            <a class="slect-pro" href="javascript:void(0);" data-toggle="modal" data-target="#professional-typ" (click)="onSelectEmployee(ser,i)"><span *ngIf="ser.emp_id==null">Select Any Professional</span> <span *ngIf="ser.emp_id!=null">Change  Professional</span></a>
                                                                           </span>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-4 p-0 service-prl">
+                                                                    <div class="col-sm-4 p-0 service-prl2">
                                                                         <div class="price-value">
                                                                             <span class="aed-total"><h6>AED {{ser.cost_eng}}</h6></span>
                                                                             <span class="add-cart-icon">
@@ -87,10 +87,23 @@
                                                                             </span>
                                                                         </div>
                                                                         <div class="slkt-tim-div">
-                                                                          <a *ngIf="ser.emp_id!=null" href="javascript:;" data-toggle="modal" data-target="#proceed-time" (click)="onTimeSelect(ser)">Select Time</a>
-                                                                          <a *ngIf="ser.emp_id!=null" href="javascript:;">Change Time</a>
+                                                                          <a *ngIf="ser.emp_id!=null && !ser.date && !ser.startTime1 &&  !ser.endTime1" href="javascript:;" data-toggle="modal" data-target="#proceed-time" (click)="onTimeSelect(ser)">Select Time</a>
+                                                                          <a *ngIf="ser.emp_id!=null && ser.date && ser.startTime1 &&  ser.endTime1" href="javascript:;" (click)="onTimeSelect(ser)">Change Time</a>
+                                                                          <a *ngIf="ser.emp_id!=null && ser.date && ser.startTime1 &&  ser.endTime1" href="javascript:;" (click)="onCoinfirmAppointment(ser)">Confirm Appointment</a>
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                                <div class="datetime-show" *ngIf="ser.date && ser.startTime1 &&  ser.endTime1 ">
+                                                                    <ul >
+                                                                      <li>
+                                                                        <i class="fa fa-calendar"></i>
+                                                                        {{ser.date}}
+                                                                      </li>
+                                                                      <li>
+                                                                        <i class="fa fa-clock-o"></i>
+                                                                        {{getHours(ser.startTime1)}}:{{getMint(ser.startTime1)}} {{getAmPm(ser.startTime1)}} - {{getHours(ser.endTime1)}}:{{getMint(ser.endTime1)}} {{getAmPm(ser.endTime1)}}
+                                                                      </li>
+                                                                    </ul>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -410,13 +423,13 @@
                                               mwlCalendarPreviousView
                                               [view]="view"
                                               [(viewDate)]="viewDate"
-                                              (viewDateChange)="activeDayIsOpen = false">
+                                              (viewDateChange)="activeDayIsOpen = false" (click)="onPrevious()">
                                               Previous
                                             </div>
                                             <div
                                               class="btn cus-btn"
                                               mwlCalendarToday
-                                              [(viewDate)]="viewDate">
+                                              [(viewDate)]="viewDate" (click)="onToday()">
                                               Today
                                             </div>
                                             <div
@@ -424,7 +437,7 @@
                                               mwlCalendarNextView
                                               [view]="view"
                                               [(viewDate)]="viewDate"
-                                              (viewDateChange)="activeDayIsOpen = false">
+                                              (viewDateChange)="activeDayIsOpen = false" (click)="onNext()">
                                               Next
                                             </div>
                                           </div>
@@ -444,11 +457,11 @@
                                   </mwl-calendar-month-view>
                                 </div>
                             </div>
-                            <div class="time-sec">
-                              <h4>Choose Your Time Slot</h4>
+                            <div class="time-sec" *ngIf="selectedDate">
+                              <h4>Choose Your Time Slot for {{selectedDate}}</h4>
                               <ul class="time-slot-ul" *ngIf="timeSlot.length>0">
                                 <!-- <li class="dull-date">01:00 - 02:00</li> -->
-                                <li *ngFor="let time of timeSlot">{{getHours(time.start)}}:{{getMint(time.start)}} {{getAmPm(time.start)}} - {{getHours(time.end)}}:{{getMint(time.end)}} {{getAmPm(time.end)}}</li>
+                                <li *ngFor="let time of timeSlot;let i=index" class="{{getClass(time,i)}}" (click)="onSelectSedule(time,i)">{{getHours(time.start)}}:{{getMint(time.start)}} {{getAmPm(time.start)}} - {{getHours(time.end)}}:{{getMint(time.end)}} {{getAmPm(time.end)}}</li>
                                 <!-- <li>01:00 - 02:00</li>
                                 <li>01:00 - 02:00</li>
                                 <li>01:00 - 02:00</li>
@@ -473,6 +486,11 @@
                                 <li>01:00 - 02:00</li> -->
                               </ul>
                             </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <div class="ok-btn-otp">
+                                        <button [disabled]="!scheduleIndex" type="submit" data-dismiss="modal" class="btn cut-btn" (click)="creatConfirmation()"><i class="fa fa-check"></i> Confirm</button>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>

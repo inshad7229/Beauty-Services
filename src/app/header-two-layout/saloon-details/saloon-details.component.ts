@@ -294,6 +294,8 @@ onselectService(data){
     date:null,
     startTime:null,
     endTime:null,
+    startTime1:null,
+    endTime1:null,
     emp_id:null
   })
   this.totalAmount=this.totalAmount+parseInt(data.cost_eng)
