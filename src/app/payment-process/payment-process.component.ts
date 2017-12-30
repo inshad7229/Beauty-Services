@@ -68,8 +68,16 @@ export class PaymentProcessComponent implements OnInit {
   cusrrentService:any;
   time
   timeSlot=[]
+  letConfirmServices=[]
   selectedDate
+  selecteEmployeeAppointment
+  appointmentOnselecteddate
+  currentTab='tab1'
+   tab1:string='active'
+   tab2:string=''
+   tab3:string=''
   showpatOtion:string='card'
+  customer=JSON.parse(localStorage['customerdetails'])
   bookedTime1='11:30'
   bookedTime2='12:15'
   bookedHistory=[
@@ -89,6 +97,7 @@ export class PaymentProcessComponent implements OnInit {
     	        this.toastr.setRootViewContainerRef(vcr);
     	this.id = +this.route.snapshot.paramMap.get('id');
     	console.log(JSON.stringify(this.selectedServices))
+      console.log(JSON.stringify(this.customer))
         this.getSaloonData()
     }
   
@@ -145,11 +154,13 @@ getLon(long){
     }
 
     onSelectEmployee(ser,i){
+     this.selecteEmployeeAppointment=null
      this.currentServiceId=ser.service_id
      this.currentIndex=i
     }
 
     getEmplloyeListForService(){
+
       let data=this.saloonServicesList.filter(arg=>arg.service_id==this.currentServiceId && arg.saloon_id==this.id)
       if (data.length>0) {
         // code...
@@ -161,7 +172,8 @@ getLon(long){
     onSelectEmployeeRadio(value){
       //alert(this.currentIndex)
       //alert(value)his.selectedServices[this.currentIndex] is undefined
-      this.selectedServices[this.currentIndex].emp_id=value
+      this.selecteEmployeeAppointment=value.employeeDetails.Appointment
+      this.selectedServices[this.currentIndex].emp_id=value.employee_id
 
     }
     getimage(img){
@@ -247,9 +259,9 @@ getClass(time,index){
   // let time4=parseInt(time2[0])*60+parseInt(time2[1])
   // console.log('time3',time3)
   // console.log('time4',time4)
-  // console.log('start',time.start)
+  // console.log('start',time.start) onSelectEmployee
   // console.log('end',time.end)
-
+//alert('hy')
   if (time.checkStatus==true) {
     if (time.secheuleStart && time.secheuleEnd) {
       return 'dull-date2'
@@ -259,39 +271,47 @@ getClass(time,index){
     }
 
   }else{
-           for (var i = 0; i < this.bookedHistory.length; ++i) {
-         let time1=this.bookedHistory[i].bookedTime1.split(':')
-          let time2=this.bookedHistory[i].bookedTime2.split(':')
+    //this.appointmentOnselecteddate=this.selecteEmployeeAppointment.filter(arg=>arg.date==this.selectedDate)
+    if (this.appointmentOnselecteddate.length>0) {
+      // code...
+         for (var i = 0; i < this.appointmentOnselecteddate.length; ++i) {
+         let time1=this.appointmentOnselecteddate[i].start_time.split(':')
+          let time2=this.appointmentOnselecteddate[i].end_time.split(':')
           let time3=parseInt(time1[0])*60+parseInt(time1[1])
           let time4=parseInt(time2[0])*60+parseInt(time2[1])
           console.log('time3',time3)
           console.log('time4',time4)
           console.log('start',time.start)
           console.log('end',time.end)
-          if (time.start < time3 && time.end <= time3) {
+                  if (time.start < time3 && time.end <= time3) {
         // return ''
-      }
-      else if (time.start > time4 && time.end > time4) {
+                  }
+                  else if (time.start > time4 && time.end > time4) {
 
-        // return ''
+                    // return ''
 
-      }else if (time.start <= time3 && time.end <= time4) {
-         this.timeSlot[index].checkStatus=true
-         return 'dull-date'
+                  }else if (time.start <= time3 && time.end <= time4) {
+                     this.timeSlot[index].checkStatus=true
+                     return 'dull-date'
 
-      }else if (time.start > time3 && time.end <= time4) {
-         this.timeSlot[index].checkStatus=true
-         return 'dull-date'
-      }else if (time.start < time3 && time.end >time4) {
-        // code...
-         this.timeSlot[index].checkStatus=true
-         return 'dull-date'
-      }
-      else if (time.start < time4 && time.end >time4) {
-         this.timeSlot[index].checkStatus=true
-         return 'dull-date'
-      }
-    } 
+                  }else if (time.start > time3 && time.end <= time4) {
+                     this.timeSlot[index].checkStatus=true
+                     return 'dull-date'
+                  }else if (time.start < time3 && time.end >time4) {
+                    // code...
+                     this.timeSlot[index].checkStatus=true
+                     return 'dull-date'
+                  }
+                  else if (time.start < time4 && time.end >time4) {
+                     this.timeSlot[index].checkStatus=true
+                     return 'dull-date'
+                  }
+          }
+
+    
+    }
+    
+     
   }
 
   
@@ -347,13 +367,63 @@ creatConfirmation(){
 
 onCoinfirmAppointment(ser){
   this.waitLoader=true
-        this.commonService.saloonUpdate(this.id)
+  let a={
+    customer_id:this.customer.id,
+    saloon_id:ser.saloon_id,
+    category_id:ser.category_id,
+    services_id:ser.service_id,
+    amount:ser.cost_eng,
+    start_time:ser.startTime,
+    end_time:ser.endTime,
+    emp_id:ser.emp_id,
+    date:ser.date
+  }
+        this.commonService.createAppointment(a)
         .subscribe((data)=>{
             var list=[]
              this.waitLoader=false
+             this.selectedServices[this.currentIndex].appointment_id=data.data.id
+             this.letConfirmServices.push(this.selectedServices[this.currentIndex])
             if(data.response){
             }
          })
+
+}
+getTotalPay(){
+  if (this.letConfirmServices.length>0) {
+    let cost=0
+    for (var i = 0; i < this.letConfirmServices.length; ++i) {
+      // code...
+      cost=cost+parseInt(this.letConfirmServices[i].cost_eng)
+    }
+    return cost
+    // code...
+  }else{
+    return 0
+  }
+}
+onGetConfirmService(){
+  let data=this.selectedServices.filter(arg=>arg.appointment_id)
+console.log(data)
+  return data
+}
+
+creatConfirmationForPay(){
+  this.currentTab='tab2'
+  this.tab1=''
+  this.tab2='active'
+  this.tab3=''
+}
+
+payWithCash(){
+  this.currentTab='tab3'
+  this.tab1=''
+  this.tab2=''
+  this.tab3='active'
+
+}
+
+onclosePayment(){
 
 }
     openCategory(ref){
@@ -454,7 +524,7 @@ getStatus(data){
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
       //alert(date)
      this.selectedDate=null
-     this.rest()
+     
     if (isSameMonth(date, this.viewDate)) {
         let currentDateTime=new Date()
         let current=currentDateTime.getFullYear()
@@ -478,7 +548,7 @@ getStatus(data){
         if (currentDateTime.getFullYear() < date.getFullYear()) {
             
               this.selectedDate=selectedyear+'-'+month1+'-'+date1
-           
+               
         }else if (currentDateTime.getFullYear() == date.getFullYear()) {
             if (currentDateTime.getMonth() <  date.getMonth()) {
                 this.selectedDate=selectedyear+'-'+month1+'-'+date1
@@ -510,6 +580,13 @@ getStatus(data){
        // this.rest()
         this.activeDayIsOpen = true;
         this.viewDate = date;
+      }
+      if (this.selectedDate!=null) {
+      this.appointmentOnselecteddate=this.selecteEmployeeAppointment.filter(arg=>arg.date==this.selectedDate)
+      
+        // code...
+      }else{
+        this.appointmentOnselecteddate=[]
       }
     }
   }

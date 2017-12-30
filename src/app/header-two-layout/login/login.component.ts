@@ -59,7 +59,8 @@ export class LoginComponent implements OnInit {
                   if(data.response){
                     this.toastr.success(data.message ,'Account Verification',{toastLife: 1000, showCloseButton: true})
                     localStorage['userdetails']=JSON.stringify(data.data)
-                     localStorage['customerdetails']='null'
+                     localStorage['customerdetails']=null
+                     localStorage.removeItem('isLoggedin');
                     // setTimeout(()=>{
                              this.router.navigate(['/header-one-layout/home-page']);
                     // },1000)
@@ -78,7 +79,8 @@ export class LoginComponent implements OnInit {
                   if(data.response){
                     this.toastr.success(data.message ,'Account Verification',{toastLife: 1000, showCloseButton: true})
                     localStorage['customerdetails']=JSON.stringify(data.data)
-                    localStorage['userdetails']='null'
+                    localStorage.setItem('isLoggedin', 'true');
+                    localStorage['userdetails']=null
                              this.router.navigate(['/header-one-layout/home-page']);
                   }else if (data.message=='Authentication Failed') {
                      this.toastr.error('Please check your credential and try again' ,'Authentication Failed ',{toastLife: 1000, showCloseButton: true});

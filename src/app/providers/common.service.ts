@@ -76,12 +76,43 @@ export class CommonService {
       
     );
   }
-  saloonUpdate(data): Observable<any> {
+  createAppointment(data): Observable<any> {
     const url = `${ENV.mainApi}/createAppointment`;
     return this.http.post<any>(url,data,httpOptions)
     .pipe(
         tap(heroes => this.log(`createAppointment`)),
         catchError(this.handleError('createAppointment', []))
+      
+    );
+  }
+
+
+  updatePaymentStatusByCash(id): Observable<any> {
+    const url = `${ENV.mainApi}/updatePaymentStatusByCash/${id}`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`updatePaymentStatusByCash`)),
+        catchError(this.handleError('updatePaymentStatusByCash', []))
+      
+    );
+  }
+
+   deleteAppointmentById(id): Observable<any> {
+    const url = `${ENV.mainApi}/deleteAppointmentById/${id}`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`deleteAppointmentById`)),
+        catchError(this.handleError('deleteAppointmentById', []))
+      
+    );
+  }
+
+  allAppointment(id): Observable<any> {
+    const url = `${ENV.mainApi}/allAppointment`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`allAppointment`)),
+        catchError(this.handleError('allAppointment', []))
       
     );
   }

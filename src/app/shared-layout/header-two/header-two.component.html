@@ -25,10 +25,32 @@
             </div>
             <div class="col-md-3 col-sm-3 col-xs-3 order-2">
                 <div class="pull-right left-navbar">
-                   <ul class="right-login">
+                   <ul class="right-login" *ngIf="customer==null">
                         <li><a href="#" data-toggle="modal" data-target="#signupAs">{{ 'headerTwo.SignUp' | translate }}</a></li>
                         <li><a routerLink="/header-two-layout/login">{{ 'headerTwo.logIn' | translate }}</a></li>
                    </ul>
+                   <ul class="home-pro" *ngIf="customer!=null">
+                               <li class="dropdown dropdown-user dropdown-dark">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                        <div class="header-user">
+                                            <img *ngIf="!customer.image || customer.image==null" src="assets/img/user-pro-1.jpg" class="img-circle" alt="NO-IMAGES">
+                                            <img class="img-circle" *ngIf="customer.image" [src]="imagePath(customer.image)" >
+                                            <span class="username username-hide-on-mobile">
+                                                {{customer.first_name}}  {{customer.last_name}}<i class="fa fa-angle-down"></i></span>
+                                        </div>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-default">
+                                        <li (click)="oncustomerProfile()">
+                                            <a href="javascript:void(0)">
+                                            <i class="icon-user"></i> My Profile </a>
+                                        </li>
+                                        <li (click)="onLogout()">
+                                            <a href="javascript:void(0)">
+                                            <i class="icon-key"></i> Log Out </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                           </ul>
                 </div>
             </div>
         </div>

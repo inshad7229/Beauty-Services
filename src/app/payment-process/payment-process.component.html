@@ -20,19 +20,19 @@
                                     <div class="tab-on-form payment-pro">
                                         <ul class="nav nav-pills nav-stacked">
                                             <li class="active step-li" id="appoiment">
-                                               <button href="#tab_a" data-toggle="pill" >
+                                               <button href="#tab_a" data-toggle="pill" [disabled]="currentTab!='tab1'">
                                                    1
                                                </button>
                                                <p>Schedule appointment</p> 
                                             </li>
                                             <li class="step-li" id="pay-book">
-                                               <button href="#tab_b" data-toggle="pill">
+                                               <button href="#tab_b" data-toggle="pill" [disabled]="currentTab!='tab2'">
                                                   2
                                                </button>
                                                <p><i class="fa fa-credit-card"></i>Pay And Book</p> 
                                             </li>
                                             <li class="" id="confir-bok">
-                                               <button href="#tab_c" data-toggle="pill">
+                                               <button href="#tab_c" data-toggle="pill" [disabled]="currentTab!='tab3'">
                                                   3
                                                </button>
                                                <p><i class="fa fa-check"></i>Booking Confirmation</p> 
@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="payment-content">
                                         <div class="tab-content">
-                                            <div class="tab-pane active" id="tab_a">
+                                            <div class="tab-pane {{tab1}}" id="tab_a">
                                                 <div class="schedule-sec" *ngIf="saloonData">
                                                     <!-- <div class="any-professionl">
                                                         <span class="heading-profes">
@@ -72,24 +72,27 @@
                                                                             <img *ngIf="ser.emp_id!=null" alt="user-svg" [src]="getEmpImg(ser.emp_id)">
                                                                             <span class="empy-name" *ngIf="ser.emp_id!=null">{{getEmpName(ser.emp_id)}}</span>
                                                                             <!-- <p>Select Any Professional</p> -->
-                                                                            <a class="slect-pro" href="javascript:void(0);" data-toggle="modal" data-target="#professional-typ" (click)="onSelectEmployee(ser,i)"><span *ngIf="ser.emp_id==null">Select Any Professional</span> <span *ngIf="ser.emp_id!=null">Change  Professional</span></a>
+                                                                            <a *ngIf="ser.appointment_id ==null" class="slect-pro" href="javascript:void(0);" data-toggle="modal" data-target="#professional-typ" (click)="onSelectEmployee(ser,i)"><span *ngIf="ser.emp_id==null">Select Any Professional</span> <span *ngIf="ser.emp_id!=null" >Change  Professional</span></a>
                                                                           </span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-4 p-0 service-prl2">
                                                                         <div class="price-value">
                                                                             <span class="aed-total"><h6>AED {{ser.cost_eng}}</h6></span>
-                                                                            <span class="add-cart-icon">
+                                                                            <span class="add-cart-icon" *ngIf="ser.appointment_id ==null">
                                                                                 <a href="javascript:void(0)" (click)="onselectService(ser,i)">
                                                                               
                                                                                     <i  class="fa fa-minus"></i>
                                                                                 </a>
                                                                             </span>
                                                                         </div>
-                                                                        <div class="slkt-tim-div">
+                                                                        <div class="slkt-tim-div" *ngIf="ser.appointment_id==null">
                                                                           <a *ngIf="ser.emp_id!=null && !ser.date && !ser.startTime1 &&  !ser.endTime1" href="javascript:;" data-toggle="modal" data-target="#proceed-time" (click)="onTimeSelect(ser)">Select Time</a>
                                                                           <a *ngIf="ser.emp_id!=null && ser.date && ser.startTime1 &&  ser.endTime1" href="javascript:;" (click)="onTimeSelect(ser)">Change Time</a>
                                                                           <a *ngIf="ser.emp_id!=null && ser.date && ser.startTime1 &&  ser.endTime1" href="javascript:;" (click)="onCoinfirmAppointment(ser)">Confirm Appointment</a>
+                                                                        </div>
+                                                                        <div class="slkt-tim-div" *ngIf="ser.appointment_id !=null">
+                                                                          <a  href="javascript:;" data-toggle="modal" data-target="#proceed-time" (click)="onDelteAppontment(ser)">Delete Appointment</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -110,7 +113,7 @@
                                                    
                                                 </div>
                                             </div>
-                                            <div class="tab-pane" id="tab_b">
+                                            <div class="tab-pane {{tab2}}" id="tab_b">
                                                 <div class="appointment-sec">
                                                     <div class="dshbrd-content">
                                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -163,24 +166,24 @@
                                                                             <span class="cast-leftt">
                                                                                 Price
                                                                             </span>
-                                                                            <span class="right-cashd">AED 200.00</span>
+                                                                            <span class="right-cashd">AED {{getTotalPay()}}</span>
                                                                         </li>
                                                                         <li>
                                                                             <span class="cast-leftt">
                                                                                 Total Services
                                                                             </span>
-                                                                            <span class="right-cashd">2</span>
+                                                                            <span class="right-cashd">{{letConfirmServices.length}}</span>
                                                                         </li>
                                                                         <li class="total-price">
                                                                             <span class="cast-leftt">
                                                                                 Amount Payable
                                                                             </span>
-                                                                            <span class="right-cashd">AED 200.00</span>
+                                                                            <span class="right-cashd">AED {{getTotalPay()}}</span>
                                                                         </li>
                                                                     </ul>
                                                                 </div>
                                                                 <div class="confirm-btn text-center">
-                                                                    <button type="submit" class="btn cut-btn"><i class="fa fa-check"></i> OK</button>
+                                                                    <button type="submit" class="btn cut-btn"><i class="fa fa-check" (click)="payWithCash()"></i> OK</button>
                                                                 </div>
                                                             </div>
                                                             <!-- 2nd type -->
@@ -188,24 +191,24 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane" id="tab_c">
+                                            <div class="tab-pane {{tab3}}" id="tab_c">
                                                 <div class="confirmation-payment">
                                                     <div class="wrap-confirmation">
                                                         <h4>Appointment Details</h4>
                                                         <div class="decription-list">
-                                                            <dl class="dl-horizontal">
+                                                            <dl class="dl-horizontal" *ngFor="let confirm of letConfirmServices">
                                                                 <dt>Date:</dt>
-                                                                <dd>21 November 2017</dd>
+                                                                <dd>{{confirm.date}}</dd>
                                                                 <dt>Time:</dt>
-                                                                <dd>9:10 AM To 10:30 PM</dd>
+                                                                <dd>{{getHours(confirm.startTime1)}}:{{getMint(confirm.startTime1)}} {{getAmPm(confirm.startTime1)}} - {{getHours(confirm.endTime1)}}:{{getMint(confirm.endTime1)}} {{getAmPm(confirm.endTime1)}}</dd>
                                                                 <dt>Service Name:</dt>
-                                                                <dd>Hair Cut & Hair color</dd>
+                                                                <dd>{{confirm.services_eng}}</dd>
                                                                 <dt>Payment Status:</dt>
                                                                 <dd class="salon-name">Paid</dd>
                                                             </dl>
                                                         </div>
                                                         <div class="confirm-btn">
-                                                            <button type="submit" class="btn cut-btn"><i class="fa fa-check"></i> OK</button>
+                                                            <button type="submit" class="btn cut-btn" (click)="onclosePayment()"><i class="fa fa-check"></i> OK</button>
                                                         </div>
                                                     </div>                                                   
                                                 </div>
@@ -215,36 +218,55 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12 payment-1">
+                        <div class="col-md-4 col-sm-4 col-xs-12 payment-1" *ngIf="currentTab=='tab1'">
                             <div class="payment-sidebar">
-                                <div class="wrap-appoiment">
+                                <div class="wrap-appoiment" >
                                     <div class="payment-service-h">
-                                        <p class="selected-service">His & Her Favourite (Le Meridien)</p>
+                                        <p class="selected-service">Your's booked appointments please make payment for confirm appointment  </p>
                                     </div>
                                     <div class="selected-time">
                                         <ul class="slected-tul">
-                                            <li class="select-ser" style="position:relative;">
-                                               <span class="selected-t-left">
-                                                   <h3>Fringe Time</h3>
-                                                   <p><i class="fa fa-clock-o"></i>30 Min</p>
-                                               </span> 
-                                               <span class="selected-t-right">
-                                                    <h5>AED 40</h5>
-                                                </span>
-                                                <span class="rem-se"><a href="javascript:void(0);"><i class="fa fa-minus-circle"></i></a></span>
+                                            <li class="payment-pro-in" *ngFor="let confirm of letConfirmServices">
+                                            <div class="row">
+                                                <div class="selected-t-left">
+                                                   <span style="color: #d5275a">{{confirm.services_eng}} <i class="fa fa-clock-o"></i>{{getTime(confirm.time)}}</span>
+                                               </div> 
+                                               <div class="selected-t-right">
+                                                    <h5>AED {{confirm.cost_eng}}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="selected-t-left">
+                                                   <span><i class="fa fa-user"></i>{{getEmpName(confirm.emp_id)}}</span>>
+                                               </div> 
+                                               <div class="selected-t-right">
+                                                    <p><i class="fa fa-calendar">{{confirm.date}}</i></p>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="row">
+                                                  <span><i class="fa fa-clock-o"></i>{{getHours(confirm.startTime1)}}:{{getMint(confirm.startTime1)}} {{getAmPm(confirm.startTime1)}} - {{getHours(confirm.endTime1)}}:{{getMint(confirm.endTime1)}} {{getAmPm(confirm.endTime1)}}</span>  
+                                                </div>
+                                               
                                             </li>
-                                            <li class="payment-pro-in">
+                                            <!-- <li class="payment-pro-in">
                                                <span class="selected-t-left">
                                                    <p>Select a date and time to proceed booking</p>
                                                </span> 
                                                <span class="selected-t-right">
                                                     <h5>AED 40</h5>
                                                 </span>
-                                            </li>
+                                            </li> -->
                                         </ul>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="ok-btn-otp">
+                                            <button [disabled]="getTotalPay()==0" type="submit" data-dismiss="modal" class="btn cut-btn" (click)="creatConfirmationForPay()"><i class="fa fa-check"></i> Pay {{getTotalPay()}}</button>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
-                                <div class="pay-book-sec">
+                                <!-- <div class="pay-book-sec">
                                     <h5>Appointment Details</h5>
                                     <dl class="dl-horizontal">
                                         <dt>Date</dt>
@@ -256,8 +278,8 @@
                                         <dt>Salon Name</dt>
                                         <dd class="salon-name"> Big Beauty Services Salon </dd>
                                     </dl>
-                                </div>
-                                <div class="Confirmation-sec">
+                                </div> -->
+                               <!--  <div class="Confirmation-sec">
                                     <div class="salon-add-map">
                                         <div id="googleMap" style="width:100%;height:200px;"></div>
                                         <div class="address-salon">
@@ -302,7 +324,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -326,7 +348,7 @@
                                 <ul class="profe-ul" *ngIf="currentServiceId">
                                     <li *ngFor=" let emp of getEmplloyeListForService();let i=index">
                                         <div class="custom-radio">
-                                            <input type="radio" id="{{i}}" name="empId" [(ngModel)]="emp.check" value="{{emp.employee_id}}" (change)="onSelectEmployeeRadio(emp.check)" />
+                                            <input type="radio" id="{{i}}" name="empId" [(ngModel)]="emp.check" value="{{emp.employee_id}}" (change)="onSelectEmployeeRadio(emp)" />
                                             <label for="{{i}}">
                                                <img *ngIf="!emp.employeeDetails.employee_image" src="assets/img/user-pay.svg" class="img-responsive">
                                                <img *ngIf="emp.employeeDetails.employee_image" [src]="getimage(emp.employeeDetails.employee_image)" class="img-responsive"> 
