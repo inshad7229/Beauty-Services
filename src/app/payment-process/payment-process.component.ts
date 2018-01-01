@@ -382,9 +382,10 @@ onCoinfirmAppointment(ser){
         .subscribe((data)=>{
             var list=[]
              this.waitLoader=false
+            if(data.response){
+              this.getSaloonData()
              this.selectedServices[this.currentIndex].appointment_id=data.data.id
              this.letConfirmServices.push(this.selectedServices[this.currentIndex])
-            if(data.response){
             }
          })
 
@@ -416,16 +417,57 @@ creatConfirmationForPay(){
 }
 
 payWithCash(){
+  
+  for (var i = 0; i < this.letConfirmServices.length; ++i) {
+  this.commonService.updatePaymentStatusByCash(this.letConfirmServices[i].appointment_id)
+        .subscribe((data)=>{
+            var list=[]
+             this.waitLoader=false
+            if(data.response){
+               this.letConfirmServices[i].paymrnt_status=true
+             //  //this.getSaloonData()
+             // this.selectedServices[this.currentIndex].appointment_id=data.data.id
+             // this.letConfirmServices.push(this.selectedServices[this.currentIndex])
+            }
+         })
+    // code...
+  }
   this.currentTab='tab3'
   this.tab1=''
   this.tab2=''
   this.tab3='active'
 
 }
-
-onclosePayment(){
-
+onDelteAppontment(ser,index){
+  this.waitLoader=true
+  this.commonService.deleteAppointmentById(ser.appointment_id)
+        .subscribe((data)=>{
+            var list=[]
+             this.waitLoader=false
+            if(data.response){
+            this.getSaloonData()
+            this.selectedServices[index].appointment_id=null
+            this.selectedServices[index].date=null
+            this.selectedServices[index].startTime=null
+            this.selectedServices[index].endTime=null
+            this.selectedServices[index].startTime1=null
+            this.selectedServices[index].endTime1=null
+            this.selectedServices[index].emp_id=null
+             let indexOf=this.letConfirmServices.map(function (img) { return img.appointment_id; }).indexOf(data.appointment_id)
+             this.letConfirmServices.splice(index,1)
+            // this.letConfirmServices.push(this.selectedServices[this.currentIndex])
+            }
+         })
 }
+onclosePayment(){
+this.router.navigate(['/header-one-layout/home-page']);
+}
+
+ngOnDestroy() { 
+localStorage['selectedServices']='null'
+//localStorage.removeItem('selectedServices');
+
+ }
     openCategory(ref){
             $(ref).toggleClass('active');
             $(ref).next('.sub-menulist').slideToggle('500');

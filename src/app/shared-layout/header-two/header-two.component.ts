@@ -23,6 +23,7 @@ export class HeaderTwoComponent implements OnInit {
 	 localStorage['userdetails']='null'
 	localStorage['customerdetails']='null'
 	this.customer=null
+  localStorage.removeItem('isLoggedin');
 	}
 	oncustomerProfile(){
            this.router.navigate(['/header-four-layout/customer-profile']);

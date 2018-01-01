@@ -1,3 +1,7 @@
+ <div class="loader-box" *ngIf="waitLoader==true">
+         <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
+ </div>
+
  <section class="payment-process">
             <div class="payment-proces-header">
                 <div class="payment-hcontent">
@@ -19,19 +23,19 @@
                                 <div class="saloon-wrap">
                                     <div class="tab-on-form payment-pro">
                                         <ul class="nav nav-pills nav-stacked">
-                                            <li class="active step-li" id="appoiment">
+                                            <li class="{{tab1}} step-li" id="appoiment">
                                                <button href="#tab_a" data-toggle="pill" [disabled]="currentTab!='tab1'">
                                                    1
                                                </button>
                                                <p>Schedule appointment</p> 
                                             </li>
-                                            <li class="step-li" id="pay-book">
+                                            <li class="{{tab2}} step-li" id="pay-book">
                                                <button href="#tab_b" data-toggle="pill" [disabled]="currentTab!='tab2'">
                                                   2
                                                </button>
                                                <p><i class="fa fa-credit-card"></i>Pay And Book</p> 
                                             </li>
-                                            <li class="" id="confir-bok">
+                                            <li class="{{tab3}}" id="confir-bok">
                                                <button href="#tab_c" data-toggle="pill" [disabled]="currentTab!='tab3'">
                                                   3
                                                </button>
@@ -92,7 +96,7 @@
                                                                           <a *ngIf="ser.emp_id!=null && ser.date && ser.startTime1 &&  ser.endTime1" href="javascript:;" (click)="onCoinfirmAppointment(ser)">Confirm Appointment</a>
                                                                         </div>
                                                                         <div class="slkt-tim-div" *ngIf="ser.appointment_id !=null">
-                                                                          <a  href="javascript:;" data-toggle="modal" data-target="#proceed-time" (click)="onDelteAppontment(ser)">Delete Appointment</a>
+                                                                          <a  href="javascript:;"  (click)="onDelteAppontment(ser,i)">Delete Appointment</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -183,7 +187,7 @@
                                                                     </ul>
                                                                 </div>
                                                                 <div class="confirm-btn text-center">
-                                                                    <button type="submit" class="btn cut-btn"><i class="fa fa-check" (click)="payWithCash()"></i> OK</button>
+                                                                    <button type="submit" class="btn cut-btn" (click)="payWithCash()"><i class="fa fa-check" ></i> OK</button>
                                                                 </div>
                                                             </div>
                                                             <!-- 2nd type -->
@@ -204,7 +208,7 @@
                                                                 <dt>Service Name:</dt>
                                                                 <dd>{{confirm.services_eng}}</dd>
                                                                 <dt>Payment Status:</dt>
-                                                                <dd class="salon-name">Paid</dd>
+                                                                <dd class="salon-name">Cash</dd>
                                                             </dl>
                                                         </div>
                                                         <div class="confirm-btn">

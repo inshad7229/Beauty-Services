@@ -324,7 +324,7 @@ getStatus(data){
 
 onSchedule(){
 localStorage['selectedServices']=JSON.stringify(this.selectedServices)
-this.router.navigate(['/payment-process/3']);
+this.router.navigate(['/payment-process/'+this.id]);
 }
 
 }

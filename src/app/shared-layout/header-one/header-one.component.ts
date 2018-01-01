@@ -48,6 +48,7 @@ categoryList
 	this.saloon=null
 	localStorage['customerdetails']='null'
 	this.customer=null
+  localStorage.removeItem('isLoggedin');
 	}
 	oncustomerProfile(){
            this.router.navigate(['/header-four-layout/customer-profile']);
