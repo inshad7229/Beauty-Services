@@ -14,7 +14,7 @@ import {AppProvider} from './providers/app.provider';
 import { NotfoundComponent } from './notfound/notfound.component';
 import {AuthGuard} from './guard/auth.guard'
 import {FooterComponent} from './shared-layout/footer/footer.component';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
     // for development
@@ -42,7 +42,8 @@ export function createTranslateLoader(http: HttpClient) {
             }
         }),
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule
   ],
   providers: [AppProvider,AuthGuard],
   bootstrap: [AppComponent]

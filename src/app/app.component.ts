@@ -9,10 +9,10 @@ export class AppComponent {
   title = 'app';
   constructor(private translate: TranslateService){
  this.translate.use('en');
- 	localStorage['userdetails']='null'
-	localStorage['customerdetails']='null'
-	localStorage['selectedServices']='null'
-	localStorage.removeItem('isLoggedin');
+ // 	localStorage['userdetails']='null'
+	// localStorage['customerdetails']='null'
+	// localStorage['selectedServices']='null'
+	// localStorage.removeItem('isLoggedin');
 	//localStorage.removeItem('selectedServices');
   }
 }

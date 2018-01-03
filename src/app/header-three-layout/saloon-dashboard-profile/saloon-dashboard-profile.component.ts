@@ -205,8 +205,8 @@ getLon(long){
             this.waitLoader=false
               console.log(data);
               if(data.response){
-                this.profileData=data.data[0]
-                this.saloonImage=data.data[0].SaloonImages
+                this.profileData=data.data
+                this.saloonImage=data.data.SaloonImages
                this.toastr.success(data.message ,'Image updated',{toastLife: 1000, showCloseButton: true})
              }else {
                 this.toastr.error( 'Something Went Wrong Please Try Again' ,'Updation Failed',{toastLife: 1000, showCloseButton: true});

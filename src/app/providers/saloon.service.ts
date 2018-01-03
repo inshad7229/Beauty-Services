@@ -4,21 +4,23 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import {AddEmployee} from '../models/employee'
-import  {ENV} from '../env'
+import {ENV} from '../env'
+ 
   const httpOptions = {
      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
+
 @Injectable()
 export class SaloonService {
 
   constructor(private http: HttpClient) { }
+
   SaloonSignup(data): Observable<any> {
     const url = `${ENV.mainApi}/saloonRegistration`;
     return this.http.post<any>(url,data,httpOptions)
     .pipe(
         tap(heroes => this.log(`sallon Signup`)),
         catchError(this.handleError('sallon Signup', []))
-      
     );
   }
    
@@ -28,7 +30,6 @@ export class SaloonService {
     .pipe(
         tap(heroes => this.log(`saloonUpdate`)),
         catchError(this.handleError('saloonUpdate', []))
-      
     );
   }
 
@@ -188,15 +189,37 @@ export class SaloonService {
     );
   }
 
-    getSaloonProfileData(id): Observable<any> {
+  getSaloonProfileData(id): Observable<any> {
     const url = `${ENV.mainApi}/saloonDetailsById/${id}`;
     return this.http.get<any>(url,httpOptions)
     .pipe(
-        tap(heroes => this.log(`saloonDetailsById`)),
-        catchError(this.handleError('saloonDetailsById', []))
-      
+      tap(heroes => this.log(`saloonDetailsById`)),
+      catchError(this.handleError('saloonDetailsById', []))
     );
   }
+
+  // --------------------------------------1/1/2018---------------------------------------------
+
+  getAppointmentDetailsForSaloon(id): Observable<any> {
+    const url = `${ENV.mainApi}/appointmentsForSaloon/${id}`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`appointmentsForSaloon`)),
+        catchError(this.handleError('appointmentsForSaloon', []))
+    );
+  }
+
+  // ------------------------------3/1/2018-------------------------------------------------------
+
+  editAppointmentByCustomer(appointmentId,data): Observable<any> {
+    const url = `${ENV.mainApi}/editAppointmentByCustomer/${appointmentId}`;
+    return this.http.post<any>(url,data,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`saloonImageEdit`)),
+        catchError(this.handleError('saloonImageEdit', []))
+    );
+  }
+
    /**
    * Handle Http operation that failed.
    * Let the app continue.

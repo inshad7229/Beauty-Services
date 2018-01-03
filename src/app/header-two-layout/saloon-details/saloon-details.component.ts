@@ -207,9 +207,13 @@ getLon(long){
 
     return 'http://18.216.88.154/public/beauti-service/'+this.saloonData.SaloonImages[5].image
     }
-     getimage7(){
+   getimage7(){
 
     return 'http://18.216.88.154/public/beauti-service/'+this.saloonData.SaloonImages[6].image
+    }
+    getimage8(){
+
+    return 'http://18.216.88.154/public/beauti-service/'+this.saloonData.SaloonImages[7].image
     }
 
         

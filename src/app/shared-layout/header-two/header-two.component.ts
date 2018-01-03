@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HeaderTwoComponent implements OnInit {
 	customer
+  saloon
     constructor(public router: Router,private translate: TranslateService) {
     	if (localStorage['customerdetails']) {
           // code...
@@ -18,13 +19,29 @@ export class HeaderTwoComponent implements OnInit {
         }
     }
 
-    ngOnInit() {}
-    	onLogout(){
-	 localStorage['userdetails']='null'
-	localStorage['customerdetails']='null'
-	this.customer=null
-  localStorage.removeItem('isLoggedin');
-	}
+    ngOnInit() {
+        if (localStorage['userdetails']) {
+          // code...
+          this.saloon=JSON.parse(localStorage['userdetails'])
+        }else{
+          this.saloon=null
+        }
+
+        if (localStorage['customerdetails']) {
+          // code...
+          this.customer=JSON.parse(localStorage['customerdetails'])
+        }else{
+          this.customer=null
+        }
+    }
+    onLogout(){
+     localStorage['userdetails']='null'
+    this.saloon=null
+    localStorage['customerdetails']='null'
+    this.customer=null
+    localStorage.removeItem('isLoggedin');
+    this.router.navigate(['/header-one-layout/home-page'])
+  }
 	oncustomerProfile(){
            this.router.navigate(['/header-four-layout/customer-profile']);
 	}

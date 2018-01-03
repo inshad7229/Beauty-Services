@@ -9,7 +9,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 
 import { SaloonEmployeeListRoutingModule } from './saloon-employee-list-routing.module';
 import { SaloonEmployeeListComponent } from './saloon-employee-list.component';
-import {SaloonService} from '../../providers/saloon.service'
+import { SaloonService } from '../../providers/saloon.service';
+
 @NgModule({
     imports: [CommonModule, SaloonEmployeeListRoutingModule,
          FormsModule,

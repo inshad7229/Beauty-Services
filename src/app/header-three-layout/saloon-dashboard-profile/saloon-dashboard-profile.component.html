@@ -265,7 +265,7 @@
 											                      	</div>
 											                         <div class="row">
 						                                            	<div *ngFor="let imagedata of saloonImage; let i=index" class="form-group col-md-3 col-sm-3 col-xs-12">
-						                                            		<div class="wrap-div cuatom-img">
+						                                            		<div *ngIf="i<8" class="wrap-div cuatom-img">
 													                            <img *ngIf="!imagedata.image " src="assets/img/saloon-user.png" class="img-responsive">
 										                            			<img *ngIf="imagedata.image" [src]="imagePath(imagedata.image)" class="img-responsive">
 													                            <span class="upload-img">

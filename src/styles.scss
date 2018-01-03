@@ -93,3 +93,8 @@
 .dull-date {
   background-color:#eaeaea;
 }
+
+.cdk-overlay-container {
+    position: fixed;
+    z-index: 999999;
+}

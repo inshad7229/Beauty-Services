@@ -44,11 +44,11 @@ categoryList
               this.router.navigate(['/header-three-layout/saloon-dashboard']);
 	}
 	onLogout(){
-	 localStorage['userdetails']='null'
-	this.saloon=null
-	localStorage['customerdetails']='null'
-	this.customer=null
-  localStorage.removeItem('isLoggedin');
+  	 localStorage['userdetails']='null'
+  	this.saloon=null
+  	localStorage['customerdetails']='null'
+  	this.customer=null
+    localStorage.removeItem('isLoggedin');
 	}
 	oncustomerProfile(){
            this.router.navigate(['/header-four-layout/customer-profile']);

@@ -90,7 +90,7 @@ serviceList
   }
 
    getserviceList(){
-          this.waitLoader=true
+        this.waitLoader=true
         this.saloonServices.getservicesById(this.userDetail.id)
         .subscribe((data)=>{
             var list=[]
@@ -190,12 +190,14 @@ serviceList
             }
          })
     }
-getServiceName(a){
+
+
+  getServiceName(a){
       let data =this.serviceList.filter(arg=>arg.servicesData.id==a)
       if(data.length>0){
         return data[0].servicesData.services_eng;
       }
-    }
+  }
 
  imageUploadEvent(evt: any) {
         if (!evt.target) {

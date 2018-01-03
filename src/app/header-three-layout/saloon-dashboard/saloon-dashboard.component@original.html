@@ -39,14 +39,14 @@
                                         </div>
                                         <div class="status">
                                             <div class="status-title"> progress </div>
-                                            <div class="status-number"> 100% </div>
+                                            <div class="status-number"> 76% </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="dashboard-stat2">
-                                    <div class="display" *ngIf="totalAppointments">
+                                    <div class="display">
                                         <div class="number">
                                             <h3 class="font-red-haze">
                                                 <span class="count" data-counter="counterup" data-value="1390">0</span>
@@ -175,11 +175,11 @@
                                                                     <tr>
                                                                         <div class="cutome-th">
                                                                             <span class="pull-left">
-                                                                                <a (click)="onPreviousDate()"><i class="fa fa-angle-left"></i></a>
+                                                                                <a href="#"><i class="fa fa-angle-left"></i></a>
                                                                             </span>
-                                                                                {{filterDate}}
+                                                                                November 10, 2017
                                                                             <span class="pull-right">
-                                                                                <a (click)="onForwardDate()">
+                                                                                <a href="#">
                                                                                 <i class="fa fa-angle-right"></i>
                                                                                 </a>
                                                                             </span>
@@ -195,17 +195,13 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr *ngFor='let appointment of this.appointMentList| paginate: { itemsPerPage: 3, currentPage: p }'>
-                                                                        <td>{{getHours(appointment.start_time)}} : {{getMin(appointment.start_time)}} {{getAmPm(appointment.start_time)}} - {{getHours(appointment.end_time)}} : {{getMin(appointment.end_time)}} {{getAmPm(appointment.end_time)}}</td>
-                                                                        <td><img *ngIf="appointment.customerRequestForAppointment.image" class="user-view" [src]="imagePath(appointment.customerRequestForAppointment.image)">
-                                                                        <img *ngIf="!appointment.customerRequestForAppointment.image" class="user-view" src="assets/img/5.jpg">
-                                                                        {{appointment.customerRequestForAppointment.first_name}}</td>
-                                                                        <td>{{appointment.employeeRequestedByCustomer.first_name}}</td>
-                                                                        <td>{{appointment.requestedServiceByCustomer.services_eng}}</td>
-                                                                        <td>{{appointment.customerRequestForAppointment.contact_number}}</td>
-                                                                        <td *ngIf="appointment.appointment_status==0">Pending</td>
-                                                                        <td *ngIf="appointment.appointment_status==1">Complete</td>
-                                                                        <td *ngIf="appointment.appointment_status==2">Cancelled</td>
+                                                                    <tr *ngFor='let appointment of this.appointMentList'>
+                                                                        <td>12:00 PM - 12:30 PM</td>
+                                                                        <td><img class="user-view" src="img/avatar9.jpg">Smith</td>
+                                                                        <td>Manager</td>
+                                                                        <td>Hair Cutting</td>
+                                                                        <td>8009890712</td>
+                                                                        <td>Pending</td>
                                                                     </tr>
                                                                    <!--  <tr>
                                                                         <td>12:30 PM - 1:00 PM</td>
@@ -233,16 +229,6 @@
                                                                     </tr> -->
                                                                 </tbody>
                                                             </table>
-                                                            <div class="table-pagination">
-                                                                <div class="pagination">
-                                                                  <!-- <a href="#"><i class="fa fa-angle-left"></i></a>
-                                                                  <a href="#">1</a>
-                                                                  <a href="#" class="active">2</a>
-                                                                  <a href="#">3</a>
-                                                                  <a href="#"><i class="fa fa-angle-right"></i></a> -->
-                                                                  <pagination-controls (pageChange)="p = $event"  previousLabel=""  nextLabel="" ></pagination-controls>
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

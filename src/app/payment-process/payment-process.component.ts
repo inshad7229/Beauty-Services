@@ -252,6 +252,22 @@ getAmPm(time){
   }
 }
 
+getHoursForSend(time){
+  let a=Math.floor(time/60)
+  if (a<10) {
+    return '0'+a
+  }else{
+    return a
+  }
+}
+getMintForSend(time){
+ let a=Math.floor(time%60)
+ if (a<10) {
+    return '0'+a
+  }else{
+    return a
+  }
+}
 getClass(time,index){
   // let time1=this.bookedTime1.split(':')
   // let time2=this.bookedTime2.split(':')
@@ -273,40 +289,39 @@ getClass(time,index){
   }else{
     //this.appointmentOnselecteddate=this.selecteEmployeeAppointment.filter(arg=>arg.date==this.selectedDate)
     if (this.appointmentOnselecteddate.length>0) {
-      // code...
-         for (var i = 0; i < this.appointmentOnselecteddate.length; ++i) {
-         let time1=this.appointmentOnselecteddate[i].start_time.split(':')
-          let time2=this.appointmentOnselecteddate[i].end_time.split(':')
-          let time3=parseInt(time1[0])*60+parseInt(time1[1])
-          let time4=parseInt(time2[0])*60+parseInt(time2[1])
-          console.log('time3',time3)
-          console.log('time4',time4)
-          console.log('start',time.start)
-          console.log('end',time.end)
-                  if (time.start < time3 && time.end <= time3) {
-        // return ''
-                  }
-                  else if (time.start > time4 && time.end > time4) {
+       for (var i = 0; i < this.appointmentOnselecteddate.length; ++i) {
+       let time1=this.appointmentOnselecteddate[i].start_time.split(':')
+        let time2=this.appointmentOnselecteddate[i].end_time.split(':')
+        let time3=parseInt(time1[0])*60+parseInt(time1[1])
+        let time4=parseInt(time2[0])*60+parseInt(time2[1])
+        console.log('time3',time3)
+        console.log('time4',time4)
+        console.log('start',time.start)
+        console.log('end',time.end)
+        if (time.start < time3 && time.end <= time3) {
+          // return ''
+        }
+        else if (time.start > time4 && time.end > time4) {
 
-                    // return ''
+          // return ''
 
-                  }else if (time.start <= time3 && time.end <= time4) {
-                     this.timeSlot[index].checkStatus=true
-                     return 'dull-date'
+        }else if (time.start <= time3 && time.end <= time4) {
+           this.timeSlot[index].checkStatus=true
+           return 'dull-date'
 
-                  }else if (time.start > time3 && time.end <= time4) {
-                     this.timeSlot[index].checkStatus=true
-                     return 'dull-date'
-                  }else if (time.start < time3 && time.end >time4) {
-                    // code...
-                     this.timeSlot[index].checkStatus=true
-                     return 'dull-date'
-                  }
-                  else if (time.start < time4 && time.end >time4) {
-                     this.timeSlot[index].checkStatus=true
-                     return 'dull-date'
-                  }
-          }
+        }else if (time.start > time3 && time.end <= time4) {
+           this.timeSlot[index].checkStatus=true
+           return 'dull-date'
+        }else if (time.start < time3 && time.end >time4) {
+          // code...
+           this.timeSlot[index].checkStatus=true
+           return 'dull-date'
+        }
+        else if (time.start < time4 && time.end >time4) {
+           this.timeSlot[index].checkStatus=true
+           return 'dull-date'
+        }
+    }
 
     
     }
@@ -356,8 +371,8 @@ onNext(){
 creatConfirmation(){
   console.log(JSON.stringify(this.timeSlot[this.scheduleIndex]))
 
-  let startTime=this.getHours(this.timeSlot[this.scheduleIndex].secheuleStart)+':'+this.getMint(this.timeSlot[this.scheduleIndex].secheuleStart)
-  let endTime=this.getHours(this.timeSlot[this.scheduleIndex].secheuleEnd)+':'+this.getMint(this.timeSlot[this.scheduleIndex].secheuleEnd)
+  let startTime=this.getHoursForSend(this.timeSlot[this.scheduleIndex].secheuleStart)+':'+this.getMintForSend(this.timeSlot[this.scheduleIndex].secheuleStart)
+  let endTime=this.getHoursForSend(this.timeSlot[this.scheduleIndex].secheuleEnd)+':'+this.getMintForSend(this.timeSlot[this.scheduleIndex].secheuleEnd)
    this.selectedServices[this.currentIndex].startTime=startTime
    this.selectedServices[this.currentIndex].endTime=endTime
    this.selectedServices[this.currentIndex].startTime1=this.timeSlot[this.scheduleIndex].secheuleStart

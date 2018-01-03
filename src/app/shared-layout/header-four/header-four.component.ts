@@ -14,6 +14,8 @@ declare var Tasks;
     styleUrls: ['./header-four.component.scss']
 })
 export class HeaderFourComponent implements OnInit {
+    saloon
+    customer
     constructor(public router: Router,) {}
 
     ngOnInit() {
@@ -47,5 +49,28 @@ export class HeaderFourComponent implements OnInit {
         } else {
             menu.find('li.open').removeClass('open');
         }
+
+        if (localStorage['userdetails']) {
+          // code...
+          this.saloon=JSON.parse(localStorage['userdetails'])
+        }else{
+          this.saloon=null
+        }
+
+        if (localStorage['customerdetails']) {
+          // code...
+          this.customer=JSON.parse(localStorage['customerdetails'])
+        }else{
+          this.customer=null
+        }
+    }
+
+     onLogout(){
+        localStorage['userdetails']='null'
+        this.saloon=null
+        localStorage['customerdetails']='null'
+        this.customer=null
+        localStorage.removeItem('isLoggedin');
+        this.router.navigate(['/header-one-layout/home-page'])
     }
 }
