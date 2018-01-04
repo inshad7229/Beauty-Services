@@ -65,6 +65,31 @@
 	  font-weight: 600;
 	  width: 100%;
 	}
+	.week-sec .labels > span {
+	  font-size: 10px;
+	}
+	.calender-section{
+		padding: 10px;
+	}
+	.page-wrap .dashboard-stat2 {
+	  height: 171px;
+	  padding: 24px 10px 0;
+	}
+	.cus-p-l {
+	  padding-left: 15px;
+	}
+	.calender-section {
+	  margin-bottom: 20px;
+	}
+	.booking-calender {
+	  margin: 0 -15px;
+	}
+	.profile-form .info-list dt {
+	  width: auto;
+	}
+	.search-input .col-md-6.col-sm-6.col-xs-12 {
+	  padding: 0;
+	}
 	
 }
 @media(max-width: 640px){
@@ -79,6 +104,56 @@
 	}
 	.sin-footer-head h5 {
 	  font-size: 14px;
+	}
+	.position2 {
+	  position: absolute;
+	  right: 10px;
+	  top: 10px;
+	  width: 40px;
+	}
+	.profile-desc {
+	  display: flex;
+	  flex-flow: row wrap;
+	  float: left;
+	  width: 100%;
+	}
+	.profile-desc .col-xs-8.pro-d-1 {
+	  order: 2;
+	  width: 100%;
+	}
+	.profile-desc .col-xs-4.pro-d-2 {
+	  margin: 0 auto;
+	  order: 1;
+	}
+}
+
+@media(max-width: 480px){
+	.calender-section{
+		padding: 5px;
+	}
+	/*.booking-table-sec{
+	  padding: 0 14px 0 5px;
+	}*/
+	.booking-section {
+	  margin-top: 20px;
+	}
+	.booking-calender {
+	  display: block;
+	  margin: 0 -15px;
+	}
+	.booking-section .portlet.light {
+	  padding-left: 11px;
+	  padding-right: 8px;
+	}
+	.profile-desc .col-xs-4.pro-d-2{
+		width: 50%;
+	}
+	.profile-form .info-list dt {
+	  width: 100%;
+	}
+	.profile-desc .info-list dd {
+	  margin: 0;
+	  width: 100%;
 	}
 
 }
@@ -106,5 +181,62 @@
 	  font-weight: 600;
 	  width: 100%;
 	}
+	.add-emp-form form > .col-xs-12 {
+	  padding: 0;
+	}
+	.mail-send {
+	  max-width: 100%;
+	}
+	.sin-footer-con .subscribe-link {
+	  width: 100%;
+	}
+	.calender-section {
+	  margin-bottom: 0;
+	}
+	#calendarContainer-month {
+	  font-size: 18px;
+	}
+	.week-sec .labels > span {
+	  font-size: 10px;
+	  padding: 10px 5px;
+	}
+	.otr-bg-dshbrd{
+		padding: 0px;
+	}
+	.sin-footer-con > p {
+	  text-align: justify;
+	}
+	.profile-chgdes .col-xs-4.pro-e {
+	  width: 100%;
+	}
+	.booking-section {
+	  margin-top:0px;  
+	}
+	.profile-desc .col-xs-4.pro-d-2 {
+	  width: 100%;
+	}
+	.search-main-sec > .col-md-12.col-sm-12.col-xs-12 {
+	  padding: 0;
+	}
+	.update-form-ul .btn.cut-btn {
+	  font-size: 14px;
+	  min-width: 100px;
+	}
 
+}
+@media(max-width: 320px){
+	.footer-widget .footer-area p {
+	  font-size: 10px;
+	}
+	.profile-chgdes .btn.cut-btn {
+	  font-size: 14px;
+	  min-width: 130px;
+	}
+	.update-form-ul .btn.cut-btn {
+	  font-size: 14px;
+	  min-width: 110px;
+	}
+	.footer-widget{
+		padding-top: 5px;
+	}
 }

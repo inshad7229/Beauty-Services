@@ -162,6 +162,14 @@
 	.help-block{
 		font-size: 12px;
 	}
+	.login-section{
+		padding: 0px;
+	}
+	.signup-form.common-form {
+	  width:100%;
+	  margin-bottom:15px;
+	  margin-top:15px; 
+	}
 
 }
 @media(max-width: 800px){
@@ -188,7 +196,7 @@
      	padding: 25px 0;
 	}
 	.sin-footer-head h5 {
-	  font-size: 12px;
+	  font-size: 16px;
 	}
 	.custom-row .payment-1 {
 	  padding: 0 20px;
@@ -252,6 +260,7 @@
 	  float: left;
 	  text-align: left;
 	  width: 100%;
+	  padding-left:0px; 	
 	}
 	.page-header .custome-bar li {
 	  float: left;
@@ -269,7 +278,7 @@
 	.page-header .bottom-header .dropdown-content.dropdown-menu {
 	  background-color: #202020;
 	  float: left;
-	  margin-right: 10px;
+	  margin-right: 0px;
 	  padding: 10px;
 	}
 	.page-header .cus-navbar .dropdown-content a:hover {
@@ -284,8 +293,10 @@
 		float: left;
 		width: auto;
 	}
-	.page-header .cus-navbar .dropdown-content a{
-		color: #808080;
+	.page-header .bottom-header .cus-navbar .dropdown-content a {
+	  color: #808080;
+	  padding: 12px 14px;
+	  width: 100%;
 	}
 	.subscribe-link {
 	  text-align: left;
@@ -381,6 +392,42 @@
 	  margin-left: 0;
 	  margin-right: 0;
 	}
+	/*-----login page responsive css start here*/
+	.common-form{
+		width: 100%;
+	}
+	.social-ul li {
+	  padding: 0 5px;
+	  width: 180px;
+	}
+	.login-inner {
+	  padding: 0;
+	  width: 100%;
+	  margin-top:15px; 
+	}
+	.signup-form.common-form {
+	  width: 100%;
+	}
+	.login-section{
+		min-height: auto;
+		padding-bottom: 20px;
+	}
+	.forgot-password-page {
+	  margin-top: 10px;
+	}
+	.wrap-service .p-l-0 {
+	  padding: 0;
+	}
+	.mail-send{
+		max-width: 100%;
+	}
+	.sin-footer-head {
+	  margin-bottom: 5px;
+	}
+	.subscribe-link {
+	  width: 100%;
+	}
+
 }
 
 @media(max-width: 640px){
@@ -424,6 +471,7 @@
 	.rating-desc {
 	  margin-top: 40px;
 	}
+
 }
 @media(max-width: 480px){
 	.sort-by {
@@ -464,6 +512,44 @@
 	  font-size: 14px;
 	  line-height: 21px;
 	  margin-top: 8px;
+	}
+	.link-forgot-password {
+	  float: left;
+	  margin-top: 10px
+	}
+	.tab-on-form p {
+	  font-size: 12px;
+	  line-height: 15px;
+	  margin-top: 10px;
+	  width: 100%;
+	}
+	.info-text {
+	  font-size: 13px;
+	  text-align: center;
+	}
+	.saloon-form label{
+		font-size: 14px;
+	}
+	.login-type .radio-inline {
+	  margin-left: 0;
+	}
+	.footer-widget {
+	  padding-top: 5px;
+	}
+	.single-footer {
+	  margin-top: 25px;
+	}
+	.price-and-book .book-btn {
+	  display: inline-block;
+	  margin-top: 20px;
+	}
+	.sub-menulist .datetime-show[_ngcontent-c12] ul[_ngcontent-c12] li[_ngcontent-c12] {
+	  width: 100%;
+	  margin-bottom: 15px;
+	}
+	.cus-nav-tab li{
+		font-size: 14px;
+	    min-width: 120px;
 	}
 
 }
@@ -546,7 +632,7 @@
 		font-size: 14px;
 	}
 	.searched-ul .book-btn {
-	    float: right;
+	    /*float: right;*/
 	}
 	.review-wrap > .col-xs-12 {
     	padding: 0;
@@ -584,6 +670,65 @@
 	}
 	.opt-form > h4 {
 	  font-size: 14px;
+	}
+	.form-wrap {
+	  padding: 0 10px;
+	}
+	/*  start css in login page responsive*/
+	.login-inner {  
+	  padding: 0px;
+	}
+	.login-section{
+		padding:20px 0;
+	}
+	.sign-up {
+	  font-size: 14px;
+	}
+	.social-ul li{
+		width: 100%
+	}
+	.form-wrap {
+	  padding: 0;
+	}
+	.saloon-form label{
+		font-size: 14px;
+	}
+	.varification-form > h4 {
+	  font-size: 16px;
+	}
+	.continue-btn.vari .btn.cut-btn {
+	  font-size: 14px;
+	  min-width: 118px;
+	  padding: 10px;
+	}
+	.saloon-btn{
+		text-align:center; 
+	}
+	.tab-on-form {
+		margin-bottom: 10px;
+		margin-top: 10px;
+	}
+	.login-type .custom-radio {
+	  display: inline-block;
+	  text-align: left;
+	  margin-left: 0px;
+	}
+	.header-sec.page-header .navbar-brand img {
+	  max-width: 135px;
+	  top: -2px;
+	  width: 109px;
+	}
+	.salon-des-consec .service-listwrap > a{
+		font-size: 14px;
+	}
+	.right-icon i {
+	  font-size: 24px;
+	}
+	.sign-selectoption .cus-btn{
+		min-width: auto;
+	}
+	.header-sec .navbar-brand img {
+	  top: -26px;
 	}
 
 }
@@ -636,6 +781,17 @@
 	.price-span{
 		font-size: 16px;
 		margin-right:5px; 
+	}
+	.continue-btn.vari .btn.cut-btn {
+	  font-size: 14px;
+	  min-width: 118px;
+	  padding: 10px;
+	}
+	.varification-form > h4 {
+	  font-size: 16px;
+	}
+	.title-d.customer-sign {
+	  font-size: 16px;
 	}
 
 }

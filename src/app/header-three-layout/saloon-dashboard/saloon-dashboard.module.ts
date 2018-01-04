@@ -8,10 +8,11 @@ import { SaloonDashboardRoutingModule } from './saloon-dashboard-routing.module'
 import { SaloonDashboardComponent } from './saloon-dashboard.component';
 import { SaloonService} from '../../providers/saloon.service' 
 import {NgxPaginationModule} from 'ngx-pagination'; 
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
-    imports: [NgxPaginationModule,CommonModule,FormsModule, SaloonDashboardRoutingModule,CalendarModule.forRoot(),HttpClientModule],
+    imports: [NgxPaginationModule,CommonModule,FormsModule, MatProgressBarModule,SaloonDashboardRoutingModule,CalendarModule.forRoot(),HttpClientModule],
     declarations: [SaloonDashboardComponent],
     providers:[SaloonService,NgbModalModule]
 })

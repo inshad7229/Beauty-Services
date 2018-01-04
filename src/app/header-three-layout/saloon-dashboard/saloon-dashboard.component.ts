@@ -110,15 +110,18 @@ export class SaloonDashboardComponent implements OnInit ,AfterViewInit{
   filterDate
   totalAppointments
   countDown
+  countDownCurrent
 tick=.5
+
+  color = 'primary';
+  mode = 'determinate';
+  value = 50;
+  bufferValue = 75;
   constructor( private saloonService:SaloonService) {
     this.saloonId=this.userDetail.id;
       this.totalAppointments=180
-      let totalSec=1
-          this.countDown = Observable.timer(0, this.tick)
-      //.take(totalSec)
-      .map(() => ++totalSec)
-      console.log(this.countDown)
+      
+      
     this.getAppointMentList()
   }
 
@@ -188,8 +191,10 @@ tick=.5
         this.appointmentDataToBeFiltered=data.data;
         this.appointMentList=data.data;
         this.totalAppointments=this.appointmentDataToBeFiltered.length;
+        this.getBookingCount(this.totalAppointments)
        // document.getElementById("totalappointments").setAttribute("value-data", this.totalAppointments)
         this.filterFunction();
+        this.currentDateAppointment()
         console.log(JSON.stringify(this.appointMentList))
          // code...
        }
@@ -286,4 +291,44 @@ tick=.5
         console.log(this.filterDate)
         this.appointMentList=this.appointMentList.filter(f=>(f.date==this.filterDate))
     }
+
+
+   currentDateAppointment(){
+        let c=new Date(this.currentDate)
+        let selecteddate=c.getDate()
+        let selectedMonth=c.getMonth()+1
+        let selectedyear=c.getFullYear()
+        let date1
+        let month1
+        if(selecteddate<10){
+          date1='0'+selecteddate
+        }else{
+          date1=selecteddate
+        }
+        if(selectedMonth<10){
+          month1='0'+selectedMonth
+        }else{
+          month1=selectedMonth
+        }
+        let final=selectedyear+'-'+month1+'-'+date1;
+        console.log(this.filterDate)
+        let appointMentList=this.appointMentList.filter(f=>(f.date==final))
+        this.getCurrentBookingCount(appointMentList.length)
+    }
+    getBookingCount(data){
+      let totalSec=0
+       this.countDown = Observable.timer(0, this.tick)
+      .take(data)
+      .map(() => ++totalSec)
+      console.log(this.countDown)
+    }
+
+    getCurrentBookingCount(data){
+      let totalSec=0
+       this.countDownCurrent = Observable.timer(0, this.tick)
+      .take(data)
+      .map(() => ++totalSec)
+      // console.log(this.countDown)
+    }
+
 }
