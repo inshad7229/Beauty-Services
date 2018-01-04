@@ -46,10 +46,10 @@
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="dashboard-stat2">
-                                    <div class="display" *ngIf="totalAppointments">
+                                    <div class="display" >
                                         <div class="number">
-                                            <h3 class="font-red-haze">
-                                                <span class="count" data-counter="counterup" data-value="1390">0</span>
+                                            <h3 class="font-red-haze">{{countDown | async }}
+                                                <span class="count" data-counter="counterup" data-value="1390"></span>
                                             </h3>
                                             <small class="">TOTAL BOOKING</small>
                                         </div>

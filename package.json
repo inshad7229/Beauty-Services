@@ -30,6 +30,7 @@
     "@types/fullcalendar": "^2.7.46",
     "angular-2-dropdown-multiselect": "^1.6.3",
     "angular-calendar": "^0.22.3",
+    "angular2-counto": "^1.2.3",
     "angular4-oauth-login": "0.0.4",
     "angular4-social-login": "^1.1.1",
     "core-js": "^2.4.1",

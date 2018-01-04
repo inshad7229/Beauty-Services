@@ -5,6 +5,10 @@ import { Subject } from 'rxjs/Subject';
 // import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent} from 'angular-calendar';
 import { SaloonService} from '../../providers/saloon.service' 
+import {Observable} from 'rxjs/Observable'
+import 'rxjs/add/observable/timer'
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/take'
 
 
 declare var jQuery:any;
@@ -105,9 +109,16 @@ export class SaloonDashboardComponent implements OnInit ,AfterViewInit{
   appointmentDataToBeFiltered;
   filterDate
   totalAppointments
+  countDown
+tick=1
   constructor( private saloonService:SaloonService) {
     this.saloonId=this.userDetail.id;
       this.totalAppointments=180
+      let totalSec=1
+          this.countDown = Observable.timer(0, this.tick)
+      .take(totalSec)
+      .map(() => ++totalSec)
+      console.log(this.countDown)
     this.getAppointMentList()
   }
 
