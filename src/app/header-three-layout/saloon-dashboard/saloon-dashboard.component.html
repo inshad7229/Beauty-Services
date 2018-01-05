@@ -1,5 +1,5 @@
-<!-- 
-               <!--  <?php
+              <!-- 
+                 <?php
                     require('include/dashboard-sidebar.php');
                 ?> -->
             <!-- END SIDEBAR -->
@@ -21,22 +21,28 @@
                                 <div class="dashboard-stat2 bordered">
                                     <div class="display">
                                         <div class="number">
-                                            <h3 class="font-green-sharp">
-                                                <span class="count" data-counter="counterup" data-value="7000">0</span>
-                                                <small class="font-green-sharp">$</small>
+                                            <h3 class="font-green-sharp">{{countDown | async  }}
+                                                <!-- <small class="font-green-sharp">$</small> -->
                                             </h3>
-                                            <small>TOTAL SALES</small>
+                                            <small>TOTAL BOOKING</small>
                                         </div>
                                         <div class="icon">
-                                            <i class="icon-basket"></i>
+                                            <i class="icon-calendar"></i>
                                         </div>
                                     </div>
                                     <div class="progress-info">
-                                        <div class="progress">
-                                            <span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
+                                            <!-- <span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
                                                 <span class="sr-only">76% progress</span>
-                                            </span>
-                                        </div>
+                                            </span> -->
+                                          <!-- <section class="example-section"> -->
+                                              <mat-progress-bar
+                                                  [color]="color"
+                                                  [mode]="mode"
+                                                  [value]="value"
+                                                  [bufferValue]="bufferValue">
+                                              </mat-progress-bar>
+                                           <!--  </section> -->
+
                                         <div class="status">
                                             <div class="status-title"> progress </div>
                                             <div class="status-number"> 100% </div>
@@ -48,10 +54,9 @@
                                 <div class="dashboard-stat2">
                                     <div class="display" >
                                         <div class="number">
-                                            <h3 class="font-red-haze">{{countDown | async }}
-                                                <span class="count" data-counter="counterup" data-value="1390"></span>
+                                            <h3 class="font-red-haze"> {{countDownCurrent | async }}
                                             </h3>
-                                            <small class="">TOTAL BOOKING</small>
+                                            <small class="">TODAY'S BOOKING</small>
                                         </div>
                                         <div class="icon">
                                             <i class="icon-calendar"></i>
@@ -59,9 +64,12 @@
                                     </div>
                                     <div class="progress-info">
                                         <div class="progress">
-                                            <span style="width: 85%;" class="progress-bar progress-bar-success red-haze">
-                                            <span class="sr-only">85% change</span>
-                                            </span>
+                                            <mat-progress-bar
+                                                  [color]="color"
+                                                  [mode]="mode"
+                                                  [value]="value"
+                                                  [bufferValue]="bufferValue">
+                                              </mat-progress-bar>
                                         </div>
                                         <div class="status">
                                             <div class="status-title">
@@ -173,17 +181,19 @@
                                                             <table class="table table-bordered">
                                                                 <thead>
                                                                     <tr>
-                                                                        <div class="cutome-th">
-                                                                            <span class="pull-left">
-                                                                                <a (click)="onPreviousDate()"><i class="fa fa-angle-left"></i></a>
-                                                                            </span>
-                                                                                {{filterDate}}
-                                                                            <span class="pull-right">
-                                                                                <a (click)="onForwardDate()">
-                                                                                <i class="fa fa-angle-right"></i>
-                                                                                </a>
-                                                                            </span>
-                                                                        </div>
+                                                                      <td colspan="7">
+                                                                          <div class="cutome-th">
+                                                                              <span class="pull-left">
+                                                                                  <a (click)="onPreviousDate()"><i class="fa fa-angle-left"></i></a>
+                                                                              </span>
+                                                                                  {{filterDate}}
+                                                                              <span class="pull-right">
+                                                                                  <a (click)="onForwardDate()">
+                                                                                  <i class="fa fa-angle-right"></i>
+                                                                                  </a>
+                                                                              </span>
+                                                                          </div>
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Time</th>
@@ -233,17 +243,17 @@
                                                                     </tr> -->
                                                                 </tbody>
                                                             </table>
-                                                            <div class="table-pagination">
-                                                                <div class="pagination">
-                                                                  <!-- <a href="#"><i class="fa fa-angle-left"></i></a>
-                                                                  <a href="#">1</a>
-                                                                  <a href="#" class="active">2</a>
-                                                                  <a href="#">3</a>
-                                                                  <a href="#"><i class="fa fa-angle-right"></i></a> -->
-                                                                  <pagination-controls (pageChange)="p = $event"  previousLabel=""  nextLabel="" ></pagination-controls>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                          </div>
+                                                          <div class="table-pagination">
+                                                              <div class="pagination">
+                                                                <!-- <a href="#"><i class="fa fa-angle-left"></i></a>
+                                                                <a href="#">1</a>
+                                                                <a href="#" class="active">2</a>
+                                                                <a href="#">3</a>
+                                                                <a href="#"><i class="fa fa-angle-right"></i></a> -->
+                                                                <pagination-controls (pageChange)="p = $event"  previousLabel=""  nextLabel="" ></pagination-controls>
+                                                              </div>
+                                                          </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -258,4 +268,4 @@
                 </div>
             </div>
             <!-- END CONTENT -->
-         -->
+

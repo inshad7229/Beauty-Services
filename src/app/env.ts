@@ -4,6 +4,7 @@ export interface Environment {
     mainApi: string;
     analytics?: string;
     timeout: number;
+    mainImg:string;
     debug: boolean;
     bypass: boolean;
     angularProd: boolean;
@@ -11,6 +12,7 @@ export interface Environment {
 
 export const LOCAL: Environment = {
     mainApi: 'http://78.47.222.237:8480/esb/api/fsp',
+    mainImg:'http://18.218.25.253/public/beauty-service/',
     timeout: HTTP_TIMEOUT,
     debug: true,
     bypass: true,
@@ -18,7 +20,8 @@ export const LOCAL: Environment = {
 };
 
 export const DEV: Environment = {
-    mainApi: 'http://18.216.88.154:3002',
+    mainApi: 'http://18.218.25.253:3002',
+    mainImg:'http://18.218.25.253/public/beauty-service/',
     timeout: HTTP_TIMEOUT,
     debug: true,
     bypass: false,
@@ -28,7 +31,8 @@ export const DEV: Environment = {
 
 
 export const PROD: Environment = {
-    mainApi: 'http://18.216.88.154:3002',
+    mainApi: 'http://18.218.25.253:3002',
+    mainImg:'http://18.218.25.253/public/beauty-service/',
     timeout: HTTP_TIMEOUT,
     debug: false,
     bypass: false,

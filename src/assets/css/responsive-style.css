@@ -1,3 +1,10 @@
+
+@media(max-width: 1200px){
+  .header-sec .navbar .navbar-nav > li > a {
+    padding: 10px 15px;
+  }
+}
+
 @media(max-width: 1199px){
   .header-sec .navbar-collapse {
     padding: 0;
@@ -14,6 +21,9 @@
   .desktop-view {
     display: block;
   }*/
+  .header-sec .navbar .navbar-nav > li > a {
+    padding: 10px 15px;
+  }
 
 }
 @media(max-width: 1024px){
@@ -110,8 +120,15 @@
   .subscribe-link > input{
     width: 100%;
   }
+  .header-sec .cus-navbar > li > a {
+      font-size: 12px;
+    }
+  .header-sec .navbar .navbar-nav > li > a {
+      padding: 10px 3px;
+    }
 
 }
+
 /*=--------responsive header css start here in mobile view-------*/
 .mobile-view .navbar-brand {
   padding: 0 10px;
@@ -143,6 +160,7 @@
   margin: 0;
 }
 /*=--------responsive header css ends here in mobile view-------*/
+
 @media(max-width: 768px){
   .header-sec .cus-navbar > li > a {
     padding: 10px 0;
@@ -157,6 +175,12 @@
   .sin-footer-con > p {
     font-size: 12px;
   }
+  .header-sec .cus-navbar > li > a {
+    font-size: 12px;
+  }
+  .navbar .navbar-nav > li > a {
+    padding: 10px 3px;
+  }
 
 }
 
@@ -167,6 +191,19 @@
   /*.mobile-view {
     display: block;
   }*/
+  .header-sec .cus-navbar > li > a {
+    padding: 10px 0;
+    font-size: 14px;
+  }  
+  .sin-footer-head h5{
+    font-size: 16px;
+  }
+  .sin-footer-con a {
+    font-size: 14px;
+  }
+  .sin-footer-con > p {
+    font-size: 14px;
+  }
   .header-sec .container-fluid {
     padding: 0;
   }
@@ -174,7 +211,7 @@
     background-color: #fff;
     border-top: 1px dashed;
     padding-bottom: 10px;
-    padding-left: 20px;
+    /*padding-left: 20px;*/
     text-align: left;
     box-shadow: 0 0 10px 0 #ccc;
   }
@@ -286,6 +323,12 @@
   .right-border {
     border-bottom: 2px dotted #ccc;
     padding-bottom: 30px;
+  }
+  .header-sec .navbar-brand img {
+    top: -25px;
+  }
+  .header-sec.sticky .navbar-brand img {
+    top: -7px;
   }
 
 }

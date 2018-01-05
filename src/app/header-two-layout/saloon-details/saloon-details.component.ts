@@ -185,35 +185,35 @@ getLon(long){
     }
     getimage1(){
 
-    return 'http://18.216.88.154/public/beauti-service/'+this.saloonData.SaloonImages[0].image
+    return 'http://18.218.25.253/public/beauty-service/'+this.saloonData.SaloonImages[0].image
     }
     getimage2(){
 
-    return 'http://18.216.88.154/public/beauti-service/'+this.saloonData.SaloonImages[1].image
+    return 'http://18.218.25.253/public/beauty-service/'+this.saloonData.SaloonImages[1].image
     }
     getimage3(){
 
-    return 'http://18.216.88.154/public/beauti-service/'+this.saloonData.SaloonImages[2].image
+    return 'http://18.218.25.253/public/beauty-service/'+this.saloonData.SaloonImages[2].image
     }
     getimage4(){
 
-    return 'http://18.216.88.154/public/beauti-service/'+this.saloonData.SaloonImages[3].image
+    return 'http://18.218.25.253/public/beauty-service/'+this.saloonData.SaloonImages[3].image
     }
     getimage5(){
 
-    return 'http://18.216.88.154/public/beauti-service/'+this.saloonData.SaloonImages[4].image
+    return 'http://18.218.25.253/public/beauty-service/'+this.saloonData.SaloonImages[4].image
     }
     getimage6(){
 
-    return 'http://18.216.88.154/public/beauti-service/'+this.saloonData.SaloonImages[5].image
+    return 'http://18.218.25.253/public/beauty-service/'+this.saloonData.SaloonImages[5].image
     }
    getimage7(){
 
-    return 'http://18.216.88.154/public/beauti-service/'+this.saloonData.SaloonImages[6].image
+    return 'http://18.218.25.253/public/beauty-service/'+this.saloonData.SaloonImages[6].image
     }
     getimage8(){
 
-    return 'http://18.216.88.154/public/beauti-service/'+this.saloonData.SaloonImages[7].image
+    return 'http://18.218.25.253/public/beauty-service/'+this.saloonData.SaloonImages[7].image
     }
 
         

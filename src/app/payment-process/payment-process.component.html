@@ -1,7 +1,6 @@
  <div class="loader-box" *ngIf="waitLoader==true">
          <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
  </div>
-
  <section class="payment-process">
             <div class="payment-proces-header">
                 <div class="payment-hcontent">
@@ -66,7 +65,7 @@
                                                             </a>
                                                             <div class="sub-menulist" style="display: none">
                                                                 <div class="list-content gray-line" >
-                                                                    <div class="col-sm-8 p-0 service-bt">
+                                                                    <div class="col-sm-7 col-xs-12 p-0 service-bt">
                                                                         <!-- <h4>{{ser.servicesData.services_eng}}</h4> -->
                                                                         <!-- <small><a href="javascript:void(0)">Show Details</a> <span>{{getTime(ser.time)}}</span></small> -->
                                                                         <h4 class="select-categ">{{ser.services_eng}}</h4><small class="timeslot">{{getTime(ser.time)}}</small>
@@ -80,12 +79,11 @@
                                                                           </span>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-4 p-0 service-prl2">
+                                                                    <div class="col-sm-5 col-xs-12 p-0 service-prl2">
                                                                         <div class="price-value">
                                                                             <span class="aed-total"><h6>AED {{ser.cost_eng}}</h6></span>
                                                                             <span class="add-cart-icon" *ngIf="ser.appointment_id ==null">
                                                                                 <a href="javascript:void(0)" (click)="onselectService(ser,i)">
-                                                                              
                                                                                     <i  class="fa fa-minus"></i>
                                                                                 </a>
                                                                             </span>
@@ -140,12 +138,16 @@
                                                                         <input type="text" name="" placeholder="MM / YY" class="form-control txtfield">
                                                                     </div>
                                                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                                                        <div class="input-group">
-                                                                            <input type="text" class="form-control txtfield" placeholder="CVV" aria-describedby="basic-addon2">
-                                                                            <span class="input-group-addon cvv-box" id="basic-addon2"  data-placement="top" data-toggle="tooltip" class="fa fa-info-circle" data-original-title="The CVV Number is the last 3 digits printed on the signature panel on the back side of the card. ">
-                                                                                <img src="assets/img/cvv.png" />
-                                                                                <div class="cvvinfo"></div>
-                                                                            </span>
+                                                                        <div class="row" style="margin:0px;">
+                                                                            <div class="col-md-8 col-sm-8 col-xs-8 p-0">
+                                                                                <input type="text" class="form-control txtfield" placeholder="CVV" aria-describedby="basic-addon2">
+                                                                            </div>
+                                                                            <div class="col-md-4 col-sm-4 col-xs-4 p-0 text-center">
+                                                                                <span class="input-group-addon cvv-box" id="basic-addon2"  data-placement="top" data-toggle="tooltip" class="fa fa-info-circle" data-original-title="The CVV Number is the last 3 digits printed on the signature panel on the back side of the card. ">
+                                                                                    <img src="assets/img/cvv.png" />
+                                                                                    <div class="cvvinfo"></div>
+                                                                                </span>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">

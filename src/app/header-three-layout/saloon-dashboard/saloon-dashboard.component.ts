@@ -110,15 +110,22 @@ export class SaloonDashboardComponent implements OnInit ,AfterViewInit{
   filterDate
   totalAppointments
   countDown
+<<<<<<< HEAD
 tick=0
+=======
+  countDownCurrent
+tick=.5
+
+  color = 'primary';
+  mode = 'determinate';
+  value = 50;
+  bufferValue = 75;
+>>>>>>> 42b1df0265d1d4dc45c9395099d92b2f59b9a8a9
   constructor( private saloonService:SaloonService) {
     this.saloonId=this.userDetail.id;
       this.totalAppointments=180
-      let totalSec=1
-          this.countDown = Observable.timer(0, this.tick)
-      //.take(totalSec)
-      .map(() => ++totalSec)
-      console.log(this.countDown)
+      
+      
     this.getAppointMentList()
   }
 
@@ -188,8 +195,10 @@ tick=0
         this.appointmentDataToBeFiltered=data.data;
         this.appointMentList=data.data;
         this.totalAppointments=this.appointmentDataToBeFiltered.length;
+        this.getBookingCount(this.totalAppointments)
        // document.getElementById("totalappointments").setAttribute("value-data", this.totalAppointments)
         this.filterFunction();
+        this.currentDateAppointment()
         console.log(JSON.stringify(this.appointMentList))
          // code...
        }
@@ -200,7 +209,7 @@ tick=0
 
     imagePath(path){
     if(path.indexOf('base64')==-1) {
-        return 'http://18.216.88.154/public/beauti-service/'+path
+        return 'http://18.218.25.253/public/beauty-service/'+path
         // code...
       }else{
          return  path
@@ -286,4 +295,44 @@ tick=0
         console.log(this.filterDate)
         this.appointMentList=this.appointMentList.filter(f=>(f.date==this.filterDate))
     }
+
+
+   currentDateAppointment(){
+        let c=new Date(this.currentDate)
+        let selecteddate=c.getDate()
+        let selectedMonth=c.getMonth()+1
+        let selectedyear=c.getFullYear()
+        let date1
+        let month1
+        if(selecteddate<10){
+          date1='0'+selecteddate
+        }else{
+          date1=selecteddate
+        }
+        if(selectedMonth<10){
+          month1='0'+selectedMonth
+        }else{
+          month1=selectedMonth
+        }
+        let final=selectedyear+'-'+month1+'-'+date1;
+        console.log(this.filterDate)
+        let appointMentList=this.appointMentList.filter(f=>(f.date==final))
+        this.getCurrentBookingCount(appointMentList.length)
+    }
+    getBookingCount(data){
+      let totalSec=0
+       this.countDown = Observable.timer(0, this.tick)
+      .take(data)
+      .map(() => ++totalSec)
+      console.log(this.countDown)
+    }
+
+    getCurrentBookingCount(data){
+      let totalSec=0
+       this.countDownCurrent = Observable.timer(0, this.tick)
+      .take(data)
+      .map(() => ++totalSec)
+      // console.log(this.countDown)
+    }
+
 }
