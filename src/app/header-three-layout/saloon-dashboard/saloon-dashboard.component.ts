@@ -110,7 +110,7 @@ export class SaloonDashboardComponent implements OnInit ,AfterViewInit{
   filterDate
   totalAppointments
   countDown
-tick=.5
+tick=0
   constructor( private saloonService:SaloonService) {
     this.saloonId=this.userDetail.id;
       this.totalAppointments=180
