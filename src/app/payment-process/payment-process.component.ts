@@ -177,14 +177,14 @@ getLon(long){
 
     }
     getimage(img){
-    return 'http://18.218.25.253/public/beauty-service/'+img
+    return 'http://18.221.208.210/public/beauty-service/'+img
     }
 
     getEmpImg(emp_id){
       let data=this.saloonEmployeeList.filter(arg=>arg.id==emp_id)
       if (data.length>0) {
         // code...
-        return 'http://18.218.25.253/public/beauty-service/'+data[0].employee_image
+        return 'http://18.221.208.210/public/beauty-service/'+data[0].employee_image
       }else{
         return 'assets/img/user-pay.svg'
       }

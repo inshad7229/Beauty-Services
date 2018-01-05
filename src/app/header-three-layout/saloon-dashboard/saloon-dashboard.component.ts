@@ -110,9 +110,7 @@ export class SaloonDashboardComponent implements OnInit ,AfterViewInit{
   filterDate
   totalAppointments
   countDown
-<<<<<<< HEAD
-tick=0
-=======
+
   countDownCurrent
 tick=.5
 
@@ -120,7 +118,6 @@ tick=.5
   mode = 'determinate';
   value = 50;
   bufferValue = 75;
->>>>>>> 42b1df0265d1d4dc45c9395099d92b2f59b9a8a9
   constructor( private saloonService:SaloonService) {
     this.saloonId=this.userDetail.id;
       this.totalAppointments=180
@@ -209,7 +206,7 @@ tick=.5
 
     imagePath(path){
     if(path.indexOf('base64')==-1) {
-        return 'http://18.218.25.253/public/beauty-service/'+path
+        return 'http://18.221.208.210/public/beauty-service/'+path
         // code...
       }else{
          return  path
