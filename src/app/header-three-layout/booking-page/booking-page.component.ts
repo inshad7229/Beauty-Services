@@ -68,7 +68,7 @@ export class BookingPageComponent implements OnInit {
 
     imagePath(path){
       if(path.indexOf('base64')==-1) {
-          return 'http://18.216.88.154/public/beauti-service/'+path
+          return 'http://18.218.25.253/public/beauty-service/'+path
           // code...
         }else{
            return  path
