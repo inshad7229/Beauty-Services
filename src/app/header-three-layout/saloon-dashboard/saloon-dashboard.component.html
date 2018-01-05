@@ -1,5 +1,5 @@
-<!-- 
-               <!--  <?php
+              <!-- 
+                 <?php
                     require('include/dashboard-sidebar.php');
                 ?> -->
             <!-- END SIDEBAR -->
@@ -181,17 +181,19 @@
                                                             <table class="table table-bordered">
                                                                 <thead>
                                                                     <tr>
-                                                                        <div class="cutome-th">
-                                                                            <span class="pull-left">
-                                                                                <a (click)="onPreviousDate()"><i class="fa fa-angle-left"></i></a>
-                                                                            </span>
-                                                                                {{filterDate}}
-                                                                            <span class="pull-right">
-                                                                                <a (click)="onForwardDate()">
-                                                                                <i class="fa fa-angle-right"></i>
-                                                                                </a>
-                                                                            </span>
-                                                                        </div>
+                                                                      <td colspan="7">
+                                                                          <div class="cutome-th">
+                                                                              <span class="pull-left">
+                                                                                  <a (click)="onPreviousDate()"><i class="fa fa-angle-left"></i></a>
+                                                                              </span>
+                                                                                  {{filterDate}}
+                                                                              <span class="pull-right">
+                                                                                  <a (click)="onForwardDate()">
+                                                                                  <i class="fa fa-angle-right"></i>
+                                                                                  </a>
+                                                                              </span>
+                                                                          </div>
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Time</th>
@@ -241,17 +243,17 @@
                                                                     </tr> -->
                                                                 </tbody>
                                                             </table>
-                                                            <div class="table-pagination">
-                                                                <div class="pagination">
-                                                                  <!-- <a href="#"><i class="fa fa-angle-left"></i></a>
-                                                                  <a href="#">1</a>
-                                                                  <a href="#" class="active">2</a>
-                                                                  <a href="#">3</a>
-                                                                  <a href="#"><i class="fa fa-angle-right"></i></a> -->
-                                                                  <pagination-controls (pageChange)="p = $event"  previousLabel=""  nextLabel="" ></pagination-controls>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                          </div>
+                                                          <div class="table-pagination">
+                                                              <div class="pagination">
+                                                                <!-- <a href="#"><i class="fa fa-angle-left"></i></a>
+                                                                <a href="#">1</a>
+                                                                <a href="#" class="active">2</a>
+                                                                <a href="#">3</a>
+                                                                <a href="#"><i class="fa fa-angle-right"></i></a> -->
+                                                                <pagination-controls (pageChange)="p = $event"  previousLabel=""  nextLabel="" ></pagination-controls>
+                                                              </div>
+                                                          </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -266,4 +268,4 @@
                 </div>
             </div>
             <!-- END CONTENT -->
-         -->
+
