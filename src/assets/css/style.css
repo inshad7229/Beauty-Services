@@ -5251,3 +5251,422 @@ ul.home-pro {
   width: 30px;
 }
 /*=============new css dashboard responsive time new css ends here=======*/
+
+/*===============beauty services customer new pages===========*/
+
+/*============= customer profile my appointment section========*/
+.my-appoint-sec {
+  display: inline-block;
+  float: left;
+  width: 100%;
+}
+.appoint-inner-sec {
+  background-color: #f4f4f4;
+  display: inline-block;
+  float: left;
+  width: 100%;
+}
+.appointment-ul {
+  float: left;
+  padding: 15px;
+  width: 100%;
+}
+.appointment-ul > li {
+  background-color: #ffffff;
+  display: inline-block;
+  float: left;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.salon-li {
+  float: left;
+  padding: 15px;
+  width: 100%;
+}
+.salon-logo {
+  display: inline-block;
+  float: left;
+  margin-right: 20px;
+  width: 50px;
+}
+.salon-span {
+  display: inline-block;
+  float: left;
+  width: calc(100% - 70px);
+}
+.salon-span h3 {
+  color: #333333;
+  font-size: 18px;
+  margin: 5px 0 0;
+}
+.salon-span small {
+  display: inline-block;
+  font-size: 14px;
+  color: #808080;
+  margin-top: 6px;
+}
+.rating-salon i {
+  color: #d5275a;
+  font-size: 17px;
+  margin: 0;
+  width: auto;
+}
+.service-des {
+  float: left;
+  margin-top: 10px;
+  width: 100%;
+}
+.service-des h4 {
+  color: #616161;
+  float: left;
+  width: auto;
+}
+.service-des > img {
+  border-radius: 50%;
+  display: inline-block;
+  float: left;
+  height: 50px;
+  margin-right: 20px;
+  width: 50px;
+}
+.service-des .price-span {
+  background-color: #d5275a;
+  border-radius: 20px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 1px 10px;
+}
+.service-des .timeing {
+  color: #808080;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 600;
+  margin-left: 20px;
+}
+.timeing i {
+  font-size: 18px;
+  position: relative;
+  top: 2px;
+}
+.your-professional {
+  background-color: #f8f8f8;
+  float: left;
+  margin-top: 20px;
+  padding: 7px 10px;
+  width: 100%;
+}
+.your-professional > img {
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 11px 0 #cf2154;
+  display: inline-block;
+  height: 50px;
+  padding: 3px;
+  width: 50px;
+  float: left; 
+}
+.your-professional > h4 {
+  display: inline-block;
+  float: left;
+  margin-left: 20px;
+  margin-top: 15px;
+  width: calc(100% - 70px);
+}
+.your-professional small {
+  color: #d5275a;
+  float: right;
+  font-size: 16px;
+  opacity: 0.7;
+}
+.status-sec {
+  float: left;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+.status-sec > h4 {
+  background-color: #f8f8f8;
+  border-radius: 20px;
+  color: #4f4f4f;
+  display: inline-block;
+  margin-top: 30px;
+  max-width: 210px;
+  padding: 10px;
+  width: 100%;
+}
+.status-sec label {
+  font-size: 16px;
+  font-weight: 600;
+}
+/*============= customer profile my appointment section========*/
+/*===========customer booking Details css start =========*/
+.cus-booking-det {
+  float: left;
+  width: 100%;
+}
+.customer-saldiv {
+  background-color: #fafafa;
+  float: left;
+  min-height: 500px;
+  width: 100%;
+}
+.cus-booking-det .salon-li {
+  background-color: #ffffff;
+  box-shadow: 0 0 5px 0 #e1e1e1;
+}
+.services-part .service-des {
+  background-color: #ffffff;
+  box-shadow: 0 0 2px 0 #e1e1e1;
+  padding: 15px 12px 13px;
+  margin-top: 0;
+}
+.services-part-main {
+  float: left;
+  margin-top: 12px;
+  padding: 10px 20px;
+  width: 100%;
+}
+.services-part{
+  background-color: #efefef;
+  box-shadow: 0 0 2px 0 #cccccc;
+  float: left;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.services-part .service-des h4 {
+  color: #d5275a;
+}
+.services-part .professional {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  width: 100%;
+}
+.professional > .your-professional {
+  margin-top: 10px;
+}
+.date-status {
+  float: left;
+  margin-top: 10px;
+  width: 100%;
+}
+.status-div{
+  text-align: right;
+}
+.status-div > h4 {
+  background-color: #f8f8f8;
+  border-radius: 20px;
+  color: #4f4f4f;
+  display: inline-block;
+  margin-top: 10px;
+  max-width: 210px;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+}
+.booking-datetime {
+  display: inline-block;
+  float: left;
+  width: 50%;
+  padding-left: 10px;
+}
+.booking-section li {
+  color: #606060;
+  display: inline-block;
+  float: left;
+  font-size: 16px;
+  line-height: 30px;
+  text-align: left;
+  width: 100%;
+}
+.booking-section i {
+  color: #d5275a;
+  font-size: 20px;
+  margin-right: 6px;
+}
+.date-book .fa.fa-clock-o {
+  font-size: 25px;
+  margin-left: -2px;
+}
+.total-cost {
+  background-color: #d5275a;
+  border-radius: 20px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 1px 10px;
+}
+.total-profile {
+  background-color: #ffffff;
+  box-shadow: 0 0 2px 0 #cccccc;
+  float: left;
+  margin-bottom: 10px;
+  margin-top: 0;
+  padding: 20px;
+  width: 100%;
+}
+.Total-charge > label {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: left;
+}
+.Total-charge .total-cost {
+  padding: 6px 20px;
+}
+.Total-charge {
+  float: left;
+  text-align: left;
+  width: 100%;
+}
+.update-form-ul > li {
+  float: none;
+  width: auto;
+}
+.booking-section .rating-salon i {
+  margin-right: 0;
+  width: auto;
+}
+/*----- customer dashboard responsive css start here */
+@media(max-width: 980px){
+  .salon-span small{
+    font-size:12px; 
+  }
+  .booking-section i{
+    margin-right: 0;
+  }
+
+
+}
+@media(max-width: 767px){
+  .booking-section i {
+    margin-right: 0;
+  }
+  .service-des .timeing{
+     margin-left: 5px;
+  }
+  .service-des h4 {
+    font-size: 14px;
+  }  
+  .salon-span small{
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 6px;
+    width: 70%;
+  }
+}
+@media(max-width: 480px){
+  .your-professional > h4 {
+    font-size: 14px;
+  }
+  .your-professional small{
+    font-size: 12px;
+  }
+  .booking-datetime{
+    width: 100%;
+  }
+  .status-div {
+    text-align: center;
+    width: 100%;
+  }
+  .salon-span small{
+    width: 100%;
+  }
+  .service-des .timeing {
+    float: left;
+    margin-left: -4px;
+    margin-top: 12px;
+    width: 100%;
+  }
+  .service-des h4 {
+    width: calc(100% - 70px);
+  }
+
+}
+@media(max-width: 360px){
+  .salon-span {
+    width: 100%;
+  }
+  .salon-span small{
+    font-size: 12px;
+  }
+  .booking-section i {
+    font-size: 15px;
+    margin-right: 0;
+  }
+  .services-part .service-des{
+    text-align: center;
+  }
+  .service-des > img {
+    float: none;
+    height: 50px;
+    margin: 0 auto;
+    width: 50px;
+  }
+  .services-part .service-des h4 {
+    float: left;
+    text-align: center;
+    width: 100%;
+  }
+  .Total-charge .total-cost {
+    padding: 6px 20px;
+    text-align: center;
+    width: 100%;
+  }
+  .Total-charge > label {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+  }
+   .date-book .fa.fa-clock-o {
+    font-size: 21px;
+    margin-left: -4px;
+  }
+  .service-des .timeing {
+    font-size: 12px;
+  }
+  .service-des h4 {
+    width:100%;
+  }
+  .your-professional small {
+    margin-top: 10px;
+    width: 100%;
+  }
+  .salon-span h3{
+    font-size: 16px;
+  }
+  .salon-li {
+    text-align: center;
+  }
+  .salon-logo {
+    float: none;
+    margin: 10px 0;
+  }
+
+}
+@media(max-width: 320px){
+  .salon-span h3{
+    font-size: 14px;
+  }
+  .your-professional > h4 {
+    font-size: 12px;
+  }
+  .your-professional small {   
+    margin-top: 5px;
+  }
+  .date-book .fa.fa-clock-o {
+    font-size: 21px;
+    margin-left: -4px;
+  }
+}
+@media(max-width: 991px) and (min-width: 768px){
+  .footer-widget .container {
+    width: 100%;
+  }
+  .sin-footer-head h5 {
+  font-size: 16px;
+}
+
+}
+/*===========customer booking Details css ends=========*/
