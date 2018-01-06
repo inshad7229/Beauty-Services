@@ -8,7 +8,9 @@ const routes: Routes = [
         component: HeaderFourLayoutComponent,
         children: [
             { path: '', redirectTo: 'customer-profile' },
-            { path: 'customer-profile', loadChildren: './customer-profile/customer-profile.module#CustomerProfileModule' },        ]
+            { path: 'customer-profile', loadChildren: './customer-profile/customer-profile.module#CustomerProfileModule' },
+            { path: 'booking-details', loadChildren: './customer-booking-details/customer-booking-details.module#CustomerBookingDetailsModule' },        
+            { path: 'my-appointments', loadChildren: './my-appointments/my-appointments.module#MyAppointmentsModule' },]
     }
 ];
 

@@ -21,6 +21,7 @@ export class CustomerSignupComponent implements OnInit {
     tab2:string=''
     currentData
     otp
+    waitLoader:boolean=false
     constructor(public router: Router, private fb: FormBuilder,
                 vcr: ViewContainerRef,
                 private toastr: ToastsManager,
@@ -45,9 +46,10 @@ export class CustomerSignupComponent implements OnInit {
     ngOnInit() {}
 
     onContinue(){
+      this.waitLoader=true
     	 this.customerService.CustomerSignup(this.customerSignUpModel)
         .subscribe((data)=>{
-            console.log(data);
+            this.waitLoader=false
             if(data.response){
               this.currentData=data
               this.currentTab='tab2'

@@ -46,7 +46,7 @@ export class SaloonSignupComponent implements OnInit {
       time1 ;
       time2 ;
       meridian = true;
-
+      waitLoader:boolean=false
 
 
     constructor(public router: Router, private fb: FormBuilder, 
@@ -185,9 +185,10 @@ export class SaloonSignupComponent implements OnInit {
 
       }
     onContinue(){
+        this.waitLoader=true
          this.saloonServices.SaloonSignup(this.accountCreationModel)
         .subscribe((data)=>{
-            console.log(data);
+            this.waitLoader=false
             if(data.response){
               this.currentData=data
               this.currentTab='tab2'
@@ -230,18 +231,20 @@ export class SaloonSignupComponent implements OnInit {
     }
 
     onSubmit(){
+       this.waitLoader=true
             //let a=this.optionsModel2.slice(0)
            // let b=this.optionsModel.slice(0)
            this.saloonDetailsModel.saloonId=this.currentData.result.id
           // this.saloonDetailsModel.services=a.toString()
            //this.saloonDetailsModel.category=b.toString()
-            this.saloonDetailsModel.opening_time=this.time1.opening_time.hour+':'+this.time1.opening_time.minute
-         this.saloonDetailsModel.closing_time=this.time2.closing_time.hour+':'+this.time2.closing_time.minute
+          this.saloonDetailsModel.opening_time=this.time1.hour+':'+this.time1.minute
+         this.saloonDetailsModel.closing_time=this.time2.hour+':'+this.time2.minute
            // this.saloonDetailsModel.opening_time=JSON.stringify(this.time1)
            // this.saloonDetailsModel.closing_time=JSON.stringify(this.time2)
+         this.saloonDetailsModel.status=1
          this.saloonServices.SaloonUpdate(this.saloonDetailsModel)
         .subscribe((data)=>{
-            console.log(data);
+            this.waitLoader=false
             if(data.response){
               this.toastr.success(data.message ,'Account Craetion',{toastLife: 3000, showCloseButton: true})
               // setTimeout(()=>{

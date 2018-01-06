@@ -73,4 +73,17 @@ export class HeaderFourComponent implements OnInit {
         localStorage.removeItem('isLoggedin');
         this.router.navigate(['/header-one-layout/home-page'])
     }
+
+     imagePath(path){
+        if(path.indexOf('base64')==-1) {
+            return 'http://18.221.208.210/public/beauty-service/'+path
+            // code...
+          }else{
+             return  path
+          }
+    }
+
+    oncustomerProfile(){
+           this.router.navigate(['/header-four-layout/customer-profile']);
+  }
 }

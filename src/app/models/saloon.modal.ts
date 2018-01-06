@@ -25,5 +25,6 @@ export class SaloonDetailsModel {
     saloonId:number
     opening_time:any;
     closing_time:any;
+    status:number
 
 }

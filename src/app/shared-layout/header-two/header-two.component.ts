@@ -45,4 +45,12 @@ export class HeaderTwoComponent implements OnInit {
 	oncustomerProfile(){
            this.router.navigate(['/header-four-layout/customer-profile']);
 	}
+  imagePath(path){
+        if(path.indexOf('base64')==-1) {
+            return 'http://18.221.208.210/public/beauty-service/'+path
+            // code...
+          }else{
+             return  path
+          }
+    }
 }

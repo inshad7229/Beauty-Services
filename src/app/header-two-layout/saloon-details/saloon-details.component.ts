@@ -328,7 +328,12 @@ getStatus(data){
 
 onSchedule(){
 localStorage['selectedServices']=JSON.stringify(this.selectedServices)
-this.router.navigate(['/payment-process/'+this.id]);
+if (localStorage.getItem('isLoggedin' )) {
+    this.router.navigate(['/payment-process/'+this.id]);
+  // code...
+}else{
+   this.toastr.info( 'You have to logoin as customer')
+}
 }
 
 }

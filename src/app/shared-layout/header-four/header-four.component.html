@@ -25,13 +25,14 @@
                     <li class="dropdown dropdown-user dropdown-dark">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <div class="header-user">
-                                <img alt="" class="img-circle" src="assets/img/user-pro-1.jpg"/>
+                                <img *ngIf="!customer.image || customer.image==null" src="assets/img/user-pro-1.jpg" class="img-circle" alt="NO-IMAGES">
+                                <img class="img-circle" *ngIf="customer.image" [src]="imagePath(customer.image)" >
                                 <span class="username username-hide-on-mobile">Nick <i class="fa fa-angle-down"></i></span>
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
-                                <a href="customer-profile.php">
+                                <a href="javascript:void(0)" (click)="oncustomerProfile()">
                                 <i class="icon-user"></i> My Profile </a>
                             </li>
                             <li>

@@ -18,6 +18,7 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 export class LoginComponent implements OnInit {
 	verifiactionForm:FormGroup
 	loginModel
+  waitLoader:boolean=false
   private user: SocialUser;
   private loggedIn: boolean;
     constructor(public router: Router, private fb: FormBuilder, 
@@ -52,9 +53,11 @@ export class LoginComponent implements OnInit {
     }
 
      onLogin(){
+       this.waitLoader=true
        if (this.loginModel.loginAS=='saloon') {
                this.saloonServices.SaloonLogin(this.loginModel)
               .subscribe((data)=>{
+                this.waitLoader=false
                   console.log(data);
                   if(data.response){
                     this.toastr.success(data.message ,'Account Verification',{toastLife: 1000, showCloseButton: true})
@@ -76,13 +79,18 @@ export class LoginComponent implements OnInit {
          this.customerService.CustomerLogin(this.loginModel)
               .subscribe((data)=>{
                   console.log(data);
+                    localStorage['userdetails']=null
+                   this.waitLoader=false
                   if(data.response){
                     this.toastr.success(data.message ,'Account Verification',{toastLife: 1000, showCloseButton: true})
                     localStorage['customerdetails']=JSON.stringify(data.data)
                     localStorage.setItem('isLoggedin', 'true');
-                    localStorage['userdetails']=null
                              this.router.navigate(['/header-one-layout/home-page']);
                   }else if (data.message=='Authentication Failed') {
+                     this.toastr.error('Please check your credential and try again' ,'Authentication Failed ',{toastLife: 1000, showCloseButton: true});
+                    // code...
+                  }
+                  else if (data.message=='Customer not find with this id') {
                      this.toastr.error('Please check your credential and try again' ,'Authentication Failed ',{toastLife: 1000, showCloseButton: true});
                     // code...
                   }else {
@@ -90,6 +98,7 @@ export class LoginComponent implements OnInit {
                   }
                })
         }else{
+          this.waitLoader=false
           this.toastr.info( 'Please Select Login AS' );
         }
        }
