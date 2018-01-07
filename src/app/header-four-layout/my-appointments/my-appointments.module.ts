@@ -7,10 +7,12 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { MyAppointmentsRoutingModule } from './my-appointments-routing.module';
 import { MyAppointmentsComponent } from './my-appointments.component';
 import {CustomerService} from '../../providers/customer.service'
+import {NgxPaginationModule} from 'ngx-pagination'; 
 
 
 @NgModule({
-    imports: [CommonModule, MyAppointmentsRoutingModule,FormsModule,ReactiveFormsModule,MatSelectModule,HttpClientModule,ToastModule.forRoot()],
+    imports: [CommonModule, NgxPaginationModule,MyAppointmentsRoutingModule,FormsModule,
+    ReactiveFormsModule,MatSelectModule,HttpClientModule,ToastModule.forRoot()],
     declarations: [MyAppointmentsComponent],
     providers:[CustomerService]
 })

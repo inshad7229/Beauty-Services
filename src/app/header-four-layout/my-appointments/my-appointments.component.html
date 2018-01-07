@@ -1,4 +1,4 @@
-<!-- BEGIN CONTENT -->
+
       <div class="page-content-wrapper">
         <div class="page-content">
           <ul class="page-breadcrumb breadcrumb hide">
@@ -25,104 +25,67 @@
                     <div class="col-md-12 col-sm-12 col-xs-12 p-0">
                       <div class="my-appoint-sec">
                         <div class="appoint-inner-sec">
-                          <ul class="appointment-ul">
-                            <li>
+                          <ul class="appointment-ul" *ngIf="appointment">
+                            <li *ngFor="let apoint of appointment | paginate: { itemsPerPage: 3, currentPage: p }; let i=index ">
                               <div class="salon-li">
-                                <img src="assets/img/saloon.svg" class="salon-logo" alt="salon-logo">
+                                <img *ngIf="!apoint.requestedSaloonyCustomer.image " src="assets/img/saloon.svg" class="salon-logo" alt="salon-logo">
+                                <img *ngIf="apoint.requestedSaloonyCustomer.image" [src]="imagePath(apoint.requestedSaloonyCustomer.image)" class="salon-logo" alt="salon-logo">
                                 <span class="salon-span">
-                                  <h3>Natural Beauty &amp; Spa Services</h3>  
-                                  <small> Shop No.G-5-618, Street No.2, New Shiv Puri, Near A.K Hospital, Ludhiana, Punjab 141001</small>
-                                  <span class="rating-salon pull-right">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-half-o"></i>
+                                  <h3><span>{{apoint.requestedSaloonyCustomer.saloon_name}}</span></h3>  
+                                  <small> <span>{{apoint.requestedSaloonyCustomer.city}}</span></small>
+                                  <span *ngIf="apoint.requestedSaloonyCustomer.saloonRating.length>0" class="rating-salon pull-right">
+                                    <i class="{{getRatingClass(apoint.requestedSaloonyCustomer.saloonRating,1)}}"></i>
+                                    <i class="{{getRatingClass(apoint.requestedSaloonyCustomer.saloonRating,2)}}"></i>
+                                    <i class="{{getRatingClass(apoint.requestedSaloonyCustomer.saloonRating,3)}}"></i>
+                                    <i class="{{getRatingClass(apoint.requestedSaloonyCustomer.saloonRating,4)}}"></i>
+                                    <i class="{{getRatingClass(apoint.requestedSaloonyCustomer.saloonRating,5)}}"></i>
+                                  </span>
+                                  <span *ngIf="apoint.requestedSaloonyCustomer.saloonRating.length<1" class="rating-salon pull-right">
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
                                   </span>
                                 </span>
-                                <div class="service-des">                             <img src="assets/img/service-1.jpg" class="" alt="service">
+                                <div class="service-des">     
+                                  <img *ngIf="!apoint.requestedServiceByCustomer.image " src="assets/img/service-1.jpg" class="" alt="service">
+                                  <img *ngIf="apoint.requestedServiceByCustomer.image " [src]="imagePath(apoint.requestedServiceByCustomer.image)" class="" alt="service">
                                   <h4>
-                                    Hair cutting &amp; Coloring 
-                                    <small class="timeing">
+                                    <span>{{apoint.requestedServiceByCustomer.services_eng}}</span>
+                                    <!-- <small class="timeing">
                                       <i class="fa fa-clock-o"></i>
-                                      8:00 PM - 10:00 PM, 03/01/2018
-                                    </small>
+                                      {{apoint.start_time}} - {{apoint.end_time}}, {{apoint.date}}
+                                    </small> -->
                                   </h4>
-                                  <span class="price-span">$200.00</span> 
+                                  <span class="price-span">AED {{apoint.amount}}</span> 
                                 </div>
                                 <div class="your-professional">
-                                  <img src="assets/img/user-pro-1.jpg" alt="professional">
-                                  <h4>JOHNSON THOMAS <small>Your Professional</small></h4>
+                                  <img *ngIf="!apoint.requestedServiceByCustomer.employee_image" src="assets/img/user-pro-1.jpg" alt="professional">
+                                  <img *ngIf="apoint.requestedServiceByCustomer.employee_image" [src]="imagePath(apoint.requestedServiceByCustomer.employee_image)" alt="professional">
+                                  <h4><span>{{apoint.employeeRequestedByCustomer.first_name}} {{apoint.employeeRequestedByCustomer.last_name}} </span> <small>Your Professional</small></h4>
                                 </div>
-                                <div class="status-sec">
+                                <div class="date-status">
+                                  <ul class="booking-datetime">
+                                    <li class="date-book">
+                                      <i class="fa fa-clock-o"></i>{{getHours(apoint.start_time)}} : {{getMin(apoint.start_time)}} {{getAmPm(apoint.start_time)}} - {{getHours(apoint.end_time)}} : {{getMin(apoint.end_time)}} {{getAmPm(apoint.end_time)}}
+                                    </li>
+                                    <li class="time-book">
+                                      <i class="fa fa-calendar"></i>
+                                      {{apoint.date}}
+                                    </li>
+                                    <li class="time-book">
+                                      <i class="fa fa-credit-card"></i>
+                                      <label>Payment Type:</label>  {{apoint.payment_type}}
+                                    </li>
+                                  </ul>
+                                  <div class="status-div">
+                                    <h4><label>Status:</label> {{getStatus(apoint.appointment_status)}}</h4>
+                                  </div>
+                                </div>
+                              <!--   <div class="status-sec">
                                   <h4><label>Status:</label> Pending</h4>
-                                </div>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="salon-li">
-                                <img src="assets/img/saloon.svg" class="salon-logo" alt="salon-logo">
-                                <span class="salon-span">
-                                  <h3>Natural Beauty &amp; Spa Services</h3>  
-                                  <small> Shop No.G-5-618, Street No.2, New Shiv Puri, Near A.K Hospital, Ludhiana, Punjab 141001</small>
-                                  <span class="rating-salon pull-right">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-half-o"></i>
-                                  </span>
-                                </span>
-                                <div class="service-des">                             <img src="assets/img/service-1.jpg" class="" alt="service">
-                                  <h4>
-                                    Hair cutting &amp; Coloring 
-                                    <small class="timeing">
-                                      <i class="fa fa-clock-o"></i>
-                                      8:00 PM - 10:00 PM, 03/01/2018
-                                    </small>
-                                  </h4>
-                                  <span class="price-span">$200.00</span> 
-                                </div>
-                                <div class="your-professional">
-                                  <img src="assets/img/user-pro-1.jpg" alt="professional">
-                                  <h4>JOHNSON THOMAS <small>Your Professional</small></h4>
-                                </div>
-                                <div class="status-sec">
-                                  <h4><label>Status:</label> Pending</h4>
-                                </div>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="salon-li">
-                                <img src="assets/img/saloon.svg" class="salon-logo" alt="salon-logo">
-                                <span class="salon-span">
-                                  <h3>Natural Beauty &amp; Spa Services</h3>  
-                                  <small> Shop No.G-5-618, Street No.2, New Shiv Puri, Near A.K Hospital, Ludhiana, Punjab 141001</small>
-                                  <span class="rating-salon pull-right">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-half-o"></i>
-                                  </span>
-                                </span>
-                                <div class="service-des">                             <img src="assets/img/service-1.jpg" class="" alt="service">
-                                  <h4>
-                                    Hair cutting &amp; Coloring 
-                                    <small class="timeing">
-                                      <i class="fa fa-clock-o"></i>
-                                      8:00 PM - 10:00 PM, 03/01/2018
-                                    </small>
-                                  </h4>
-                                  <span class="price-span">$200.00</span> 
-                                </div>
-                                <div class="your-professional">
-                                  <img src="assets/img/user-pro-1.jpg" alt="professional">
-                                  <h4>JOHNSON THOMAS <small>Your Professional</small></h4>
-                                </div>
-                                <div class="status-sec">
-                                  <h4><label>Status:</label> Pending</h4>
-                                </div>
+                                </div> -->
                               </div>
                             </li>
                           </ul>
@@ -132,10 +95,15 @@
                   </div>
                 </div>
               </div>
+                        <div class="table-pagination">
+                          <div class="pagination">
+                             <pagination-controls (pageChange)="p = $event"  previousLabel=""  nextLabel="" ></pagination-controls>
+                          </div>
+                        </div>
               <!-- END PORTLET-->
             </div>
           </div>
           <!-- END PAGE CONTENT INNER -->
         </div>
       </div>
-      <!-- END CONTENT -->
+      <!-- END CONTENT-->

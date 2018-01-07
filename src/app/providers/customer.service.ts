@@ -60,6 +60,16 @@ CustomerLogin(data): Observable<any> {
       
     );
   }
+
+  CustomerAppointment(id): Observable<any> {
+    const url = `${ENV.mainApi}/appointmentByCustomer/${id}`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`appointmentByCustomer`)),
+        catchError(this.handleError('appointmentByCustomer', []))
+      
+    );
+  }
    /**
    * Handle Http operation that failed.
    * Let the app continue.
