@@ -18,40 +18,40 @@
                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"> 
                             <div class="filter-section">
                                 <div class="header-saloon">
-                                    <h4>Filter</h4><a href="javascript:void(0);">Clear All</a>
+                                    <h4>Filter</h4><a href="javascript:void(0);" (click)="onClearAll()">Clear All</a>
                                 </div>
                                 <div class="filter-content">
                                     <div class="row" style="padding-left:15px;padding-right:15px;">
                                         <div class="filter-inner">
                                             <h5 class="text-left">Price</h5>
                                             <ul class="priceul price-inline">
-                                                <li>
+                                                <li >
                                                     <label class="remember-me">
-                                                        <input type="checkbox"> $
+                                                        <input type="checkbox" [(ngModel)]="filter.first"   [ngModelOptions]="{standalone: true}" (change)="onFirst(filter.first)"> $
                                                         <span></span>
                                                     </label>
                                                 </li>
                                                 <li>
                                                     <label class="remember-me">
-                                                        <input type="checkbox" checked="checked"> $$
+                                                        <input type="checkbox" checked="checked" [(ngModel)]="filter.two"   [ngModelOptions]="{standalone: true}" (change)="onSecond(filter.two)" > $$
                                                         <span></span>
                                                     </label>
                                                 </li>
                                                 <li>
                                                     <label class="remember-me">
-                                                        <input type="checkbox"> $$$
+                                                        <input type="checkbox" [(ngModel)]="filter.three"  [ngModelOptions]="{standalone: true}" (change)="onThird(filter.three)"> $$$
                                                         <span></span>
                                                     </label>
                                                 </li>
                                                 <li>
                                                     <label class="remember-me">
-                                                        <input type="checkbox"> $$$$
+                                                        <input type="checkbox" [(ngModel)]="filter.four"  [ngModelOptions]="{standalone: true}" (change)="onFourth(filter.four)"> $$$$
                                                         <span></span>
                                                     </label>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="filter-inner">
+                                       <!--  <div class="filter-inner">
                                             <h5 class="text-left">Area</h5>
                                             <ul class="priceul area-ul">
                                                 <li>
@@ -62,28 +62,28 @@
                                                     <small class="sm-1">1</small>
                                                 </li>
                                             </ul>
-                                        </div>
+                                        </div> -->
                                     </div>
-                                    <div class="row" style="padding-left:15px;padding-right:15px;">   <!-- changes div -->
-                                        <div class="filter-inner">
+                                    <div class="row" style="padding-left:15px;padding-right:15px;">
+                                        <!-- <div class="filter-inner">
                                             <h5 class="text-left">Ctegories</h5>
                                             <ul class="category-ul">
                                                 <li>
                                                   Spa <span class="remove-cross"><a href="#">X</a></span> 
                                                 </li>
                                             </ul>
-                                        </div>
+                                        </div> -->
                                         <div class="filter-inner">
                                             <h5 class="text-left">Services</h5>
                                             <ul class="priceul area-ul">
-                                                <li>
+                                                <li *ngFor="let ser of serviceList">
                                                     <label class="remember-me">
-                                                        <input type="checkbox"> <p>Hair Coloring</p>
+                                                        <input type="checkbox" [(ngModel)]="ser.checkStatus"  [ngModelOptions]="{standalone: true}" (change)="onService(ser.checkStatus,ser.id)"> <p><span>{{ser.services_eng}}</span></p>
                                                         <span></span>
                                                     </label>
-                                                    <small class="sm-1">281</small>
+                                                  <!--   <small class="sm-1">281</small> -->
                                                 </li>
-                                                <li>
+                                               <!--  <li>
                                                     <label class="remember-me">
                                                         <input type="checkbox"> <p>Blow Dry</p>
                                                         <span></span>
@@ -115,22 +115,33 @@
                                                     <a class="load-more" href="javascript:void(0);">
                                                         <i class="fa fa-plus"></i> Load More
                                                     </a>
-                                                </li>
+                                                </li> -->
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="row" style="padding-left:15px;padding-right:15px;">   <!-- changes div -->
-                                        <div class="filter-inner">
+                                   <!--  <div class="row" style="padding-left:15px;padding-right:15px;"> -->   <!-- changes div -->
+                                        <!-- <div class="filter-inner">
                                             <h5 class="text-left">Service's Price</h5>
                                             <div class="filter-sub-categ">
                                                 <span class="min-range">
                                                     <span class="left-range">AED 200.00</span>   
                                                     <span class="right-range">AED 200.00</span>   
-                                                </span>
-                                                <input id="rane-slide" type="text" class="span2" value="" data-slider-max="4684350" data-slider-step="5" data-slider-value="[0,4684350]"/> 
+                                                </span>>
+                                                <mat-slider
+                                                        class="example-margin"
+                                                        [disabled]="disabled"
+                                                        [invert]="invert"
+                                                        [max]="max"
+                                                        [min]="min"
+                                                        [step]="step"
+                                                        [thumb-label]="thumbLabel"
+                                                        [tick-interval]="tickInterval"
+                                                        [(ngModel)]="value"
+                                                        [vertical]="vertical" [ngModelOptions]="{standalone: true}">
+                                                    </mat-slider>
                                             </div>
-                                        </div>
-                                        <div class="filter-inner">
+                                        </div> -->
+                                        <!-- <div class="filter-inner">
                                             <h5 class="text-left">Date</h5>
                                             <div class="col-md-12 col-sm-12 col-xs-12 p-l-0">
                                                 <div class="date-wrsap">
@@ -171,8 +182,8 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </div> -->
+                                    <!-- </div> -->
                                 </div>
                             </div>
                         </div>
@@ -187,11 +198,10 @@
                                             </div>
                                             <div class="col-md-8 col-sm-8 col-xs-8 p-0"> <!-- changes class please change -->
                                                 <div class="custom-select">
-                                                    <select class="form-control txtfield" placeholder="Select">
-                                                        <option value="" selected="">Relevance</option>
-                                                        <option value="">Lowest</option>
-                                                        <option value="">Highest</option>
-                                                        <option value="">Proximity</option>
+                                                    <select class="form-control txtfield" placeholder="Select" [(ngModel)]="filter.sort"   [ngModelOptions]="{standalone: true}"  (change)="onSort(filter.sort)">
+                                                        <option value="low">Low To High</option>
+                                                        <option value="high">High To Low</option>
+                                                        <option value="nearrest">Nearest</option>
                                                     </select>
                                                     <span class="caret"></span>
                                                 </div>
@@ -215,14 +225,21 @@
                                                         <address><span>{{saloon.city}}</span></address>
                                                         <ul class="rating-points">
                                                             <li>
-                                                                <span class="rating-star">
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star-half-o"></i>
-                                                                </span>
-                                                                <span class="star-number">(200)</span>
+                                                                <span *ngIf="saloon.saloonRating.length>0" class="rating-salon">
+                                                                <i class="{{getRatingClass(saloon.saloonRating,1)}}"></i>
+                                                                <i class="{{getRatingClass(saloon.saloonRating,2)}}"></i>
+                                                                <i class="{{getRatingClass(saloon.saloonRating,3)}}"></i>
+                                                                <i class="{{getRatingClass(saloon.saloonRating,4)}}"></i>
+                                                                <i class="{{getRatingClass(saloon.saloonRating,5)}}"></i>
+                                                              </span>
+                                                              <span *ngIf="saloon.saloonRating.length<1" class="rating-salon ">
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                              </span>
+                                                                <span class="star-number">({{saloon.saloonRating.length}})</span>
                                                             </li>
                                                             <li>
                                                                 <span class="dollor-select">
@@ -231,16 +248,16 @@
                                                                         <p><i class="fa fa-check-circle"></i></p>
                                                                     </span>
                                                                     <ul class="dollor-view">
-                                                                        <li class="active">
+                                                                        <li class="{{findRangclass(saloon.price_range,1)}}">
                                                                             <i class="fa fa-usd"></i>
                                                                         </li>
-                                                                        <li class="active">
+                                                                        <li class="{{findRangclass(saloon.price_range,2)}}">
                                                                             <i class="fa fa-usd"></i>
                                                                         </li>
-                                                                        <li>
+                                                                        <li class="{{findRangclass(saloon.price_range,3)}}">
                                                                             <i class="fa fa-usd"></i>
                                                                         </li>
-                                                                        <li>
+                                                                        <li class="{{findRangclass(saloon.price_range,4)}}">
                                                                             <i class="fa fa-usd"></i>
                                                                         </li>
                                                                     </ul>
@@ -254,8 +271,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="esact-service salon-sec">
-                                               <!-- <p class="popular-service">Popular Services</p> -->
+                                            <!-- <div class="esact-service salon-sec">
                                                 <div class="searched-service" *ngFor="let ser of saloon.saloonServices">
                                                     <ul class="searched-ul {{getClass(ser.servicesData.services_eng)}}" >
                                                         <li>
@@ -273,41 +289,7 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <!-- <div class="searched-service relevant-de">
-                                                    <ul class="searched-ul">
-                                                        <li>
-                                                            <span class="service-name">
-                                                                Whitening Facial
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 1h 15 Min</span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub">AED 275
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="searched-service relevant-de2">
-                                                    <ul class="searched-ul">
-                                                        <li>
-                                                            <span class="service-name">
-                                                                Hair Trim
-                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 15 Min</span>
-                                                            </span>
-                                                            <span class="price-and-book">
-                                                                <span class="price-nub">AED 80
-                                                                </span>
-                                                                <span class="book-btn">
-                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div> -->
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <!-- <div class="wrap-service">
                                             <div class="img-content-sec">

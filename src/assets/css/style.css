@@ -5478,7 +5478,7 @@ ul.home-pro {
   font-size: 16px;
   line-height: 30px;
   text-align: left;
-  width: 100%;
+  /*width: 100%;*/
 }
 .booking-section i {
   color: #d5275a;
@@ -5670,3 +5670,8 @@ ul.home-pro {
 
 }
 /*===========customer booking Details css ends=========*/
+
+/*.add-emp-form .table-pagination .ngx-pagination .current
+{
+  padding: 9px 16px;
+}*/
