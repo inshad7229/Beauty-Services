@@ -39,7 +39,7 @@ export class SaloonSignupComponent implements OnInit {
         tab2:string=''
         tab3:string=''
        
-
+        newSalonId;
       public latitude: number;
       public longitude: number;
       public zoom: number;
@@ -66,10 +66,10 @@ export class SaloonSignupComponent implements OnInit {
 
             this.toastr.setRootViewContainerRef(vcr); 
             this.accountCreationForm = fb.group({
-                'saloonName': [null, Validators.compose([Validators.required,Validators.maxLength(150)])],
-                'name': [null, Validators.compose([Validators.required,Validators.maxLength(100)])],
+                'saloonName': [null, Validators.compose([Validators.required,Validators.maxLength(150),Validators.pattern('[a-zA-Z ]*')])],
+                'name': [null, Validators.compose([Validators.required,Validators.maxLength(100),Validators.pattern('[a-zA-Z ]*')])],
                 'email': [null, Validators.compose([Validators.required,Validators.pattern(EMAIL_REGEX)])],
-                'contactNumber': [null, Validators.compose([Validators.required,Validators.maxLength(12),Validators.pattern('[0-9]*')])],
+                'contactNumber': [null, Validators.compose([Validators.required,Validators.minLength(10),Validators.maxLength(12),Validators.pattern('[0-9]*')])],
                 'password': [null, Validators.compose([Validators.required,Validators.maxLength(12)])],
                 'confirmPassword': [null, Validators.compose([Validators.required,Validators.maxLength(12)])],
                 'city': [null, Validators.compose([Validators.required,Validators.maxLength(300)])],
@@ -188,8 +188,11 @@ export class SaloonSignupComponent implements OnInit {
         this.waitLoader=true
          this.saloonServices.SaloonSignup(this.accountCreationModel)
         .subscribe((data)=>{
+          this.newSalonId=data.result.id;
+          alert(this.newSalonId)
             this.waitLoader=false
             if(data.response){
+
               this.currentData=data
               this.currentTab='tab2'
                this.tab1=''
@@ -247,8 +250,9 @@ export class SaloonSignupComponent implements OnInit {
             this.waitLoader=false
             if(data.response){
               this.toastr.success(data.message ,'Account Craetion',{toastLife: 3000, showCloseButton: true})
+              
               // setTimeout(()=>{
-                 this.router.navigate(['/header-two-layout/login']);
+              this.router.navigate(['/header-two-layout/login']);
               // },3000)
             //    alert(data.message)
             }else if (data.message=='email Id already register with us') {
@@ -269,5 +273,16 @@ export class SaloonSignupComponent implements OnInit {
          }else{
             this.toastr.error( 'Enter currect OTP ' ,'Authentication Failed ',{toastLife: 3000, showCloseButton: true});
          }
+        }
+
+        onOtpBackButton(){
+          this.currentTab='tab1';
+          // this.saloonServices.deleteSalonById(this.newSalonId).subscribe(data=>{
+          //     if (data.response==true) {
+          //       alert('deleted')
+          //     }
+          // },err=>{
+
+          // })
         }
 }

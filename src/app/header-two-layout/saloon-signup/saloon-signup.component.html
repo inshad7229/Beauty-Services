@@ -37,9 +37,6 @@
                                          <form [formGroup]="accountCreationForm">
                                               <p class="info-text">{{ 'saloonSignup.message2' | translate }}<a href="javascript:void(0);">{{ 'saloonSignup.message3' | translate }}</a></p>
                                             <div class="row">
-
-
-
                                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                     <label>{{ 'saloonSignup.enterSaloonName' | translate }}</label>
                                                     <input type="text" placeholder="{{ 'saloonSignup.enterSaloonName' | translate }}"  [formControl]="accountCreationForm.controls['saloonName']" class="form-control" [(ngModel)]="accountCreationModel.saloon_name">
@@ -97,6 +94,9 @@
                                                     </p>
                                                     <p  *ngIf="accountCreationForm.controls['contactNumber'].hasError('maxlength')">
                                                                max length is 12
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['contactNumber'].hasError('minlength')">
+                                                               contact number must be of 10 numbers
                                                     </p>
                                                 </div>
                                             </div>
@@ -200,7 +200,7 @@
                                                 <div class="form-group col-md-12 col-sm-12 col-xs-12 p-0">
                                                     <div class="continue-btn saloon-btn vari">
                                                         <span class="varify">
-                                                            <a href="javascript:void(0)" class="btn cut-btn" data-toggle="pill">{{ 'saloonSignup.back' | translate }}</a>
+                                                            <a href="javascript:void(0)" class="btn cut-btn" data-toggle="pill" (click)="onOtpBackButton()">{{ 'saloonSignup.back' | translate }}</a>
                                                         </span>
                                                         <span class="varify">
                                                             <button [disabled]="!verifiactionForm.valid"  class="btn cut-btn" data-toggle="pill" (click)="onVerifyOtp()">{{ 'saloonSignup.verify' | translate }}</button>

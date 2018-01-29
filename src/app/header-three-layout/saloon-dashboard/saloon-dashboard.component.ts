@@ -32,7 +32,8 @@ const colors: any = {
     templateUrl: './saloon-dashboard.component.html',
     styleUrls: ['./saloon-dashboard.component.scss']
 })
-export class SaloonDashboardComponent implements OnInit ,AfterViewInit{
+export class SaloonDashboardComponent implements OnInit {
+  
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
@@ -118,28 +119,26 @@ tick=.5
   mode = 'determinate';
   value = 50;
   bufferValue = 75;
+  waitLoader:boolean = false;
   constructor( private saloonService:SaloonService) {
     this.saloonId=this.userDetail.id;
-      this.totalAppointments=180
-      
-      
-    this.getAppointMentList()
+    this.totalAppointments=180  
+    
   }
 
     ngOnInit() {
-       
     	jQuery(document).ready(function($) {
-            $('.count').counterUp({
-                delay: 10,
-                time: 1000
-            });
+        $('.count').counterUp({
+            delay: 10,
+            time: 1000
         });
-      
+      });
+      this.getAppointMentList();
     }
 
-    ngAfterViewInit(){
-      this.getAppointMentList()
-    }
+    // ngAfterViewInit(){
+    //   this.getAppointMentList()
+    // }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -187,7 +186,9 @@ tick=.5
   }
 
    getAppointMentList(){
+     this.waitLoader=true;
      this.saloonService.getAppointmentDetailsForSaloon(this.saloonId).subscribe(data=>{
+       this.waitLoader=false
        if (data.response==true) {
         this.appointmentDataToBeFiltered=data.data;
         this.appointMentList=data.data;

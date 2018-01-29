@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SaloonService }from '../../providers/saloon.service'
 
 @Component({
     selector: 'app-transaction-details',
@@ -6,7 +7,24 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./transaction-details.component.scss']
 })
 export class TransactionDetailsComponent implements OnInit {
-    constructor() {}
+	userDetail=JSON.parse(localStorage['userdetails']);
+	transactionData;
+    p:number=1;
+    constructor(private saloonService:SaloonService) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+
+    	this.getTransactionData();
+    }
+
+
+    getTransactionData(){
+    	this.saloonService.salonTransactionDetails(this.userDetail.id).subscribe(data=>{
+    		if (data) {
+    			this.transactionData=data.data;
+    		}
+    	},err=>{
+
+    	})
+    }
 }

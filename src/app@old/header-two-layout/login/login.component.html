@@ -1,0 +1,103 @@
+
+        <section class="login-section">
+            <div class="container">
+                <div class="login-inner">
+                    <form class="login-form common-form" [formGroup]="verifiactionForm">
+                        <h3 class="form-h">Login</h3>
+                        <div class="login-type">
+                             <div class="custom-radio">
+                                <div class="radio-inline">
+                                    <input [formControl]="verifiactionForm.controls['loginAS']" [(ngModel)]="loginModel.loginAS" checked="checked" type="radio" id="radio01" value="saloon" name="radio" />
+                                    <label for="radio01">
+                                        <span><span></span></span>Login as Saloon
+                                    </label>
+                                </div>
+                                <div  class="radio-inline">
+                                    <input type="radio" id="radio02" [formControl]="verifiactionForm.controls['loginAS']" [(ngModel)]="loginModel.loginAS" value="customer" name="radio" />
+                                    <label for="radio02">
+                                        <span><span></span></span>Login as Customer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-wrap">
+                            <div class="row">
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <input type="text" placeholder="Enter Email" [formControl]="verifiactionForm.controls['email']" class="form-control" [(ngModel)]="loginModel.email">
+                                    <p  *ngIf="verifiactionForm.controls['email'].hasError('required') && verifiactionForm.controls['email'].touched">
+                                     Email is <strong>required</strong>
+                                    </p>
+                                    <p  *ngIf="verifiactionForm.controls['email'].hasError('pattern')">
+                                               Please enter valid email address !!
+                                    </p>
+                                    <p  *ngIf="verifiactionForm.controls['email'].hasError('maxlength')">
+                                               max length is 30
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <input type="password" placeholder="Password" [formControl]="verifiactionForm.controls['password']" class="form-control" [(ngModel)]="loginModel.password" >
+                                    <p  *ngIf="verifiactionForm.controls['password'].hasError('required') && verifiactionForm.controls['password'].touched">
+                                     Password is <strong>required</strong>
+                                    </p>
+                                    <p  *ngIf="verifiactionForm.controls['password'].hasError('pattern')">
+                                               only alphabets are acceptable 
+                                    </p>
+                                    <p  *ngIf="verifiactionForm.controls['password'].hasError('maxlength')">
+                                               max length is 12
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12 p-0">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label class="remember-me">
+                                             <input type="checkbox" checked="checked"> Remember me
+                                             <span></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 text-right">
+                                        <a routerLink="/header-two-layout/forgot-password" class="link-forgot-password">Forgot Password?</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12 p-0">
+                                <div class="sign-inntn">
+                                    <button href="#" class="btn cut-btn" [disabled]="!verifiactionForm.valid" (click)="onLogin()">Login</button>
+                                </div>
+                            </div>
+                            <!-- <div class="line-div"></div>
+                            <div class="social-mediad">
+                                <ul class="social-ul">
+                                    <li class="fb">
+                                        <a href="javascript:void(0);" (click)="signInWithFB()">
+                                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                                            sign in with facebook
+                                        </a>
+                                    </li>
+                                    <li class="tw">
+                                        <a href="javascript:void(0);">
+                                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                                            sign in with twitter
+                                        </a>
+                                    </li>
+                                    <li class="google">
+                                        <a href="javascript:void(0);">
+                                            <i class="fa fa-google-plus" aria-hidden="true"></i>
+                                            sign in with google 
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div> -->
+                            <div class="sign-up">
+                                Don't have an account?
+                                <span>
+                                    <a routerLink="/header-two-layout/customer-signup">Sign Up</a>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>

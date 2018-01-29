@@ -1,0 +1,351 @@
+<!-- BEGIN CONTENT -->
+			<div class="page-content-wrapper">
+				<div class="page-content">
+					<ul class="page-breadcrumb breadcrumb hide">
+						<li>
+							<a href="#">Home</a><i class="fa fa-circle"></i>
+						</li>
+						<li class="active">
+							 Dashboard
+						</li>
+					</ul>
+					<!-- BEGIN PAGE CONTENT INNER -->
+					<div class="emp-list-sec">
+						<div class="col-md-12 col-sm-12 p-0">
+							<!-- BEGIN PORTLET-->
+							<div class="booking-section">
+								<div class="portlet light">
+									<div class="portlet-title">
+										<div class="caption caption-md">
+											<i class="icon-bar-chart theme-font-color hide"></i>
+											<span class="caption-subject theme-font-color bold uppercase">Booking List</span>
+										</div>
+									</div>
+									<div class="portlet-body">
+										<div class="col-md-12 col-sm-12 col-xs-12 p-0">
+											<div class="add-emp-form">
+								            	<div class="table-responsive">
+					                                <table class="table table-bordered">
+					                                    <thead>
+					                                    	<tr>
+					                                    		<td colspan="9">
+						                                    		<div class="cutome-th" style="background-color:rgba(194, 24, 91, 0.698);">
+						                                    			<span class="pull-left">
+							                                    			<a href="#"><i class="fa fa-angle-left"></i></a>
+							                                    		</span>
+							                                    			November 10, 2017
+						                                    			<span class="pull-right">
+							                                    			<a href="#">
+							                                    			<i class="fa fa-angle-right"></i>
+							                                    			</a>
+							                                    		</span>
+						                                    		</div>
+					                                    		</td>
+					                                    	</tr>
+					                                        <tr>
+					                                        	<th>Sr No</th>
+					                                        	<th>Appointment Date</th>
+					                                            <th>Customer Name</th>
+					                                            <th>Customer Number</th>
+					                                            <th>Employee Name</th>
+					                                            <th>Service Name</th>
+					                                            <th>Time</th>
+					                                            <th>Status</th>
+					                                            <th>Action</th>
+					                                        </tr>
+					                                    </thead>
+					                                    <tbody>
+					                                        <tr *ngFor="let appointment of appointMents| paginate: { itemsPerPage: 3, currentPage: p }; let i =index">
+					                                        	<td>{{i+1}}</td>
+					                                        	<td>{{appointment.date}}</td>
+					                                           <td><img *ngIf="appointment.customerRequestForAppointment.image" class="user-view" [src]="imagePath(appointment.customerRequestForAppointment.image)">
+                                                                <img *ngIf="!appointment.customerRequestForAppointment.image" class="user-view" src="assets/img/5.jpg">
+					                                            {{appointment.customerRequestForAppointment.first_name}}</td>
+					                                            <td>{{appointment.customerRequestForAppointment.contact_number}}</td>
+					                                            <td class="emp-link">
+					                                            	<a href="javascript:void(0);">{{appointment.employeeRequestedByCustomer.first_name}}</a>
+					                                            </td>
+					                                            <td>{{appointment.requestedServiceByCustomer.services_eng}}</td>
+					                                             <td>{{getHours(appointment.start_time)}} : {{getMin(appointment.start_time)}} {{getAmPm(appointment.start_time)}} - {{getHours(appointment.end_time)}} : {{getMin(appointment.end_time)}} {{getAmPm(appointment.end_time)}}</td>
+					                                            <td *ngIf="appointment.appointment_status==0">Pending</td>
+					                                            <td *ngIf="appointment.appointment_status==1">Complete</td>
+					                                            <td *ngIf="appointment.appointment_status==2">Cancelled</td>
+
+					                                            <td>
+					                                            	<ul class="action-icon">
+					                                                    <li class="edit-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#edit-bookinglist" (click)="onEdit(appointment)">
+					                                                            <i class="fa fa-pencil"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="view-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#view-bookinglist" title="View" (click)="onView(appointment)">
+					                                                            <i class="fa fa-eye"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="close-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="tooltip"  title="Close">
+					                                                            <i class="fa fa-times"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                </ul>
+					                                            </td>
+					                                        </tr>
+					                                    </tbody>
+					                                </table>
+					                            </div>
+				                                <div class="table-pagination">
+													<div class="pagination">
+													  <!-- <a href="#"><i class="fa fa-angle-left"></i></a>
+													  <a href="#">1</a>
+													  <a href="#" class="active">2</a>
+													  <a href="#">3</a>
+													  <a href="#"><i class="fa fa-angle-right"></i></a> -->
+													  <pagination-controls (pageChange)="p = $event"  previousLabel=""  nextLabel="" ></pagination-controls>
+													</div>
+												</div>
+								            </div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- END PORTLET-->
+						</div>
+					</div>
+					<!-- END PAGE CONTENT INNER -->
+				</div>
+			</div>
+			<!-- END CONTENT -->
+		
+		<div class="modal fade custom-modal" id="edit-bookinglist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" *ngIf="appointMentData">
+			<div class="modal-dialog modal-md" role="document">
+			    <div class="modal-content">
+			        <div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			            	<span aria-hidden="true">&times;</span>
+			            </button>
+			            <h4 class="modal-title" id="myModalLabel">Edit Booking List</h4>
+			        </div>
+			        <div class="modal-body">
+			            <div class="add-emp-form">
+			            	<form class="img-responsive">
+		            			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+		            				<div class="row">
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Customer Name <small class="manidatory">*</small></label>
+	                                        <input disabled="" type="text" [value]="appointMentData.customerRequestForAppointment.first_name" class="form-control">
+	                                    </div>
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Customer Number<small class="manidatory">*</small></label>
+	                                        <input disabled="" type="text" [value]="appointMentData.customerRequestForAppointment.contact_number" class="form-control">
+	                                    </div>
+	                                </div>
+	                                <div class="row">
+	                                	<div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Employee Name<small class="manidatory">*</small></label>
+	                                        <div class="custom-select">
+                                                <select [(ngModel)]="selectedEmployee" class="form-control" placeholder="Select Employee"  (change)="onEmployeeChange(selectedEmployee)" [ngModelOptions]="{standalone: true}">
+                                                    <option *ngFor="let employee of employeeList"  [value]="employee.employeeDetails.id" >{{employee.employeeDetails.first_name}}</option>
+                                                    <!-- <option name="vic">Mary</option>
+                                                    <option name="qld" selected="selected">Robert</option>
+                                                    <option name="qld">Jennifer</option>
+                                                    <option name="qld">Patricia</option> -->
+                                                </select>
+                                                <span class="caret"></span>
+                                            </div>
+	                                    </div>
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Employee Email <small class="manidatory">*</small></label>
+	                                        <input disabled="" type="email" [value]="appointMentData.customerRequestForAppointment.email" class="form-control">
+	                                    </div>
+	                                </div>
+	                                <div class="row">
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Select Gender<small class="manidatory">*</small></label>
+                                            <div class="custom-radio"*ngIf="appointMentData.customerRequestForAppointment.gender=='Male'">
+                                                <div class="radio-inline">
+                                                    <input checked="checked" type="radio" id="radio01" name="radio" />
+                                                    <label for="radio01">
+                                                        <span><span></span></span>Male
+                                                    </label>
+                                                </div>
+                                                <div class="radio-inline">
+                                                    <input type="radio" id="radio02" name="radio" disabled="" />
+                                                    <label for="radio02">
+                                                        <span><span></span></span>Female
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="custom-radio"*ngIf="appointMentData.customerRequestForAppointment.gender=='Female'">
+                                                <div class="radio-inline">
+                                                    <input disabled="" type="radio" id="radio01" name="radio" />
+                                                    <label for="radio01">
+                                                        <span><span></span></span>Male
+                                                    </label>
+                                                </div>
+                                                <div class="radio-inline">
+                                                    <input checked="checked" type="radio" id="radio02" name="radio" />
+                                                    <label for="radio02">
+                                                        <span><span></span></span>Female
+                                                    </label>
+                                                </div>
+                                            </div>
+	                                    </div>
+	                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Select Employee Services<small class="manidatory">*</small></label>
+	                                        <div class="custom-select">
+                                               <input disabled="" type="text" [value]="appointMentData.requestedServiceByCustomer.services_eng" class="form-control">
+                                            </div>
+	                                    </div>
+	                                </div>
+	                                <div class="row">
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Date <small class="manidatory">*</small></label>
+	                                       <mat-form-field>
+											  <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="selectedDate"  [ngModelOptions]="{standalone: true}" (ngModelChange)="onDateChange()">
+											  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+											  <mat-datepicker #picker></mat-datepicker>
+											</mat-form-field>
+	                                    </div>
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Change Time<small class="manidatory">*</small></label>
+	                                        <div class="input-icon">
+												<i class="fa fa-clock-o"></i>
+												 <select class="form-control" [(ngModel)]="selectedTime" placeholder="Select Employee" (change)="onTimeSelection(selectedTime)" [ngModelOptions]="{standalone: true}">
+                                                    <!-- <option disabled="">{{selectedSlot()}}</option> -->
+                                                    <option *ngFor="let times of timeSlot;let i=index" name="nsw" [disabled]="getClass(times,selectedDate)==true" [value]="times.start">{{getHoursForSlots(times.start)}}:{{getMintForSlots(times.start)}} {{getAmPmForSlots(times.start)}} - {{getHoursForSlots(times.end)}}:{{getMintForSlots(times.end)}} {{getAmPmForSlots(times.end)}}</option>
+                                                    <!-- <option name="vic">Mary</option>
+                                                    <option name="qld" selected="selected">Robert</option>
+                                                    <option name="qld">Jennifer</option>
+                                                    <option name="qld">Patricia</option> -->
+                                                </select>
+											</div>
+	                                    </div>
+	                                </div>
+		            			</div>
+					          	<div class="modal-footerbtn">
+						          	<span class="save-bt">
+						          		<button type="button" class="btn cut-btn" data-dismiss="modal" aria-label="Close" (click)="onConfirm()">
+						          		 Confirm
+						          		</button>
+						          	</span>
+					          	</div>
+			            	</form>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+
+
+		<div class="modal fade custom-modal" id="view-bookinglist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" *ngIf="appointMentData">
+			<div class="modal-dialog modal-md" role="document">
+			    <div class="modal-content">
+			        <div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			            	<span aria-hidden="true">&times;</span>
+			            </button>
+			            <h4 class="modal-title" id="myModalLabel">Edit Booking List</h4>
+			        </div>
+			        <div class="modal-body">
+			            <div class="add-emp-form">
+			            	<form class="img-responsive">
+		            			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+		            				<div class="row">
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Customer Name <small class="manidatory">*</small></label>
+	                                        <input disabled="" type="text" [value]="appointMentData.customerRequestForAppointment.first_name" class="form-control">
+	                                    </div>
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Customer Number<small class="manidatory">*</small></label>
+	                                        <input disabled="" type="text" [value]="appointMentData.customerRequestForAppointment.contact_number" class="form-control">
+	                                    </div>
+	                                </div>
+	                                <div class="row">
+	                                	<div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Employee Name<small class="manidatory">*</small></label>
+	                                        <div class="custom-select">
+                                                <select disabled="" class="form-control" placeholder="Select Employee">
+                                                    <option disabled="">Select Employee</option>
+                                                    <option name="nsw" selected="selected">James</option>
+                                                    <option name="vic">Mary</option>
+                                                    <option name="qld" selected="selected">Robert</option>
+                                                    <option name="qld">Jennifer</option>
+                                                    <option name="qld">Patricia</option>
+                                                </select>
+                                                <span class="caret"></span>
+                                            </div>
+	                                    </div>
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Employee Email <small class="manidatory">*</small></label>
+	                                        <input disabled="" type="email" [value]="appointMentData.customerRequestForAppointment.email" class="form-control">
+	                                    </div>
+	                                </div>
+	                                <div class="row">
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Select Gender<small class="manidatory">*</small></label>
+                                            <div class="custom-radio"*ngIf="appointMentData.customerRequestForAppointment.gender=='Male'">
+                                                <div class="radio-inline">
+                                                    <input checked="checked" type="radio" id="radio01" name="radio" />
+                                                    <label for="radio01">
+                                                        <span><span></span></span>Male
+                                                    </label>
+                                                </div>
+                                                <div class="radio-inline">
+                                                    <input type="radio" id="radio02" name="radio" disabled="" />
+                                                    <label for="radio02">
+                                                        <span><span></span></span>Female
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="custom-radio"*ngIf="appointMentData.customerRequestForAppointment.gender=='Female'">
+                                                <div class="radio-inline">
+                                                    <input disabled="" type="radio" id="radio01" name="radio" />
+                                                    <label for="radio01">
+                                                        <span><span></span></span>Male
+                                                    </label>
+                                                </div>
+                                                <div class="radio-inline">
+                                                    <input checked="checked" type="radio" id="radio02" name="radio" />
+                                                    <label for="radio02">
+                                                        <span><span></span></span>Female
+                                                    </label>
+                                                </div>
+                                            </div>
+	                                    </div>
+	                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Select Employee Services<small class="manidatory">*</small></label>
+	                                        <div class="custom-select">
+                                                <input disabled="" type="text" [value]="appointMentData.requestedServiceByCustomer.services_eng" class="form-control">
+                                            </div>
+	                                    </div>
+	                                </div>
+	                                <div class="row">
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Date <small class="manidatory">*</small></label>
+	                                       <input disabled="" class="form-control input-medium date-picker" size="16" type="text" [value]="appointMentData.date"/>
+	                                    </div>
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Change Time<small class="manidatory">*</small></label>
+	                                        <div class="input-icon">
+												<i class="fa fa-clock-o"></i>
+												<input disabled="" type="text" class="form-control timepicker timepicker-24">
+											</div>
+	                                    </div>
+	                                </div>
+		            			</div>
+					          	<div class="modal-footerbtn">
+						          	<span class="save-bt">
+						          		<button type="button" class="btn cut-btn" data-dismiss="modal" aria-label="Close">
+						          		 Confirm
+						          		</button>
+						          	</span>
+					          	</div>
+			            	</form>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+
+

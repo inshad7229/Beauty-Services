@@ -1,0 +1,93 @@
+<div class="loader-box" *ngIf="waitLoader==true">
+    <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
+</div>
+<section class="contact-main">
+    <div class="about-top-head">
+        <div class="about-heading">
+            <h2> Contact Us </h2>
+        </div>
+    </div>
+    <div class="container text-center">
+        <div class="contact-minin">
+            <div class="login-cntnt main-login-cntnt">
+                <p class="contact-msge">Thankyou for getting in touch with us. Please fill your inquiries in the form below and we will contact you in maximum 24 hours.</p>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="touch-sec">
+                        <div class="address-dtl">
+                            <p>Beauty Services</p>
+                            <p>Registered Office</p>
+                            <p>14C, Mark Street, Dubai,</p>
+                            <p>UAE.</p>
+                            <p>+21-65231478958</p>
+                            <p class="clr-gmail">beautyservice@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-12 p-0">
+                    <div class="touch-field">
+                        <form [formGroup]="contactUsForm">
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                <div class="contact-div">
+                                    <input type="text" placeholder="First Name" class="form-control txtfield" [formControl]="contactUsForm.controls['first_name']" [(ngModel)]="contactUsModel.first_name">
+                                </div>
+                                <p  *ngIf="contactUsForm.controls['first_name'].hasError('required') && contactUsForm.controls['first_name'].touched">
+                                    First Name is <strong>required</strong>
+                                </p>
+                                <p  *ngIf="contactUsForm.controls['first_name'].hasError('pattern')">
+                                    only alphabets are acceptable 
+                                </p>
+                                <p  *ngIf="contactUsForm.controls['first_name'].hasError('maxlength')">
+                                    max length is 100
+                                </p> 
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                <div class="contact-div">
+                                    <input type="text" placeholder="Last Name" class="form-control txtfield"  [formControl]="contactUsForm.controls['last_name']" [(ngModel)]="contactUsModel.last_name">
+                                </div>
+                                <p  *ngIf="contactUsForm.controls['last_name'].hasError('required') && contactUsForm.controls['last_name'].touched">
+                                    Last Name is <strong>required</strong>
+                                </p>
+                                <p  *ngIf="contactUsForm.controls['last_name'].hasError('pattern')">
+                                    only alphabets are acceptable 
+                                </p>
+                                <p  *ngIf="contactUsForm.controls['last_name'].hasError('maxlength')">
+                                    max length is 100
+                                </p> 
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                <div class="contact-div mail-div">
+                                    <input type="email" placeholder="Your Email" class="form-control txtfield" [formControl]="contactUsForm.controls['email']" [(ngModel)]="contactUsModel.email">
+                                </div>
+                                <p  *ngIf="contactUsForm.controls['email'].hasError('required') && contactUsForm.controls['email'].touched">
+                                       Email is <strong>required</strong>
+                                </p>
+                                <p  *ngIf="contactUsForm.controls['email'].hasError('pattern')">
+                                           Enter valid email id
+                                </p>
+                                <p  *ngIf="contactUsForm.controls['email'].hasError('maxlength')">
+                                           max length is 100
+                                </p>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                <textarea placeholder="Message" rows="5" class="form-control txtfield textarea resize-txt" [formControl]="contactUsForm.controls['message']" [(ngModel)]="contactUsModel.message"></textarea>
+                                <p  *ngIf="contactUsForm.controls['message'].hasError('required') && contactUsForm.controls['message'].touched">
+                                    Last Name is <strong>required</strong>
+                                </p>
+                                <p  *ngIf="contactUsForm.controls['message'].hasError('pattern')">
+                                    only alphabets are acceptable 
+                                </p>
+                                <p  *ngIf="contactUsForm.controls['message'].hasError('maxlength')">
+                                    max length is 100
+                                </p> 
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group send-msge text-left">
+                                <button [disabled]="!contactUsForm.valid" class="btn cus-btn" type="submit" (click)="onSendMessage()">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>

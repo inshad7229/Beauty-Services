@@ -1,0 +1,271 @@
+              <!-- 
+                 <?php
+                    require('include/dashboard-sidebar.php');
+                ?> -->
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                    <ul class="page-breadcrumb breadcrumb hide">
+                        <li>
+                            <a href="#">Home</a><i class="fa fa-circle"></i>
+                        </li>
+                        <li class="active">
+                             Dashboard
+                        </li>
+                    </ul>
+                    <!-- BEGIN PAGE CONTENT INNER -->
+                    <div class="page-wrap margin-top-10">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 p-0">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="dashboard-stat2 bordered">
+                                    <div class="display">
+                                        <div class="number">
+                                            <h3 class="font-green-sharp">{{countDown | async  }}
+                                                <!-- <small class="font-green-sharp">$</small> -->
+                                            </h3>
+                                            <small>TOTAL BOOKING</small>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="icon-calendar"></i>
+                                        </div>
+                                    </div>
+                                    <div class="progress-info">
+                                            <!-- <span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
+                                                <span class="sr-only">76% progress</span>
+                                            </span> -->
+                                          <!-- <section class="example-section"> -->
+                                              <mat-progress-bar
+                                                  [color]="color"
+                                                  [mode]="mode"
+                                                  [value]="value"
+                                                  [bufferValue]="bufferValue">
+                                              </mat-progress-bar>
+                                           <!--  </section> -->
+
+                                        <div class="status">
+                                            <div class="status-title"> progress </div>
+                                            <div class="status-number"> 100% </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="dashboard-stat2">
+                                    <div class="display" >
+                                        <div class="number">
+                                            <h3 class="font-red-haze"> {{countDownCurrent | async }}
+                                            </h3>
+                                            <small class="">TODAY'S BOOKING</small>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="icon-calendar"></i>
+                                        </div>
+                                    </div>
+                                    <div class="progress-info">
+                                        <div class="progress">
+                                            <mat-progress-bar
+                                                  [color]="color"
+                                                  [mode]="mode"
+                                                  [value]="value"
+                                                  [bufferValue]="bufferValue">
+                                              </mat-progress-bar>
+                                        </div>
+                                        <div class="status">
+                                            <div class="status-title">
+                                                 change
+                                            </div>
+                                            <div class="status-number">
+                                                 85%
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 cus-p-l">
+                            <div class="calender-section">
+                                <div class="week-sec">
+                                   
+
+                                    <ng-template #modalContent let-close="close">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title">Event action occurred</h5>
+                                        <button type="button" class="close" (click)="close()">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div>
+                                          Action:
+                                          <pre>{{ modalData?.action }}</pre>
+                                        </div>
+                                        <div>
+                                          Event:
+                                          <pre>{{ modalData?.event | json }}</pre>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
+                                      </div>
+                                    </ng-template>
+                                    <div class="row text-center">
+                                        <div class="col-md-12">
+                                          <div class="btn-group">
+                                            <div
+                                              class="btn cus-btn"
+                                              mwlCalendarPreviousView
+                                              [view]="view"
+                                              [(viewDate)]="viewDate"
+                                              (viewDateChange)="activeDayIsOpen = false">
+                                              Previous
+                                            </div>
+                                            <div
+                                              class="btn cus-btn"
+                                              mwlCalendarToday
+                                              [(viewDate)]="viewDate">
+                                              Today
+                                            </div>
+                                            <div
+                                              class="btn cus-btn"
+                                              mwlCalendarNextView
+                                              [view]="view"
+                                              [(viewDate)]="viewDate"
+                                              (viewDateChange)="activeDayIsOpen = false">
+                                              Next
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row text-center">
+                                        <div class="col-md-12 month-name">
+                                          <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+                                        </div>
+                                      </div>
+                                    <br>
+                                    <div [ngSwitch]="view">
+                                        <mwl-calendar-month-view
+                                        *ngSwitchCase="'month'"
+                                        [viewDate]="viewDate"
+                                        [events]="events"
+                                        [refresh]="refresh"
+                                        (dayClicked)="dayClicked($event.day)"
+                                        (eventClicked)="handleEvent('Clicked', $event.event)"
+                                        (eventTimesChanged)="eventTimesChanged($event)">
+                                      </mwl-calendar-month-view>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="booking-table-sec">
+                        <div class="col-md-12 col-sm-12">
+                            <!-- BEGIN PORTLET-->
+                            <div class="booking-section">
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+                                        <div class="caption caption-md">
+                                            <i class="icon-bar-chart theme-font-color hide"></i>
+                                            <span class="caption-subject theme-font-color bold uppercase">Booking Calendar</span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                                <div class="booking-calender">
+                                                     <div id="organizerContainer" style="margin-left: 8px;"></div>
+                                                    <div class="booking-table">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                      <td colspan="7">
+                                                                          <div class="cutome-th">
+                                                                              <span class="pull-left">
+                                                                                  <a (click)="onPreviousDate()"><i class="fa fa-angle-left"></i></a>
+                                                                              </span>
+                                                                                  {{filterDate}}
+                                                                              <span class="pull-right">
+                                                                                  <a (click)="onForwardDate()">
+                                                                                  <i class="fa fa-angle-right"></i>
+                                                                                  </a>
+                                                                              </span>
+                                                                          </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Time</th>
+                                                                        <th>Customer Name</th>
+                                                                        <th>Employee Details</th>
+                                                                        <th>Service Details</th>
+                                                                        <th>Contact Details</th>
+                                                                        <th>Status</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor='let appointment of this.appointMentList| paginate: { itemsPerPage: 3, currentPage: p }'>
+                                                                        <td>{{getHours(appointment.start_time)}} : {{getMin(appointment.start_time)}} {{getAmPm(appointment.start_time)}} - {{getHours(appointment.end_time)}} : {{getMin(appointment.end_time)}} {{getAmPm(appointment.end_time)}}</td>
+                                                                        <td><img *ngIf="appointment.customerRequestForAppointment.image" class="user-view" [src]="imagePath(appointment.customerRequestForAppointment.image)">
+                                                                        <img *ngIf="!appointment.customerRequestForAppointment.image" class="user-view" src="assets/img/5.jpg">
+                                                                        {{appointment.customerRequestForAppointment.first_name}}</td>
+                                                                        <td>{{appointment.employeeRequestedByCustomer.first_name}}</td>
+                                                                        <td>{{appointment.requestedServiceByCustomer.services_eng}}</td>
+                                                                        <td>{{appointment.customerRequestForAppointment.contact_number}}</td>
+                                                                        <td *ngIf="appointment.appointment_status==0">Pending</td>
+                                                                        <td *ngIf="appointment.appointment_status==1">Complete</td>
+                                                                        <td *ngIf="appointment.appointment_status==2">Cancelled</td>
+                                                                    </tr>
+                                                                   <!--  <tr>
+                                                                        <td>12:30 PM - 1:00 PM</td>
+                                                                        <td><img class="user-view" src="img/avatar9.jpg">Smith</td>
+                                                                        <td>Manager</td>
+                                                                        <td>Hair Cutting</td>
+                                                                        <td>8009890712</td>
+                                                                        <td>Pending</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>1:00 PM - 1:30 PM</td>
+                                                                        <td><img class="user-view" src="img/avatar9.jpg">Smith</td>
+                                                                        <td>Manager</td>
+                                                                        <td>Hair Cutting</td>
+                                                                        <td>8009890712</td>
+                                                                        <td>Pending</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>1:30 PM - 2:00 PM</td>
+                                                                        <td><img class="user-view" src="img/avatar9.jpg">Smith</td>
+                                                                        <td>Manager</td>
+                                                                        <td>Hair Cutting</td>
+                                                                        <td>8009890712</td>
+                                                                        <td>Pending</td>
+                                                                    </tr> -->
+                                                                </tbody>
+                                                            </table>
+                                                          </div>
+                                                          <div class="table-pagination">
+                                                              <div class="pagination">
+                                                                <!-- <a href="#"><i class="fa fa-angle-left"></i></a>
+                                                                <a href="#">1</a>
+                                                                <a href="#" class="active">2</a>
+                                                                <a href="#">3</a>
+                                                                <a href="#"><i class="fa fa-angle-right"></i></a> -->
+                                                                <pagination-controls (pageChange)="p = $event"  previousLabel=""  nextLabel="" ></pagination-controls>
+                                                              </div>
+                                                          </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END PORTLET-->
+                        </div>
+                    </div>
+                    <!-- END PAGE CONTENT INNER -->
+                </div>
+            </div>
+            <!-- END CONTENT -->
+

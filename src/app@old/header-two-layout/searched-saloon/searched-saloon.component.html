@@ -1,0 +1,519 @@
+ <div class="loader-box" *ngIf="waitLoader==true">
+         <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
+ </div>
+        <section class="search-saloonsec">
+            <div class="container-fluid">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h4 class="header-heading">
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="javascript:void(0)">Home</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">Salon Page</a>
+                            </li>
+                        </ul>
+                    </h4>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"> 
+                            <div class="filter-section">
+                                <div class="header-saloon">
+                                    <h4>Filter</h4><a href="javascript:void(0);" (click)="onClearAll()">Clear All</a>
+                                </div>
+                                <div class="filter-content">
+                                    <div class="row" style="padding-left:15px;padding-right:15px;">
+                                        <div class="filter-inner">
+                                            <h5 class="text-left">Price</h5>
+                                            <ul class="priceul price-inline">
+                                                <li >
+                                                    <label class="remember-me">
+                                                        <input type="checkbox" [(ngModel)]="filter.first"   [ngModelOptions]="{standalone: true}" (change)="onFirst(filter.first)"> $
+                                                        <span></span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="remember-me">
+                                                        <input type="checkbox" checked="checked" [(ngModel)]="filter.two"   [ngModelOptions]="{standalone: true}" (change)="onSecond(filter.two)" > $$
+                                                        <span></span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="remember-me">
+                                                        <input type="checkbox" [(ngModel)]="filter.three"  [ngModelOptions]="{standalone: true}" (change)="onThird(filter.three)"> $$$
+                                                        <span></span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="remember-me">
+                                                        <input type="checkbox" [(ngModel)]="filter.four"  [ngModelOptions]="{standalone: true}" (change)="onFourth(filter.four)"> $$$$
+                                                        <span></span>
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                       <!--  <div class="filter-inner">
+                                            <h5 class="text-left">Area</h5>
+                                            <ul class="priceul area-ul">
+                                                <li>
+                                                    <label class="remember-me">
+                                                        <input type="checkbox"> <p>Business Bay</p>
+                                                        <span></span>
+                                                    </label>
+                                                    <small class="sm-1">1</small>
+                                                </li>
+                                            </ul>
+                                        </div> -->
+                                    </div>
+                                    <div class="row" style="padding-left:15px;padding-right:15px;">
+                                        <!-- <div class="filter-inner">
+                                            <h5 class="text-left">Ctegories</h5>
+                                            <ul class="category-ul">
+                                                <li>
+                                                  Spa <span class="remove-cross"><a href="#">X</a></span> 
+                                                </li>
+                                            </ul>
+                                        </div> -->
+                                        <div class="filter-inner">
+                                            <h5 class="text-left">Services</h5>
+                                            <ul class="priceul area-ul">
+                                                <li *ngFor="let ser of serviceList">
+                                                    <label class="remember-me">
+                                                        <input type="checkbox" [(ngModel)]="ser.checkStatus"  [ngModelOptions]="{standalone: true}" (change)="onService(ser.checkStatus,ser.id)"> <p><span>{{ser.services_eng}}</span></p>
+                                                        <span></span>
+                                                    </label>
+                                                  <!--   <small class="sm-1">281</small> -->
+                                                </li>
+                                               <!--  <li>
+                                                    <label class="remember-me">
+                                                        <input type="checkbox"> <p>Blow Dry</p>
+                                                        <span></span>
+                                                    </label>
+                                                    <small class="sm-1">231</small>
+                                                </li>
+                                                <li>
+                                                    <label class="remember-me">
+                                                        <input type="checkbox" checked="checked"> <p>Haircut</p>
+                                                        <span></span>
+                                                    </label>
+                                                    <small class="sm-1">231</small>
+                                                </li>
+                                                <li>
+                                                    <label class="remember-me">
+                                                        <input type="checkbox"> <p>Hair Highlight</p>
+                                                        <span></span>
+                                                    </label>
+                                                    <small class="sm-1">200</small>
+                                                </li>
+                                                <li>
+                                                    <label class="remember-me">
+                                                        <input type="checkbox"> <p>Women's Haircut</p>
+                                                        <span></span>
+                                                    </label>
+                                                    <small class="sm-1">207</small>
+                                                </li>
+                                                <li>
+                                                    <a class="load-more" href="javascript:void(0);">
+                                                        <i class="fa fa-plus"></i> Load More
+                                                    </a>
+                                                </li> -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                   <!--  <div class="row" style="padding-left:15px;padding-right:15px;"> -->   <!-- changes div -->
+                                        <!-- <div class="filter-inner">
+                                            <h5 class="text-left">Service's Price</h5>
+                                            <div class="filter-sub-categ">
+                                                <span class="min-range">
+                                                    <span class="left-range">AED 200.00</span>   
+                                                    <span class="right-range">AED 200.00</span>   
+                                                </span>>
+                                                <mat-slider
+                                                        class="example-margin"
+                                                        [disabled]="disabled"
+                                                        [invert]="invert"
+                                                        [max]="max"
+                                                        [min]="min"
+                                                        [step]="step"
+                                                        [thumb-label]="thumbLabel"
+                                                        [tick-interval]="tickInterval"
+                                                        [(ngModel)]="value"
+                                                        [vertical]="vertical" [ngModelOptions]="{standalone: true}">
+                                                    </mat-slider>
+                                            </div>
+                                        </div> -->
+                                        <!-- <div class="filter-inner">
+                                            <h5 class="text-left">Date</h5>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 p-l-0">
+                                                <div class="date-wrsap">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon" id="basic-addon1">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </span>
+                                                        <input type="text" class="form-control datetimepicker1" placeholder="Username" aria-describedby="basic-addon1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="filter-time">
+                                                <p>Time</p>
+                                                <ul class="time-ul">
+                                                    <li>
+                                                        <label class="remember-me">
+                                                            <input type="checkbox" checked="checked"> <p>Any Time</p>
+                                                            <span></span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="remember-me">
+                                                            <input type="checkbox"> <p>Morning</p>
+                                                            <span></span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="remember-me">
+                                                            <input type="checkbox"> <p>Afternoon</p>
+                                                            <span></span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="remember-me">
+                                                            <input type="checkbox"> <p>Evening</p>
+                                                            <span></span>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div> -->
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 custom-p"> <!-- changes class please add -->
+                            <div class="service-show-sec">
+                                <div class="filter-content">
+                                    <div class="sorting-div wow fadeInDown" wow-data-delay="0.4s">
+                                        <span class="showing-list" *ngIf="saloonList">Showing {{saloonList.length}} results</span>
+                                        <span class="sort-by">
+                                            <div class="col-md-4 col-sm-4 col-xs-4 p-0"> <!-- changes class please change -->
+                                                <label>Sort BY</label>    
+                                            </div>
+                                            <div class="col-md-8 col-sm-8 col-xs-8 p-0"> <!-- changes class please change -->
+                                                <div class="custom-select">
+                                                    <select class="form-control txtfield" placeholder="Select" [(ngModel)]="filter.sort"   [ngModelOptions]="{standalone: true}"  (change)="onSort(filter.sort)">
+                                                        <option value="low">Low To High</option>
+                                                        <option value="high">High To Low</option>
+                                                        <option value="nearrest">Nearest</option>
+                                                    </select>
+                                                    <span class="caret"></span>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="service-list-sec salon-section">
+                                        <div class="wrap-service" *ngFor="let saloon of saloonList">
+                                            <div class="img-content-sec">
+                                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 p-l-0">
+                                                    <div class="service-img">
+                                                        <img *ngIf="!saloon.image || saloon.image=='null' || saloon.image==null " src="assets/img/saloon-1.jpg" class="img-responsive">
+                                                        <img *ngIf="saloon.image && saloon.image!='null' && saloon.image!=null " [src]="imagePath(saloon.image)" class="img-responsive">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                                    <div class="service-inner-des">
+                                                        <h5 class="name-saloon">
+                                                            <a href="javascript:void(0);" routerLink="/header-two-layout/saloon-details/{{saloon.id}}"><span>{{saloon.saloon_name}}</span></a>
+                                                        </h5>
+                                                        <address><span>{{saloon.city}}</span></address>
+                                                        <ul class="rating-points">
+                                                            <li>
+                                                                <span *ngIf="saloon.saloonRating.length>0" class="rating-salon">
+                                                                <i class="{{getRatingClass(saloon.saloonRating,1)}}"></i>
+                                                                <i class="{{getRatingClass(saloon.saloonRating,2)}}"></i>
+                                                                <i class="{{getRatingClass(saloon.saloonRating,3)}}"></i>
+                                                                <i class="{{getRatingClass(saloon.saloonRating,4)}}"></i>
+                                                                <i class="{{getRatingClass(saloon.saloonRating,5)}}"></i>
+                                                              </span>
+                                                              <span *ngIf="saloon.saloonRating.length<1" class="rating-salon ">
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                              </span>
+                                                                <span class="star-number">({{saloon.saloonRating.length}})</span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="dollor-select">
+                                                                    <span class="card-check" *ngIf="saloon.cardPay">
+                                                                        <i class="fa fa-credit-card"></i>
+                                                                        <p><i class="fa fa-check-circle"></i></p>
+                                                                    </span>
+                                                                    <ul class="dollor-view">
+                                                                        <li class="{{findRangclass(saloon.price_range,1)}}">
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                        <li class="{{findRangclass(saloon.price_range,2)}}">
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                        <li class="{{findRangclass(saloon.price_range,3)}}">
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                        <li class="{{findRangclass(saloon.price_range,4)}}">
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                    </ul>
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                        <p class="description-salon">
+                                                            {{saloon.description_eng}}
+                                                            <!-- <a href="javascript:void(0);">Read More</a> -->
+                                                        </p>    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="esact-service salon-sec">
+                                                <div class="searched-service" *ngFor="let ser of saloon.saloonServices">
+                                                    <ul class="searched-ul {{getClass(ser.servicesData.services_eng)}}" >
+                                                        <li>
+                                                            <span class="service-name">
+                                                                <span>{{ser.servicesData.services_eng}}</span>
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> <span>{{getTime(ser.time)}}</span></span>
+                                                            </span>
+                                                            <span class="price-and-book">
+                                                                <span class="price-nub"><span>AED {{ser.cost_eng}}</span>
+                                                                </span>
+                                                                <span class="book-btn">
+                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
+                                                                </span>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <!-- <div class="wrap-service">
+                                            <div class="img-content-sec">
+                                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 p-l-0">
+                                                    <div class="service-img">
+                                                        <img src="assets/img/saloon-2.jpg" class="img-responsive">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                                    <div class="service-inner-des">
+                                                        <h5 class="name-saloon">
+                                                            <a href="javascript:void(0);">Bebe Beauty Salon (Ledies)</a>
+                                                        </h5>
+                                                        <address>9566 Destiny USA Dr E208, Syracuse, NY 13290, USA</address>
+                                                        <ul class="rating-points">
+                                                            <li>
+                                                                <span class="rating-star">
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star-half-o"></i>
+                                                                </span>
+                                                                <span class="star-number">(100)</span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="dollor-select">
+                                                                    <span class="card-check">
+                                                                        <i class="fa fa-credit-card"></i>
+                                                                        <p><i class="fa fa-check-circle"></i></p>
+                                                                    </span>
+                                                                    <ul class="dollor-view">
+                                                                        <li class="active">
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                        <li class="">
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                    </ul>
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                        <p class="description-salon">
+                                                            Sasha Beauty Salon is not a name unheard of in the Dubai beauty scene. With a chain of world class salons and only the very best quality of services, Sasha beauty is a name associated with reliable beauty care. The salon has an extensive...
+                                                            <a href="javascript:void(0);">Read More</a>
+                                                        </p>    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="esact-service salon-sec">
+                                                <p class="popular-service">Popular Services</p>
+                                                <div class="searched-service relevant-de">
+                                                    <ul class="searched-ul ">
+                                                        <li>
+                                                            <span class="service-name">
+                                                                Extension Removal by Piece(Form another salon)
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 15 Min</span>
+                                                            </span>
+                                                            <span class="price-and-book">
+                                                                <span class="price-nub">AED 10
+                                                                </span>
+                                                                <span class="book-btn">
+                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
+                                                                </span>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="searched-service relevant-de">
+                                                    <ul class="searched-ul">
+                                                        <li>
+                                                            <span class="service-name">
+                                                                Hair Cut
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 1h 15 Min</span>
+                                                            </span>
+                                                            <span class="price-and-book">
+                                                                <span class="price-nub">AED 125
+                                                                </span>
+                                                                <span class="book-btn">
+                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
+                                                                </span>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="searched-service relevant-de2">
+                                                    <ul class="searched-ul">
+                                                        <li>
+                                                            <span class="service-name">
+                                                                Hair Trim
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 15 Min</span>
+                                                            </span>
+                                                            <span class="price-and-book">
+                                                                <span class="price-nub">AED 80
+                                                                </span>
+                                                                <span class="book-btn">
+                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
+                                                                </span>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="wrap-service">
+                                            <div class="img-content-sec">
+                                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 p-l-0">
+                                                    <div class="service-img">
+                                                        <img src="assets/img/saloon-3.jpg" class="img-responsive">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                                    <div class="service-inner-des">
+                                                        <h5 class="name-saloon">
+                                                            <a href="javascript:void(0);">Morning Glory Health & Beauty Salon</a>
+                                                        </h5>
+                                                        <address>9566 Destiny USA Dr E208, Syracuse, NY 13290, USA</address>
+                                                        <ul class="rating-points">
+                                                            <li>
+                                                                <span class="rating-star">
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star-half-o"></i>
+                                                                </span>
+                                                                <span class="star-number">(216)</span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="dollor-select">
+                                                                    <span class="card-check">
+                                                                        <i class="fa fa-credit-card"></i>
+                                                                        <p><i class="fa fa-check-circle"></i></p>
+                                                                    </span>
+                                                                    <ul class="dollor-view">
+                                                                        <li class="active">
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                        <li class="active">
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                        <li class="active">
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="fa fa-usd"></i>
+                                                                        </li>
+                                                                    </ul>
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                        <p class="description-salon">
+                                                            Sasha Beauty Salon is not a name unheard of in the Dubai beauty scene. With a chain of world class salons and only the very best quality of services, Sasha beauty is a name associated with reliable beauty care. The salon has an extensive...
+                                                            <a href="javascript:void(0);">Read More</a>
+                                                        </p>    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="esact-service salon-sec">
+                                                <p class="popular-service">Popular Services</p>
+                                                <div class="searched-service relevant-de">
+                                                    <ul class="searched-ul ">
+                                                        <li>
+                                                            <span class="service-name">
+                                                                Bridal Up Style (In Salon)
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 1h</span>
+                                                            </span>
+                                                            <span class="price-and-book">
+                                                                <span class="price-nub">AED 1,500
+                                                                </span>
+                                                                <span class="book-btn">
+                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
+                                                                </span>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="searched-service relevant-de">
+                                                    <ul class="searched-ul">
+                                                        <li>
+                                                            <span class="service-name">
+                                                                Bridal Makeup (In Salon)
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 2h</span>
+                                                            </span>
+                                                            <span class="price-and-book">
+                                                                <span class="price-nub">AED 1,500
+                                                                </span>
+                                                                <span class="book-btn">
+                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
+                                                                </span>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="searched-service relevant-de2">
+                                                    <ul class="searched-ul">
+                                                        <li>
+                                                            <span class="service-name">
+                                                            Moroccan Bath with Massage
+                                                                <span class="time-on"><i class="fa fa-clock-o"></i> 60 Min</span>
+                                                            </span>
+                                                            <span class="price-and-book">
+                                                                <span class="price-nub">AED 199
+                                                                </span>
+                                                                <span class="book-btn">
+                                                                    <a class="btn cus-btn" href="javascript:void(0);">Book</a>
+                                                                </span>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>

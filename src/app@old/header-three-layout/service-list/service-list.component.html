@@ -1,0 +1,452 @@
+	 <div class="loader-box" *ngIf="waitLoader==true">
+         <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
+ </div>
+	<!-- BEGIN CONTENT -->
+			<div class="page-content-wrapper">
+				<div class="page-content">
+					<ul class="page-breadcrumb breadcrumb hide">
+						<li>
+							<a href="#">Home</a><i class="fa fa-circle"></i>
+						</li>
+						<li class="active">
+							 Dashboard
+						</li>
+					</ul>
+					<!-- BEGIN PAGE CONTENT INNER -->
+					<div class="emp-list-sec">
+						<div class="col-md-12 col-sm-12 p-0">
+							<!-- BEGIN PORTLET-->
+							<div class="booking-section">
+								<div class="portlet light">
+									<div class="portlet-title">
+										<div class="caption caption-md">
+											<i class="icon-bar-chart theme-font-color hide"></i>
+											<span class="caption-subject theme-font-color bold uppercase">Services List</span>
+										</div>
+									</div>
+									<div class="portlet-body services-list">
+										<div class="col-md-12 col-sm-12 col-xs-12 p-0">
+											<div class="add-emp-form">	
+												<div class="add-employee">
+													<a routerLink="/header-three-layout/add-service" class="btn cus-btn">
+														<i class="fa fa-plus"></i> Add Services	
+													</a>
+												</div>
+								            	<div class="table-responsive">
+					                                <table class="table table-bordered">
+					                                    <thead>
+					                                        <tr class="emp-tr">
+					                                        	<th>Sr No</th>
+					                                            <th>Service Name</th>
+					                                            <th>Time</th>
+					                                            <th>Cost</th>
+					                                            <!-- <th>Employee Name</th> -->
+					                                            <th>Action</th>
+					                                        </tr>
+					                                    </thead>
+					                                    <tbody *ngIf="saloonServiceList && serviceList">
+					                                        <tr *ngFor="let data of saloonServiceList| paginate: { itemsPerPage: 3, currentPage: p }; let i=index  ">
+					                                        	<td>{{i+1}}</td>
+					                                            <td><span>{{getServiceName(data.service_id)}}</span><span></span></td>
+					                                            <td><span>{{getTime(data.time)}}</span><span></span></td>
+					                                            <td><span>{{data.cost_eng}}</span><span></span></td>
+					                                            <!-- <td><img class="user-view" src="img/avatar9.jpg">Smith</td> -->
+					                                            <td>
+					                                            	<ul class="action-icon service-list">
+					                                            		<li class="edit-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#edit-servicelist"  (click)="onEdit(data)">
+					                                                            <i class="fa fa-pencil"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="view-ic">
+					                                                        <a href="javascript:void(0);" data-target="#view-service" data-toggle="modal"   (click)="onview(data)">
+					                                                            <i class="fa fa-eye"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="close-ic">
+					                                                        <a href="javascript:void(0);" data-target="#conformation-modal" data-toggle="modal"  (click)="ondelete(data)">
+					                                                            <i class="fa fa-times"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                </ul>
+					                                            </td>
+					                                        </tr>
+					                                       <!--  <tr>
+					                                            <td>2</td>
+					                                            <td>Nail Treatment</td>
+					                                            <td>45 Min</td>
+					                                            <td>$30</td>	
+					                                            <td>
+					                                            	<img class="user-view" src="img/user-pro-2.jpg">Jennifer
+					                                           	</td>
+					                                            <td>
+					                                            	<ul class="action-icon service-list">
+					                                            		<li class="edit-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#edit-servicelist">
+					                                                            <i class="fa fa-pencil"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="view-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="tooltip" title="View">
+					                                                            <i class="fa fa-eye"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="close-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="tooltip"  title="Close">
+					                                                            <i class="fa fa-times"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                </ul>
+					                                            </td>
+					                                        </tr>
+					                                        <tr>
+					                                            <td>3</td>
+					                                            <td>Facial Treatment</td>
+					                                            <td>2 hr 30 Min</td>
+					                                            <td>$500</td>
+					                                            <td><img class="user-view" src="img/user-pro-1.jpg">Robert</td>
+					                                            <td>
+					                                            	<ul class="action-icon service-list">
+					                                            		<li class="edit-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#edit-servicelist">
+					                                                            <i class="fa fa-pencil"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="view-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="tooltip" title="View">
+					                                                            <i class="fa fa-eye"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="close-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="tooltip"  title="Close">
+					                                                            <i class="fa fa-times"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                </ul>
+					                                            </td>
+					                                        </tr>
+					                                        <tr>
+					                                            <td>4</td>
+					                                            <td>Massage Treatments</td>
+					                                            <td>3 Hr </td>
+					                                            <td>$1000</td>
+					                                            <td><img class="user-view" src="img/user-pro-3.jpg">John</td>
+					                                            <td>
+					                                            	<ul class="action-icon service-list">
+					                                                    <li class="edit-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#edit-servicelist">
+					                                                            <i class="fa fa-pencil"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="view-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="tooltip" title="View">
+					                                                            <i class="fa fa-eye"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="close-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="tooltip"  title="Close">
+					                                                            <i class="fa fa-times"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                </ul>
+					                                            </td>
+					                                        </tr> -->
+					                                    </tbody>
+					                                </table>
+					                            </div>
+				                                <div class="table-pagination">
+													<div class="pagination">
+													 <!--  <a href="#"><i class="fa fa-angle-left"></i></a>
+													  <a href="#">1</a>
+													  <a href="#" class="active">2</a>
+													  <a href="#">3</a>
+													  <a href="#"><i class="fa fa-angle-right"></i></a> -->
+													  <pagination-controls (pageChange)="p = $event"  previousLabel=""  nextLabel="" ></pagination-controls>
+													</div>
+												</div>
+								            </div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- END PORTLET-->
+						</div>
+					</div>
+					<!-- END PAGE CONTENT INNER -->
+				</div>
+			</div>
+			<!-- END CONTENT -->
+		
+		<div class="modal fade custom-modal" id="edit-servicelist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-md" role="document">
+			    <div class="modal-content">
+			        <div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			            	<span aria-hidden="true">&times;</span>
+			            </button>
+			            <h4 class="modal-title" id="myModalLabel">Edit Service List</h4>
+			        </div>
+			        <div class="modal-body">
+			            <div class="add-emp-form">
+			            	<form class="services-addform" [formGroup]="addServicesForm">
+							            			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+							            				<div class="row">
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+			                                                  	<label>Select Category</label>
+			                                                    <div class="custom-select">
+			                                                       <select class="form-control" placeholder="Select Category" [formControl]="addServicesForm.controls['category']"  [(ngModel)]="addServicesModel.category_id">
+			                                                            <option disabled="">Select Category</option>
+			                                                            <option *ngFor="let cat of categoryList" [value]="cat.id"><span>{{cat.category_eng}}</span></option>
+			                                                        </select>
+			                                                        <span class="caret"></span>
+			                                                        <p  *ngIf="addServicesForm.controls['category'].hasError('required') && addServicesForm.controls['category'].touched">
+					                                                     Category is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['category'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['category'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+			                                                    </div>
+			                                                </div>
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                    	<label>Select Time</label>
+			                                                    <div class="custom-select">
+			                                                        <select class="form-control" placeholder="Select Category" [formControl]="addServicesForm.controls['time']"  [(ngModel)]="addServicesModel.time">
+			                                                            <option disabled="">Select Time</option>
+			                                                            <option value="15">15 Min</option>
+			                                                            <option value="30">30 Min</option>
+			                                                            <option value="45">45 Min</option>
+			                                                            <option value="60">1 Hr</option>
+			                                                            <option value="75">1 Hr 15 Min</option>
+			                                                            <option value="90">1 Hr 30 Min</option>
+			                                                            <option value="105">1 Hr 45 Min</option>
+			                                                            <option value="120">2 Hr</option>
+			                                                            <option value="135">2 Hr 15 Min</option>
+			                                                            <option value="150">2 Hr 30 Min</option>
+			                                                            <option value="165">2 Hr 45 Min</option>
+			                                                            <option value="180">3 Hr</option>
+			                                                        </select>
+			                                                        <span class="caret"></span>
+			                                                        <p  *ngIf="addServicesForm.controls['time'].hasError('required') && addServicesForm.controls['time'].touched">
+					                                                     Time is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['time'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['time'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+			                                                    </div>
+						                                       
+						                                    </div>
+						                                </div>
+						                                <div class="row">
+						                                	<div class="form-group col-md-12 col-sm-12 col-xs-12">
+			                                                  	  <label>Service Name In English<small class="manidatory">*</small></label>
+						                                       <!--  <input type="text" placeholder="Service Name In English" [formControl]="addServicesForm.controls['serviceName_eng'] " [(ngModel)]="addServicesModel.name_eng"  class="form-control"> -->
+						                                       <div class="custom-select">
+						                                        <select class="form-control" placeholder="Select Category" [formControl]="addServicesForm.controls['serviceName_eng']"  [(ngModel)]="addServicesModel.service_id">
+			                                                            <option disabled="">Select service</option>
+			                                                            <option *ngFor="let serv of getServiceOption()" [value]="serv.id"><span>{{serv.services_eng}}</span></option>
+			                                                            <!-- <option value="30">30 Min</option>
+			                                                            <option value="45">45 Min</option>
+			                                                            <option value="60">1 Hr</option>
+			                                                            <option value="75">1 Hr 15 Min</option>
+			                                                            <option value="90">1 Hr 30 Min</option>
+			                                                            <option value="105">1 Hr 45 Min</option>
+			                                                            <option value="120">2 Hr</option>
+			                                                            <option value="135">2 Hr 15 Min</option>
+			                                                            <option value="150">2 Hr 30 Min</option>
+			                                                            <option value="165">2 Hr 45 Min</option>
+			                                                            <option value="180">3 Hr</option> -->
+			                                                        </select>
+			                                                        <span class="caret"></span>
+						                                          <p  *ngIf="addServicesForm.controls['serviceName_eng'].hasError('required') && addServicesForm.controls['serviceName_eng'].touched">
+					                                                     Service Name in english  is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceName_eng'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceName_eng'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+					                                            </div>
+			                                                </div>
+						                                    <!-- <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                          <label>Service Name In Arabic<small class="manidatory">*</small></label>
+						                                        <input type="text" placeholder="Service Name In Arabic" [formControl]="addServicesForm.controls['serviceName_arb']" class="form-control" [(ngModel)]="addServicesModel.name_arb">
+						                                        <p  *ngIf="addServicesForm.controls['serviceName_arb'].hasError('required') && addServicesForm.controls['serviceName_arb'].touched">
+					                                                     Service Name In Arabic  is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceName_arb'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceName_arb'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+						                                    </div> -->
+						                                </div>
+						                                <div class="row">
+						                                	<div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                       
+						                                        <label>Service Cost In English<small class="manidatory">*</small></label>
+						                                        <input type="text" placeholder="Service Cost In English" [formControl]="addServicesForm.controls['serviceCost_eng']" class="form-control" [(ngModel)]="addServicesModel.cost_eng" >
+						                                        <p  *ngIf="addServicesForm.controls['serviceCost_eng'].hasError('required') && addServicesForm.controls['serviceCost_eng'].touched">
+					                                                     Service Cost In English  is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceCost_eng'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceCost_eng'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+						                                    </div>
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                       <label>Service Cost In Arabic<small class="manidatory">*</small></label>
+						                                        <input type="text" placeholder="Service Cost In Arabic" [formControl]="addServicesForm.controls['serviceCost_arb']" class="form-control" [(ngModel)]="addServicesModel.cost_arb" >
+						                                        <p  *ngIf="addServicesForm.controls['serviceCost_arb'].hasError('required') && addServicesForm.controls['serviceCost_arb'].touched">
+					                                                     Service Cost In Arabic  is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceCost_arb'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceCost_arb'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+						                                    </div>
+						                                </div>
+						                                <div class="row">
+						                                	<div class="form-group col-md-12 col-sm-12 col-xs-12">
+						                                        <label>
+						                                        	Service Description In English<small class="manidatory">*</small>
+						                                        </label>
+						                                        <textarea class="cus-textarea form-control" col="8" rows="10" placeholder="Service Description In English" [formControl]="addServicesForm.controls['serviceDes_eng']" [(ngModel)]="addServicesModel.description_eng" ></textarea>
+						                                         <p  *ngIf="addServicesForm.controls['serviceDes_eng'].hasError('required') && addServicesForm.controls['serviceDes_eng'].touched">
+					                                                     Service Description In English  is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceDes_eng'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceDes_eng'].hasError('maxlength')">
+					                                                           max length is 500
+					                                                </p>
+						                                    </div>
+						                                </div>
+						                                <div class="row">
+						                                	<div class="form-group col-md-12 col-sm-12 col-xs-12">
+						                                        <label>
+						                                        	Service Description In Arabic<small class="manidatory">*</small>
+						                                        </label>
+						                                        <textarea class="cus-textarea form-control" col="8" rows="10" placeholder="Service Description In Arabic" [formControl]="addServicesForm.controls['serviceDes_arb']" [(ngModel)]="addServicesModel.description_arb" ></textarea>
+						                                         <p  *ngIf="addServicesForm.controls['serviceDes_arb'].hasError('required') && addServicesForm.controls['serviceDes_arb'].touched">
+					                                                     Service Description In Arabic  is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceDes_arb'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addServicesForm.controls['serviceDes_arb'].hasError('maxlength')">
+					                                                           max length is 500
+					                                                </p>
+						                                    </div>
+						                                </div>
+						                                <div class="modal-footerbtn">
+												          	<span class="save-bt">
+												          		<button class="btn cut-btn" data-dismiss="modal" [disabled]="!addServicesForm.valid" (click)="onUpdate()">update</button>
+												          	</span>
+											          	</div>
+							            			</div>
+								            	</form>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+
+		<!-- ========== view employe list details-->
+		<div class="modal fade custom-modal" id="view-service" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-md" role="document">
+			    <div class="modal-content">
+			        <div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			            	<span aria-hidden="true">&times;</span>
+			            </button>
+			            <h4 class="modal-title" id="myModalLabel">Service Details</h4>
+			        </div>
+			        <div class="modal-body">
+			            <div class="view-emp-detail">
+			            	<form class="img-responsive">
+		            			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+		            				<!-- <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+		            					<div class="emp-viewimg">
+		            						 <img *ngIf="!addEmployee.employee_image || addEmployee.employee_image==null" src="assets/img/user-pro-1.jpg"  class="img-responsive" alt="NO-IMAGES">
+								             <img  class="img-responsive" *ngIf="addEmployee.employee_image" [src]="imagePath(addEmployee.employee_image)" >
+		            					</div>
+		            				</div> -->
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                    	<div class="employe-details">
+	                                    	<div class="info-list service-details">
+
+
+
+
+
+
+				                          		<dl class="dl-horizontal" *ngIf="categoryList && serviceList">
+												  <dt>Service Name In English:</dt>
+												  <dd>{{getServicweNameEng(addServicesModel.service_id)}}</dd>
+												  <dt>Service Name In Arabic:</dt>
+												  <dd>{{getServicweNameArb(addServicesModel.service_id)}}</dd>
+												  <dt>Category:</dt>
+												  <dd *ngIf="addServicesModel.category_id"><!-- {{addServicesModel.category}} -->
+												  	<span >{{getCategoryName(addServicesModel.category_id)}}, </span>
+												  </dd>
+												  <dt>Time:</dt>
+												  <dd>{{getTime(addServicesModel.time)}}</dd>
+												  <dt>Service Cost In English:</dt>
+												  <dd>{{addServicesModel.cost_eng}}</dd>
+												  <dt>Service Cost In Arabic:</dt>
+												  <dd>{{addServicesModel.cost_arb}}</dd>
+												  <dt>Service Description In English:</dt>
+												  <dd>{{addServicesModel.description_eng}}</dd>
+												  <dt>Service Description In Arabic:</dt>
+												  <dd>{{addServicesModel.description_arb}}</dd>
+												</dl>
+				                          	</div>
+	                                    </div>
+                                    </div>
+		            			</div>
+					          	<div class="modal-footerbtn">
+						          	<div class="col-md-12 col-sm-12 col-xs-12 text-center">
+							          		<button type="button" class="btn cut-btn" data-dismiss="modal" aria-label="Close"> OK
+							          		</button>
+						          	</div>
+					          	</div>
+			            	</form>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+		<div class="modal fade custom-modal" id="conformation-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-md" role="document">
+			    <div class="modal-content">
+			        <div class="modal-body">
+			            <div class="view-emp-detail">
+			            	<div class="confirm-info">
+			            		<h4>Are you sure you want to delete this service ?</h4>
+			            		<div class="btn-conformation">
+			            			<span class="yes-confirm">
+			            				<button type="button" data-dismiss="modal" class="cut-btn btn" (click)="onYes()">Yes</button>
+			            			</span>
+			            			<span class="confirm-no2">
+			            				<button type="button" data-dismiss="modal" class="cut-btn btn">No</button>
+			            			</span>
+			            		</div>
+			            	</div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</div>

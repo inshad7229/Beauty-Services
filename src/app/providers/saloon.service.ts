@@ -147,6 +147,15 @@ export class SaloonService {
     );
   }
 
+  deleteSalonById(id): Observable<any> {
+    const url = `${ENV.mainApi}/deleteSalon/${id}`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`deleteSalon`)),
+        catchError(this.handleError('deleteSalon', []))
+    );
+  }
+
   updateservices(data): Observable<any> {
     const url = `${ENV.mainApi}/saloonServicesUpdate`;
     return this.http.post<any>(url,data,httpOptions)
@@ -220,6 +229,16 @@ export class SaloonService {
     );
   }
 
+  // ---------------------------18-1-2018--------------------------------------------------------
+  
+  salonTransactionDetails(id): Observable<any> {
+    const url = `${ENV.mainApi}/salonTransactionDetails/${id}`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`salonTransactionDetails`)),
+        catchError(this.handleError('salonTransactionDetails', []))
+    );
+  }
    /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -245,4 +264,17 @@ export class SaloonService {
     // this.messageService.add('HeroService: ' + message);
     console.log(message)
   }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //---------- 25 Jan 2018 /////////////////////////////////////////////////
+  assignServicesToOtherEmp(servicesData): Observable<any> {
+    const url = `${ENV.mainApi}/assignServicesToOtherEmp`;
+    return this.http.post<any>(url,servicesData,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`servicesToEmp`)),
+        catchError(this.handleError('getEmployeeById', []))
+      
+    );
+  }
+
 }
