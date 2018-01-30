@@ -192,12 +192,7 @@ export class SaloonSignupComponent implements OnInit {
           alert(this.newSalonId)
             this.waitLoader=false
             if(data.response){
-<<<<<<< HEAD
-              alert(data.result.id)
-              this.newSalonId=data.result.id;
-=======
 
->>>>>>> b5f11e3f9728542fe3b4d3101020ff0fbcee90d8
               this.currentData=data
               this.currentTab='tab2'
                this.tab1=''
@@ -254,13 +249,8 @@ export class SaloonSignupComponent implements OnInit {
         .subscribe((data)=>{
             this.waitLoader=false
             if(data.response){
-<<<<<<< HEAD
-              this.toastr.success(data.message ,'Account Craetion',{toastLife: 3000, showCloseButton: true});
-
-=======
               this.toastr.success(data.message ,'Account Craetion',{toastLife: 3000, showCloseButton: true})
               
->>>>>>> b5f11e3f9728542fe3b4d3101020ff0fbcee90d8
               // setTimeout(()=>{
               this.router.navigate(['/header-two-layout/login']);
               // },3000)
@@ -287,13 +277,6 @@ export class SaloonSignupComponent implements OnInit {
 
         onOtpBackButton(){
           this.currentTab='tab1';
-<<<<<<< HEAD
-          this.saloonServices.deleteservicesById(this.newSalonId).subscribe(data=>{
-
-          },err=>{
-
-          })
-=======
           // this.saloonServices.deleteSalonById(this.newSalonId).subscribe(data=>{
           //     if (data.response==true) {
           //       alert('deleted')
@@ -301,6 +284,5 @@ export class SaloonSignupComponent implements OnInit {
           // },err=>{
 
           // })
->>>>>>> b5f11e3f9728542fe3b4d3101020ff0fbcee90d8
         }
 }
