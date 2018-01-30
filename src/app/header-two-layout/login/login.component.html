@@ -7,13 +7,13 @@
                         <div class="login-type">
                              <div class="custom-radio">
                                 <div class="radio-inline">
-                                    <input [formControl]="verifiactionForm.controls['loginAS']" [(ngModel)]="loginModel.loginAS" checked="checked" type="radio" id="radio01" value="saloon" name="radio" />
+                                    <input [formControl]="verifiactionForm.controls['loginAS']" [(ngModel)]="loginModel.loginAS" checked="checked" type="radio" id="radio01" value="saloon" name="radio" (change)="onchange()" />
                                     <label for="radio01">
-                                        <span><span></span></span>Login as Saloon
+                                        <span><span></span></span>Login as Salon
                                     </label>
                                 </div>
                                 <div  class="radio-inline">
-                                    <input type="radio" id="radio02" [formControl]="verifiactionForm.controls['loginAS']" [(ngModel)]="loginModel.loginAS" value="customer" name="radio" />
+                                    <input type="radio" id="radio02" [formControl]="verifiactionForm.controls['loginAS']" [(ngModel)]="loginModel.loginAS" value="customer" name="radio" (change)="onchange()" />
                                     <label for="radio02">
                                         <span><span></span></span>Login as Customer
                                     </label>

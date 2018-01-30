@@ -126,4 +126,10 @@ export class LoginComponent implements OnInit {
   private handleError(error) {
     console.error('Error processing action', error);
   }
+
+  onchange(){
+    // alert('hy')
+    this.verifiactionForm.controls['email'].reset()
+     this.verifiactionForm.controls['password'].reset()
+  }
 }

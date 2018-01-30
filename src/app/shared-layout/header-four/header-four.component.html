@@ -27,7 +27,7 @@
                             <div class="header-user">
                                 <img *ngIf="!customer.image || customer.image==null" src="assets/img/user-pro-1.jpg" class="img-circle" alt="NO-IMAGES">
                                 <img class="img-circle" *ngIf="customer.image" [src]="imagePath(customer.image)" >
-                                <span class="username username-hide-on-mobile">Nick <i class="fa fa-angle-down"></i></span>
+                                <span class="username username-hide-on-mobile">{{customer.first_name}}  {{customer.last_name}} <i class="fa fa-angle-down"></i></span>
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">

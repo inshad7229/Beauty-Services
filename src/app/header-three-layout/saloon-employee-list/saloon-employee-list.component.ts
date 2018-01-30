@@ -125,13 +125,13 @@ found;
 
 	onEdit(data){
 	this.optionsModel2=[]
-     let b=data.employeeServices
+     let b=data.services.split(',')
         //console.log('services',data.services)
           for (var i = 0; i < b.length; ++i) {
-                 if (b[i].service_id!=NaN) {
+                 if (+b[i]!=NaN) {
 
-                    if (this.serviceList.map(function (img){return img.servicesData.id}).indexOf(b[i].service_id)!=-1) {
-                       this.optionsModel2.push(b[i].service_id)
+                    if (this.serviceList.map(function (img){return img.servicesData.id}).indexOf(+b[i])!=-1) {
+                       this.optionsModel2.push(+b[i])
                      // code...
                    }
                  
@@ -180,22 +180,22 @@ found;
          })
     }
     onYes(){
-       this.waitLoader=true
-       this.saloonServices.deleteEmployeeById(this.addEmployee.id)
-        .subscribe((data)=>{
-              this.waitLoader=false
-            if(data.response){
-              this.getDetails()
-              this.toastr.success('Employee deleted successfully' ,'Success',{toastLife: 1000, showCloseButton: true})
-              //this.employeeList=data.data
-             // this.router.navigate(['/header-three-layout/saloon-employee-list']);
-            }else if (data.message=='Employee not find') {
-               this.toastr.error('Employee not find' ,'Updation Failed',{toastLife: 1000, showCloseButton: true});
-              // code...
-            }else {
-              this.toastr.error( 'Something Went Wrong Please Try Again' ,'Employee Registration Failed',{toastLife: 1000, showCloseButton: true});
-            }
-         })
+       //this.waitLoader=true
+       // this.saloonServices.deleteEmployeeById(this.addEmployee.id)
+       //  .subscribe((data)=>{
+       //        this.waitLoader=false
+       //      if(data.response){
+       //        this.getDetails()
+       //        this.toastr.success('Employee deleted successfully' ,'Success',{toastLife: 1000, showCloseButton: true})
+       //        //this.employeeList=data.data
+       //       // this.router.navigate(['/header-three-layout/saloon-employee-list']);
+       //      }else if (data.message=='Employee not find') {
+       //         this.toastr.error('Employee not find' ,'Updation Failed',{toastLife: 1000, showCloseButton: true});
+       //        // code...
+       //      }else {
+       //        this.toastr.error( 'Something Went Wrong Please Try Again' ,'Employee Registration Failed',{toastLife: 1000, showCloseButton: true});
+       //      }
+       //   })
     }
 
 
@@ -237,35 +237,53 @@ found;
     }
 
     assignServicesToOtherEmp(){
-      this.empServices=this.addEmployee.services.split(',');
-      this.newEmpServices=this.servicesData2.services.split(',');
-      //var unique = [];
-    for(var i = 0; i < this.empServices.length; i++){
-        this.found = false;
-        for(var j = 0; j < this.newEmpServices.length; j++){
-         if(this.empServices[i] == this.newEmpServices[j]){
-          this.found = true;
-          break; 
-        }
-       }
-       if(this.found == false){
-        this.unique.push(this.empServices[i]);
-      }
-    }
 
-    	this.servicesData={
-    		servicesData2:this.servicesData2,
-    		unique:this.unique
-    	}
-    	this.saloonServices.assignServicesToOtherEmp(this.servicesData)
-        .subscribe((data)=>{
-        	console.log(data.message);
-              this.waitLoader=false
-            if(data.response==true){
-              this.toastr.success('Services Assigned successfully' ,'Success',{toastLife: 1000, showCloseButton: true})
-  
-             }        
-         })
+      if(this.addEmployee.id==this.servicesData2.id){
+        this.toastr.error('Cannot assign services to same Employee' ,'Failed',{toastLife: 1000, showCloseButton: true});
+      }else{
+        this.empServices=this.addEmployee.services.split(',');
+        this.newEmpServices=this.servicesData2.services.split(',');
+        
+      for(var i = 0; i < this.empServices.length; i++){
+          this.found = false;
+          for(var j = 0; j < this.newEmpServices.length; j++){
+           if(this.empServices[i] == this.newEmpServices[j]){
+            this.found = true;
+            break; 
+          }
+         }
+         if(this.found == false){
+          this.unique.push(this.empServices[i]);
+        }
+      }
+
+      	this.servicesData={
+      		servicesData2:this.servicesData2,
+      		unique:this.unique
+      	}
+      	this.saloonServices.assignServicesToOtherEmp(this.servicesData)
+          .subscribe((data)=>{
+          	console.log(data.message);
+                this.waitLoader=false
+              if(data.response==true){
+                this.toastr.success('Services Assigned successfully' ,'Success',{toastLife: 1000, showCloseButton: true})
+                
+                this.saloonServices.deleteEmployeeById(this.addEmployee.id)
+                .subscribe((data)=>{
+                      //this.waitLoader=false
+                    if(data.response){
+                      this.getDetails()
+                      }else if (data.message=='Employee not find') {
+                       this.toastr.error('Employee not find' ,'Updation Failed',{toastLife: 1000, showCloseButton: true});
+                      // code...
+                    }else {
+                      this.toastr.error( 'Something Went Wrong Please Try Again' ,'Employee Registration Failed',{toastLife: 1000, showCloseButton: true});
+                    }
+                 })
+
+               }        
+           })
+        }
     }
 
     ////////////////////////////pagination bloc////////////////

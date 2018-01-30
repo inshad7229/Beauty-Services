@@ -197,6 +197,15 @@ export class SaloonService {
       
     );
   }
+  SaloonImageDelete(id): Observable<any> {
+    const url = `${ENV.mainApi}/saloonImageDelete/${id}`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`saloonImageEdit`)),
+        catchError(this.handleError('saloonImageEdit', []))
+      
+    );
+  }
 
   getSaloonProfileData(id): Observable<any> {
     const url = `${ENV.mainApi}/saloonDetailsById/${id}`;
@@ -273,6 +282,27 @@ export class SaloonService {
     .pipe(
         tap(heroes => this.log(`servicesToEmp`)),
         catchError(this.handleError('getEmployeeById', []))
+      
+    );
+  }
+
+  //---------- 30 Jan 2018 /////////////////////////////////////////////////
+
+    catList(): Observable<any> {
+    const url = `${ENV.mainApi}/catList`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`catList`)),
+        catchError(this.handleError('catList', []))
+    );
+  }
+
+  addServices(servicesData): Observable<any> {
+    const url = `${ENV.mainApi}/addServices`;
+    return this.http.post<any>(url,servicesData,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`addServices`)),
+        catchError(this.handleError('addServices', []))
       
     );
   }

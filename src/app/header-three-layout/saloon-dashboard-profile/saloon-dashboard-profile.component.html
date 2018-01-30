@@ -21,7 +21,7 @@
 									<div class="portlet-title">
 										<div class="caption caption-md">
 											<i class="icon-bar-chart theme-font-color hide"></i>
-											<span class="caption-subject theme-font-color bold uppercase">Saloon Profile</span>
+											<span class="caption-subject theme-font-color bold uppercase">Salon Profile</span>
 										</div>
 									</div>
 									<div class="portlet-body services-list">
@@ -36,7 +36,7 @@
 										                    <div class="col-md-9 col-sm-9 col-xs-12 " *ngIf="profileData">
 									                          	<div class="info-list">
 									                          		<dl class="dl-horizontal">
-																	  <dt>Saloon Name</dt>
+																	  <dt>Salon Name</dt>
 																	  <dd>{{profileData.saloon_name}}</dd>
 																	  <dt>Name</dt>
 																	  <dd>{{profileData.name}}</dd>
@@ -72,7 +72,7 @@
 									                    		<div class="col-md-9 col-md-9 col-xs-12">
 										                    	<div class="row">
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
-						                                                <label>Enter Saloon Name</label>
+						                                                <label>Enter Salon Name</label>
 						                                                <input type="text" placeholder="Enter Saloon Name" class="form-control" [formControl]="accountDetailsForm.controls['saloonName']" [(ngModel)]="dataforedit.saloon_name">
 						                                            </div>
 						                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
@@ -244,7 +244,7 @@
 									                </div>
 									                <div class="salon-images-sec">
 									                	<h4 class="title-form-head" id="change">Salon Images<a class="edit-btn" href="javascript:;" >
-										                    <span class="fa fa-pencil-square-o" id="show3"></span>
+										                   <!--  <span class="fa fa-pencil-square-o" id="show3"></span> -->
 										                    </a></h4>
 											                <div id="row20">
 											                      <div class="col-md-12 col-sm-12 col-xs-12">
@@ -273,7 +273,7 @@
 													                             <button *ngIf="imagedata.id" class="btn cut-btn" type="submit">Update Image</button>
 													                            <input class="profile-btn cut-btn" name="image" type="file" (change)="onMultipalImageUpload($event,i)" >
 													                            </span>
-													                            <span id="cross-btn" class="fa fa-remove" (click)="onRemoveImage(i,imagedata)"></span>
+													                            <span *ngIf="imagedata.image" id="cross-btn" class="fa fa-remove" (click)="onRemoveImage(i,imagedata)"></span>
 													                        </div>
 						                                            	</div>
 						                                            	<!-- <div class="form-group col-md-3 col-sm-3 col-xs-12">

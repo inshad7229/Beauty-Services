@@ -189,7 +189,7 @@ export class SaloonSignupComponent implements OnInit {
          this.saloonServices.SaloonSignup(this.accountCreationModel)
         .subscribe((data)=>{
           this.newSalonId=data.result.id;
-          alert(this.newSalonId)
+          // alert(this.newSalonId)
             this.waitLoader=false
             if(data.response){
 
@@ -276,13 +276,13 @@ export class SaloonSignupComponent implements OnInit {
         }
 
         onOtpBackButton(){
+          this.saloonServices.deleteSalonById(this.newSalonId).subscribe(data=>{
           this.currentTab='tab1';
-          // this.saloonServices.deleteSalonById(this.newSalonId).subscribe(data=>{
-          //     if (data.response==true) {
-          //       alert('deleted')
-          //     }
-          // },err=>{
+              if (data.response==true) {
+               this.accountCreationForm.reset()
+              }
+          },err=>{
 
-          // })
+          })
         }
 }

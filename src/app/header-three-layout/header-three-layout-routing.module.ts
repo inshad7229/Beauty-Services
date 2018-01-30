@@ -17,6 +17,7 @@ const routes: Routes = [
 		            { path: 'saloon-employee-list', loadChildren: './saloon-employee-list/saloon-employee-list.module#SaloonEmployeeListModule' }, 
 		            { path: 'service-list', loadChildren: './service-list/service-list.module#ServiceListModule' }, 
 		            { path: 'transaction-details', loadChildren: './transaction-details/transaction-details.module#TransactionDetailsModule' }, 
+		            { path: 'add-service-request', loadChildren: './add-service-request/add-service-request.module#AddServiceRequestModule' }, 
 		            
 
                  ]

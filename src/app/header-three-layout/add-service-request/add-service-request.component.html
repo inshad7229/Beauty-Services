@@ -1,0 +1,120 @@
+
+ <div class="loader-box" *ngIf="waitLoader==true">
+         <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
+ </div>
+<div class="page-content-wrapper">
+				<div class="page-content">
+					<ul class="page-breadcrumb breadcrumb hide">
+						<li>
+							<a href="#">Home</a><i class="fa fa-circle"></i>
+						</li>
+						<li class="active">
+							 Dashboard
+						</li>
+					</ul>
+					<!-- BEGIN PAGE CONTENT INNER -->
+					<div class="emp-list-sec">
+						<div class="col-md-12 col-sm-12 p-0">
+							<!-- BEGIN PORTLET-->
+							<div class="booking-section">
+								<div class="portlet light">
+									<div class="portlet-title">
+										<div class="caption caption-md">
+											<i class="icon-bar-chart theme-font-color hide"></i>
+											<span class="caption-subject theme-font-color bold uppercase">Add Service request</span>
+										</div>
+									</div>
+									<div class="portlet-body">
+										<div class="col-md-12 col-sm-12 col-xs-12 p-0">
+											<div class="add-emp-form">
+								            	<form [formGroup]="complexForm" novalidate role="form" >
+							            			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+							            				<div class="row add-emppic">
+					                                        <div class="col-md-offset-3 col-md-6 col-sm-6 col-xs-12 text-center">
+					                                            <div class="form-group custom-upload">
+					                                                <div class="file-previewimg">
+					                                                     <img *ngIf="!image" src="assets/img/no-img.png" class="img-responsive" alt="NO-IMAGES">
+								                            			<img *ngIf="image" [src]="imagePath(image_of_service)" >
+					                                                </div>
+					                                                <div class="profile-upload">
+					                                                    <div class="input-btn">
+					                                                        <input type="file" (change)="imageUploadEvent($event)" accept="image/gif, image/jpeg, image/png" />
+					                                                        <button class="btn cus-btn"> 
+					                                                        <i class="fa fa-file-image-o"></i> Service Image</button>
+					                                                    </div>
+					                                                </div>
+					                                            </div>
+					                                        </div>
+					                                    </div>
+					                                     <div class="row">
+						                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
+						                                        <label>Select Service Category <small class="manidatory">*</small></label>
+						                                         <div class="custom-select">
+		                                                             <!-- <ss-multiselect-dropdown [options]="myOptions2" [(ngModel)]="optionsModel2" (ngModelChange)="onChange2($event)" [formControl]="addEmployeeForm.controls['services']" ></ss-multiselect-dropdown> -->
+
+												                         
+												                     <select class="form-control" [(ngModel)]="selectedCat" 
+												                     [formControl]="complexForm.controls['catid']" >
+												                       <option *ngFor="let category of categoryList" [value]="category.id">{{category.category_eng}}
+												                       </option>
+												                     </select>
+		                                                        </div>
+		                                                        <!-- <p style="color: #FF0000"  *ngIf="!complexForm.controls['catid'].valid  && ( complexForm.controls['catid'].touched)" >Select Category</p> -->
+					                                                <!-- <p  *ngIf="addEmployeeForm.controls['services'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['services'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p> -->
+						                                    </div>
+						                                </div>
+							            				<div class="row">
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                        <label>Enter Service Name In English<small class="manidatory">*</small></label>
+						                                        <input type="text" placeholder="Enter Service Name In English" class="form-control" [(ngModel)]="services_eng" id="" name="services_eng" 
+                  												[formControl]="complexForm.controls['services_eng']"  >
+						                                         <p style="color: #FF0000"  *ngIf="!complexForm.controls['services_eng'].valid  && 
+                  												( complexForm.controls['services_eng'].touched)" >Name can't be empty</p>
+					                                                <!-- <p  *ngIf="addEmployeeForm.controls['lastNameEng'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['lastNameEng'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p> -->
+						                                    </div>
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                        <label>Enter Service Name  In Arabic<small class="manidatory">*</small></label>
+						                                        <input type="text" placeholder="Enter Service Name  In Arabic" class="form-control" [(ngModel)]="services_arb" id="" name="services_arb" 
+                  												[formControl]="complexForm.controls['services_arb']"  >
+						                                         <p style="color: #FF0000"  *ngIf="!complexForm.controls['services_arb'].valid  &&
+                  												 ( complexForm.controls['services_arb'].touched)" >Name can't be empty </p>
+					                                                <!-- <p  *ngIf="addEmployeeForm.controls['lastNameArb'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['lastNameArb'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p> -->
+						                                    </div>
+						                                </div>
+						                                <div class="modal-footerbtn">
+											          		<span class="back-bt">
+												          		<button type="button" class="btn cut-btn" data-dismiss="modal" 
+												          		(click)="cancel()" >Cancel</button>
+												          	</span>
+												          	<span class="save-bt">
+												          		<button href="saloon-employee-list.php" class="btn cut-btn" [disabled]="!complexForm.valid" (click)="addServices()" >Save</button>
+												          	</span>
+											          	</div>
+							            			</div>
+								            	</form>
+								            </div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- END PORTLET-->
+						</div>
+					</div>
+					<!-- END PAGE CONTENT INNER -->
+				</div>
+			</div>

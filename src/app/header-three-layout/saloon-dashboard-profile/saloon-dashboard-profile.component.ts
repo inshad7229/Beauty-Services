@@ -454,7 +454,17 @@ getAmPm(value){
     }
 
     onRemoveImage(i,imagedata){
-
+      console.log(imagedata)
+      this.saloonServices.SaloonImageDelete(imagedata.id)
+        .subscribe((data)=>{
+            console.log(data);
+            if(data.response){
+             this.saloonImage=this.saloonImage.filter(arg=>arg.id!=imagedata.id)
+             this.toastr.success(data.message ,'Image deleted',{toastLife: 1000, showCloseButton: true})
+           }else {
+              this.toastr.error( 'Something Went Wrong Please Try Again' ,'Updation Failed',{toastLife: 1000, showCloseButton: true});
+            }
+         })
     }
 
   onMultipalImageUpload(evt: any,i){
