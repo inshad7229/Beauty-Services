@@ -1,0 +1,540 @@
+	<!-- END SIDEBAR -->
+			<!-- BEGIN CONTENT -->
+ <div class="loader-box" *ngIf="waitLoader==true">
+         <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
+ </div>
+			<div class="page-content-wrapper">
+				<div class="page-content">
+					<ul class="page-breadcrumb breadcrumb hide">
+						<li>
+							<a href="#">Home</a><i class="fa fa-circle"></i>
+						</li>
+						<li class="active">
+							 Dashboard
+						</li>
+					</ul>
+					<!-- BEGIN PAGE CONTENT INNER -->
+					<div class="emp-list-sec">
+						<div class="col-md-12 col-sm-12 p-0">
+							<!-- BEGIN PORTLET-->
+							<div class="booking-section">
+								<div class="portlet light">
+									<div class="portlet-title">
+										<div class="caption caption-md">
+											<i class="icon-bar-chart theme-font-color hide"></i>
+											<span class="caption-subject theme-font-color bold uppercase">Employee List</span>
+										</div>
+									</div>
+									<div class="portlet-body">
+										<div class="col-md-12 col-sm-12 col-xs-12 p-0">
+											<div class="emp-list-sec">	
+												<div class="add-employee">
+													<a routerLink="/header-three-layout/add-employee-list" class="btn cus-btn">
+														<i class="fa fa-plus"></i> Add Employee	
+													</a>
+												</div>
+												<div class="table-responsive">
+					                                <table class="table table-bordered">
+					                                    <thead>
+					                                        <tr class="emp-tr">
+					                                            <th>Sr No</th>
+					                                            <th>Employee Name</th>
+					                                            <th>Employee Description</th>
+					                                            <th>Contact Number</th>
+					                                            <th>Email</th>
+					                                            <th>Services</th>
+					                                            <th>Gender</th>
+					                                            <th>Action</th>
+					                                        </tr>
+					                                    </thead>
+					                                    <tbody>
+					                                       <tr *ngFor="let data of employeeList | paginate: { itemsPerPage: 3, currentPage: p }; let i=index  ">
+					                                            <td>{{i+1}}</td> 
+					                                            <td>
+					                                            	 <img *ngIf="!data.employee_image || data.employee_image==null" src="assets/img/user-pro-1.jpg" class="user-view" alt="NO-IMAGES">
+								                            			<img class="user-view" *ngIf="data.employee_image" [src]="imagePath(data.employee_image)" >
+					                                            	{{data.first_name}} {{data.last_name}}
+																</td>
+					                                            <td>{{data.details}}</td>
+					                                            <td>{{data.contact_number}}</td>
+					                                            <td>{{data.email}}</td>
+					                                            <td *ngIf="data.services && serviceList">
+					                                            	<span *ngFor="let a of data.services.split(',')">{{getServiceName(a)}}, </span>
+					                                            </td>
+					                                            <td>{{data.gender}}</td>
+					                                            <td>
+					                                            	<ul class="action-icon">
+					                                                    <li class="edit-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#edit-employee" (click)="onEdit(data)">
+					                                                            <i class="fa fa-pencil"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="view-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#view-employee" (click)="onview(data)">
+					                                                            <i class="fa fa-eye"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="close-ic">
+					                                                        <a href="#conformation-modal" data-toggle="modal" (click)="ondelete(data)" >
+					                                                            <i class="fa fa-times"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                </ul>
+					                                            </td>
+					                                        </tr>
+					                                       <!--  <tr>
+					                                            <td>2</td>
+					                                            <td>
+					                                            	<img class="user-view" src="img/user-pro-3.jpg">
+					                                            	Andrea Smith
+																</td>
+					                                            <td>Lorem Ipsum is dummy text</td>
+					                                            <td>+918009890712</td>
+					                                            <td>andrea@gmail.com</td>
+					                                            <td>Hair Cutting</td>
+					                                            <td>Male</td>
+					                                            <td>
+					                                            	<ul class="action-icon">
+					                                                    <li class="edit-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#edit-employee">
+					                                                            <i class="fa fa-pencil"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="view-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#view-employee">
+					                                                            <i class="fa fa-eye"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="close-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Close">
+					                                                            <i class="fa fa-times"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                </ul>
+					                                            </td>
+					                                        </tr>
+					                                        <tr>
+					                                            <td>3</td>
+					                                            <td>
+					                                            	<img class="user-view" src="img/user-pro-2.jpg">
+					                                            	Alexa Andrzejewski
+																</td>
+					                                            <td>Lorem Ipsum is dummy text</td>
+					                                            <td>+918009890712</td>
+					                                            <td>andrea@gmail.com</td>
+					                                            <td>Hair Cutting</td>
+					                                            <td>Female</td>
+					                                            <td>
+					                                            	<ul class="action-icon">
+					                                                    <li class="edit-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#edit-employee">
+					                                                            <i class="fa fa-pencil"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="view-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#view-employee">
+					                                                            <i class="fa fa-eye"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="close-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Close">
+					                                                            <i class="fa fa-times"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                </ul>
+					                                            </td>
+					                                        </tr>
+					                                        <tr>
+					                                            <td>4</td>
+					                                            <td>
+					                                            	<img class="user-view" src="img/user-pro-1.jpg">
+					                                            	Andrea Smith
+																</td>
+					                                            <td>Lorem Ipsum is dummy text</td>
+					                                            <td>+918009890712</td>
+					                                            <td>andrea@gmail.com</td>
+					                                            <td>Hair Cutting</td>
+					                                            <td>Male</td>
+					                                            <td>
+					                                            	<ul class="action-icon">
+					                                                    <li class="edit-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#edit-employee">
+					                                                            <i class="fa fa-pencil"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="view-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#view-employee">
+					                                                            <i class="fa fa-eye"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                    <li class="close-ic">
+					                                                        <a href="javascript:void(0);" data-toggle="tooltip"  title="Close">
+					                                                            <i class="fa fa-times"></i>
+					                                                        </a>
+					                                                    </li>
+					                                                </ul>
+					                                            </td>
+					                                        </tr> -->
+					                                    </tbody>
+					                                </table>
+												</div>
+												<div class="table-pagination">
+													<div class="pagination">
+													  <!-- <a href="javascript:void(0)"
+													   (click)="onPrevious()" ><i class="fa fa-angle-left"></i></a>
+													  <a href="javascript:void(0)" 
+													   (click)="onLeft()" class="{{activeLeft}}">{{left}}</a>
+													  <a (click)="onMiddle()" href="javascript:void(0)" class="{{activeMiddle}}">{{middle}}</a>
+													  <a (click)="onRigth()" href="javascript:void(0)" class="{{activeRigth}}">{{right}}</a>
+													  <a href="javascript:void(0)" 
+													   (click)="onNext()"><i class="fa fa-angle-right"></i></a> -->
+													   <pagination-controls (pageChange)="p = $event"  previousLabel=""  nextLabel="" ></pagination-controls>
+													</div>
+												</div>
+												<!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- END PORTLET-->
+						</div>
+					</div>
+					<!-- END PAGE CONTENT INNER -->
+				</div>
+			</div>
+			<!-- END CONTENT -->
+		
+		<!-- add-employe modal -->
+		<div class="modal fade custom-modal" id="edit-employee" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			        <div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			            	<span aria-hidden="true">&times;</span>
+			            </button>
+			            <h4 class="modal-title" id="myModalLabel">Edit Employee Details</h4>
+			        </div>
+			        <div class="modal-body">
+			            <div class="add-emp-form">
+			            	<form class="img-responsive" [formGroup]="updateEmployeeForm">
+		            			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+		            				<div class="row add-emppic">
+                                        <div class="col-md-offset-3 col-md-6 col-sm-6 col-xs-12 text-center">
+                                            <div class="form-group custom-upload">
+                                                <div class="file-previewimg">
+                                                    <!-- <img src="img/user-pro-1.jpg" class="img-responsive" alt="NO-IMAGES"> -->
+                                                    <img *ngIf="!addEmployee.employee_image || addEmployee.employee_image==null" src="assets/img/user-pro-1.jpg" class="img-responsive" alt="NO-IMAGES">
+								                    <img class="img-responsive" *ngIf="addEmployee.employee_image" [src]="imagePath(addEmployee.employee_image)" >
+                                                </div>
+                                                <div class="profile-upload">
+                                                    <div class="input-btn">
+                                                        <input type="file" (change)="imageUploadEvent($event)" accept="image/gif, image/jpeg, image/png" />
+                                                        <button class="btn cus-btn"> 
+                                                        <i class="fa fa-file-image-o"></i> Employee Image</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+		            				<div class="row">
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Employee First Name In English<small class="manidatory">*</small></label>
+	                                        <input type="text" placeholder="Employee First Name In English" class="form-control" [formControl]="updateEmployeeForm.controls['firstNameEng']" [(ngModel)]="addEmployee.first_name">
+		                                        <p  *ngIf="updateEmployeeForm.controls['firstNameEng'].hasError('required') && updateEmployeeForm.controls['firstNameEng'].touched">
+                                                      Employee First Name In English is <strong>required</strong>
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['firstNameEng'].hasError('pattern')">
+                                                           only alphabets are acceptable 
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['firstNameEng'].hasError('maxlength')">
+                                                           max length is 100
+                                                </p> 
+	                                    </div>
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Employee First Name In Arabic<small class="manidatory">*</small></label>
+	                                        <input type="text" placeholder="Employee First Name In Arabic" class="form-control" [formControl]="updateEmployeeForm.controls['firstNameArb']" [(ngModel)]="addEmployee.first_name_arb">
+	                                         <p  *ngIf="updateEmployeeForm.controls['firstNameArb'].hasError('required') && updateEmployeeForm.controls['firstNameArb'].touched">
+                                                     Employee First Name In Arabic is <strong>required</strong>
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['firstNameArb'].hasError('pattern')">
+                                                           only alphabets are acceptable 
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['firstNameArb'].hasError('maxlength')">
+                                                           max length is 100
+                                                </p>
+	                                    </div>
+	                                </div>
+	                                <div class="row">
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Employee Last Name In English<small class="manidatory">*</small></label>
+	                                        <input type="text" placeholder="Employee Last Name In English" class="form-control" [formControl]="updateEmployeeForm.controls['lastNameEng']" [(ngModel)]="addEmployee.last_name">
+	                                        <p  *ngIf="updateEmployeeForm.controls['lastNameEng'].hasError('required') && updateEmployeeForm.controls['lastNameEng'].touched">
+                                                     Employee Last Name In English is <strong>required</strong>
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['lastNameEng'].hasError('pattern')">
+                                                           only alphabets are acceptable 
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['lastNameEng'].hasError('maxlength')">
+                                                           max length is 100
+                                                </p>
+	                                    </div>
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Employee Last Name In Arabic<small class="manidatory">*</small></label>
+	                                        <input type="text" placeholder="Employee First Name In Arabic" class="form-control" [formControl]="updateEmployeeForm.controls['lastNameArb']" [(ngModel)]="addEmployee.last_name_arb">
+	                                         <p  *ngIf="updateEmployeeForm.controls['lastNameArb'].hasError('required') && updateEmployeeForm.controls['lastNameArb'].touched">
+                                                     Employee Last Name In Arabic is <strong>required</strong>
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['lastNameArb'].hasError('pattern')">
+                                                           only alphabets are acceptable 
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['lastNameArb'].hasError('maxlength')">
+                                                           max length is 100
+                                                </p>
+	                                    </div>
+	                                </div>
+	                                <div class="row">
+	                                	<div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Contact Number<small class="manidatory">*</small></label>
+	                                        <input type="text" placeholder="Enter Number" class="form-control" [formControl]="updateEmployeeForm.controls['contactNumber']" [(ngModel)]="addEmployee.contact_number">
+	                                        <p  *ngIf="updateEmployeeForm.controls['contactNumber'].hasError('required') && updateEmployeeForm.controls['contactNumber'].touched">
+                                                     Contact Number is <strong>required</strong>
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['contactNumber'].hasError('pattern')">
+                                                           only alphabets are acceptable 
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['contactNumber'].hasError('maxlength')">
+                                                           max length is 12
+                                                </p>
+	                                    </div>
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Email <small class="manidatory">*</small></label>
+	                                        <input type="email" placeholder="Enter Employee Email" class="form-control" [formControl]="updateEmployeeForm.controls['email']" [(ngModel)]="addEmployee.email">
+	                                        <p  *ngIf="updateEmployeeForm.controls['email'].hasError('required') && updateEmployeeForm.controls['email'].touched">
+                                                    Email is <strong>required</strong>
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['email'].hasError('pattern')">
+                                                          Enter Valid email id
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['email'].hasError('maxlength')">
+                                                           max length is 100
+                                                </p>
+	                                    </div>
+	                                </div>
+	                                <div class="row">
+	                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Select Gender<small class="manidatory">*</small></label>
+                                            <div class="custom-radio">
+                                                <div class="radio-inline">
+                                                    <input type="radio" value="male" id="radio01" name="radio"  [formControl]="updateEmployeeForm.controls['gender']" [(ngModel)]="addEmployee.gender" >
+                                                    <label for="radio01">
+                                                        <span><span></span></span>Male
+                                                    </label>
+                                                </div>
+                                                <div class="radio-inline">
+                                                    <input type="radio" value="female" id="radio02" name="radio"  [formControl]="updateEmployeeForm.controls['gender']" [(ngModel)]="addEmployee.gender">
+                                                    <label for="radio02">
+                                                        <span><span></span></span>Female
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <p  *ngIf="updateEmployeeForm.controls['gender'].hasError('required') && updateEmployeeForm.controls['gender'].touched">
+                                                    Gender is <strong>required</strong>
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['gender'].hasError('pattern')">
+                                                           only alphabets are acceptable 
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['gender'].hasError('maxlength')">
+                                                           max length is 100
+                                                </p>
+	                                    </div>
+	                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
+	                                        <label>Select Employee Services<small class="manidatory">*</small></label>
+	                                         <div class="custom-select">
+                                                 <ss-multiselect-dropdown [options]="myOptions2" [(ngModel)]="optionsModel2" (ngModelChange)="onChange2($event)" [formControl]="updateEmployeeForm.controls['services']" ></ss-multiselect-dropdown>
+                                            </div>
+                                            <p  *ngIf="updateEmployeeForm.controls['services'].hasError('required') && updateEmployeeForm.controls['services'].touched">
+                                                    Employee Services is <strong>required</strong>
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['services'].hasError('pattern')">
+                                                           only alphabets are acceptable 
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['services'].hasError('maxlength')">
+                                                           max length is 100
+                                                </p>
+	                                    </div>
+	                                </div>
+	                                <div class="row">
+	                                	<div class="form-group col-md-12 col-sm-12 col-xs-12">
+	                                        <label>
+	                                        	Enter Employee Details English <small class="manidatory">*</small>
+	                                        </label>
+	                                        <textarea class="cus-textarea form-control" col="8" rows="10" [formControl]="updateEmployeeForm.controls['detailsEng']" [(ngModel)]="addEmployee.details"></textarea>
+	                                        <p  *ngIf="updateEmployeeForm.controls['detailsEng'].hasError('required') && updateEmployeeForm.controls['detailsEng'].touched">
+                                                    Employee Details English is <strong>required</strong>
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['detailsEng'].hasError('pattern')">
+                                                           only alphabets are acceptable 
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['detailsEng'].hasError('maxlength')">
+                                                           max length is 1000
+                                                </p>
+	                                    </div>
+	                                </div>
+	                                 <div class="row">
+	                                	<div class="form-group col-md-12 col-sm-12 col-xs-12">
+	                                        <label>
+	                                        	Enter Employee Details Arabic <small class="manidatory">*</small>
+	                                        </label>
+	                                        <textarea class="cus-textarea form-control" col="8" rows="10" [formControl]="updateEmployeeForm.controls['detailsArb']" [(ngModel)]="addEmployee.details_arb"></textarea>
+	                                        <p  *ngIf="updateEmployeeForm.controls['detailsArb'].hasError('required') && updateEmployeeForm.controls['detailsArb'].touched">
+                                                    Employee Details Arabic is <strong>required</strong>
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['detailsArb'].hasError('pattern')">
+                                                           only alphabets are acceptable 
+                                                </p>
+                                                <p  *ngIf="updateEmployeeForm.controls['detailsArb'].hasError('maxlength')">
+                                                           max length is 1000
+                                                </p>
+	                                    </div>
+	                                </div>
+	                                <!-- <div class="row">
+	                                	<div class="form-group col-md-12 col-sm-12 col-xs-12">
+	                                		<label>
+	                                        	Upload Employee Id <small class="manidatory">*</small>
+	                                        </label>
+	                                		<div class="col-md-12 col-sm-12 col-xs-12">
+	                                			<div class="row add-emppic">
+		                                            <div class="form-group custom-upload">
+		                                                <div class="file-previewimg">
+		                                                     <img *ngIf="!addEmployee.employee_Ids" src="assets/img/no-img.png" class="img-responsive" alt="NO-IMAGES">
+					                            			<img *ngIf="addEmployee.employee_Ids" [src]="imagePath(addEmployee.employee_Ids)" >
+		                                                </div>
+		                                                <div class="profile-upload">
+		                                                    <div class="input-btn">
+		                                                        <input type="file"  [formControl]="updateEmployeeForm.controls['employeeId']" (change)="idUploadEvent($event)" />
+		                                                        <button class="btn cus-btn"> 
+		                                                        <i class="fa fa-address-card"></i> Upload Id</button>
+		                                                    </div>
+		                                                    <p  *ngIf="updateEmployeeForm.controls['employeeId'].hasError('required') && updateEmployeeForm.controls['employeeId'].touched">
+			                                                    Employee Id is <strong>required</strong>
+			                                                </p>
+			                                                <p  *ngIf="updateEmployeeForm.controls['employeeId'].hasError('pattern')">
+			                                                           only alphabets are acceptable 
+			                                                </p>
+			                                                <p  *ngIf="updateEmployeeForm.controls['employeeId'].hasError('maxlength')">
+			                                                           max length is 100
+			                                                </p>
+		                                                </div>
+		                                            </div>
+			                                    </div>
+	                                		</div>
+	                                	</div>
+	                                </div> -->
+		            			</div>
+					          	<div class="modal-footerbtn">
+					          		<span class="back-bt">
+						          		<button type="button" class="btn cut-btn" data-dismiss="modal">Close</button>
+						          	</span>
+						          	<span class="save-bt">
+						          		<button type="button" class="btn cut-btn" data-dismiss="modal" aria-label="Close" [disabled]="!updateEmployeeForm.valid" (click)="onUpdate()">
+						          		 <i class="fa fa-check"></i> Save Change
+						          		</button>
+						          	</span>
+					          	</div>
+			            	</form>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+		<!-- ========== view employe list details-->
+		<div class="modal fade custom-modal" id="view-employee" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-md" role="document">
+			    <div class="modal-content">
+			        <div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			            	<span aria-hidden="true">&times;</span>
+			            </button>
+			            <h4 class="modal-title" id="myModalLabel">Employee Details</h4>
+			        </div>
+			        <div class="modal-body">
+			            <div class="view-emp-detail">
+			            	<form class="img-responsive">
+		            			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+		            				<div class="col-md-12 col-sm-12 col-xs-12 text-center">
+		            					<div class="emp-viewimg">
+		            						 <img *ngIf="!addEmployee.employee_image || addEmployee.employee_image==null" src="assets/img/user-pro-1.jpg"  class="img-responsive" alt="NO-IMAGES">
+								             <img  class="img-responsive" *ngIf="addEmployee.employee_image" [src]="imagePath(addEmployee.employee_image)" >
+		            					</div>
+		            				</div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                    	<div class="employe-details">
+	                                    	<div class="info-list">
+
+
+
+
+
+
+				                          		<dl class="dl-horizontal">
+												  <dt>Employee Name</dt>
+												  <dd>{{addEmployee.first_name}} {{addEmployee.last_name}}</dd>
+												  <dt>Email</dt>
+												  <dd>{{addEmployee.email}}</dd>
+												  <dt>Contact Number</dt>
+												  <dd>{{addEmployee.contact_number}}</dd>
+												  <dt>Gender</dt>
+												  <dd>{{addEmployee.gender}}</dd>
+												  <dt>Saloon Service</dt>
+												  <dd *ngIf="addEmployee.services"><!-- {{addEmployee.services}} -->
+												  	<span *ngFor="let a of addEmployee.services.split(',')">{{getServiceName(a)}}, </span>
+												  </dd>
+												  <!-- <dt>Employee Address</dt>
+												  <dd>Headquarters 1120 N Street Sacramento 916-654-5266</dd> -->
+												  <dt>Description</dt>
+												  <dd>{{addEmployee.details}}</dd>
+												</dl>
+				                          	</div>
+	                                    </div>
+                                    </div>
+		            			</div>
+					          	<div class="modal-footerbtn">
+						          	<div class="col-md-12 col-sm-12 col-xs-12 text-center">
+							          		<button type="button" class="btn cut-btn" data-dismiss="modal" aria-label="Close"> OK
+							          		</button>
+						          	</div>
+					          	</div>
+			            	</form>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+		<div class="modal fade custom-modal" id="conformation-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-md" role="document">
+			    <div class="modal-content">
+			        <!-- <div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			            	<span aria-hidden="true">&times;</span>
+			            </button>
+			            <h4 class="modal-title" id="myModalLabel">Employee Details</h4>
+			        </div> -->
+			        <div class="modal-body">
+			            <div class="view-emp-detail">
+			            	<div class="confirm-info">
+			            		<h4>Are you sure you want to delete this user ?</h4>
+			            		<div class="btn-conformation">
+			            			<span class="yes-confirm">
+			            				<button type="button" data-dismiss="modal" class="cut-btn btn" (click)="onYes()">Yes</button>
+			            			</span>
+			            			<span class="confirm-no2">
+			            				<button type="button" data-dismiss="modal" class="cut-btn btn">No</button>
+			            			</span>
+			            		</div>
+			            	</div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</div>

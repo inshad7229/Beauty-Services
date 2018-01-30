@@ -30,6 +30,13 @@ activeMiddle:string=''
 activeRigth:string=''
 waitLoader
 serviceList
+servicesData
+servicesData1
+servicesData2;
+unique=[];
+empServices
+newEmpServices
+found;
     constructor(public router: Router, private fb: FormBuilder,
                 vcr: ViewContainerRef,
                 private toastr: ToastsManager,
@@ -118,13 +125,13 @@ serviceList
 
 	onEdit(data){
 	this.optionsModel2=[]
-     let b=data.services.split(',')
+     let b=data.employeeServices
         //console.log('services',data.services)
           for (var i = 0; i < b.length; ++i) {
-                 if (+b[i]!=NaN) {
+                 if (b[i].service_id!=NaN) {
 
-                    if (this.serviceList.map(function (img){return img.servicesData.id}).indexOf(+b[i])!=-1) {
-                       this.optionsModel2.push(+b[i])
+                    if (this.serviceList.map(function (img){return img.servicesData.id}).indexOf(b[i].service_id)!=-1) {
+                       this.optionsModel2.push(b[i].service_id)
                      // code...
                    }
                  
@@ -220,6 +227,47 @@ serviceList
         };
         fr.readAsDataURL(file);
     }
+//////////////////////////////////////////////////////////////////////////////////////////////
+    // onNo(data){
+    // 	this.addEmployee=data;
+    // }
+
+    assignServicesToOtherEmp1(data){
+    	this.servicesData2=data;
+    }
+
+    assignServicesToOtherEmp(){
+      this.empServices=this.addEmployee.services.split(',');
+      this.newEmpServices=this.servicesData2.services.split(',');
+      //var unique = [];
+    for(var i = 0; i < this.empServices.length; i++){
+        this.found = false;
+        for(var j = 0; j < this.newEmpServices.length; j++){
+         if(this.empServices[i] == this.newEmpServices[j]){
+          this.found = true;
+          break; 
+        }
+       }
+       if(this.found == false){
+        this.unique.push(this.empServices[i]);
+      }
+    }
+
+    	this.servicesData={
+    		servicesData2:this.servicesData2,
+    		unique:this.unique
+    	}
+    	this.saloonServices.assignServicesToOtherEmp(this.servicesData)
+        .subscribe((data)=>{
+        	console.log(data.message);
+              this.waitLoader=false
+            if(data.response==true){
+              this.toastr.success('Services Assigned successfully' ,'Success',{toastLife: 1000, showCloseButton: true})
+  
+             }        
+         })
+    }
+
     ////////////////////////////pagination bloc////////////////
 // onPrevious(){
 // this.activeLeft=""

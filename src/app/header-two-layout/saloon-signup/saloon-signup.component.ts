@@ -66,8 +66,8 @@ export class SaloonSignupComponent implements OnInit {
 
             this.toastr.setRootViewContainerRef(vcr); 
             this.accountCreationForm = fb.group({
-                'saloonName': [null, Validators.compose([Validators.required,Validators.maxLength(150)])],
-                'name': [null, Validators.compose([Validators.required,Validators.maxLength(100)])],
+                'saloonName': [null, Validators.compose([Validators.required,Validators.maxLength(150),Validators.pattern('[a-zA-Z ]*')])],
+                'name': [null, Validators.compose([Validators.required,Validators.maxLength(100),Validators.pattern('[a-zA-Z ]*')])],
                 'email': [null, Validators.compose([Validators.required,Validators.pattern(EMAIL_REGEX)])],
                 'contactNumber': [null, Validators.compose([Validators.required,Validators.minLength(10),Validators.maxLength(12),Validators.pattern('[0-9]*')])],
                 'password': [null, Validators.compose([Validators.required,Validators.maxLength(12)])],
@@ -188,10 +188,16 @@ export class SaloonSignupComponent implements OnInit {
         this.waitLoader=true
          this.saloonServices.SaloonSignup(this.accountCreationModel)
         .subscribe((data)=>{
+          this.newSalonId=data.result.id;
+          alert(this.newSalonId)
             this.waitLoader=false
             if(data.response){
+<<<<<<< HEAD
               alert(data.result.id)
               this.newSalonId=data.result.id;
+=======
+
+>>>>>>> b5f11e3f9728542fe3b4d3101020ff0fbcee90d8
               this.currentData=data
               this.currentTab='tab2'
                this.tab1=''
@@ -248,8 +254,13 @@ export class SaloonSignupComponent implements OnInit {
         .subscribe((data)=>{
             this.waitLoader=false
             if(data.response){
+<<<<<<< HEAD
               this.toastr.success(data.message ,'Account Craetion',{toastLife: 3000, showCloseButton: true});
 
+=======
+              this.toastr.success(data.message ,'Account Craetion',{toastLife: 3000, showCloseButton: true})
+              
+>>>>>>> b5f11e3f9728542fe3b4d3101020ff0fbcee90d8
               // setTimeout(()=>{
               this.router.navigate(['/header-two-layout/login']);
               // },3000)
@@ -276,10 +287,20 @@ export class SaloonSignupComponent implements OnInit {
 
         onOtpBackButton(){
           this.currentTab='tab1';
+<<<<<<< HEAD
           this.saloonServices.deleteservicesById(this.newSalonId).subscribe(data=>{
 
           },err=>{
 
           })
+=======
+          // this.saloonServices.deleteSalonById(this.newSalonId).subscribe(data=>{
+          //     if (data.response==true) {
+          //       alert('deleted')
+          //     }
+          // },err=>{
+
+          // })
+>>>>>>> b5f11e3f9728542fe3b4d3101020ff0fbcee90d8
         }
 }

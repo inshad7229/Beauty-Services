@@ -1,0 +1,256 @@
+
+ <div class="loader-box" *ngIf="waitLoader==true">
+         <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
+ </div>
+<div class="page-content-wrapper">
+				<div class="page-content">
+					<ul class="page-breadcrumb breadcrumb hide">
+						<li>
+							<a href="#">Home</a><i class="fa fa-circle"></i>
+						</li>
+						<li class="active">
+							 Dashboard
+						</li>
+					</ul>
+					<!-- BEGIN PAGE CONTENT INNER -->
+					<div class="emp-list-sec">
+						<div class="col-md-12 col-sm-12 p-0">
+							<!-- BEGIN PORTLET-->
+							<div class="booking-section">
+								<div class="portlet light">
+									<div class="portlet-title">
+										<div class="caption caption-md">
+											<i class="icon-bar-chart theme-font-color hide"></i>
+											<span class="caption-subject theme-font-color bold uppercase">Add Employee</span>
+										</div>
+									</div>
+									<div class="portlet-body">
+										<div class="col-md-12 col-sm-12 col-xs-12 p-0">
+											<div class="add-emp-form">
+								            	<form class="add-empform" [formGroup]="addEmployeeForm">
+							            			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+							            				<div class="row add-emppic">
+					                                        <div class="col-md-offset-3 col-md-6 col-sm-6 col-xs-12 text-center">
+					                                            <div class="form-group custom-upload">
+					                                                <div class="file-previewimg">
+					                                                     <img *ngIf="!addEmployee.employee_image" src="assets/img/no-img.png" class="img-responsive" alt="NO-IMAGES">
+								                            			<img *ngIf="addEmployee.employee_image" [src]="imagePath(addEmployee.employee_image)" >
+					                                                </div>
+					                                                <div class="profile-upload">
+					                                                    <div class="input-btn">
+					                                                        <input type="file" (change)="imageUploadEvent($event)" accept="image/gif, image/jpeg, image/png" />
+					                                                        <button class="btn cus-btn"> 
+					                                                        <i class="fa fa-file-image-o"></i> Employee Image</button>
+					                                                    </div>
+					                                                </div>
+					                                            </div>
+					                                        </div>
+					                                    </div>
+							            				<div class="row">
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                        <label>Employee First Name In English<small class="manidatory">*</small></label>
+						                                        <input type="text" placeholder="Employee First Name In English" class="form-control" [formControl]="addEmployeeForm.controls['firstNameEng']" [(ngModel)]="addEmployee.first_name">
+							                                        <p  *ngIf="addEmployeeForm.controls['firstNameEng'].hasError('required') && addEmployeeForm.controls['firstNameEng'].touched">
+					                                                      Employee First Name In English is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['firstNameEng'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['firstNameEng'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p> 
+						                                    </div>
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                        <label>Employee First Name In Arabic<small class="manidatory">*</small></label>
+						                                        <input type="text" placeholder="Employee First Name In Arabic" class="form-control" [formControl]="addEmployeeForm.controls['firstNameArb']" [(ngModel)]="addEmployee.first_name_arb">
+						                                         <p  *ngIf="addEmployeeForm.controls['firstNameArb'].hasError('required') && addEmployeeForm.controls['firstNameArb'].touched">
+					                                                     Employee First Name In Arabic is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['firstNameArb'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['firstNameArb'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+						                                    </div>
+						                                </div>
+						                                <div class="row">
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                        <label>Employee Last Name In English<small class="manidatory">*</small></label>
+						                                        <input type="text" placeholder="Employee Last Name In English" class="form-control" [formControl]="addEmployeeForm.controls['lastNameEng']" [(ngModel)]="addEmployee.last_name">
+						                                        <p  *ngIf="addEmployeeForm.controls['lastNameEng'].hasError('required') && addEmployeeForm.controls['lastNameEng'].touched">
+					                                                     Employee Last Name In English is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['lastNameEng'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['lastNameEng'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+						                                    </div>
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                        <label>Employee Last Name In Arabic<small class="manidatory">*</small></label>
+						                                        <input type="text" placeholder="Employee First Name In Arabic" class="form-control" [formControl]="addEmployeeForm.controls['lastNameArb']" [(ngModel)]="addEmployee.last_name_arb">
+						                                         <p  *ngIf="addEmployeeForm.controls['lastNameArb'].hasError('required') && addEmployeeForm.controls['lastNameArb'].touched">
+					                                                     Employee Last Name In Arabic is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['lastNameArb'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['lastNameArb'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+						                                    </div>
+						                                </div>
+						                                <div class="row">
+						                                	<div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                        <label>Contact Number<small class="manidatory">*</small></label>
+						                                        <input type="text" placeholder="Enter Number" class="form-control" [formControl]="addEmployeeForm.controls['contactNumber']" [(ngModel)]="addEmployee.contact_number">
+						                                        <p  *ngIf="addEmployeeForm.controls['contactNumber'].hasError('required') && addEmployeeForm.controls['contactNumber'].touched">
+					                                                     Contact Number is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['contactNumber'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['contactNumber'].hasError('maxlength')">
+					                                                           max length is 12
+					                                                </p>
+						                                    </div>
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                        <label>Email <small class="manidatory">*</small></label>
+						                                        <input type="email" placeholder="Enter Employee Email" class="form-control" [formControl]="addEmployeeForm.controls['email']" [(ngModel)]="addEmployee.email">
+						                                        <p  *ngIf="addEmployeeForm.controls['email'].hasError('required') && addEmployeeForm.controls['email'].touched">
+					                                                    Email is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['email'].hasError('pattern')">
+					                                                          Enter Valid email id
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['email'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+						                                    </div>
+						                                </div>
+						                                <div class="row">
+						                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                        <label>Select Gender<small class="manidatory">*</small></label>
+					                                            <div class="custom-radio">
+					                                                <div class="radio-inline">
+					                                                    <input type="radio" value="male" id="radio01" name="radio"  [formControl]="addEmployeeForm.controls['gender']" [(ngModel)]="addEmployee.gender" >
+					                                                    <label for="radio01">
+					                                                        <span><span></span></span>Male
+					                                                    </label>
+					                                                </div>
+					                                                <div class="radio-inline">
+					                                                    <input type="radio" value="female" id="radio02" name="radio"  [formControl]="addEmployeeForm.controls['gender']" [(ngModel)]="addEmployee.gender">
+					                                                    <label for="radio02">
+					                                                        <span><span></span></span>Female
+					                                                    </label>
+					                                                </div>
+					                                            </div>
+					                                            <p  *ngIf="addEmployeeForm.controls['gender'].hasError('required') && addEmployeeForm.controls['gender'].touched">
+					                                                    Gender is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['gender'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['gender'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+						                                    </div>
+						                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						                                        <label>Select Employee Services<small class="manidatory">*</small></label>
+						                                         <div class="custom-select">
+		                                                             <ss-multiselect-dropdown [options]="myOptions2" [(ngModel)]="optionsModel2" (ngModelChange)="onChange2($event)" [formControl]="addEmployeeForm.controls['services']" ></ss-multiselect-dropdown>
+		                                                        </div>
+		                                                        <p  *ngIf="addEmployeeForm.controls['services'].hasError('required') && addEmployeeForm.controls['services'].touched">
+					                                                    Employee Services is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['services'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['services'].hasError('maxlength')">
+					                                                           max length is 100
+					                                                </p>
+						                                    </div>
+						                                </div>
+						                                <div class="row">
+						                                	<div class="form-group col-md-12 col-sm-12 col-xs-12">
+						                                        <label>
+						                                        	Enter Employee Details in English <small class="manidatory">*</small>
+						                                        </label>
+						                                        <textarea class="cus-textarea form-control" col="8" rows="10" [formControl]="addEmployeeForm.controls['detailsEng']" [(ngModel)]="addEmployee.details"></textarea>
+						                                        <p  *ngIf="addEmployeeForm.controls['detailsEng'].hasError('required') && addEmployeeForm.controls['detailsEng'].touched">
+					                                                    Employee Details English is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['detailsEng'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['detailsEng'].hasError('maxlength')">
+					                                                           max length is 1000
+					                                                </p>
+						                                    </div>
+						                                </div>
+						                                 <div class="row">
+						                                	<div class="form-group col-md-12 col-sm-12 col-xs-12">
+						                                        <label>
+						                                        	Enter Employee Details in Arabic <small class="manidatory">*</small>
+						                                        </label>
+						                                        <textarea class="cus-textarea form-control" col="8" rows="10" [formControl]="addEmployeeForm.controls['detailsArb']" [(ngModel)]="addEmployee.details_arb"></textarea>
+						                                        <p  *ngIf="addEmployeeForm.controls['detailsArb'].hasError('required') && addEmployeeForm.controls['detailsArb'].touched">
+					                                                    Employee Details Arabic is <strong>required</strong>
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['detailsArb'].hasError('pattern')">
+					                                                           only alphabets are acceptable 
+					                                                </p>
+					                                                <p  *ngIf="addEmployeeForm.controls['detailsArb'].hasError('maxlength')">
+					                                                           max length is 1000
+					                                                </p>
+						                                    </div>
+						                                </div>
+						                                <div class="row">
+						                                	<div class="form-group col-md-12 col-sm-12 col-xs-12">
+						                                		<label>
+						                                        	Upload Employee Id <small class="manidatory">*</small>
+						                                        </label>
+						                                		<div class="col-md-12 col-sm-12 col-xs-12">
+						                                			<div class="row add-emppic">
+							                                            <div class="form-group custom-upload">
+							                                                <div class="file-previewimg">
+							                                                     <img *ngIf="!addEmployee.employee_Ids" src="assets/img/no-img.png" class="img-responsive" alt="NO-IMAGES">
+										                            			<img *ngIf="addEmployee.employee_Ids" [src]="imagePath(addEmployee.employee_Ids)" >
+							                                                </div>
+							                                                <div class="profile-upload">
+							                                                    <div class="input-btn">
+							                                                        <input type="file"  (change)="idUploadEvent($event)" value="demo" />
+							                                                        <button class="btn cus-btn"> 
+							                                                        <i class="fa fa-address-card"></i> Upload Id</button>
+							                                                    </div>
+							                                                    
+							                                                </div>
+							                                            </div>
+								                                    </div>
+						                                		</div>
+						                                	</div>
+						                                </div>
+						                                <div class="modal-footerbtn">
+											          		<span class="back-bt">
+												          		<button type="button" class="btn cut-btn" data-dismiss="modal">Cancel</button>
+												          	</span>
+												          	<span class="save-bt">
+												          		<!-- <button type="button" class="btn cut-btn">Save</button> -->
+												          		<button href="saloon-employee-list.php" class="btn cut-btn" [disabled]="!addEmployeeForm.valid" (click)="AddEmployee()">Save</button>
+												          	</span>
+											          	</div>
+							            			</div>
+								            	</form>
+								            </div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- END PORTLET-->
+						</div>
+					</div>
+					<!-- END PAGE CONTENT INNER -->
+				</div>
+			</div>

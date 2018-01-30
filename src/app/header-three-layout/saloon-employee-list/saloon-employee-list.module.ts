@@ -10,6 +10,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { SaloonEmployeeListRoutingModule } from './saloon-employee-list-routing.module';
 import { SaloonEmployeeListComponent } from './saloon-employee-list.component';
 import { SaloonService } from '../../providers/saloon.service';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
     imports: [CommonModule, SaloonEmployeeListRoutingModule,
@@ -19,7 +20,8 @@ import { SaloonService } from '../../providers/saloon.service';
 	    HttpClientModule,
 	    ToastModule.forRoot(),
 	    TranslateModule,
-	    NgxPaginationModule],
+	    NgxPaginationModule,
+	    MatRadioModule],
     declarations: [SaloonEmployeeListComponent],
     providers:[SaloonService]
 })

@@ -1,0 +1,303 @@
+   <div class="loader-box" *ngIf="waitLoader==true">
+                 <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
+   </div>
+<section class="login-section">
+            <div class="container">
+                <div class="login-inner">
+                    <div class="signup-form common-form">
+                        <h3 class="form-h after-line">{{ 'saloonSignup.SignUp' | translate }}</h3>
+                        <p class="title-d">{{ 'saloonSignup.message1' | translate }}</p>
+                        <div class="saloon-wrap">
+                            <div class="tab-on-form">
+                                <ul class="nav nav-pills nav-stacked">
+                                    <li class="{{tab1}} step-li">
+                                       <button href="#tab_a" data-toggle="pill" type="button" [disabled]="currentTab!='tab1'">
+                                           1
+                                       </button>
+                                       <p>{{ 'saloonSignup.accountCreation' | translate }}</p> 
+                                    </li>
+                                    <li class="{{tab2}} step-li">
+                                       <button href="#tab_b" data-toggle="pill" [disabled]="currentTab!='tab2'">
+                                          2
+                                       </button>
+                                       <p>{{ 'saloonSignup.verificationDetails' | translate }}</p> 
+                                    </li>
+                                    <li class="{{tab3}}">
+                                       <button href="#tab_c" data-toggle="pill" [disabled]="currentTab!='tab3'">
+                                          3
+                                       </button> 
+                                       <p>{{ 'saloonSignup.updateSaloonDetails' | translate }}</p> 
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="form-wrap">
+                                <div class="tab-content">
+                                        </div>
+                                    <div *ngIf="currentTab=='tab1'" class="saloon-form tab-pane {{tab1}}" id="tab_a">
+                                         <form [formGroup]="accountCreationForm">
+                                              <p class="info-text">{{ 'saloonSignup.message2' | translate }}<a href="javascript:void(0);">{{ 'saloonSignup.message3' | translate }}</a></p>
+                                            <div class="row">
+
+
+
+                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                    <label>{{ 'saloonSignup.enterSaloonName' | translate }}</label>
+                                                    <input type="text" placeholder="{{ 'saloonSignup.enterSaloonName' | translate }}"  [formControl]="accountCreationForm.controls['saloonName']" class="form-control" [(ngModel)]="accountCreationModel.saloon_name">
+                                                    <p  *ngIf="accountCreationForm.controls['saloonName'].hasError('required') && accountCreationForm.controls['saloonName'].touched">
+                                                       Name of Saloon Name is <strong>required</strong>
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['saloonName'].hasError('pattern')">
+                                                               only alphabets are acceptable 
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['saloonName'].hasError('maxlength')">
+                                                               max length is 150
+                                                    </p> 
+                                                </div>
+                                            </div>
+                                             
+                                            <div class="row">
+                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                    <label>{{ 'saloonSignup.enterName' | translate }}</label>
+                                                    <input type="text" placeholder="{{ 'saloonSignup.enterName' | translate }}" [formControl]="accountCreationForm.controls['name']" class="form-control" [(ngModel)]="accountCreationModel.name">
+                                                     <p  *ngIf="accountCreationForm.controls['name'].hasError('required') && accountCreationForm.controls['name'].touched">
+                                                     Name is <strong>required</strong>
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['name'].hasError('pattern')">
+                                                               only alphabets are acceptable 
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['name'].hasError('maxlength')">
+                                                               max length is 100
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                    <label>{{ 'saloonSignup.enterEmail' | translate }}</label>
+                                                    <input type="text" placeholder="{{ 'saloonSignup.enterEmail' | translate }}" [formControl]="accountCreationForm.controls['email']" class="form-control" [(ngModel)]="accountCreationModel.email">
+                                                    <p  *ngIf="accountCreationForm.controls['email'].hasError('required') && accountCreationForm.controls['email'].touched">
+                                                     Email is <strong>required</strong>
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['email'].hasError('pattern')">
+                                                               Please enter valid email address !!
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['email'].hasError('maxlength')">
+                                                               max length is 30
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                    <label>{{ 'saloonSignup.enterContactNumber' | translate }}</label>
+                                                    <input type="text" placeholder="{{ 'saloonSignup.enterContactNumber' | translate }}" [formControl]="accountCreationForm.controls['contactNumber']" class="form-control" [(ngModel)]="accountCreationModel.contact_number">
+                                                    <p  *ngIf="accountCreationForm.controls['contactNumber'].hasError('required') && accountCreationForm.controls['contactNumber'].touched">
+                                                     Contact Number is <strong>required</strong>
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['contactNumber'].hasError('pattern')">
+                                                               only Numeric Value are acceptable 
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['contactNumber'].hasError('maxlength')">
+                                                               max length is 12
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                    <label>{{ 'saloonSignup.enterPassword' | translate }}</label>
+                                                    <input type="password" placeholder="{{ 'saloonSignup.enterPassword' | translate }}" [formControl]="accountCreationForm.controls['password']" class="form-control" [(ngModel)]="accountCreationModel.password" (input)="pass_confirm()">
+                                                    <p  *ngIf="accountCreationForm.controls['password'].hasError('required') && accountCreationForm.controls['password'].touched">
+                                                     Password is <strong>required</strong>
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['password'].hasError('pattern')">
+                                                               only alphabets are acceptable 
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['password'].hasError('maxlength')">
+                                                               max length is 12
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                    <label>{{ 'saloonSignup.enterConfirmPassword' | translate }}</label>
+                                                    <input type="password" placeholder="{{ 'saloonSignup.enterPassword' | translate }}"  [formControl]="accountCreationForm.controls['confirmPassword']" class="form-control" [(ngModel)]="accountCreationModel.confirmPassword" (input)="confirm()">
+                                                    <p  *ngIf="accountCreationForm.controls['confirmPassword'].hasError('required') && accountCreationForm.controls['confirmPassword'].touched">
+                                                     Confirm Password is <strong>required</strong>
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['confirmPassword'].hasError('pattern')">
+                                                               only alphabets are acceptable 
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['confirmPassword'].hasError('maxlength')">
+                                                               max length is 12
+                                                    </p>
+                                                    <p  *ngIf="message">
+                                                               Password and confirm password must be same !!
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                    <label>{{ 'saloonSignup.enterYourCity' | translate }}</label>
+                                                    <!-- <input type="text" placeholder="{{ 'saloonSignup.enterYourCity' | translate }}" [formControl]="accountCreationForm.controls['city']" class="form-control" [(ngModel)]="accountCreationModel.city"> -->
+                                                <input placeholder="{{ 'saloonSignup.enterYourCity' | translate }}" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" [formControl]="accountCreationForm.controls['city']" class="form-control" [(ngModel)]="accountCreationModel.city"  #search>
+                                                <p  *ngIf="accountCreationForm.controls['city'].hasError('required') && accountCreationForm.controls['city'].touched">
+                                                     City is <strong>required</strong>
+                                                </p>
+                                                <p  *ngIf="accountCreationForm.controls['city'].hasError('pattern')">
+                                                           Only alphabets are acceptable 
+                                                </p>  
+                                                <p  *ngIf="accountCreationForm.controls['city'].hasError('maxlength')">
+                                                           Max length is 300
+                                                </p>
+                                              <agm-map [latitude]="accountCreationModel.latitude" [longitude]="accountCreationModel.longitude" [scrollwheel]="false" [zoom]="zoom">
+                                                <agm-marker [latitude]="accountCreationModel.latitude" [longitude]="accountCreationModel.longitude"></agm-marker>
+                                              </agm-map>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                    <label class="remember-me">
+                                                        <input type="checkbox" checked="checked" [formControl]="accountCreationForm.controls['termCondition']" [(ngModel)]="accountCreationModel.term"> {{ 'saloonSignup.message4' | translate }} <a href="javascript:void(0);">{{ 'saloonSignup.message5' | translate }}</a>   {{ 'saloonSignup.message6' | translate }} <a href="javascript:void(0);">{{ 'saloonSignup.message7' | translate }}</a>
+                                                        <span></span>
+                                                        <p  *ngIf="accountCreationForm.controls['termCondition'].hasError('required') && accountCreationForm.controls['termCondition'].touched">
+                                                     Please accept   <strong>Term's & conditions</strong>
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['termCondition'].hasError('pattern')">
+                                                               Only alphabets are acceptable 
+                                                    </p>
+                                                    <p  *ngIf="accountCreationForm.controls['termCondition'].hasError('maxlength')">
+                                                               Max length is 30
+                                                    </p>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12 p-0">
+                                                <div class="continue-btn saloon-btn">
+                                                    <button [disabled]="!accountCreationForm.valid || message || accountCreationModel.term==false" class="btn cut-btn" data-toggle="pill" (click)="onContinue()">{{ 'saloonSignup.continue' | translate }}</button>
+                                                </div>
+                                            </div>
+                                         </form>
+                                           
+                                    </div>
+                                    <div *ngIf="currentTab=='tab2'" class="saloon-form tab-pane {{tab2}}" id="tab_b">
+                                        <div class="varification-form">
+                                             <form [formGroup]="verifiactionForm">
+                                                <h4>{{ 'saloonSignup.otpmessage' | translate }}</h4>
+                                                <div class="varification-tab">
+                                                    <div class="col-md-offset-3 col-sm-6 col-md-6 col-xs-12">
+                                                        <input type="text" placeholder="{{ 'saloonSignup.enterCode' | translate }}" [formControl]="verifiactionForm.controls['otp']" [(ngModel)]="verifiactionModel.otp" class="form-control">
+                                                    <p *ngIf="verifiactionForm.controls['otp'].hasError('required') && verifiactionForm.controls['otp'].touched">
+                                                     otp is <strong>required</strong>
+                                                    </p>
+                                                    <p  *ngIf="verifiactionForm.controls['otp'].hasError('pattern')">
+                                                               Only alphabets are acceptable 
+                                                    </p>  
+                                                    <p  *ngIf="verifiactionForm.controls['otp'].hasError('maxlength')">
+                                                               Max length is 30
+                                                    </p>
+                                                    </div>
+                                                    <a href="javascript:void(0);" class="opt-link">{{ 'saloonSignup.resendOTP' | translate }}</a>
+                                                </div>
+                                                <div class="form-group col-md-12 col-sm-12 col-xs-12 p-0">
+                                                    <div class="continue-btn saloon-btn vari">
+                                                        <span class="varify">
+                                                            <a href="javascript:void(0)" class="btn cut-btn" data-toggle="pill">{{ 'saloonSignup.back' | translate }}</a>
+                                                        </span>
+                                                        <span class="varify">
+                                                            <button [disabled]="!verifiactionForm.valid"  class="btn cut-btn" data-toggle="pill" (click)="onVerifyOtp()">{{ 'saloonSignup.verify' | translate }}</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="currentTab=='tab3'" class="saloon-form tab-pane {{tab3}}" id="tab_c">
+                                        <div class="saloon-details">
+                                            <form [formGroup]="saloonDetailsForm">
+                                                <div class="row">
+                                                    <div class="col-md-offset-3 col-md-6 col-sm-6  col-xs-12">
+                                                        <!-- <label>Upload Saloon Logo</label> -->
+                                                        <div class="form-group custom-upload">
+                                                            <div class="file-previewimg">
+                                                                <img *ngIf="!saloonDetailsModel.image" src="assets/img/no-img.png" class="img-responsive" alt="NO-IMAGES">
+                                                                 <img *ngIf="saloonDetailsModel.image" [src]="saloonDetailsModel.image" class="img-responsive" alt="NO-IMAGES">
+                                                            </div>
+                                                            <div class="profile-upload">
+                                                                <div class="input-btn">
+                                                                    <input type="file"  (change)="imageUploadEvent($event)" accept="image/gif, image/jpeg, image/png" />
+                                                                    <button class="btn cus-btn"> 
+                                                                    <i class="fa fa-file-image-o"></i>{{ 'saloonSignup.saloonLogo' | translate }}</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="row">
+                                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                    <label>{{ 'saloonSignup.selectCategory' | translate }}</label>
+                                                    <div class="custom-select">
+                                                       <ss-multiselect-dropdown [formControl]="saloonDetailsForm.controls['selectCategory']"  [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                      <label>{{ 'saloonSignup.selectService' | translate }}</label>
+                                                        <div class="custom-select">
+                                                             <ss-multiselect-dropdown [formControl]="saloonDetailsForm.controls['selectService']" [options]="myOptions2" [(ngModel)]="optionsModel2" (ngModelChange)="onChange2($event)" ></ss-multiselect-dropdown>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+
+                                             <div class="row">
+                                               
+                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                    <label>Opening Time</label>
+                                                    <ngb-timepicker [(ngModel)]="time1" [meridian]="true" [spinners]="false" [formControl]="saloonDetailsForm.controls['time1']" ></ngb-timepicker>
+                                                     <p  *ngIf="saloonDetailsForm.controls['time1'].hasError('required') && saloonDetailsForm.controls['time1'].touched">
+                                                     time is <strong>required</strong>
+                                                    </p>
+                                                    <p  *ngIf="saloonDetailsForm.controls['time1'].hasError('pattern')">
+                                                               only alphabets are acceptable 
+                                                    </p>
+                                                    <p  *ngIf="saloonDetailsForm.controls['time1'].hasError('maxlength')">
+                                                               max length is 100
+                                                    </p>
+                                            </div>
+                                         </div>
+
+                                            <div class="row">
+                                               
+                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                    <label>Closing Time</label>
+                                                    <ngb-timepicker [(ngModel)]="time2" [meridian]="true" [spinners]="false" [formControl]="saloonDetailsForm.controls['time2']" ></ngb-timepicker>
+                                                     <p  *ngIf="saloonDetailsForm.controls['time2'].hasError('required') && saloonDetailsForm.controls['time2'].touched">
+                                                     time is <strong>required</strong>
+                                                    </p>
+                                                    <p  *ngIf="saloonDetailsForm.controls['time2'].hasError('pattern')">
+                                                               only alphabets are acceptable 
+                                                    </p>
+                                                    <p  *ngIf="saloonDetailsForm.controls['time2'].hasError('maxlength')">
+                                                               max length is 100
+                                                    </p>
+                                            </div>
+                                           </div>
+                                                <div class="form-group col-md-12 col-sm-12 col-xs-12 p-0">
+                                                    <div class="continue-btn saloon-btn vari">
+                                                        <span class="varify">
+                                                            <a href="javascript:void(0);" class="btn cut-btn" data-toggle="pill">{{ 'saloonSignup.cancel' | translate }}</a>
+                                                        </span>
+                                                        <span class="varify">
+                                                            <button href="javascript:void(0)" [disabled]="!saloonDetailsForm.valid" class="btn cut-btn" (click)="onSubmit()">{{ 'saloonSignup.Submit' | translate }}</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>

@@ -1,0 +1,48 @@
+// div.mat-expansion-panel-content:not(.mat-expanded) {
+//     height: 0px !important;
+//     visibility: hidden !important;
+// }
+
+// .mat-expansion-panel-header  {
+//     height: 48px;
+// }
+agm-map {
+      height: 300px;
+    }
+
+.salon-images-sec {
+    float: left;
+    width: 100%;
+    margin-top: 30px;
+}
+.custome-tab {
+	display: inline-block;
+	width:100%;
+	padding-left: 0px; 
+}
+.custome-tab li {
+    width: 33.33%;
+    float: left;
+    text-align: center;
+    display: inline-block;
+    background-color: #f8f8f8;
+    padding: 10px 10px;
+}
+.custome-tab li.active{
+	background-color: rgb(213, 39, 90);
+}
+.custome-tab li.active a{
+	color: #fff;
+	text-decoration: none;
+}
+.custome-tab li a {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(213, 39, 90);
+    width: 100%;
+    display: inline-block;
+}
+.custome-tab li a:hover{
+	text-decoration: none;
+	outline: none;
+}

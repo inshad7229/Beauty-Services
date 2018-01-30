@@ -1,0 +1,19 @@
+export class AddEmployee  {
+	    id:any;
+	 	saloon_id:number;
+	 	first_name:string;
+	 	first_name_arb:string;
+	 	last_name:string;
+	 	last_name_arb:string;
+	 	contact_number:string;
+	 	email:string;
+	 	gender:string;
+	 	services:any;
+	 	details:any;
+	 	details_arb:any;
+	 	employee_image:any;
+	 	employee_Ids:any;
+	 	status:number;
+	 	created_at:any;
+	 	updated_at:any;
+}
