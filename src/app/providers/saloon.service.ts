@@ -220,6 +220,16 @@ export class SaloonService {
     );
   }
 
+  // ---------------------------18-1-2018--------------------------------------------------------
+  
+  salonTransactionDetails(id): Observable<any> {
+    const url = `${ENV.mainApi}/salonTransactionDetails/${id}`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`salonTransactionDetails`)),
+        catchError(this.handleError('salonTransactionDetails', []))
+    );
+  }
    /**
    * Handle Http operation that failed.
    * Let the app continue.

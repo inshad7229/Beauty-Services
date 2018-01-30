@@ -1,0 +1,137 @@
+<section class="about-main">
+    <div class="about-top-head">
+        <div class="about-heading">
+            <h2> About Us </h2>
+        </div>
+    </div>
+    <div class="about-cntnt-main">
+        <!-- <div class="smll-desc">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat.Excepteur sint occaecat cupidatat non
+            proident sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div> -->
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="about-img">
+                    <img src="assets/img/aboutimg.jpg" class="img-responsive" />
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="about-sumry">
+                    <div class="section-title text-left">
+                        <h2>Our <span class="pink">Company</span></h2>
+                    </div>
+                    <p *ngIf="aboutUsContent">{{aboutUsContent.aboutUsData[0].about}}</p>
+                    <!-- <ul>
+                        <li>Lorem ipsum dolor sit amet sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua.</li>
+                        <li>Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur.</li>
+                        <li>Lorem ipsum dolor sit amet sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua.</li>
+                        <li>Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur.</li>
+                        <li>Lorem ipsum dolor sit amet sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua.</li>
+                        <li>Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur.</li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="our-services">
+    <div id="services" class="services item">
+        <div class="section-title text-center">
+            <h2>Our <span class="pink">Services</span></h2>
+        </div>
+        <div class="container">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-4 padding-lr-0 item" *ngFor="let service of serviceList;let i=index">
+                        <div class="service" >
+                            <a href="#">
+                                <img alt="..." src="http://18.221.208.210/public/beauty-service/{{service.image}}">
+                                <div class="img-content">
+                                    {{service.services_eng}} <i class="fa fa-angle-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-4 padding-lr-0 item">
+                        <div class="service">
+                            <a href="#">
+                                <img alt="..." src="assets/img/massage-therapy.jpg">
+                                <div class="img-content">
+                                    Massage Treatments <i class="fa fa-angle-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 padding-lr-0 item">
+                        <div class="service">
+                            <a href="#">
+                                <img alt="..." src="assets/img/facials.jpg">
+                                <div class="img-content">
+                                    Top Facial Treatments <i class="fa fa-angle-right"></i>
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 padding-lr-0 item">
+                        <div class="service">
+                            <a href="#">
+                                <img alt="..." src="assets/img/img-7.png">
+                                <div class="img-content">
+                                    Elite Hair Wash <i class="fa fa-angle-right"></i>
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-4 padding-lr-0 item">
+                        <div class="service">
+
+                            <a href="#">
+                                <img alt="..." src="assets/img/img-1.png">
+                                <div class="img-content">
+                                    Nail Treatment <i class="fa fa-angle-right"></i>
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 padding-lr-0 item">
+                        <div class="service">
+                            <a href="#">
+                                <img alt="..." src="assets/img/color.png">
+                                <div class="img-content">
+                                    Top Hair Color Salons<i class="fa fa-angle-right"></i>
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 padding-lr-0 item">
+                        <div class="service">
+                            <a href="#">
+                                <img alt="..." src="assets/img/img-4.png">
+                                <div class="img-content">
+                                    Top Hair Cut Salons<i class="fa fa-angle-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</section>

@@ -18,8 +18,12 @@ const routes: Routes = [
                     { path: 'searched-services', loadChildren: './searched-services/searched-services.module#SearchedServicesModule' },
                     { path: 'saloon-details', loadChildren: './saloon-details/saloon-details.module#SaloonDetailsModule' },  
                     { path: 'saloon-details/:id', loadChildren: './saloon-details/saloon-details.module#SaloonDetailsModule' },  
+                    { path: 'about-us', loadChildren: './about-us/about-us.module#AboutUsModule' },
+                    { path: 'faq', loadChildren: './faq/faq.module#FaqModule' },
+                    { path: 'terms-and-condition', loadChildren: './terms-and-condition/terms-and-condition.module#TermsAndConditionModule' },
+                    { path: 'team', loadChildren: './team/team.module#TeamModule' },
+                    { path: 'contact-us', loadChildren: './contact-us/contact-us.module#ContactUsModule' }
                     
-
                     ]
     }
 ];

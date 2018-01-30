@@ -6,8 +6,8 @@
                 <div class="single-footer">
                     <div class="sin-footer-head">
                         <h5>about us</h5> </div>
-                    <div class="sin-footer-con">
-                        <p>Lorem ipsum dolor sit amet, consectetuer adips Aiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+                    <div class="sin-footer-con" *ngIf="aboutUsContent">
+                        <p>{{aboutUsContent}}</p>
                     </div>
                 </div>
             </div>
@@ -18,10 +18,10 @@
                     <div class="sin-footer-con">
                         <div class="quick-link-left">
                             <ul>
-                                <li> <a href="#">About Us</a></li>
+                                <li> <a routerLink="/header-two-layout/about-us">About Us</a></li>
                                 <li> <a href="#">Service</a></li>
                                 <li> <a href="#">Saloon</a></li>
-                                <li> <a href="#">Team</a></li>
+                                <li> <a routerLink="/header-two-layout/team">Team</a></li>
                             </ul>
                         </div>
                     </div>
@@ -34,10 +34,10 @@
                     <div class="sin-footer-con">
                         <div class="sin-sup-link">
                             <ul>
-                                <li> <a href="#">Support</a></li>
-                                <li> <a href="#">Terms &amp; Service</a></li>
+                                <li> <a routerLink="/header-two-layout/contact-us">Support</a></li>
+                                <li> <a routerLink="/header-two-layout/terms-and-condition">Terms &amp; Service</a></li>
                                 <li> <a href="#">Privace Policy</a></li>
-                                <li> <a href="#">Help</a></li>
+                                <li> <a routerLink="/header-two-layout/faq">FAQ</a></li>
                             </ul>
                         </div>
                     </div>

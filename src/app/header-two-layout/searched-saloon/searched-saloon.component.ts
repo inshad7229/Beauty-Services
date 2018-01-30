@@ -20,12 +20,12 @@ export class SearchedSaloonComponent implements OnInit {
 	accountCreationModel:AccountCreationModel=new AccountCreationModel();
 	verifiactionModel:VerifiactionModel=new VerifiactionModel();
 	waitLoader
-   saloonList
-   serviceList=[]
-   afterFilterSaloon=[]
-   saloonListBackup1
-   saloonListBackup2
-   autoTicks = false;
+  saloonList
+  serviceList=[]
+  afterFilterSaloon=[]
+  saloonListBackup1
+  saloonListBackup2
+  autoTicks = false;
   disabled = false;
   invert = false;
   max = 100;
@@ -55,6 +55,7 @@ export class SearchedSaloonComponent implements OnInit {
     }
 
     ngOnInit() {
+           //alert(this.appProvider.current.serviceSearched)
 				$(window).scroll(function() {
 			        if ($(this).scrollTop() > 1){  
 			            $('header').addClass("sticky");
@@ -63,6 +64,41 @@ export class SearchedSaloonComponent implements OnInit {
 			            $('header').removeClass("sticky");
 			        }
 			    });
+		// 	var wow = new WOW(
+		// 	        {
+		// 	            animateClass: 'animated',
+		// 	            offset:       100,
+		// 	            callback:     function(box) {
+		// 	                console.log("WOW: animating <" + box.tagName.toLowerCase() + ">")
+		// 	            }
+		// 	        }
+		// 	    );
+		// wow.init();
+		// 	$(window).load(function() {
+		// 	        $(".datetimepicker1");
+		// 	    });
+		// 	$('.datetimepicker1').datetimepicker({
+		// 	        //lang:'ch',
+		// 	         //yearOffset:200,       
+		// 	        timepicker:false,
+		// 	        format:'d-m-Y',
+		// 	        formatDate:'d-m-Y',
+		// 	        value:'Enter Date',
+		// 	        step:10,
+		// 	        minDate:'+1d',
+		// 	        scrollMonth:false,
+		// 	        scrollTime:false,
+		// 	        scrollInput:true,
+		// 	    });
+		// 	var mySlider = $("#rane-slide").slider({
+		// 	        'tooltip':'hide'
+		// 	    });
+		// 	    // Cal l a method on the slider
+		// 	    mySlider.on('change',function(){
+		// 	        var value = mySlider.slider('getValue');
+		// 	        $('.min-range').html('<b>$'+value[0]+'</b>');
+		// 	        $('.max-range').html('<b>$'+value[1]+'</b>');
+		// 	    });
 			    this.getserviceList()
 		}
 
@@ -78,12 +114,27 @@ getserviceList(){
              this.waitLoader=false
             console.log(data);
             if(data[0].response){
-                this.saloonList=this.saloonList.concat(data[0].data.slice(0))
-                this.saloonListBackup1=data[0].data.slice(0)
-                this.saloonListBackup2=data[0].data.slice(0)
+                if (this.appProvider.current.selectedCity) {
+                //alert(this.appProvider.current.selectedCity)
+                //this.saloonList=this.saloonList.concat(data[0].data.slice(0));
+                this.saloonListBackup1=data[0].data.filter(arg=>arg.city.includes(this.appProvider.current.selectedCity)==true);
+                this.saloonListBackup2=data[0].data.filter(arg=>arg.city.includes(this.appProvider.current.selectedCity)==true);
+                  // alert('hiiii')
+                 this.saloonList= this.saloonListBackup1.filter(arg=>arg.city.includes(this.appProvider.current.selectedCity)==true)
+               
+                }else{
+                //this.saloonList=this.saloonList.concat(data[0].data.slice(0));
+                this.saloonListBackup1=data[0].data.slice(0);
+                this.saloonListBackup2=data[0].data.slice(0);
+                  // alert('hiiii')
+                 this.saloonList= data[0].data.slice(0)
+               
+                }
+                
             }
             if(data[1].response){
-                this.serviceList=data[1].data
+                this.serviceList=data[1].data;
+
             }
          }) 
     }
@@ -232,15 +283,9 @@ getClass(name){
      this.afterFilterSaloon=this.afterFilterSaloon.concat(data)
      this.saloonList=this.unique(this.afterFilterSaloon)
      this.saloonList=this.unique(this.saloonList)
-     if (this.filter.sort) {
-       this.onSort(this.filter.sort)
-     }
     }else{
       this.saloonList=this.saloonList.filter(arg=>arg.price_range!='1')
       this.afterFilterSaloon=this.afterFilterSaloon.filter(arg=>arg.price_range!='1')
-      if (this.filter.sort) {
-       this.onSort(this.filter.sort)
-     }
     }
 
   }
@@ -250,15 +295,9 @@ getClass(name){
       this.afterFilterSaloon=this.afterFilterSaloon.concat(data)
      this.saloonList=this.unique(this.afterFilterSaloon)
      this.saloonList=this.unique(this.saloonList)
-     if (this.filter.sort) {
-       this.onSort(this.filter.sort)
-     }
     }else{
       this.saloonList=this.saloonList.filter(arg=>arg.price_range!='2')
       this.afterFilterSaloon=this.afterFilterSaloon.filter(arg=>arg.price_range!='2')
-      if (this.filter.sort) {
-       this.onSort(this.filter.sort)
-     }
     }
   }
   onThird(status){
@@ -267,15 +306,9 @@ getClass(name){
       this.afterFilterSaloon=this.afterFilterSaloon.concat(data)
      this.saloonList=this.unique(this.afterFilterSaloon)
      this.saloonList=this.unique(this.saloonList)
-     if (this.filter.sort) {
-       this.onSort(this.filter.sort)
-     }
     }else{
       this.saloonList=this.saloonList.filter(arg=>arg.price_range!='3')
       this.afterFilterSaloon=this.afterFilterSaloon.filter(arg=>arg.price_range!='3')
-      if (this.filter.sort) {
-       this.onSort(this.filter.sort)
-     }
     }
   }
   onFourth(status){
@@ -284,15 +317,9 @@ getClass(name){
       this.afterFilterSaloon=this.afterFilterSaloon.concat(data)
      this.saloonList=this.unique(this.afterFilterSaloon)
      this.saloonList=this.unique(this.saloonList)
-     if (this.filter.sort) {
-       this.onSort(this.filter.sort)
-     }
     }else{
       this.saloonList=this.saloonList.filter(arg=>arg.price_range!='4')
       this.afterFilterSaloon=this.afterFilterSaloon.filter(arg=>arg.price_range!='4')
-      if (this.filter.sort) {
-       this.onSort(this.filter.sort)
-     }
     }
   }
 
@@ -302,15 +329,9 @@ getClass(name){
       this.afterFilterSaloon=this.afterFilterSaloon.concat(data)
      this.saloonList=this.unique(this.afterFilterSaloon)
      this.saloonList=this.unique(this.saloonList)
-     if (this.filter.sort) {
-       this.onSort(this.filter.sort)
-     }
     }else{
       this.saloonList=this.saloonList.filter(arg=>this.checkIndex2(arg,id)==true)
       this.afterFilterSaloon=this.afterFilterSaloon.filter(arg=>this.checkIndex2(arg,id)==true)
-      if (this.filter.sort) {
-       this.onSort(this.filter.sort)
-     }
 
     } 
   }
@@ -348,47 +369,4 @@ getClass(name){
       }
       this.saloonList=this.saloonListBackup2.slice(0)
   }
-
- onSort(value){
- const data =this.saloonList.slice();
-    if (!value || value == '') {
-      this.saloonList = data;
-      
-      return;
-    }
-
-    this.saloonList.sort((a, b) => {
-      //alert(value)
-      let isAsc =  'asc';
-      switch (value) {
-
-        case 'low': return compare1(parseInt(a.price_range), parseInt(b.price_range), isAsc);
-        case 'high': return compare2(parseInt(a.price_range), parseInt(b.price_range), isAsc);
-        default: return 0;
-      }
-    });
-  }
-}
-
-function compare1(a, b, isAsc) {
-  return (a-b) 
-}
-
-function compare2(a, b, isAsc) {
-  return (b-a) 
-}
-
-
-function distance(lat1, lon1, lat2, lon2, unit) {
-    var radlat1 = Math.PI * lat1/180
-    var radlat2 = Math.PI * lat2/180
-    var theta = lon1-lon2
-    var radtheta = Math.PI * theta/180
-    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-    dist = Math.acos(dist)
-    dist = dist * 180/Math.PI
-    dist = dist * 60 * 1.1515
-    if (unit=="K") { dist = dist * 1.609344 }
-    if (unit=="N") { dist = dist * 0.8684 }
-    return dist
 }

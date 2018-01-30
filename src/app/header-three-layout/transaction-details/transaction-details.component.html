@@ -65,16 +65,19 @@
 					                                        </tr>
 					                                    </thead>
 					                                    <tbody>
-					                                        <tr>
-					                                        	<td>1</td>
-					                                            <td>98976</td>
-					                                            <td>Credit Card</td>
-					                                            <td>$500</td>
-					                                            <td>
+					                                        <tr *ngFor="let salonTransaction of transactionData.salonTransactions | paginate: { itemsPerPage: 3, currentPage: p }; let i = index">
+					                                        	<td>{{i+1}}</td>
+					                                            <td>{{salonTransaction.transaction_id}}</td>
+					                                            <td>{{salonTransaction.transaction_type}}</td>
+					                                            <td>{{salonTransaction.amount}}</td>
+					                                            <td *ngIf="salonTransaction.transaction_status==0">
+					                                            	Pending
+					                                            </td>
+					                                            <td *ngIf="salonTransaction.transaction_status==1">
 					                                            	Completed
 					                                            </td>
 					                                        </tr>
-					                                        <tr>
+					                                       <!--  <tr>
 					                                            <td>2</td>	
 					                                            <td>68976</td>
 					                                            <td>Credit Card</td>
@@ -100,17 +103,18 @@
 					                                            <td>
 					                                            	Completed
 					                                            </td>
-					                                        </tr>
+					                                        </tr> -->
 					                                    </tbody>
 					                                </table>
 					                            </div>
 				                                <div class="table-pagination">
 													<div class="pagination">
-													  <a href="#"><i class="fa fa-angle-left"></i></a>
+													  <!-- <a href="#"><i class="fa fa-angle-left"></i></a>
 													  <a href="#">1</a>
 													  <a href="#" class="active">2</a>
 													  <a href="#">3</a>
-													  <a href="#"><i class="fa fa-angle-right"></i></a>
+													  <a href="#"><i class="fa fa-angle-right"></i></a> -->
+													   <pagination-controls (pageChange)="p = $event"  previousLabel=""  nextLabel="" ></pagination-controls>
 													</div>
 												</div>
 								            </div>

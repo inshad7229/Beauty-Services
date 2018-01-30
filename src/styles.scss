@@ -98,3 +98,68 @@
     position: fixed;
     z-index: 999999;
 }
+
+/*--customer-list--*/
+.select-check {
+  float: left;
+  list-style: outside none none;
+  padding: 0;
+  width: 100%;
+}
+.send-token-main {
+  float: left;
+  margin-bottom: 15px;
+  text-align: right;
+  width: 100%;
+  padding: 0 20px;
+}
+.send-token-main .cus-btn
+{
+  background-color: #d5275a;
+  border-radius: 2px;
+  color: #ffffff;
+  margin-left: 20px;
+}
+#sendtoken .modal-content,#sendtoken .modal-footer
+{
+  float: left;
+  width: 100%;
+}
+#sendtoken .modal-body
+{
+  float: left;
+  width: 100%;
+}
+#sendtoken .modal-header
+{
+  float: left;
+  width: 100%;
+}
+.token-btns
+{
+  float: left;
+  width: 100%;
+  text-align: right;
+}
+.token-btns .btn
+{
+    border-radius: 2px;
+}
+.token-btns .cus-btn
+{
+    background-color: #d5275a;
+    border-radius: 2px;
+    color: #ffffff;
+    margin-left: 20px;
+}
+.toekn-modal
+{
+    float: left;
+    width: 100%;
+    padding: 30px 0px;
+}
+.toekn-modal .form-control:focus {
+  border-color: #d5275a;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(50, 200, 225, 0.6);
+  outline: 0 none;
+}

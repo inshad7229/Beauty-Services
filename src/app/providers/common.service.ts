@@ -76,6 +76,7 @@ export class CommonService {
       
     );
   }
+
   createAppointment(data): Observable<any> {
     const url = `${ENV.mainApi}/createAppointment`;
     return this.http.post<any>(url,data,httpOptions)
@@ -114,6 +115,64 @@ export class CommonService {
         tap(heroes => this.log(`allAppointment`)),
         catchError(this.handleError('allAppointment', []))
       
+    );
+  }
+
+  homePageContent(): Observable<any> {
+    const url = `${ENV.mainApi}/homePageContent`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`homePageContent`)),
+        catchError(this.handleError('homePageContent', []))
+      
+    );
+  }
+
+  // -------------------------------------------------11-1-2018----------------------------------------------------
+
+  contactUs(data): Observable<any> {
+    const url = `${ENV.mainApi}/ContactUs`;
+    return this.http.post<any>(url,data,httpOptions)
+    .pipe(
+      tap(heroes => this.log(`ContactUs`)),
+      catchError(this.handleError('ContactUs', []))
+    );
+  }
+
+   faqList(): Observable<any> {
+    const url = `${ENV.mainApi}/faqList`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`faqList`)),
+        catchError(this.handleError('faqList', []))
+      
+    );
+  }
+
+  couponList(): Observable<any> {
+    const url = `${ENV.mainApi}/couponCodes`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`couponCodes`)),
+        catchError(this.handleError('couponCodes', []))
+    );
+  }
+
+  sendCoupon(data): Observable<any> {
+    const url = `${ENV.mainApi}/sendCoupons`;
+    return this.http.post<any>(url,data,httpOptions)
+    .pipe(
+      tap(heroes => this.log(`SendCoupons`)),
+      catchError(this.handleError('SendCoupons', []))
+    );
+  }
+
+  getTrendingStyles(): Observable<any> {
+    const url = `${ENV.mainApi}/trendingStyles`;
+    return this.http.get<any>(url,httpOptions)
+    .pipe(
+        tap(heroes => this.log(`trendingStyles`)),
+        catchError(this.handleError('trendingStyles', []))
     );
   }
 

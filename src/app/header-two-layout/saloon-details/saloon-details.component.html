@@ -79,17 +79,17 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane" id="captain">
+                                            <div class="tab-pane" id="captain" >
                                                 <div class="services-tab-sec">
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="saloonData">
                                                         <div class="service-listwrap" *ngFor="let cat of saloonData.saloonCategory" >
-                                                            <a href="javascript:void(0)" #ref (click)="openCategory(ref)">
+                                                            <a *ngIf="cat.categoryData" href="javascript:void(0)" #ref (click)="openCategory(ref)">
                                                                 <span class="right-icon">
                                                                     <i class="fa fa-angle-up"></i>
                                                                 </span>
                                                                 {{cat.categoryData.category_eng}} ({{cat.categoryData.categoryServices.length}})
                                                             </a>
-                                                            <div class="sub-menulist" style="display: none">
+                                                            <div class="sub-menulist" style="display: none" *ngIf="cat.categoryData">
                                                                 <div class="list-content gray-line" *ngFor="let ser of cat.categoryData.categoryServices">
                                                                     <div class="col-sm-8 p-0 service-bt">
                                                                         <h4>{{ser.servicesData.services_eng}}</h4>

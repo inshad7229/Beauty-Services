@@ -1,0 +1,22 @@
+<div class="loader-box" *ngIf="waitLoader==true">
+    <img src="./assets/img/Loading_icon.gif" class="img-responsive" />
+</div>
+<section class="faq-main">
+    <div class="about-top-head">
+        <div class="about-heading">
+            <h2> FAQ </h2>
+        </div>
+    </div>
+    <div class="faq-content">
+        <mat-accordion *ngFor="let faq of faqList;let i=index">
+			<mat-expansion-panel>
+			    <mat-expansion-panel-header>
+			     	<span >{{i+1}}. {{faq.questions}} </span>
+			    </mat-expansion-panel-header>
+					<span>
+                        {{faq.answers}}
+                    </span>
+			</mat-expansion-panel>
+		</mat-accordion>
+    </div>
+</section>

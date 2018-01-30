@@ -198,10 +198,11 @@
                                             </div>
                                             <div class="col-md-8 col-sm-8 col-xs-8 p-0"> <!-- changes class please change -->
                                                 <div class="custom-select">
-                                                    <select class="form-control txtfield" placeholder="Select" [(ngModel)]="filter.sort"   [ngModelOptions]="{standalone: true}"  (change)="onSort(filter.sort)">
-                                                        <option value="low">Low To High</option>
-                                                        <option value="high">High To Low</option>
-                                                        <option value="nearrest">Nearest</option>
+                                                    <select class="form-control txtfield" placeholder="Select">
+                                                        <option value="" selected="">Relevance</option>
+                                                        <option value="">Lowest</option>
+                                                        <option value="">Highest</option>
+                                                        <option value="">Proximity</option>
                                                     </select>
                                                     <span class="caret"></span>
                                                 </div>

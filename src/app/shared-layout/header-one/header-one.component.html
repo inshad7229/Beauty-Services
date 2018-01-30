@@ -16,30 +16,101 @@
                 <div class="col-md-5 col-sm-5 col-xs-12 order-1">
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-left cus-navbar">
-                            <li class="dropdown" *ngFor="let cat of categoryList">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>{{cat.category_eng}}</span></a>
-                            <ul class="sub-service dropdown-content dropdown-menu animated fadeInUp">
-                                <li *ngFor="let ser of cat.servicesData" (click)='services(ser.services_eng)'>
-                                    <a  href="javascript:void(0)">{{ser.services_eng}}</a>
-                                </li>
-                               <!--  <li>
-                                    <a href="javascript:void(0);">Women's Haircut</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">Men's Haircut</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">Hair Trimming</a>
-                                </li> -->
-                                <li class="see-all">
+                            <li class="dropdown" *ngFor="let cat of categoryList;let i=index">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" *ngIf="i<4"><span>{{cat.category_eng}}</span></a>
+                                <ul class="sub-service dropdown-content dropdown-menu animated fadeInUp">
+                                    <li *ngFor="let ser of cat.servicesData" (click)='services(ser.services_eng)' >
+                                        <a  href="javascript:void(0)">{{ser.services_eng}}</a>
+                                    </li>
+                                   <!--  <li>
+                                        <a href="javascript:void(0);">Women's Haircut</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">Men's Haircut</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">Hair Trimming</a>
+                                    </li> -->
+                                    <li class="see-all">
                                         <a routerLink="/header-two-layout/searched-services">View {{cat.category_eng}} Treatment
-                                         <span class="icon-right-li">
-                                            <i class="fa fa-angle-right"></i>        
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                                             <span class="icon-right-li">
+                                                <i class="fa fa-angle-right"></i>        
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" *ngIf="i>4"><span>more</span></a> -->
+                            </li>
+                            <li class="dropdown" *ngIf="showMoreButton">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <span class="fa fa-caret-down"></span></a>
+                                <ul class="sub-service dropdown-content dropdown-menu animated fadeInUp cus-sub">
+                                    <li *ngFor="let cat of categoryListForMore;let i=index">
+                                        <a href="javascript:void(0);" (mouseover)="servicesFunction(cat.servicesData)"> {{cat.category_eng}} <span class=" more-span icon-right-li"><i class="fa fa-angle-right"></i></span> </a>
+                                        <ul class="top-sub-li animated fadeInRight" *ngIf="serviceData">
+                                            <li *ngFor="let ser of serviceData" (click)='services(ser.services_eng)'>
+                                                <a href="javascript:void(0);">{{ser.services_eng}}</a>
+                                            </li>
+                                           <!--  <li>
+                                                <a href="javascript:void(0);">Beard trimming</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Clipper Cut</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Hot Towel Shave</a>
+                                            </li> -->
+                                             <li class="see-all">
+                                                <a routerLink="/header-two-layout/searched-services">View {{cat.category_eng}} Treatment
+                                                     <span class="icon-right-li">
+                                                        <i class="fa fa-angle-right"></i>        
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                   <!--  <li>
+                                        <a href="javascript:void(0);"> Shave <span class=" more-span icon-right-li"><i class="fa fa-angle-right"></i></span> </a>
+                                        <ul class="top-sub-li animated fadeInRight">
+                                            <li>
+                                                <a href="javascript:void(0);">Men Shave</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Beard trimming</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Clipper Cut</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Hot Towel Shave</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"> Shave <span class=" more-span icon-right-li"><i class="fa fa-angle-right"></i></span> </a>
+                                        <ul class="top-sub-li animated fadeInRight">
+                                            <li>
+                                                <a href="javascript:void(0);">Men Shave</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Beard trimming</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Clipper Cut</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Hot Towel Shave</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="see-all">
+                                        <a href="javascript:void(0);">View Barber Services
+                                             <span class="icon-right-li">
+                                                <i class="fa fa-angle-right"></i>        
+                                            </span>
+                                        </a>
+                                    </li> -->
+                                </ul>
+                            </li>
                        <!--  <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nails</a>
                             <ul class="sub-service dropdown-content dropdown-menu animated fadeInUp">

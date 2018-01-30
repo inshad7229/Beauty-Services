@@ -28,7 +28,7 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-10 col-md-offset-1">
                                         <div class="caption-info-inner text-center">
-                                            <h1 class="animated fadeInDown">Saloons that Suits your personality</h1>
+                                            <h1 class="animated fadeInDown">Salons that Suits your personality</h1>
                                             <p class="animated fadeInUp">Lorem Ipsum is simply dummy text of the printing and typeseatting industry. Lorem Ipsum has been the industry's</p>
                                             <a class="animated fadeInUp btn-primary page-scroll" href="#packages">Read More</a>
                                         </div>
@@ -63,13 +63,23 @@
                     <form class="horizontal-form customize">
                         <div class="col-md-12 col-sm-12">
                             <div class="col-md-5 col-sm-5 col-xs-12 no-padding">
-                                <input  type="text" class="form-control input1" name="password" placeholder="Find a service or saloon">
+                                <input  type="text" matInput [matAutocomplete]="auto" class="form-control input1" name="password" placeholder="Find a salon" [formControl]="myControl">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                  <mat-option *ngFor="let option of filteredSalons | async" [value]="option.saloon_name" (click)="onSelectedSalon(option)">
+                                    {{ option.saloon_name }}
+                                  </mat-option>
+                                </mat-autocomplete>
                             </div>
                             <div class="col-md-5 col-sm-5 col-xs-12 no-padding">
-                                <input type="text" class="form-control input2"  placeholder="Enter your area">
+                                <input type="text" matInput  class="form-control input2"  placeholder="Enter your area" [formControl]="myControlCities" autocorrect="off" autocapitalize="off" spellcheck="off"   #search >
+                               <!--  <mat-autocomplete #city="matAutocomplete">
+                                  <mat-option *ngFor="let option of filteredCity | async" [value]="option.city" (click)="onCitySelection(option.city)">
+                                    {{ option.city }}
+                                  </mat-option>
+                                </mat-autocomplete> -->
                             </div>
                             <div class="col-md-2 col-sm-2 col-xs-12 no-padding">
-                                <a class="btn custom-btn" href="javascript:void(0);">Search</a>
+                                <a class="btn custom-btn" (click)="onSearch()">Search</a>
                             </div>
                         </div>
                     </form>
@@ -116,7 +126,7 @@
                 </div>
             </div>
         </section>
-        <section class="our-services">
+        <section class="our-services" *ngIf="serviceList">
             <div id="services" class="services item">
                 <div class="section-title text-center">
                     <h2>Our <span class="pink">Services</span></h2>
@@ -124,17 +134,17 @@
                 <div class="container">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-4 col-md-4 padding-lr-0 item">
-                                <div class="service">
-                                    <a href="#">
-                                        <img alt="..." src="assets/img/massage-therapy.jpg">
+                            <div class="col-xs-12 col-sm-4 col-md-4 padding-lr-0 item" *ngFor="let service of serviceList;let i=index">
+                                <div class="service" >
+                                    <a (click)="services(service.services_eng)">
+                                        <img alt="..." src="http://18.221.208.210/public/beauty-service/{{service.image}}" >
                                         <div class="img-content">
-                                            Massage Treatments <i class="fa fa-angle-right"></i>
+                                            {{service.services_eng}} <i class="fa fa-angle-right"></i>
                                         </div>
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-4 col-md-4 padding-lr-0 item">
+                           <!--  <div class="col-xs-12 col-sm-4 col-md-4 padding-lr-0 item">
                                 <div class="service">
                                     <a href="#">
                                         <img alt="..." src="assets/img/facials.jpg">
@@ -142,7 +152,6 @@
                                             Top Facial Treatments <i class="fa fa-angle-right"></i>
                                         </div>
                                     </a>
-
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-4 col-md-4 padding-lr-0 item">
@@ -153,11 +162,10 @@
                                             Elite Hair Wash <i class="fa fa-angle-right"></i>
                                         </div>
                                     </a>
-
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-xs-12 col-sm-4 col-md-4 padding-lr-0 item">
                                 <div class="service">
 
@@ -191,12 +199,12 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
         </section>
-        <section class="trading-style">
+        <section class="trading-style" >
             <div class="section-title text-center">
                 <h2>TRENDING <span class="pink">STYLES</span></h2>
             </div>
@@ -204,52 +212,63 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="owl_otr_div wow fadeInLeft" data-wow-delay="0.5s">
                         <div class="owl-demo1 owl-carousel">
-                            <div class="item">
-                                <div class="news_blk">
-                                    <img src="assets/img/1-.jpg" alt="Owl Image" class="img-responsive">
+                            <div class="item" >
+                                <div class="news_blk" *ngIf="trendingStyles.length>0">
+                                    <img [src]="getimage1()" alt="Owl Image" class="img-responsive">
+                                    
                                 </div>  
                             </div>
-                            <div class="item">
-                                <div class="news_blk">
-                                    <img src="assets/img/2-.jpg" alt="Owl Image" class="img-responsive">
+                            <div class="item" >
+                                <div class="news_blk" *ngIf="trendingStyles.length>1">
+                                    <img [src]="getimage2()" alt="Owl Image" class="img-responsive">
                                 </div>  
                             </div>
-                            <div class="item">
-                                <div class="news_blk">
-                                    <img src="assets/img/3-.jpg" alt="Owl Image" class="img-responsive">
+                            <div class="item" >
+                                <div class="news_blk" *ngIf="trendingStyles.length>2">
+                                    <img [src]="getimage3()" alt="Owl Image" class="img-responsive">
                                 </div>  
                             </div>
-                            <div class="item">
-                                <div class="news_blk">
-                                    <img src="assets/img/4-.jpg" alt="Owl Image" class="img-responsive">
+                            <div class="item" >
+                                <div class="news_blk" *ngIf="trendingStyles.length>3">
+                                    <img [src]="getimage4()" alt="Owl Image" class="img-responsive">
                                 </div>  
                             </div>
-                            <div class="item">
-                                <div class="news_blk">
-                                    <img src="assets/img/5.jpg" alt="Owl Image" class="img-responsive">
+                            <div class="item" >
+                                <div class="news_blk" *ngIf="trendingStyles.length>4">
+                                    <img [src]="getimage5()" alt="Owl Image" class="img-responsive">
                                 </div>  
                             </div>
-                            <div class="item">
-                                <div class="news_blk">
-                                    <img src="assets/img/6.jpg" alt="Owl Image" class="img-responsive">
+                            <div class="item" >
+                                <div class="news_blk" *ngIf="trendingStyles.length>5">
+                                    <img [src]="getimage6()" alt="Owl Image" class="img-responsive">
                                 </div>  
                             </div> 
-                            <div class="item">
-                                <div class="news_blk">
-                                    <img src="assets/img/7.jpg" alt="Owl Image" class="img-responsive">
+                            <div class="item" >
+                                <div class="news_blk" *ngIf="trendingStyles.length>6">
+                                    <img [src]="getimage7()" alt="Owl Image" class="img-responsive">
                                 </div>  
                             </div>
-                            <div class="item">
-                                <div class="news_blk">
-                                    <img src="assets/img/8.jpg" alt="Owl Image" class="img-responsive">
+                            <div class="item" >
+                                <div class="news_blk" *ngIf="trendingStyles.length>7">
+                                    <img [src]="getimage8()" alt="Owl Image" class="img-responsive">
                                 </div>  
-                            </div>                                               
+                            </div>
+                            <div class="item" >
+                                <div class="news_blk" *ngIf="trendingStyles.length>8">
+                                    <img [src]="getimage9()" alt="Owl Image" class="img-responsive">
+                                </div>  
+                            </div> 
+                            <div class="item" >
+                                <div class="news_blk" *ngIf="trendingStyles.length>9">
+                                    <img [src]="getimage10()" alt="Owl Image" class="img-responsive">
+                                </div>  
+                            </div>                                                
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="professional-section">
+        <section class="professional-section" *ngIf="homePageContent">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0">
@@ -257,25 +276,25 @@
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 p-0">
                                 <div class="wrap-count">
                                     <h3>Appointments</h3>
-                                    <span class="count" data-counter="counterup" data-value="2450">2450</span>
+                                    <span class="count" >{{appointments | async  }}</span>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 p-0">
                                 <div class="wrap-count">
-                                    <h3>Saloons</h3>
-                                    <span class="count" data-counter="counterup" data-value="51750">51750</span>
+                                    <h3>Salons</h3>
+                                    <span class="count" >{{totalSalons | async }}</span>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 p-0">
                                 <div class="wrap-count">
                                     <h3>Satisfied Customers</h3>
-                                    <span class="count" data-counter="counterup" data-value="1,205,000">1,205,000</span>
+                                    <span class="count" >{{totalCustomers | async }}</span>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 p-0">
                                 <div class="wrap-count">
                                     <h3>Average Rating</h3>
-                                    <span class="count" data-counter="counterup" data-value="4.5">4.5</span><span class="rate-star">Star</span>
+                                    <span class="count" data-counter="counterup" data-value="4.5">{{averageRating | async }}</span><span class="rate-star">Star</span>
                                 </div>
                             </div>
                         </div>
@@ -335,7 +354,7 @@
                                     <div class="item wow bounceInRight" data-wow-duration="2.6s" >
                                         <div class="slider-thumbnail-img">
                                             <i class="icon icon-people"></i>
-                                            <h4>Nearest Saloons</h4>                                       
+                                            <h4>Nearest Salons</h4>                                       
                                         </div>
                                     </div>
                                     <div class="item wow bounceInDown" data-wow-duration="2.0s" >
@@ -364,7 +383,7 @@
                                         <div class="item">
                                             <div class="slider-con" style="">
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <p class="left-big">Find the best and fully equipped saloons near you.</p>
+                                                <p class="left-big">Find the best and fully equipped salons near you.</p>
                                                 </div>
                                             </div>
                                         </div>
